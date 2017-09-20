@@ -1,0 +1,57 @@
+@import 'src/styles/settings/general';
+
+.main {
+    overflow-y: auto;
+    flex: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: $brand-blue;
+    background-size: cover;
+    background-position: top left;
+}
+
+.logo {
+    background: url('src/assets/logo/kudo-white.png');
+    min-height: 2.25rem;
+    margin-bottom: 1.5rem;
+    height: 11rem;
+    background-size: auto 5.5rem;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.login {
+    position: absolute;
+    top: 50%;
+    margin-top: -1rem;
+    padding: 0 3rem;
+    max-width: 26rem;
+    width: 100%;
+    align-self: center;
+}
+
+.buttonGoogle {
+    background-color: white;
+    color: $brand-blue;
+    font-size: 0.9rem;
+    font-weight: 300;
+    border: none;
+    padding: 0.7rem;
+    width: 100%;
+    outline: none;
+}
+
+.disclaimer {
+    position: absolute;
+    bottom: 3rem;
+    max-width: 40rem;
+    align-self: center;
+
+    span {
+        font-size: 0.7rem;
+        font-weight: 300;
+        color: white;
+        width: 100%;
+    }
+}

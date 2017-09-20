@@ -1,6 +1,8 @@
 en:
   login:
     title: 'LOGIN'
+    login_using_google: 'Login using Google+'
+    disclaimer: 'You can only login using a Google account from Kabisa'
   goal:
     title: 'GOAL'
   feed:
