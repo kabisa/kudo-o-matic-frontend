@@ -1,6 +1,8 @@
 import { h } from "preact";
 import { Link } from "preact-router/match";
 import styles from "./NavBar.scss";
+import I18n from "src/config/i18n";
+
 import feedIcon from "src/assets/icons/nav/feed.svg";
 import goalIcon from "src/assets/icons/nav/goal.svg";
 import profileIcon from "src/assets/icons/nav/profile.svg";
@@ -13,13 +15,13 @@ export const NavBar = () => {
         <Link href="/feed">
           <button class={styles.navButton}>
             <img src={feedIcon} />
-            <span>Feed</span>
+            <span>{I18n.t("nav.feed")}</span>
           </button>
         </Link>
         <Link href="/goal">
           <button class={styles.navButton}>
             <img src={goalIcon} />
-            <span>Goal</span>
+            <span>{I18n.t("nav.goal")}</span>
           </button>
         </Link>
       </div>
@@ -30,13 +32,13 @@ export const NavBar = () => {
         <Link href="/statistics">
           <button class={styles.navButton}>
             <img src={statisticsIcon} />
-            <span>Statistics</span>
+            <span>{I18n.t("nav.statistics")}</span>
           </button>
         </Link>
         <Link href="/profile">
           <button class={styles.navButton}>
             <img src={profileIcon} />
-            <span>Profile</span>
+            <span>{I18n.t("nav.profile")}</span>
           </button>
         </Link>
       </div>

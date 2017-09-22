@@ -3,6 +3,11 @@ en:
     title: 'LOGIN'
     login_using_google: 'Login using Google+'
     disclaimer: 'You can only login using a Google account from Kabisa'
+  nav:
+    feed: 'Feed'
+    goal: 'Goal'
+    statistics: 'Statistics'
+    profile: 'Profile'
   goal:
     title: 'GOAL'
   feed:

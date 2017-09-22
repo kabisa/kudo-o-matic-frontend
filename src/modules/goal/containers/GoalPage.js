@@ -1,13 +1,14 @@
 import { h, Component } from "preact";
 import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
+import I18n from "src/config/i18n";
 
 export class GoalPage extends Component {
   render() {
     return (
       <Page>
         <Header>
-          <h1>GOAL</h1>
+          <h1>{I18n.t("goal.title")}</h1>
         </Header>
         <main />
       </Page>
