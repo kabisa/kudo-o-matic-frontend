@@ -2,7 +2,7 @@
 
 $header-background: $brand-blue;
 $header-text: $text-color-light;
-$header-height: 3rem;
+$header-height: 3.2rem;
 $header-ios-offset: 16px;
 $header-button-size: $header-height;
 $header-icon-size: ($header-height * 0.5);
@@ -24,7 +24,9 @@ $header-icon-size: ($header-height * 0.5);
 
     a,
     h1 {
-        font-size: $font-size-regular;
+        font-size: $font-size-header;
+        font-family: $display-font-stack;
+        font-weight: lighter;
         height: 100%;
         display: flex;
         justify-content: center;
