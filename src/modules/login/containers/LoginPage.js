@@ -1,27 +1,27 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
 import { Page } from "src/components/Page";
 import I18n from "src/config/i18n";
 import GoogleLogin from "react-google-login";
-import { GOOGLE_CLIENT_ID, GOOGLE_HOSTED_DOMAIN } from "src/globals";
+import Settings from "src/config/settings";
+import { requestApiToken, handleGoogleLoginFailure } from "../actions";
 
 import styles from "./LoginPage.scss";
 
-const responseGoogle = () => {};
-
 export class LoginPage extends Component {
-  render() {
+  render({ requestApiToken, handleGoogleLoginFailure }) {
     return (
       <Page>
         <main class={styles.main}>
           <div class={styles.logo} />
           <div class={styles.login}>
             <GoogleLogin
-              clientId={GOOGLE_CLIENT_ID}
+              clientId={Settings.googleClientID}
               buttonText={I18n.t("login.login_using_google")}
-              hostedDomain={GOOGLE_HOSTED_DOMAIN}
+              hostedDomain={Settings.googleHostedDomain}
               className={styles.buttonGoogle}
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onSuccess={requestApiToken}
+              onFailure={handleGoogleLoginFailure}
             />
           </div>
           <div class={styles.disclaimer}>
@@ -33,4 +33,14 @@ export class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+const mapStateToProps = state => ({
+  googleError: state.authentication.googleError,
+  apiError: state.authentication.apiError
+});
+
+const mapDispatchToProps = {
+  requestApiToken,
+  handleGoogleLoginFailure
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
