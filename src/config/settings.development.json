@@ -1,4 +1,8 @@
 {
   "environment": "development",
-  "defaultLocale": "en-US"
+  "defaultLocale": "en-US",
+  "apiLocation": "http://192.168.2.107:3000",
+  "googleClientID": "242980876083-f72dobpq65bl62r92438jmsejrk0fgvp.apps.googleusercontent.com",
+  "googleHostedDomain":  "kabisa.nl",
+  "provider": "google_oauth2"
 }
