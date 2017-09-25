@@ -35,7 +35,8 @@ export class LoginPage extends Component {
 
 const mapStateToProps = state => ({
   googleError: state.authentication.googleError,
-  apiError: state.authentication.apiError
+  apiError: state.authentication.apiError,
+  user: state.authentication.user
 });
 
 const mapDispatchToProps = {

@@ -4,7 +4,7 @@ import { requestToken } from "./apiClient";
 const handleGoogleLoginSuccess = token => {
   return {
     type: constants.GOOGLE_TOKEN_SUCCESS,
-    token: token
+    googleToken: token
   };
 };
 

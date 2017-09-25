@@ -1,8 +1,12 @@
 import * as constants from "./constants";
 
 const initialState = {
+  user: {
+    apiToken: undefined,
+    name: undefined,
+    imageUri: undefined
+  },
   googleToken: undefined,
-  apiToken: undefined,
   googleError: undefined,
   apiError: undefined
 };
@@ -12,7 +16,7 @@ export const authentication = (state = initialState, action) => {
     case constants.API_TOKEN_SUCCESS:
       return {
         ...state,
-        apiToken: action.token.api_token
+        user: { ...state.user, apiToken: action.token.api_token }
       };
     case constants.API_TOKEN_FAILURE:
       return {
@@ -22,7 +26,11 @@ export const authentication = (state = initialState, action) => {
     case constants.GOOGLE_TOKEN_SUCCESS:
       return {
         ...state,
-        googleToken: action.googleToken
+        googleToken: action.googleToken,
+        user: {
+          name: action.googleToken.profileObj.name,
+          imageUri: action.googleToken.profileObj.imageUrl
+        }
       };
     case constants.GOOGLE_TOKEN_FAILURE:
       return {
