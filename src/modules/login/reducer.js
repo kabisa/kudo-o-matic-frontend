@@ -16,7 +16,7 @@ export const authentication = (state = initialState, action) => {
     case constants.API_TOKEN_SUCCESS:
       return {
         ...state,
-        user: { ...state.user, apiToken: action.token.api_token }
+        user: { ...state.user, apiToken: action.token }
       };
     case constants.API_TOKEN_FAILURE:
       return {
