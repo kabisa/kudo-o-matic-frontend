@@ -150,6 +150,8 @@ module.exports = {
   },
   resolve: {
     alias: {
+      react: "preact-compat",
+      "react-dom": "preact-compat",
       src: path.resolve(__dirname, "./src"),
       config: path.resolve(__dirname, "./config")
     },

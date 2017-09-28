@@ -15,12 +15,14 @@
   },
   "dependencies": {
     "fastclick": "^1.0.6",
-    "history": "^4.6.3",
-    "maji": "3.0.0-beta3",
-    "preact": "^8.1.0",
+    "history": "^4.7.2",
+    "maji": "^3.0.0-beta3",
+    "preact": "^8.2.5",
+    "preact-compat": "^3.17.0",
     "preact-redux": "^2.0.2",
-    "preact-router": "^2.5.2",
+    "preact-router": "^2.5.7",
     "raven-js": "^3.17.0",
+    "react-google-login": "^2.9.3",
     "redux": "^3.7.2"
   },
   "devDependencies": {
