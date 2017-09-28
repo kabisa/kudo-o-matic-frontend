@@ -3,9 +3,7 @@ import * as constants from "./constants";
 const initialState = {
   fetching: false,
   error: undefined,
-  currentBalance: {
-    currentAmount: undefined
-  },
+  currentAmount: undefined,
   nextGoal: {
     nextAmount: undefined,
     nextName: undefined
@@ -19,9 +17,11 @@ export const goal = (state = initialState, action) => {
     case constants.FINISHED_FETCHING_GOAL_STATE:
       return {
         ...state,
-        currentBalance: action.currentBalance,
-        nextAmount: action.nextAmount,
-        nextName: action.nextName,
+        currentAmount: action.currentAmount,
+        nextGoal: {
+          nextAmount: action.nextGoalAmount,
+          nextName: action.nextGoalName
+        },
         fetching: false
       };
     case constants.RECEIVED_API_ERROR:

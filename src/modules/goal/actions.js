@@ -12,16 +12,16 @@ const startedFetchingGoal = () => {
   };
 };
 
-export const finishedFetchingGoal = ({
+export const finishedFetchingGoal = (
   currentAmount,
-  nextAmount,
-  nextText
-}) => {
+  nextGoalAmount,
+  nextGoalName
+) => {
   return {
     type: constants.FINISHED_FETCHING_GOAL_STATE,
     currentAmount: currentAmount,
-    nextAmount: nextAmount,
-    nextText: nextText
+    nextGoalAmount: nextGoalAmount,
+    nextGoalName: nextGoalName
   };
 };
 
@@ -36,17 +36,16 @@ export const fetchCurrentGoalState = apiToken => {
   return dispatch => {
     dispatch(startedFetchingGoal);
 
-    return Promise.all(
+    return Promise.all([
       fetchCurrentAmount(apiToken),
       fetchCurrentGoal(apiToken),
       fetchCurrentGoalText(apiToken)
-    ).then(
-      values => {
-        return dispatch(finishedFetchingGoal(values));
-      },
-      error => {
-        return dispatch(receivedApiError(error));
-      }
-    );
+    ])
+      .then(values => {
+        return dispatch(finishedFetchingGoal(values[0], values[1], values[2]));
+      })
+      .catch(reason => {
+        return dispatch(receivedApiError(reason));
+      });
   };
 };

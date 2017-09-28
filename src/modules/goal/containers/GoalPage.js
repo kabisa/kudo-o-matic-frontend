@@ -28,9 +28,9 @@ export class GoalPage extends Component {
 }
 const mapStateToProps = state => ({
   apiToken: state.authentication.apiToken,
-  currentAmount: state.goal.currentBalance.currentAmount,
-  nextAmount: state.goal.nextAmount,
-  nextText: state.goal.nextText
+  currentAmount: state.goal.currentAmount,
+  nextAmount: state.goal.nextGoal.nextAmount,
+  nextText: state.goal.nextGoal.nextName
 });
 
 const mapDispatchToProps = dispatch => {
