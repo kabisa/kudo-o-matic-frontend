@@ -3,12 +3,13 @@ import { connect } from "preact-redux";
 
 import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
+import KudoCounter from "../components/KudoCounter";
 import I18n from "src/config/i18n";
 import { fetchCurrentGoalState } from "../actions";
 
 export class GoalPage extends Component {
   componentWillMount() {
-    this.props.fetchData(this.props.apiToken);
+    this.props.fetchData(this.props.user.apiToken);
   }
 
   render({ currentAmount, nextAmount, nextText }) {
@@ -18,9 +19,11 @@ export class GoalPage extends Component {
           <h1>{I18n.t("goal.title")}</h1>
         </Header>
         <main>
-          <span>{currentAmount}</span>
-          <span>{nextAmount}</span>
-          <span>{nextText}</span>
+          <KudoCounter
+            currentAmount={currentAmount}
+            nextAmount={nextAmount}
+            nextText={nextText}
+          />
         </main>
       </Page>
     );
@@ -28,9 +31,9 @@ export class GoalPage extends Component {
 }
 const mapStateToProps = state => ({
   apiToken: state.authentication.apiToken,
-  currentAmount: state.goal.currentAmount,
-  nextAmount: state.goal.nextGoal.nextAmount,
-  nextText: state.goal.nextGoal.nextName
+  currentAmount: state.goal.currentBalance.amount,
+  nextAmount: state.goal.nextGoal.amount,
+  nextText: state.goal.nextGoal.name
 });
 
 const mapDispatchToProps = dispatch => {
