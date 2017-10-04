@@ -27,20 +27,17 @@ export const requestToken = googleToken => {
   };
 
   return new Promise((resolve, reject) => {
-    const request = fetch(
-      buildUri("/api/v1/authentication/retrieve_api_token"),
-      {
-        method: "POST",
-        mode: "cors",
-        headers,
-        body
-      }
-    );
+    const request = fetch(buildUri("/api/v1/authentication/obtain_api_token"), {
+      method: "POST",
+      mode: "cors",
+      headers,
+      body
+    });
 
     request.then(response => {
       response.json().then(json => {
         if (response.ok) {
-          resolve(json);
+          resolve(json.data);
         } else {
           reject({ code: json.error, description: json.error_description });
         }

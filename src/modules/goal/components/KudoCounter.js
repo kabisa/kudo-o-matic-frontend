@@ -1,12 +1,11 @@
 import { h } from "preact";
 
-const KudoCounter = ({ currentAmount, nextGoal }) => {
+const KudoCounter = ({ currentAmount, nextAmount, nextText }) => {
   return (
     <div>
-      <span>{currentAmount}</span>
-      <span>of</span>
-      <span>{nextGoal.nextAmount}</span>
-      <span>{nextGoal.nextName}</span>
+      <p>
+        {currentAmount} ₭ of {nextAmount} ₭ for {nextText}
+      </p>
     </div>
   );
 };

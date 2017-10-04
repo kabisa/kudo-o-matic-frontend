@@ -1,31 +1,22 @@
 import * as constants from "./constants";
-import {
-  fetchCurrentGoalText,
-  fetchCurrentGoal,
-  fetchCurrentAmount
-} from "./apiClient";
+import { fetchNextGoal, fetchCurrentBalance } from "./apiClient";
 
-const startedFetchingGoal = () => {
+export const startedFetchingGoal = () => {
   return {
     type: constants.STARTED_FETCHING_GOAL,
     fetching: true
   };
 };
 
-export const finishedFetchingGoal = (
-  currentAmount,
-  nextGoalAmount,
-  nextGoalName
-) => {
+export const finishedFetchingGoal = (currentBalance, nextGoal) => {
   return {
     type: constants.FINISHED_FETCHING_GOAL_STATE,
-    currentAmount: currentAmount,
-    nextGoalAmount: nextGoalAmount,
-    nextGoalName: nextGoalName
+    currentBalance: currentBalance,
+    nextGoal: nextGoal
   };
 };
 
-const receivedApiError = error => {
+export const receivedApiError = error => {
   return {
     type: constants.RECEIVED_API_ERROR,
     error: error
@@ -36,13 +27,9 @@ export const fetchCurrentGoalState = apiToken => {
   return dispatch => {
     dispatch(startedFetchingGoal);
 
-    return Promise.all([
-      fetchCurrentAmount(apiToken),
-      fetchCurrentGoal(apiToken),
-      fetchCurrentGoalText(apiToken)
-    ])
+    return Promise.all([fetchCurrentBalance(apiToken), fetchNextGoal(apiToken)])
       .then(values => {
-        return dispatch(finishedFetchingGoal(values[0], values[1], values[2]));
+        return dispatch(finishedFetchingGoal(values[0], values[1]));
       })
       .catch(reason => {
         return dispatch(receivedApiError(reason));

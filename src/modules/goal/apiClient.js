@@ -4,14 +4,14 @@ const buildUri = path => {
   return Settings.apiLocation + path;
 };
 
-export const fetchCurrentAmount = apiToken => {
+export const fetchCurrentBalance = apiToken => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
     "Api-Token": apiToken
   };
 
   return new Promise((resolve, reject) => {
-    const request = fetch(buildUri("/api/v1/balances/current_amount"), {
+    const request = fetch(buildUri("/api/v1/balances/current"), {
       method: "GET",
       mode: "cors",
       headers
@@ -20,7 +20,7 @@ export const fetchCurrentAmount = apiToken => {
     request.then(response => {
       response.json().then(json => {
         if (response.ok) {
-          resolve(json.data.current_amount);
+          resolve(json.data.attributes);
         } else {
           reject({ code: json.error, description: json.error_description });
         }
@@ -33,14 +33,14 @@ export const fetchCurrentAmount = apiToken => {
   });
 };
 
-export const fetchCurrentGoal = apiToken => {
+export const fetchNextGoal = apiToken => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
     "Api-Token": apiToken
   };
 
   return new Promise((resolve, reject) => {
-    const request = fetch(buildUri("/api/v1/goals/next_amount"), {
+    const request = fetch(buildUri("/api/v1/goals/next"), {
       method: "GET",
       mode: "cors",
       headers
@@ -49,36 +49,7 @@ export const fetchCurrentGoal = apiToken => {
     request.then(response => {
       response.json().then(json => {
         if (response.ok) {
-          resolve(json.data.next_amount);
-        } else {
-          reject({ code: json.error, description: json.error_description });
-        }
-      });
-    });
-
-    request.catch(response => {
-      reject({ code: response.status, description: response.statusText });
-    });
-  });
-};
-
-export const fetchCurrentGoalText = apiToken => {
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Api-Token": apiToken
-  };
-
-  return new Promise((resolve, reject) => {
-    const request = fetch(buildUri("/api/v1/goals/next_name"), {
-      method: "GET",
-      mode: "cors",
-      headers
-    });
-
-    request.then(response => {
-      response.json().then(json => {
-        if (response.ok) {
-          resolve(json.data.next_name);
+          resolve(json.data.attributes);
         } else {
           reject({ code: json.error, description: json.error_description });
         }

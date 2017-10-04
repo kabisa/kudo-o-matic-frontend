@@ -1,21 +1,21 @@
 import * as constants from "./constants";
 import { requestToken } from "./apiClient";
 
-const handleGoogleLoginSuccess = token => {
+export const handleGoogleLoginSuccess = token => {
   return {
     type: constants.GOOGLE_TOKEN_SUCCESS,
     googleToken: token
   };
 };
 
-const handleApiLoginSuccess = token => {
+export const handleApiLoginSuccess = token => {
   return {
     type: constants.API_TOKEN_SUCCESS,
     token: token
   };
 };
 
-const handleAPILoginFailure = error => {
+export const handleApiLoginFailure = error => {
   return {
     type: constants.API_TOKEN_FAILURE,
     error: error
@@ -38,7 +38,7 @@ export const requestApiToken = googleToken => {
         return dispatch(handleApiLoginSuccess(token));
       },
       error => {
-        return dispatch(handleAPILoginFailure(error));
+        return dispatch(handleApiLoginFailure(error));
       }
     );
   };

@@ -21,7 +21,7 @@ export class App extends Component {
       <div>
         <Router>
           <FeedPage path="/feed" default />
-          <GoalPage path="/goal" />
+          <GoalPage path="/goal" user={this.props.user} />
           <StatisticsPage path="/statistics" />
           <ProfilePage path="/profile" user={this.props.user} />
         </Router>
