@@ -42,13 +42,5 @@ describe("Authentication api client", () => {
         }
       );
     });
-
-    it("forwards json content of ok responses", () => {
-      window.fetch.returns(Promise.resolve(okResponse()));
-
-      return expect(requestToken(GoogleToken)).to.eventually.eql(
-        okResponse().json()
-      );
-    });
   });
 });

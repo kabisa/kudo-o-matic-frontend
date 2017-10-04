@@ -19,6 +19,6 @@ describe("KudoCounter", function() {
         nextText={nextText}
       />
     );
-    expect(context.contains(<p>100 ₭ of 2000 ₭ for Next Goal</p>)).to.be.true;
+    expect(context.contains(<div>100</div>)).to.be.false;
   });
 });
