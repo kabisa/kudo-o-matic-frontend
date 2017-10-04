@@ -4,6 +4,8 @@ import { connect } from "preact-redux";
 import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
 import KudoCounter from "../components/KudoCounter";
+import styles from "./GoalPage.scss";
+
 import I18n from "src/config/i18n";
 import { fetchCurrentGoalState } from "../actions";
 
@@ -18,8 +20,9 @@ export class GoalPage extends Component {
         <Header>
           <h1>{I18n.t("goal.title")}</h1>
         </Header>
-        <main>
+        <main class={styles.main}>
           <KudoCounter
+            class={styles.kudoCounter}
             currentAmount={currentAmount}
             nextAmount={nextAmount}
             nextText={nextText}
