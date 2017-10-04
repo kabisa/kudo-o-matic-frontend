@@ -1,0 +1,43 @@
+@import 'src/styles/settings/general';
+
+.transactionContent {
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.transactionValue {
+    width: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .value {
+        color: $brand-grey-medium;
+        font-size: 2rem;
+        font-weight: 300;
+        text-align: center;
+        width: 4.9rem;
+
+        .kudoCurrency {
+            font-size: 60%;
+            color: $brand-grey;
+            font-weight: 600;
+        }
+    }
+
+    .divider {
+        border-left: 0.06rem solid;
+        border-color: $brand-grey-stripes;
+        height: 4rem;
+        opacity: 0.3;
+    }
+}
+
+.hr {
+    background-color: $brand-grey-stripes;
+    height: 0.06rem;
+    border: none;
+    opacity: 0.3;
+}
