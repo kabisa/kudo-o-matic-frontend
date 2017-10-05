@@ -11,20 +11,21 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
 
     .value {
-        color: $brand-grey-medium;
+        color: $brand-grey-dark;
         font-size: 2rem;
         font-weight: 300;
         text-align: center;
-        width: 4.9rem;
+        width: 5rem;
+    }
 
-        .kudoCurrency {
-            font-size: 60%;
-            color: $brand-grey;
-            font-weight: 600;
-        }
+    .kudoCurrency {
+        font-size: 1.4rem;
+        color: $brand-grey;
+        font-weight: 600;
+        margin-top: 0.6rem; //To align it with
+        margin-right: 0.4rem;
     }
 
     .divider {
@@ -32,6 +33,52 @@
         border-color: $brand-grey-stripes;
         height: 4rem;
         opacity: 0.3;
+    }
+}
+
+.transactionDescription {
+    color: $brand-grey-transaction;
+    width: 100%;
+    margin: 0.4rem;
+    display: flex;
+    flex-direction: column;
+
+    .transactionText {
+        flex-grow: 1;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 300;
+
+        .kudoCurrency {
+            font-size: 80%;
+            color: $brand-grey;
+            font-weight: 600;
+        }
+    }
+
+    .transactionTimestamp {
+        flex-grow: 1;
+        font-size: 0.7rem;
+        font-style: italic;
+        font-weight: 100;
+    }
+}
+
+.transactionAction {
+    width: 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .thumb {
+        width: 1.8rem;
+    }
+
+    .likes {
+        color: $brand-grey-transaction;
+        font-size: 0.7rem;
+        font-weight: 100;
     }
 }
 
