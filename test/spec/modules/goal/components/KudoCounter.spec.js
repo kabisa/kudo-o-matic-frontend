@@ -1,4 +1,4 @@
-import { h, render } from "preact";
+import { h } from "preact";
 import KudoCounter from "src/modules/goal/components/KudoCounter";
 import { shallow } from "preact-render-spy";
 

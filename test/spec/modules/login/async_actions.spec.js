@@ -36,7 +36,6 @@ describe("Login async actions", () => {
 
     return store.dispatch(requestApiToken(googleToken)).then(() => {
       const expectedActions = store.getActions();
-      console.log(expectedActions);
       expect(expectedActions.length).to.eql(2);
       expect(expectedActions).to.contain({
         type: constants.GOOGLE_TOKEN_SUCCESS,
