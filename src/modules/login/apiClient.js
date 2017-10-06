@@ -1,4 +1,5 @@
 import Settings from "src/config/settings";
+import axios from "axios";
 
 const uriEncode = obj => {
   return Object.entries(obj)
@@ -8,9 +9,9 @@ const uriEncode = obj => {
     .join("&");
 };
 
-const buildUri = path => {
-  return Settings.apiLocation + path;
-};
+const httpClient = axios.create({
+  baseURL: Settings.apiLocation
+});
 
 export const requestToken = googleToken => {
   const body = uriEncode({
@@ -26,26 +27,13 @@ export const requestToken = googleToken => {
     "Content-Type": "application/x-www-form-urlencoded"
   };
 
-  return new Promise((resolve, reject) => {
-    const request = fetch(buildUri("/api/v1/authentication/obtain_api_token"), {
-      method: "POST",
-      mode: "cors",
-      headers,
-      body
+  return new Promise(resolve => {
+    const request = httpClient.post("/authentication/obtain_api_token", body, {
+      headers
     });
 
     request.then(response => {
-      response.json().then(json => {
-        if (response.ok) {
-          resolve(json.data);
-        } else {
-          reject({ code: json.error, description: json.error_description });
-        }
-      });
-    });
-
-    request.catch(response => {
-      reject({ code: response.status, description: response.statusText });
+      resolve(response.data.data);
     });
   });
 };

@@ -1,8 +1,9 @@
 import Settings from "src/config/settings";
+import axios from "axios";
 
-const buildUri = path => {
-  return Settings.apiLocation + path;
-};
+const httpClient = axios.create({
+  baseURL: Settings.apiLocation
+});
 
 export const fetchCurrentBalance = apiToken => {
   const headers = {
@@ -10,25 +11,13 @@ export const fetchCurrentBalance = apiToken => {
     "Api-Token": apiToken
   };
 
-  return new Promise((resolve, reject) => {
-    const request = fetch(buildUri("/api/v1/balances/current"), {
-      method: "GET",
-      mode: "cors",
+  return new Promise(resolve => {
+    const request = httpClient.get("/balances/current", {
       headers
     });
 
     request.then(response => {
-      response.json().then(json => {
-        if (response.ok) {
-          resolve(json.data.attributes);
-        } else {
-          reject({ code: json.error, description: json.error_description });
-        }
-      });
-    });
-
-    request.catch(response => {
-      reject({ code: response.status, description: response.statusText });
+      resolve(response.data.data.attributes);
     });
   });
 };
@@ -39,25 +28,13 @@ export const fetchNextGoal = apiToken => {
     "Api-Token": apiToken
   };
 
-  return new Promise((resolve, reject) => {
-    const request = fetch(buildUri("/api/v1/goals/next"), {
-      method: "GET",
-      mode: "cors",
+  return new Promise(resolve => {
+    const request = httpClient.get("/goals/next", {
       headers
     });
 
     request.then(response => {
-      response.json().then(json => {
-        if (response.ok) {
-          resolve(json.data.attributes);
-        } else {
-          reject({ code: json.error, description: json.error_description });
-        }
-      });
-    });
-
-    request.catch(response => {
-      reject({ code: response.status, description: response.statusText });
+      resolve(response.data.data.attributes);
     });
   });
 };

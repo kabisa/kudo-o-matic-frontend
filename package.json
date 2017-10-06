@@ -14,6 +14,7 @@
     "stylelint": "stylelint 'src/**/*.scss'"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "fastclick": "^1.0.6",
     "history": "^4.7.2",
     "maji": "^3.0.2",
