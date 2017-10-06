@@ -9,7 +9,7 @@ end
 
 lane :deploy_android do
   FileUtils.rm_rf('cordova/platforms/android/build/outputs/apk/.', secure: true)
-  unless @branch == 'ci'
+  unless @branch == 'master'
     sh('APP_ENV=staging bin/maji build android --environment=staging')
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
@@ -26,7 +26,7 @@ end
 
 lane :deploy_ios do
     FileUtils.rm_rf('cordova/platforms/ios/build/device/.', secure: true)
-    unless @branch == 'ci'
+    unless @branch == 'master'
 
       #Make sure the old result is removed
       sh('rm -Rf tmp/output/kudo-o-matic.result/')
