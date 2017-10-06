@@ -7,11 +7,6 @@ lane :deploy do
   end
 end
 
-lane :register_test do | options |
-  p "TEST"
-  p options
-end
-
 lane :deploy_android do
   FileUtils.rm_rf('cordova/platforms/android/build/outputs/apk/.', secure: true)
   unless @branch == 'master'
