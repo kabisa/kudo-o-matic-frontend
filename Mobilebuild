@@ -19,7 +19,7 @@ pipeline {
         stage("Deploy hockey") {
             when {
                  anyOf {
-                    branch 'auth_redux';
+                    branch 'demo';
                  }
             }
             steps {
