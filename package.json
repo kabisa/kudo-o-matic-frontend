@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "nl.kabisa.kudo-o-matic",
+  "name": "nl.kabisa.kudoomatic",
   "version": "0.0.1",
   "scripts": {
     "build": "NODE_ENV=${NODE_ENV:-production} webpack",
