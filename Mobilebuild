@@ -19,7 +19,7 @@ pipeline {
         stage("Deploy hockey") {
             when {
                  anyOf {
-                    branch 'ci';
+                    branch 'feed_design';
                  }
             }
             steps {
