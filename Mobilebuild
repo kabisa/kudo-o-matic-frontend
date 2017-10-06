@@ -27,7 +27,6 @@ pipeline {
                 rvm install $(cat .ruby-version)
                 rvm use $(cat .ruby-version)
                 ruby -v
-
                 bundle install
 
 
