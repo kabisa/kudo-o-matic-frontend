@@ -28,6 +28,7 @@ pipeline {
                 rvm use $(cat .ruby-version)
                 ruby -v
                 bundle install
+                yarn install
 
 
                 /usr/local/bin/prepare-keychain-for-codesign
