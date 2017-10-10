@@ -46,3 +46,31 @@ Prettier can also be run manually using `yarn run prettier` or `yarn run prettie
 * Android platform tools installed
 * Android platform 10+.
 * `android` and `adb` in your $PATH (add `path/to/android-sdk-macosx/tools` and `path/to/android-sdk-macosx/platform-tools` to your $PATH).
+
+##Mobile builds and automatic deployments
+
+### Jenkins
+At the moment we use Jenkins as our automation server for Continuous integration and deployments. It allows you to write a script with tasks to perform. These tasks run on a node, which is just a (remote) server. We've setup the jenkins server itself as our main node for non-mobile builds for now. 
+For mobile builds our Mac mini comes into play. We have a Mac mini set-up in our office in Weert to do iOS and Android builds. It is set up in Jenkins as the `kabisas-mac-mini` node. 
+
+#### Pipeline
+This project has been set-up as a specific Jenkins project type called a _Pipeline_. This type of project allows you to define specific branches that trigger Jenkins on commit.
+These commits will trigger the execution of your _Jenkinsfile_ in the project root.
+
+#### Jenkinsfile
+The Jenkinsfile is a file in the root of your Git project where you can define steps. The steps can be basic bash commands that are being run in the node's workspace.
+It doesn't have to be called _Jenkinsfile_, the filename of the Jenkinsfile can be define in the pipeline configuration in Jenkins.
+In this project we named the file _Mobilebuild_ for the mobile ci builds. 
+
+### Fastlane + HockeyApp
+[Fastlane](https://github.com/fastlane/fastlane) is a tool to automate builds for iOS and Android. It can be installed with brew or as a ruby gem (in case you would like to run it locally).
+We have included it in the Gemfile to make sure it will also be installed on the build agent. The `fastlane/Fastfile` is a script where the configuration for our Fastlane deployments is defined.
+Further information about how Fastlane is setup and how it works can be found in the [Kabisa Guide repo](https://github.com/kabisa/kabisa-guide)
+
+[HockeyApp](https://hockeyapp.net/) is a service to host and distribute your apps. It allows you to upload your app to their service using for example Fastlane. You can then install the app on your desired phone through their app or website. One of the main advantages of HockeyApp is that all the deployments and installations can be seen managed and tracked.
+
+To request access as a developer or new tester, please contact Managed Services.
+
+### Deploy a new version to HockeyApp
+We've added a check in our Fastfile to only build and deploy the apps when a specific commit message is specified.
+Make sure to include `BUILD_HOCKEY` in your commit to build and deploy to HockeyApp.
