@@ -1,5 +1,5 @@
 import { h } from "preact";
-import GoogleLogin from "react-google-login";
+import GoogleLogin from "./GoogleLogin";
 import Settings from "src/config/settings";
 import I18n from "src/config/i18n";
 import styles from "./GoogleButton.scss";
