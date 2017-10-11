@@ -1,19 +1,40 @@
 import { h } from "preact";
-import GoogleLogin from "./GoogleLogin";
 import Settings from "src/config/settings";
 import I18n from "src/config/i18n";
 import styles from "./GoogleButton.scss";
 
 const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
+  function login() {
+    window.plugins.googleplus.login(
+      {
+        webClientId: Settings.googleClientID
+      },
+      function(obj) {
+        console.log(obj);
+        const googleToken = {
+          tokenObj: {
+            id_token: obj.idToken
+          },
+          profileObj: {
+            name: obj.displayName,
+            email: obj.email,
+            googleId: obj.userId,
+            imageUrl: obj.imageUrl
+          }
+        };
+        requestApiToken(googleToken);
+      },
+      function(msg) {
+        console.log(msg);
+        handleGoogleLoginFailure(msg);
+      }
+    );
+  }
+
   return (
-    <GoogleLogin
-      clientId={Settings.googleClientID}
-      buttonText={I18n.t("login.login_using_google")}
-      hostedDomain={Settings.googleHostedDomain}
-      className={styles.buttonGoogle}
-      onSuccess={requestApiToken}
-      onFailure={handleGoogleLoginFailure}
-    />
+    <button className={styles.buttonGoogle} onClick={login}>
+      {I18n.t("login.login_using_google")}
+    </button>
   );
 };
 
