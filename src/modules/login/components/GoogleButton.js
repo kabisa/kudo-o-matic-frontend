@@ -10,7 +10,6 @@ const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
         webClientId: Settings.googleClientID
       },
       function(obj) {
-        console.log(obj);
         const googleToken = {
           tokenObj: {
             id_token: obj.idToken
@@ -25,7 +24,6 @@ const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
         requestApiToken(googleToken);
       },
       function(msg) {
-        console.log(msg);
         handleGoogleLoginFailure(msg);
       }
     );
