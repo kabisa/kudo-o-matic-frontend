@@ -5,8 +5,8 @@ import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
 import KudoCounter from "../components/KudoCounter";
 import styles from "./GoalPage.scss";
-
 import I18n from "src/config/i18n";
+
 import { fetchCurrentGoalState } from "../actions";
 
 export class GoalPage extends Component {

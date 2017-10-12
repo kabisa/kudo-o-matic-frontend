@@ -1,8 +1,16 @@
 import { h } from "preact";
 import styles from "./Transaction.scss";
-import LikeIcon from "src/assets/icons/transaction/thumbs-up.svg";
+import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.svg";
+import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 
-export const Transaction = ({ amount, from, to, reason, likes }) => {
+export const Transaction = ({ amount, from, to, reason, likes, liked }) => {
+  var likeButton;
+  if (liked) {
+    likeButton = LikeIconActive;
+  } else {
+    likeButton = LikeIconInactive;
+  }
+
   return (
     <div class={styles.transaction}>
       <div class={styles.transactionContent}>
@@ -19,7 +27,7 @@ export const Transaction = ({ amount, from, to, reason, likes }) => {
           <div class={styles.transactionTimestamp}>1 day ago</div>
         </div>
         <div class={styles.transactionAction}>
-          <img src={LikeIcon} class={styles.thumb} />
+          <img src={likeButton} class={styles.thumb} />
           <div class={styles.likes}>+{likes}</div>
         </div>
       </div>
