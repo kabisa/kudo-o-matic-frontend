@@ -19,7 +19,7 @@ pipeline {
         stage("Deploy hockey") {
             when {
                  anyOf {
-                    branch 'ci';
+                    branch 'demo';
                  }
             }
             steps {
@@ -29,7 +29,6 @@ pipeline {
                 ruby -v
                 bundle install
                 yarn install
-
 
                 /usr/local/bin/prepare-keychain-for-codesign
 
