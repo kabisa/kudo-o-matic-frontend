@@ -1,5 +1,5 @@
 import * as constants from "./constants";
-import { fetchTransactions } from "./apiClient";
+import { fetchTransactions, voteTransaction } from "./apiClient";
 
 export const startedFetchingTransactions = () => {
   return {
@@ -12,6 +12,18 @@ export const finishedFetchingTransaction = transactions => {
   return {
     type: constants.FINISHED_FETCHING_TRANSACTIONS,
     transactions: transactions
+  };
+};
+
+export const likedTransaction = () => {
+  return {
+    type: constants.LIKE_TRANSACTION
+  };
+};
+
+export const likeTransaction = (transactionId, userId, apiToken) => {
+  return dispatch => {
+    return voteTransaction(transactionId, userId, apiToken).then(dispatch());
   };
 };
 
