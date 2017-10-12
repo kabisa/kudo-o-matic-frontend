@@ -6,6 +6,7 @@ describe("Authentication reducer", () => {
     expect(authentication(undefined, {})).to.eql({
       user: {
         apiToken: undefined,
+        id: undefined,
         name: undefined,
         imageUri: undefined
       },
@@ -20,9 +21,9 @@ describe("Authentication reducer", () => {
       expect(
         authentication([], {
           type: constants.API_TOKEN_SUCCESS,
-          token: { "api-token": "API_TOKEN" }
+          token: { "api-token": "API_TOKEN", "user-id": "ID" }
         })
-      ).to.eql({ user: { apiToken: "API_TOKEN" } });
+      ).to.eql({ user: { apiToken: "API_TOKEN", id: "ID" } });
     });
 
     it("handles API_TOKEN_FAILURE", () => {

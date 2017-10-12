@@ -2,10 +2,12 @@ import thunkMiddleware from "redux-thunk";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { authentication } from "src/modules/login/reducer";
 import { goal } from "src/modules/goal/reducer";
+import { feed } from "src/modules/feed/reducer";
 
 const rootReducer = combineReducers({
   authentication,
-  goal
+  goal,
+  feed
 });
 const middleware = applyMiddleware(thunkMiddleware);
 

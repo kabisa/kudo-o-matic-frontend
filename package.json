@@ -17,6 +17,8 @@
     "axios": "^0.16.2",
     "fastclick": "^1.0.6",
     "history": "^4.7.2",
+    "json-api-serializer": "^1.9.1",
+    "jsonapi-serializer": "^3.5.5",
     "lodash": "^4.17.4",
     "maji": "^3.0.2",
     "preact": "^8.2.5",
