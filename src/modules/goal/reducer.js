@@ -33,7 +33,8 @@ export const goal = (state = initialState, action) => {
     case constants.RECEIVED_API_ERROR:
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        fetching: false
       };
     default:
       return state;
