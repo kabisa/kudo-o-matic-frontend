@@ -7,7 +7,8 @@ const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
   function login() {
     window.plugins.googleplus.login(
       {
-        webClientId: Settings.googleClientID
+        webClientId: Settings.googleClientID,
+        hostedDomain: "kabisa.nl"
       },
       function(obj) {
         const googleToken = {
