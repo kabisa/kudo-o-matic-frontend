@@ -1,13 +1,20 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
+
 import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
+import Transaction from "../components/Transaction";
 import I18n from "src/config/i18n";
 import styles from "./FeedPage.scss";
 
-import Transaction from "../components/Transaction";
+import { fetchAllTransactions, likeTransaction } from "../actions";
 
 export class FeedPage extends Component {
-  render() {
+  componentWillMount() {
+    this.props.fetchTransactions(this.props.user.apiToken);
+  }
+
+  render({ transactions, userId, likeTransaction, dislikeTransaction }) {
     return (
       <Page>
         <Header>
@@ -15,6 +22,29 @@ export class FeedPage extends Component {
         </Header>
         <main />
         <ul class={styles.transactionList}>
+          {transactions.map(transaction => {
+            var liked = false;
+            transaction.votes.forEach(vote => {
+              if (vote["voter-id"] == userId) {
+                liked = true;
+              }
+            });
+
+            return (
+              <li key={transaction.id}>
+                <Transaction
+                  amount={transaction.amount}
+                  from={transaction.sender.name}
+                  to={transaction.receiver.name}
+                  reason={transaction.activity.name}
+                  likes={transaction["likes-amount"]}
+                  liked={liked}
+                  likeTransaction={likeTransaction}
+                  dislikeTransaction={dislikeTransaction}
+                />
+              </li>
+            );
+          })}
           <li>
             <Transaction
               amount={100}
@@ -39,4 +69,18 @@ export class FeedPage extends Component {
   }
 }
 
-export default FeedPage;
+const mapStateToProps = state => ({
+  apiToken: state.authentication.apiToken,
+  userId: state.authentication.id,
+  transactions: state.feed.transactions
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchTransactions: token => dispatch(fetchAllTransactions(token)),
+    likeTransaction: (token, senderId, transactionId) =>
+      dispatch(likeTransaction({ token, senderId, transactionId }))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedPage);
