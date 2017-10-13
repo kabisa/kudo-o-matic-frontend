@@ -46,5 +46,3 @@ export const voteTransaction = (transactionId, userId, apiToken) => {
     });
   });
 };
-
-export const unvoteTransaction = (transactionId, userId, apiToken) => {};
