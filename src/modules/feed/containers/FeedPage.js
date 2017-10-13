@@ -11,7 +11,7 @@ import { fetchAllTransactions, likeTransaction } from "../actions";
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchTransactions(this.props.user.apiToken);
+    this.props.fetchTransactions(this.props.apiToken);
   }
 
   render({ transactions, userId, likeTransaction, dislikeTransaction }) {
@@ -70,8 +70,8 @@ export class FeedPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  apiToken: state.authentication.apiToken,
-  userId: state.authentication.id,
+  apiToken: state.authentication.user.apiToken,
+  userId: state.authentication.user.id,
   transactions: state.feed.transactions
 });
 
