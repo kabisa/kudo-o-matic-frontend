@@ -4,11 +4,11 @@ import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.sv
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 
 export const Transaction = ({ amount, from, to, reason, likes, liked }) => {
-  var likeButton;
+  let likeButton;
   if (liked) {
-    likeButton = LikeIconActive;
+    likeButton = <img src={LikeIconActive} class={styles.thumb} />;
   } else {
-    likeButton = LikeIconInactive;
+    likeButton = <img src={LikeIconInactive} class={styles.thumb} />;
   }
 
   return (
@@ -27,7 +27,7 @@ export const Transaction = ({ amount, from, to, reason, likes, liked }) => {
           <div class={styles.transactionTimestamp}>1 day ago</div>
         </div>
         <div class={styles.transactionAction}>
-          <img src={likeButton} class={styles.thumb} />
+          {likeButton}
           <div class={styles.likes}>+{likes}</div>
         </div>
       </div>
