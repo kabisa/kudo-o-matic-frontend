@@ -7,9 +7,11 @@ node_modules
 dist
 .env
 reports/
+/src/config/settings.development.json
 
 # cordova stuff
 cordova/platforms/*
 cordova/plugins/*
 !cordova/platforms/.keep
 !cordova/plugins/.keep
+
