@@ -1,9 +1,10 @@
 import * as constants from "./constants";
+import Settings from "src/config/settings";
 
 const initialState = {
   user: {
-    apiToken: undefined,
-    id: undefined,
+    apiToken: Settings.testApiToken,
+    id: Settings.testUserId,
     name: undefined,
     imageUri: undefined
   },
