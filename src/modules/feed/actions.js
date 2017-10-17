@@ -1,5 +1,9 @@
 import * as constants from "./constants";
-import { fetchTransactions, voteTransaction } from "./apiClient";
+import {
+  fetchTransactions,
+  voteTransaction,
+  unVoteTransaction
+} from "./apiClient";
 
 export const startedFetchingTransactions = () => {
   return {
@@ -8,22 +12,45 @@ export const startedFetchingTransactions = () => {
   };
 };
 
-export const finishedFetchingTransaction = transactions => {
+export const finishedFetchingTransaction = (transactions, userId) => {
   return {
     type: constants.FINISHED_FETCHING_TRANSACTIONS,
-    transactions: transactions
+    transactions: transactions,
+    userId: userId
   };
 };
 
-export const likedTransaction = () => {
+export const likedTransaction = transactionId => {
   return {
-    type: constants.LIKE_TRANSACTION
+    type: constants.LIKED_TRANSACTION,
+    transactionId: transactionId
+  };
+};
+
+export const unLikedTransaction = transactionId => {
+  return {
+    type: constants.UNLIKED_TRANSACTION,
+    transactionId: transactionId
   };
 };
 
 export const likeTransaction = (transactionId, userId, apiToken) => {
   return dispatch => {
-    return voteTransaction(transactionId, userId, apiToken).then(dispatch());
+    return voteTransaction(
+      transactionId,
+      userId,
+      apiToken
+    ).then(transactionId => dispatch(likedTransaction(transactionId)));
+  };
+};
+
+export const unLikeTransaction = (transactionId, userId, apiToken) => {
+  return dispatch => {
+    return unVoteTransaction(
+      transactionId,
+      userId,
+      apiToken
+    ).then(transactionId => dispatch(unLikedTransaction(transactionId)));
   };
 };
 
@@ -34,12 +61,14 @@ export const receivedApiError = error => {
   };
 };
 
-export const fetchAllTransactions = apiToken => {
+export const fetchAllTransactions = (apiToken, userId) => {
   return dispatch => {
     dispatch(startedFetchingTransactions);
 
     return fetchTransactions(apiToken)
-      .then(transactions => dispatch(finishedFetchingTransaction(transactions)))
+      .then(transactions =>
+        dispatch(finishedFetchingTransaction(transactions, userId))
+      )
       .catch(error => dispatch(receivedApiError(error)));
   };
 };
