@@ -91,7 +91,9 @@ lane :deploy_ios do
 
       #generate new screenshots
   	  snapshot  project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
-  	            output_directory: "#{currentDir}/fastlane/screenshots/"
+  	            output_directory: "#{currentDir}/fastlane/screenshots/",
+  	            scheme: "kudo-o-matic"
+
 
       deliver ipa: "#{output_dir}/kudo-o-matic.ipa",
               submit_for_review: true,
