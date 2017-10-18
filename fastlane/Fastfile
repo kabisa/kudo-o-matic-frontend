@@ -12,7 +12,7 @@ lane :deploy_android do
   version_splitted = @app_version.split "."
   android_version = version_splitted[0] + "00" + version_splitted[1] + version_splitted[2]
 
-  unless @branch == 'master'
+  unless @branch == 'appstore'
     sh('APP_ENV=development bin/maji build android')
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
@@ -30,53 +30,52 @@ end
 lane :deploy_ios do
     FileUtils.rm_rf('cordova/platforms/ios/build/device/.', secure: true)
 
+    #Make sure the old result is removed
+    sh('rm -Rf tmp/output/kudo-o-matic.result/')
 
-    unless @branch == 'master'
+    #Download the profile from apple so we can obtain the profile_uuid of the provisioning profile
+    sh('rm -Rf profiles/')
+    sh('mkdir profiles')
+    sh('fastlane sigh --provisioning_name="match AdHoc nl.kabisa.kudoomatic" --username="info@kabisa.nl" --app_identifier="nl.kabisa.kudoomatic" --skip_install --adhoc --ignore_profiles_with_different_name --output_path="./profiles"')
+    sh('security cms -D -i ./profiles/AdHoc_nl.kabisa.kudoomatic.mobileprovision > ./profiles/AdHoc_nl.kabisa.kudoomatic.plist || true')
+    profile_uuid = sh('/usr/libexec/PlistBuddy -c "Print :UUID" ./profiles/AdHoc_nl.kabisa.kudoomatic.plist').chomp
+    sh('rm -R profiles/')
 
-      #Make sure the old result is removed
-      sh('rm -Rf tmp/output/kudo-o-matic.result/')
+    #Build the app for ios
+    sh("APP_ENV=development bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
 
-      #Download the profile from apple so we can obtain the profile_uuid of the provisioning profile
-      sh('rm -Rf profiles/')
-      sh('mkdir profiles')
-      sh('fastlane sigh --provisioning_name="match AdHoc nl.kabisa.kudoomatic" --username="info@kabisa.nl" --app_identifier="nl.kabisa.kudoomatic" --skip_install --adhoc --ignore_profiles_with_different_name --output_path="./profiles"')
-      sh('security cms -D -i ./profiles/AdHoc_nl.kabisa.kudoomatic.mobileprovision > ./profiles/AdHoc_nl.kabisa.kudoomatic.plist || true')
-      profile_uuid = sh('/usr/libexec/PlistBuddy -c "Print :UUID" ./profiles/AdHoc_nl.kabisa.kudoomatic.plist').chomp
-      sh('rm -R profiles/')
+    # where the signed ipa is placed
+    output_dir = File.join(Dir.pwd, 'tmp/output')
+    setup_jenkins(output_directory: output_dir)
 
-      #Build the app for ios
-      sh("APP_ENV=development bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
+    match username: 'info@kabisa.nl',
+          git_url: 'git@github.com:kabisa/match-certificates.git',
+          type: 'adhoc',
+          app_identifier: 'nl.kabisa.kudoomatic',
+          force_for_new_devices: :true
 
-      # where the signed ipa is placed
-      output_dir = File.join(Dir.pwd, 'tmp/output')
-      setup_jenkins(output_directory: output_dir)
+    #Make sure automatic code signing is disabled, we dont want this.
+    disable_automatic_code_signing(
+        path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+        team_id: "9H6JXDUXPW"
+    )
 
-      match username: 'info@kabisa.nl',
-            git_url: 'git@github.com:kabisa/match-certificates.git',
-            type: 'adhoc',
-            app_identifier: 'nl.kabisa.kudoomatic',
-            force_for_new_devices: :true
+    #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
+    update_project_provisioning(
+      xcodeproj: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+      profile: "/Users/jenkins/Library/MobileDevice/Provisioning\ Profiles/#{profile_uuid}.mobileprovision",
+      build_configuration: "Release"
+    )
 
-      #Make sure automatic code signing is disabled, we dont want this.
-      disable_automatic_code_signing(
-          path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
-          team_id: "9H6JXDUXPW"
-      )
+    # opening xcode prevents timeout
+    sh 'open -a xcode cordova/platforms/ios/kudo-o-matic.xcodeproj'
 
-      #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
-      update_project_provisioning(
-        xcodeproj: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
-        profile: "/Users/jenkins/Library/MobileDevice/Provisioning\ Profiles/#{profile_uuid}.mobileprovision",
-        build_configuration: "Release"
-      )
+    gym scheme: 'kudo-o-matic',
+        project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+        export_method: "ad-hoc"
 
-      # opening xcode prevents timeout
-      sh 'open -a xcode cordova/platforms/ios/kudo-o-matic.xcodeproj'
 
-      gym scheme: 'kudo-o-matic',
-          project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
-          export_method: "ad-hoc"
-
+    unless @branch == 'appstore'
       hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_IOS'],
              ipa: File.join(output_dir, 'kudo-o-matic.ipa'),
              create_update: true,
@@ -87,6 +86,16 @@ lane :deploy_ios do
 
     else
       # release procedure for appstore here
+      # Make sure old screenshots are removed
+      sh 'rm -Rf fastlane/screenshots/*'
+
+      #generate new screenshots
+  	  snapshot  project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+  	            output_directory: "#{currentDir}/fastlane/screenshots/"
+
+      deliver ipa: "#{output_dir}/kudo-o-matic.ipa",
+              submit_for_review: true,
+              force: true
 
     end
 
