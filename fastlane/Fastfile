@@ -52,13 +52,14 @@ lane :deploy_ios do
             app_identifier: 'nl.kabisa.kudoomatic',
             force_for_new_devices: :true
 
-      #Make sure automatic code signing is disabled, we dont want this.
-      disable_automatic_code_signing(
+      #Add missing attributes to project config, to make sure Xcode can work with it.
+      upgrade_super_old_xcode(
           path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
           team_id: "9H6JXDUXPW"
       )
-      #Add missing attributes to project config, to make sure Xcode can work with it.
-      upgrade_super_old_xcode(
+
+      #Make sure automatic code signing is disabled, we dont want this.
+      disable_automatic_code_signing(
           path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
           team_id: "9H6JXDUXPW"
       )
