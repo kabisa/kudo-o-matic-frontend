@@ -9,7 +9,7 @@ end
 
 lane :deploy_android do
   FileUtils.rm_rf('cordova/platforms/android/build/outputs/apk/.', secure: true)
-  unless @branch == 'master'
+  unless @branch == 'test'
     sh('APP_ENV=development bin/maji build android')
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
@@ -63,6 +63,12 @@ lane :deploy_ios do
         xcodeproj: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
         profile: "/Users/jenkins/Library/MobileDevice/Provisioning\ Profiles/#{profile_uuid}.mobileprovision",
         build_configuration: "Release"
+      )
+
+      #Add missing attributes to project config, to make sure Xcode can work with it.
+      upgrade_super_old_xcode(
+          path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+          team_id: "9H6JXDUXPW"
       )
 
       # opening xcode prevents timeout
