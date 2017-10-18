@@ -18,13 +18,13 @@ export class FeedPage extends Component {
     this.props.fetchTransactions(this.props.apiToken, this.props.userId);
   }
 
-  render({ transactions, apiToken, userId, like, unLike }) {
+  render({ transactions, user, like, unLike }) {
     const likeTransaction = transactionId => {
-      like(apiToken, userId, transactionId);
+      like(user.apiToken, user.id, transactionId);
     };
 
     const unLikeTransaction = transactionId => {
-      unLike(apiToken, userId, transactionId);
+      unLike(user.apiToken, user.id, transactionId);
     };
 
     return (
@@ -56,8 +56,7 @@ export class FeedPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  apiToken: state.authentication.user.apiToken,
-  userId: state.authentication.user.id,
+  user: state.authentication.user,
   transactions: state.feed.transactions
 });
 
