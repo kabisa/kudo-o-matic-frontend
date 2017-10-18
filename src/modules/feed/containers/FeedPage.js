@@ -15,7 +15,10 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchTransactions(this.props.apiToken, this.props.userId);
+    this.props.fetchTransactions(
+      this.props.user.apiToken,
+      this.props.user.userId
+    );
   }
 
   render({ transactions, user, like, unLike }) {
