@@ -15,3 +15,11 @@ cordova/plugins/*
 !cordova/platforms/.keep
 !cordova/plugins/.keep
 
+# Fastlane stuff
+fastlane/metadata/
+fastlane/screenshots/
+fastlane/report.xml
+/Preview.html
+
+
+

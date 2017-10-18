@@ -1,0 +1,47 @@
+###################### More Options ######################
+# If you want to have even more control, check out the documentation
+# https://github.com/fastlane/fastlane/blob/master/deliver/Deliverfile.md
+
+
+###################### Automatically generated ######################
+# Feel free to remove the following line if you use fastlane (which you should)
+
+app_identifier "nl.kabisa.kudoomatic" # The bundle identifier of your app
+username "info@kabisa.nl" # your Apple ID user
+
+name(
+  'nl-NL' => "Kabisa Kudo-o-matic",
+  'en-US' => "Kabisa Kudo-o-matic"
+)
+
+description(
+  'nl-NL' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects. Goals come in various forms: financial, satisfaction of customers, collaborating and so on... \nTo keep a good overview we decided to create one 'Kudo Meter', where all these components have been processed in. The goal is not literally a target. It is more like a gauge instead, to stimulate good things.",
+  'en-US' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects. Goals come in various forms: financial, satisfaction of customers, collaborating and so on... \nTo keep a good overview we decided to create one 'Kudo Meter', where all these components have been processed in. The goal is not literally a target. It is more like a gauge instead, to stimulate good things."
+)
+
+keywords(
+  'nl-NL' => "kudo-o-matic kabisa kudo kudos's",
+  'en-US' => "kudo-o-matic kabisa kudo kudos's"
+)
+
+app_icon "src/assets/logo/AppStore-60@2x.png"
+
+price_tier 0 # free app
+
+copyright "#{Time.now.year} Kabisa B.V."
+
+primary_category "Reference"
+
+secondary_category "Business"
+
+automatic_release true
+
+app_review_information({
+  first_name: "Bart",
+  last_name: "Vollebregt",
+  phone_number: "+31611892504",
+  email_address: "bart@kabisa.nl",
+  demo_user: "",
+  demo_password: "",
+  notes: ""
+})

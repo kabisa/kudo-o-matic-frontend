@@ -34,11 +34,6 @@ xcode-select --install
 fastlane deploy
 ```
 
-### register_device
-```
-fastlane register_device
-```
-
 ### deploy_android
 ```
 fastlane deploy_android
