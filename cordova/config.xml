@@ -5,6 +5,9 @@
     <content src="index.html" />
     <access origin="*" />
     <hook src="../node_modules/maji/cordova/hooks/before_platform_add.js" type="before_platform_add" />
+    <platform name="ios">
+      <hook type="after_build" src="scripts/add_target_attributes_and_push_notification_cap.js" />
+    </platform>
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
