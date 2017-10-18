@@ -24,6 +24,14 @@ keywords(
   'en-US' => "kudo-o-matic kabisa kudo kudos's"
 )
 
+support_url = 'https://www.kabisa.nl/contact/'
+support_url(
+  'nl-NL' => support_url,
+  'en-US' => support_url
+)
+
+app_rating_config_path "./ratings_config.json"
+
 app_icon "src/assets/logo/AppStore-60@2x.png"
 
 price_tier 0 # free app
