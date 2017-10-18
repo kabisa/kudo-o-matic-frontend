@@ -7,14 +7,26 @@ import Transaction from "../components/Transaction";
 import I18n from "src/config/i18n";
 import styles from "./FeedPage.scss";
 
-import { fetchAllTransactions, likeTransaction } from "../actions";
+import {
+  fetchAllTransactions,
+  likeTransaction,
+  unLikeTransaction
+} from "../actions";
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchTransactions(this.props.apiToken);
+    this.props.fetchTransactions(this.props.apiToken, this.props.userId);
   }
 
-  render({ transactions, userId, likeTransaction, dislikeTransaction }) {
+  render({ transactions, user, like, unLike }) {
+    const likeTransaction = transactionId => {
+      like(user.apiToken, user.id, transactionId);
+    };
+
+    const unLikeTransaction = transactionId => {
+      unLike(user.apiToken, user.id, transactionId);
+    };
+
     return (
       <Page>
         <Header>
@@ -23,46 +35,20 @@ export class FeedPage extends Component {
         <main />
         <ul class={styles.transactionList}>
           {transactions.map(transaction => {
-            var liked = false;
-            transaction.votes.forEach(vote => {
-              if (vote["voter-id"] == userId) {
-                liked = true;
-              }
-            });
+            let likeAction;
+            transaction.voted
+              ? (likeAction = unLikeTransaction)
+              : (likeAction = likeTransaction);
 
             return (
               <li key={transaction.id}>
                 <Transaction
-                  amount={transaction.amount}
-                  from={transaction.sender.name}
-                  to={transaction.receiver.name}
-                  reason={transaction.activity.name}
-                  likes={transaction["likes-amount"]}
-                  liked={liked}
-                  likeTransaction={likeTransaction}
-                  dislikeTransaction={dislikeTransaction}
+                  transaction={transaction}
+                  likeAction={likeAction}
                 />
               </li>
             );
           })}
-          <li>
-            <Transaction
-              amount={100}
-              from="Luuk Hermans"
-              to="Robin Laugs"
-              reason="Sprint 1 delivery"
-              likes={1}
-            />
-          </li>
-          <li>
-            <Transaction
-              amount={5}
-              from="Luuk Hermans"
-              to="Robin Laugs"
-              reason="arranging API agreements"
-              likes={0}
-            />
-          </li>
         </ul>
       </Page>
     );
@@ -70,16 +56,20 @@ export class FeedPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  apiToken: state.authentication.user.apiToken,
-  userId: state.authentication.user.id,
+  user: state.authentication.user,
   transactions: state.feed.transactions
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchTransactions: token => dispatch(fetchAllTransactions(token)),
-    likeTransaction: (token, senderId, transactionId) =>
-      dispatch(likeTransaction({ token, senderId, transactionId }))
+    fetchTransactions: (token, userId) =>
+      dispatch(fetchAllTransactions(token, userId)),
+    like: (apiToken, senderId, transactionId) => {
+      dispatch(likeTransaction(apiToken, senderId, transactionId));
+    },
+    unLike: (apiToken, senderId, transactionId) => {
+      dispatch(unLikeTransaction(apiToken, senderId, transactionId));
+    }
   };
 };
 

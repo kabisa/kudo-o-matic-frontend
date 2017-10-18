@@ -13,7 +13,7 @@ export const fetchTransactions = apiToken => {
 
   return new Promise(resolve => {
     const request = httpClient.get(
-      "/transactions?include=activity,sender,receiver,votes&sort=-created_at",
+      "transactions?include=activity,sender,receiver,votes&sort=-created_at",
       {
         headers
       }
@@ -27,22 +27,44 @@ export const fetchTransactions = apiToken => {
   });
 };
 
-export const voteTransaction = (transactionId, userId, apiToken) => {
+export const voteTransaction = (apiToken, userId, transactionId) => {
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Api-Token": apiToken
+    headers: {
+      "Content-Type": "application/vnd.api+json",
+      "Api-Token": apiToken
+    }
   };
+
+  const data = {};
 
   return new Promise(resolve => {
     const request = httpClient.put(
-      "/transactions/" + { transactionId } + "/votes/" + { userId },
-      {
-        headers
-      }
+      "transactions/" + transactionId + "/votes/" + userId,
+      data,
+      headers
     );
 
-    request.then(response => {
-      resolve(response.data.data);
-    });
+    request.then(resolve(transactionId));
+  });
+};
+
+export const unVoteTransaction = (apiToken, userId, transactionId) => {
+  const headers = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Api-Token": apiToken
+    }
+  };
+
+  const data = {};
+
+  return new Promise(resolve => {
+    const request = httpClient.delete(
+      "transactions/" + transactionId + "/votes/" + userId,
+      headers,
+      data
+    );
+
+    request.then(resolve(transactionId));
   });
 };

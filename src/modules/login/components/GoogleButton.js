@@ -3,7 +3,7 @@ import Settings from "src/config/settings";
 import I18n from "src/config/i18n";
 import styles from "./GoogleButton.scss";
 
-const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
+const GoogleButton = ({ requestApiToken, handleGoogleFailure }) => {
   function login() {
     window.plugins.googleplus.login(
       {
@@ -25,7 +25,7 @@ const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
         requestApiToken(googleToken);
       },
       function(msg) {
-        handleGoogleLoginFailure(msg);
+        handleGoogleFailure(msg);
       }
     );
   }
