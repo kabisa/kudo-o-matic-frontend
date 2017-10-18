@@ -26,7 +26,7 @@ end
 
 lane :deploy_ios do
     FileUtils.rm_rf('cordova/platforms/ios/build/device/.', secure: true)
-    unless @branch == 'master'
+    unless @branch == 'test'
 
       #Make sure the old result is removed
       sh('rm -Rf tmp/output/kudo-o-matic.result/')
