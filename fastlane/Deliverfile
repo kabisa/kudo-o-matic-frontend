@@ -30,7 +30,7 @@ support_url(
   'en-US' => support_url
 )
 
-app_rating_config_path "./ratings_config.json"
+app_rating_config_path "fastlane/ratings_config.json"
 
 app_icon "src/assets/logo/AppStore-60@2x.png"
 
