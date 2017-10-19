@@ -11,10 +11,10 @@ export const Transaction = ({ transaction, likeAction }) => {
     thumb = LikeIconInactive;
   }
   return (
-    <div class={styles.transaction}>
+    <div class={styles.transaction} id="transaction">
       <div class={styles.transactionContent}>
         <div class={styles.transactionValue}>
-          <div class={styles.value}>
+          <div class={styles.value} id="kudoAmount">
             {transaction.amount + transaction["likes-amount"]}
           </div>
           <div class={styles.kudoCurrency}>₭</div>
@@ -30,13 +30,16 @@ export const Transaction = ({ transaction, likeAction }) => {
         </div>
         <div class={styles.transactionAction}>
           <a
+            id="likeTransaction"
             onClick={() => {
               likeAction(transaction.id);
             }}
           >
             <img src={thumb} />
           </a>
-          <div class={styles.likes}>+ {transaction["likes-amount"]}</div>
+          <div class={styles.likes}>
+            + <span id="likeAmount">{transaction["likes-amount"]}</span>
+          </div>
         </div>
       </div>
       <hr class={styles.hr} />

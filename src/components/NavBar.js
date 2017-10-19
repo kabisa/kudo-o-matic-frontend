@@ -13,13 +13,13 @@ export const NavBar = () => {
     <nav class={styles.navBar}>
       <div class={styles.navLeft}>
         <Link href="/feed">
-          <div class={styles.navButton}>
+          <div class={styles.navButton} id="feed">
             <img src={feedIcon} />
             <span>{I18n.t("nav.feed")}</span>
           </div>
         </Link>
         <Link href="/goal">
-          <div class={styles.navButton}>
+          <div class={styles.navButton} id="goal">
             <img src={goalIcon} />
             <span>{I18n.t("nav.goal")}</span>
           </div>
@@ -30,13 +30,13 @@ export const NavBar = () => {
 
       <div class={styles.navRight}>
         <Link href="/statistics">
-          <div class={styles.navButton}>
+          <div class={styles.navButton} id="statistics">
             <img src={statisticsIcon} />
             <span>{I18n.t("nav.statistics")}</span>
           </div>
         </Link>
         <Link href="/profile">
-          <div class={styles.navButton}>
+          <div class={styles.navButton} id="profile">
             <img src={profileIcon} />
             <span>{I18n.t("nav.profile")}</span>
           </div>

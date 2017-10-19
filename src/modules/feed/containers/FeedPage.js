@@ -15,10 +15,7 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchTransactions(
-      this.props.user.apiToken,
-      this.props.user.userId
-    );
+    this.props.fetchTransactions(this.props.user.apiToken, this.props.user.id);
   }
 
   render({ transactions, user, like, unLike }) {
@@ -31,12 +28,12 @@ export class FeedPage extends Component {
     };
 
     return (
-      <Page>
+      <Page id="feedPage">
         <Header>
           <h1>{I18n.t("feed.title")}</h1>
         </Header>
         <main />
-        <ul class={styles.transactionList}>
+        <ul class={styles.transactionList} id="transactionList">
           {transactions.map(transaction => {
             let likeAction;
             transaction.voted

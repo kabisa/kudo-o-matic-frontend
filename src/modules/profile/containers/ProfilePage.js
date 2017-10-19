@@ -5,7 +5,7 @@ import I18n from "src/config/i18n";
 
 const ProfilePage = ({ user }) => {
   return (
-    <Page>
+    <Page id="profilePage">
       <Header>
         <h1>{I18n.t("profile.title")}</h1>
       </Header>
