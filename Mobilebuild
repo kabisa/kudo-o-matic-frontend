@@ -30,6 +30,7 @@ pipeline {
                 bundle install
                 yarn install
 
+
                 /usr/local/bin/prepare-keychain-for-codesign
 
                 eval $(ssh-agent -s)
