@@ -31,8 +31,8 @@ lane :deploy_ios do
     FileUtils.rm_rf('cordova/platforms/ios/build/device/.', secure: true)
 
     #Make sure the old result is removed
-    sh('rm -Rf tmp/output/#{@app_name}.result/')
-    sh('rm -Rf tmp/output/#{@app_name}.result/')
+    sh("rm -Rf tmp/output/#{@app_name}.result/")
+    sh("rm -Rf tmp/output/#{@app_name}.result/")
 
     # where the signed ipa is placed
     output_dir = File.join(Dir.pwd, 'tmp/output')
