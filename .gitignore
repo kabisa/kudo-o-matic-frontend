@@ -20,6 +20,8 @@ fastlane/metadata/
 fastlane/screenshots/
 fastlane/report.xml
 /Preview.html
-
+/tmp
+/test_servers
+/.gradle
 
 

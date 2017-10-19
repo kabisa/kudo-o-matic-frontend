@@ -12,9 +12,9 @@ lane :deploy_android do
   version_splitted = @app_version.split "."
   android_version = version_splitted[0] + "00" + version_splitted[1] + version_splitted[2]
 
-  sh('APP_ENV=development bin/maji build android')
 
   unless @branch == 'appstore'
+    sh('APP_ENV=#{@environment} bin/maji build android')
 
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
@@ -25,7 +25,24 @@ lane :deploy_android do
            notes: @release_notes
   else
     # release procedure for play store here
+    sh('APP_ENV=#{@environment} bin/maji build android')
+    sh('APP_ENV=#{@environment} bin/maji build android --release')
 
+
+    sign_apk(
+      keystore_path: "#{currentDir}/fastlane/vault/android.jks",
+      alias: "android-release-signed",
+      storepass: "dMOvHv7BPvBSDBswx0RT5H1M6wPCGblw",
+      tsa: "http://timestamp.comodoca.com/rfc316",
+      apk_path: File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))
+    )
+
+    zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
+
+    automated_test_emulator_run(
+      AVD_setup_path: "#{currentDir}/fastlane/AVD_setup.json",
+      shell_task:"echo 'niceee'"
+    )
   end
 end
 
@@ -49,7 +66,7 @@ lane :deploy_ios do
     sh("rm -R profiles/")
 
     #Build the app for ios
-    sh("APP_ENV=development bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
+    sh("APP_ENV=#{@environment} bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
 
     match username: 'info@kabisa.nl',
           git_url: 'git@github.com:kabisa/match-certificates.git',
@@ -120,6 +137,10 @@ before_all do
   @app_version = sh('cat ../cordova/config.xml | grep \'^<widget\' | sed -E \'s|^.*version="([^"]+)".*|\1|\'').chomp
   @app_name = sh('cat ../cordova/config.xml | egrep \'<name>(.*?)<\/name>\' | sed -e \'s,.*<name>\([^<]*\)</name>.*,\1,g\'').chomp
   @app_identifier = sh('cat ../cordova/package.json | grep -o \'"name": *"[^"]*"\'  | grep -o \'"[^"]*"$\'').chomp.gsub!(/\A"|"\Z/, '')
+  @environment = "development"
+  if @branch == 'appstore'
+     @environment = "production"
+  end
   @build_hockey = message.include?('BUILD_HOCKEY')
   @release_notes = message.gsub('BUILD_HOCKEY', '')
   @branch = git_branch.gsub('origin/', '')

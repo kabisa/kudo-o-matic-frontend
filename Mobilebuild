@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        PATH = '/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/rvm/bin/:/Users/jenkins/Library/Android/sdk/platform-tools:/Users/jenkins/Library/Android/sdk/tools'
+        PATH = '/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/rvm/bin/:/Users/jenkins/Library/Android/sdk/platform-tools:/Users/jenkins/Library/Android/sdk/tools:/Users/jenkins/Library/Android/sdk/build-tools/26.0.1:/Users/jenkins/Library/Android/sdk/platform-tools:'
         LC_ALL = 'en_US.UTF-8'
         MATCH_PASSWORD = credentials('MATCH_PASSWORD')
         FL_HOCKEY_API_TOKEN = credentials('FL_HOCKEY_API_TOKEN')
@@ -13,6 +13,7 @@ pipeline {
         FASTLANE_PASSWORD = credentials('FASTLANE_PASSWORD')
         FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT = 120
         GOOGLE_JSON_KEY_FILE = credentials('GOOGLE_JSON_KEY_FILE')
+        ANDROID_KEY_STORE = credentials('ANDROID_KEY_STORE')
     }
 
     stages {
@@ -33,7 +34,9 @@ pipeline {
 
                 /usr/local/bin/prepare-keychain-for-codesign
 
-                echo $GOOGLE_JSON_KEY_FILE > fastlane/GOOGLE_JSON_KEY_FILE.json
+                mkdir -f fastlane/vault/
+                echo $GOOGLE_JSON_KEY_FILE > fastlane/vault/GOOGLE_JSON_KEY_FILE.json
+                echo $ANDROID_KEY_STORE > fastlane/vault/android.jks
 
                 eval $(ssh-agent -s)
                 ssh-add /Users/jenkins/.ssh/id_rsa
