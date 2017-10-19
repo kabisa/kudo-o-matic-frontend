@@ -1,4 +1,5 @@
 import * as constants from "./constants";
+import { timeSince } from "../../support/dateUtils";
 
 const initialState = {
   fetching: false,
@@ -18,7 +19,11 @@ export const feed = (state = initialState, action) => {
             voted = true;
           }
         });
-        return { ...transaction, voted: voted };
+        return {
+          ...transaction,
+          voted: voted,
+          interval: timeSince(transaction["created-at"])
+        };
       });
       return { ...state, fetching: false, transactions: transactions };
     }
