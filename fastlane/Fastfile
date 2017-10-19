@@ -89,9 +89,6 @@ lane :deploy_ios do
       # Make sure old screenshots are removed
       sh 'rm -Rf fastlane/screenshots/*'
 
-      sh '/bin/sh -l yes | fastlane snapshot update'
-
-      return
       #generate new screenshots
   	  snapshot  project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
   	            output_directory: "#{currentDir}/fastlane/screenshots/",
