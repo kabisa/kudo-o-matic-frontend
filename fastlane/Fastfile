@@ -33,6 +33,10 @@ lane :deploy_ios do
     #Make sure the old result is removed
     sh('rm -Rf tmp/output/kudo-o-matic.result/')
 
+    # where the signed ipa is placed
+    output_dir = File.join(Dir.pwd, 'tmp/output')
+    setup_jenkins(output_directory: output_dir)
+
     #Download the profile from apple so we can obtain the profile_uuid of the provisioning profile
     sh('rm -Rf profiles/')
     sh('mkdir profiles')
@@ -43,10 +47,6 @@ lane :deploy_ios do
 
     #Build the app for ios
     sh("APP_ENV=development bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
-
-    # where the signed ipa is placed
-    output_dir = File.join(Dir.pwd, 'tmp/output')
-    setup_jenkins(output_directory: output_dir)
 
     match username: 'info@kabisa.nl',
           git_url: 'git@github.com:kabisa/match-certificates.git',
@@ -89,6 +89,9 @@ lane :deploy_ios do
       # Make sure old screenshots are removed
       sh 'rm -Rf fastlane/screenshots/*'
 
+      sh '/bin/sh -l yes | fastlane snapshot update'
+
+      return
       #generate new screenshots
   	  snapshot  project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
   	            output_directory: "#{currentDir}/fastlane/screenshots/",
@@ -97,7 +100,8 @@ lane :deploy_ios do
 
       deliver ipa: "#{output_dir}/kudo-o-matic.ipa",
               submit_for_review: true,
-              force: true
+              force: true,
+              username: "info@kabisa.nl"
 
     end
 
