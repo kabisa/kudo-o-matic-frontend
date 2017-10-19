@@ -39,12 +39,12 @@ lane :deploy_ios do
     setup_jenkins(output_directory: output_dir)
 
     #Download the profile from apple so we can obtain the profile_uuid of the provisioning profile
-    sh('rm -Rf profiles/')
-    sh('mkdir profiles')
-    sh('fastlane sigh --provisioning_name="match AdHoc #{@app_identifier}" --username="info@kabisa.nl" --app_identifier="#{@app_identifier}" --skip_install --adhoc --ignore_profiles_with_different_name --output_path="./profiles"')
-    sh('security cms -D -i ./profiles/AdHoc_#{@app_identifier}.mobileprovision > ./profiles/AdHoc_#{@app_identifier}.plist || true')
-    profile_uuid = sh('/usr/libexec/PlistBuddy -c "Print :UUID" ./profiles/AdHoc_#{@app_identifier}.plist').chomp
-    sh('rm -R profiles/')
+    sh("rm -Rf profiles/")
+    sh("mkdir profiles")
+    sh("fastlane sigh --provisioning_name=\"match AdHoc #{@app_identifier}\" --username=\"info@kabisa.nl\" --app_identifier=\"#{@app_identifier}\" --skip_install --adhoc --ignore_profiles_with_different_name --output_path=\"./profiles\"")
+    sh("security cms -D -i ./profiles/AdHoc_#{@app_identifier}.mobileprovision > ./profiles/AdHoc_#{@app_identifier}.plist || true")
+    profile_uuid = sh("/usr/libexec/PlistBuddy -c \"Print :UUID\" ./profiles/AdHoc_#{@app_identifier}.plist").chomp
+    sh("rm -R profiles/")
 
     #Build the app for ios
     sh("APP_ENV=development bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
@@ -69,7 +69,7 @@ lane :deploy_ios do
     )
 
     # opening xcode prevents timeout
-    sh 'open -a xcode cordova/platforms/ios/#{@app_name}.xcodeproj'
+    sh("open -a xcode cordova/platforms/ios/#{@app_name}.xcodeproj")
 
     gym scheme: @app_name,
         project: "#{currentDir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
@@ -78,7 +78,7 @@ lane :deploy_ios do
 
     unless @branch == 'appstore'
       hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_IOS'],
-             ipa: File.join(output_dir, '#{@app_name}.ipa'),
+             ipa: File.join(output_dir, "#{@app_name}.ipa"),
              create_update: true,
              bundle_version: @app_version,
              bundle_short_version: @branch,
