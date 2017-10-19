@@ -12,8 +12,10 @@ lane :deploy_android do
   version_splitted = @app_version.split "."
   android_version = version_splitted[0] + "00" + version_splitted[1] + version_splitted[2]
 
+  sh('APP_ENV=development bin/maji build android')
+
   unless @branch == 'appstore'
-    sh('APP_ENV=development bin/maji build android')
+
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
            create_update: true,

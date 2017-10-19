@@ -12,6 +12,7 @@ pipeline {
         FL_HOCKEY_PUBLIC_IDENTIFIER_IOS = credentials('FL_HOCKEY_PUBLIC_IDENTIFIER_IOS')
         FASTLANE_PASSWORD = credentials('FASTLANE_PASSWORD')
         FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT = 120
+        GOOGLE_JSON_KEY_FILE = credentials('GOOGLE_JSON_KEY_FILE')
     }
 
     stages {
@@ -31,6 +32,8 @@ pipeline {
                 yarn install
 
                 /usr/local/bin/prepare-keychain-for-codesign
+
+                echo $GOOGLE_JSON_KEY_FILE > fastlane/GOOGLE_JSON_KEY_FILE.json
 
                 eval $(ssh-agent -s)
                 ssh-add /Users/jenkins/.ssh/id_rsa

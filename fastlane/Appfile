@@ -1,2 +1,2 @@
-json_key_file "" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+json_key_file "GOOGLE_JSON_KEY_FILE.json"
 package_name "nl.kabisa.kudoomatic" # e.g. com.krausefx.app
