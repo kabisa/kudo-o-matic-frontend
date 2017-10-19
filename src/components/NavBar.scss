@@ -13,8 +13,8 @@
     position: absolute;
     left: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     border: none;
     height: 100%;
     width: 50%;
@@ -25,12 +25,28 @@
     position: absolute;
     right: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     border: none;
     height: 100%;
     width: 50%;
     padding-left: 50px; //To make them equally centered
+}
+
+.navLeft::before {
+    content: "";
+}
+
+.navLeft::after {
+    content: "";
+}
+
+.navRight::before {
+    content: "";
+}
+
+.navRight::after {
+    content: "";
 }
 
 .navButton {
@@ -44,7 +60,6 @@
     border: none;
     outline: none;
     padding: 0;
-    background: transparent;
 
     img {
         width: 1.2rem;
