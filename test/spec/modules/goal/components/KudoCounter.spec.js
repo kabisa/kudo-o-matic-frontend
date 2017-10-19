@@ -20,14 +20,7 @@ describe("KudoCounter", function() {
         nextText={nextText}
       />
     );
-    expect(
-      context.contains(
-        <div class={styles.currentAmount}>
-          100
-          <span class={styles.kudoCurrency}> ₭</span>
-        </div>
-      )
-    ).to.be.true;
+    expect(context.contains(<span id="currentAmount">100</span>)).to.be.true;
   });
 
   it("displays the right next-goal amount", function() {

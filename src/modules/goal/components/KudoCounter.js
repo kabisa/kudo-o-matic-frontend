@@ -3,9 +3,9 @@ import styles from "./KudoCounter.scss";
 
 const KudoCounter = ({ currentAmount, nextAmount, nextText }) => {
   return (
-    <div class={styles.kudoCounter}>
+    <div class={styles.kudoCounter} id="kudoCounter">
       <div class={styles.currentAmount}>
-        {currentAmount}
+        <span id="currentAmount">{currentAmount}</span>
         <span class={styles.kudoCurrency}> ₭</span>
       </div>
       <div class={styles.nextGoal}>

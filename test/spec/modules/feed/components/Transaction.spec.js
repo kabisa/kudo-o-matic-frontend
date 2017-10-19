@@ -19,7 +19,13 @@ describe("KudoCounter", function() {
 
   it("displays the right value", function() {
     const context = shallow(<Transaction transaction={transaction} />);
-    expect(context.contains(<div class={styles.value}>105</div>)).to.be.true;
+    expect(
+      context.contains(
+        <div class={styles.value} id="kudoAmount">
+          105
+        </div>
+      )
+    ).to.be.true;
   });
 
   it("displays the right activity text", function() {
@@ -36,7 +42,7 @@ describe("KudoCounter", function() {
 
   it("displays the right like-amount", function() {
     const context = shallow(<Transaction transaction={transaction} />);
-    expect(context.contains(<div class={styles.likes}>+ 5</div>)).to.be.true;
+    expect(context.contains(<span id="likeAmount">5</span>)).to.be.true;
   });
 
   it("handles like-button click", function() {

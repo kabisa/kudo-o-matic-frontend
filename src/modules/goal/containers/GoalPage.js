@@ -16,7 +16,7 @@ export class GoalPage extends Component {
 
   render({ currentAmount, nextAmount, nextText }) {
     return (
-      <Page>
+      <Page id="goalPage">
         <Header>
           <h1>{I18n.t("goal.title")}</h1>
         </Header>
