@@ -45,7 +45,7 @@ lane :deploy_android do
 
     automated_test_emulator_run(
       AVD_setup_path: "#{currentDir}/fastlane/AVD_setup.json",
-      shell_task:"cd #{File.expand_path("", File.dirname(__FILE__)) | echo $PWD"
+      shell_task:"cd #{File.expand_path("", File.dirname(__FILE__))} | echo $PWD"
     )
 
     supply  track: "rollout",
