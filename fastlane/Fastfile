@@ -14,7 +14,7 @@ lane :deploy_android do
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
            create_update: true,
-           bundle_version: '10101',
+           bundle_version: '10007',
            bundle_short_version: @branch,
            status: '2',
            notes: @release_notes
