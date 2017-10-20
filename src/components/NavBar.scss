@@ -33,6 +33,7 @@
     padding-left: 50px; //To make them equally centered
 }
 
+/* Items to equally space the navButtons */
 .navLeft::before {
     content: "";
 }
