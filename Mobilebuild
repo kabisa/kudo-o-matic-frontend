@@ -14,6 +14,7 @@ pipeline {
         FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT = 120
         GOOGLE_JSON_KEY_FILE = credentials('GOOGLE_JSON_KEY_FILE')
         ANDROID_KEY_STORE = credentials('ANDROID_KEY_STORE')
+        ANDROID_SDK_ROOT = '~/Library/Android/sdk/'
     }
 
     stages {
