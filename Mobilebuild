@@ -36,7 +36,7 @@ pipeline {
 
                 mkdir -p fastlane/vault/
                 echo $GOOGLE_JSON_KEY_FILE > fastlane/vault/GOOGLE_JSON_KEY_FILE.json
-                echo $ANDROID_KEY_STORE > fastlane/vault/android.jks
+                cat $ANDROID_KEY_STORE > fastlane/vault/android.jks
 
                 eval $(ssh-agent -s)
                 ssh-add /Users/jenkins/.ssh/id_rsa
