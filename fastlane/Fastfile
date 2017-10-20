@@ -45,7 +45,7 @@ lane :deploy_android do
 
     automated_test_emulator_run(
       AVD_setup_path: "#{currentDir}/fastlane/AVD_setup.json",
-      shell_task:"SCREENSHOT_PATH=fastlane/screenshots/android cd #{File.expand_path("", File.dirname(__FILE__))} | calabash-android run #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
+      shell_task:"SCREENSHOT_PATH=fastlane/screenshots/android echo $PWD | ls -la | cd #{File.expand_path("", File.dirname(__FILE__))} | calabash-android run #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
     )
 
     supply  track: "rollout",
