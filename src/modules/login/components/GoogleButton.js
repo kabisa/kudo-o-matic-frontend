@@ -22,19 +22,13 @@ const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
             imageUrl: obj.imageUrl
           }
         };
-        console.log(obj);
         requestApiToken(googleToken);
       },
       function(msg) {
-        console.log(msg);
+        alert(msg);
         handleGoogleLoginFailure(msg);
       }
     );
-    window.plugins.googleplus.getSigningCertificateFingerprint(function(
-      fingerprint
-    ) {
-      alert(fingerprint);
-    });
   }
 
   return (
