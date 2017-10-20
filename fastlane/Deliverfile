@@ -32,7 +32,7 @@ support_url(
 
 app_rating_config_path "fastlane/ratings_config.json"
 
-app_icon "src/assets/logo/AppStore-60@2x.png"
+app_icon "src/assets/logo/AppStore-1024.png"
 
 price_tier 0 # free app
 

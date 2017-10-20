@@ -23,5 +23,4 @@ fastlane/report.xml
 /tmp
 /test_servers
 /.gradle
-
-
+!/fastlane/metadata/android/
