@@ -19,7 +19,7 @@ pipeline {
         stage("Deploy hockey") {
             when {
                  anyOf {
-                    branch 'demo';
+                    branch 'fix_login';
                  }
             }
             steps {
