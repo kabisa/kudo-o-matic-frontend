@@ -49,7 +49,8 @@ lane :deploy_android do
     )
 
     supply  track: "rollout",
-            apk: "#{currentDir}/cordova/platforms/android/build/outputs/apk/android-release.apk"
+            apk: "#{currentDir}/cordova/platforms/android/build/outputs/apk/android-release.apk",
+            json_key: "vault/GOOGLE_JSON_KEY_FILE.json"
 
   end
 end
