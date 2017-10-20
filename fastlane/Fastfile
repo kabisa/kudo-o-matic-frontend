@@ -42,7 +42,7 @@ lane :deploy_android do
 
     automated_test_emulator_run(
       AVD_setup_path: "#{currentDir}/fastlane/AVD_setup.json",
-      shell_task:"SCREENSHOT_PATH=fastlane/screenshots/android calabash-android run cordova/platforms/android/build/outputs/apk/android-debug.apk"
+      shell_task:"SCREENSHOT_PATH=fastlane/screenshots/android calabash-android run #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-debug.apk", File.dirname(__FILE__))}"
     )
 
     supply  track: "rollout",
