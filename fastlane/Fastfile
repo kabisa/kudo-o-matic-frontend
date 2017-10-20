@@ -40,6 +40,9 @@ lane :deploy_android do
 
     sh 'rm -Rf fastlane/screenshots/*'
 
+    sh("calabash-android resign #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}")
+
+
     automated_test_emulator_run(
       AVD_setup_path: "#{currentDir}/fastlane/AVD_setup.json",
       shell_task:"SCREENSHOT_PATH=fastlane/screenshots/android bundler exec calabash-android run #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
