@@ -3,12 +3,12 @@ import Settings from "src/config/settings";
 import I18n from "src/config/i18n";
 import styles from "./GoogleButton.scss";
 
-const GoogleButton = ({ requestApiToken, handleGoogleFailure }) => {
+const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
   function login() {
     window.plugins.googleplus.login(
       {
         webClientId: Settings.googleClientID,
-        hostedDomain: "kabisa.nl"
+        hostedDomain: Settings.googleHostedDomain
       },
       function(obj) {
         const googleToken = {
@@ -22,12 +22,19 @@ const GoogleButton = ({ requestApiToken, handleGoogleFailure }) => {
             imageUrl: obj.imageUrl
           }
         };
+        console.log(obj);
         requestApiToken(googleToken);
       },
       function(msg) {
-        handleGoogleFailure(msg);
+        console.log(msg);
+        handleGoogleLoginFailure(msg);
       }
     );
+    window.plugins.googleplus.getSigningCertificateFingerprint(function(
+      fingerprint
+    ) {
+      alert(fingerprint);
+    });
   }
 
   return (
