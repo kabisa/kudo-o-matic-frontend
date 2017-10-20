@@ -185,6 +185,7 @@ PLATFORMS
 
 DEPENDENCIES
   calabash-android (>= 0.9.0)
+  cucumber
   dotenv
   fastlane
   fastlane-plugin-automated_test_emulator_run
