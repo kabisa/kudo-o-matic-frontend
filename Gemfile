@@ -4,6 +4,7 @@ gem 'pry'
 gem 'fastlane'
 gem 'xcodeproj'
 gem 'calabash-android', '>=0.9.0'
+gem 'cucumber'
 
 gem 'dotenv'
 
