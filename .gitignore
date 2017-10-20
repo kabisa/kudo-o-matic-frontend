@@ -16,11 +16,11 @@ cordova/plugins/*
 !cordova/plugins/.keep
 
 # Fastlane stuff
-fastlane/metadata/
 fastlane/screenshots/
 fastlane/report.xml
 /Preview.html
 /tmp
 /test_servers
 /.gradle
+/fastlane/metadata/*
 !/fastlane/metadata/android/

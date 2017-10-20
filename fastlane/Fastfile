@@ -45,8 +45,8 @@ lane :deploy_android do
       shell_task:"SCREENSHOT_PATH=fastlane/screenshots/android calabash-android run cordova/platforms/android/build/outputs/apk/android-debug.apk"
     )
 
-    supply track: "rollout"
-
+    supply  track: "rollout"
+            apk: "#{currentDir}/cordova/platforms/android/build/outputs/apk/android-release.apk"
 
   end
 end
