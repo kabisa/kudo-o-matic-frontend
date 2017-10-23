@@ -8,6 +8,7 @@ import StatisticsPage from "src/modules/statistics/containers/StatisticsPage";
 import ProfilePage from "src/modules/profile/containers/ProfilePage";
 
 import NavBar from "src/components/NavBar";
+import TransactionForm from "src/components/TransactionForm/TransactionForm";
 
 export class App extends Component {
   componentWillMount() {
@@ -25,7 +26,10 @@ export class App extends Component {
           <StatisticsPage path="/statistics" />
           <ProfilePage path="/profile" user={this.props.user} />
         </Router>
+        <TransactionForm />
+        {/*
         <NavBar />
+        */}
       </div>
     );
   }
