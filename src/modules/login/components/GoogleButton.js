@@ -22,11 +22,10 @@ const GoogleButton = ({ requestApiToken, handleGoogleLoginFailure }) => {
             imageUrl: obj.imageUrl
           }
         };
-        alert(JSON.stringify(obj));
         requestApiToken(googleToken);
       },
       function(msg) {
-        alert("error: " + msg);
+        alert("Login-error: " + msg);
         handleGoogleLoginFailure(msg);
       }
     );
