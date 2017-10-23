@@ -14,7 +14,6 @@ const httpClient = axios.create({
 });
 
 export const requestToken = googleToken => {
-  console.log(JSON.stringify(googleToken));
   const body = uriEncode({
     jwt_token: googleToken.tokenObj.id_token,
     uid: googleToken.profileObj.googleId,
@@ -23,7 +22,6 @@ export const requestToken = googleToken => {
     email: googleToken.profileObj.email,
     avatar_url: googleToken.profileObj.imageUrl
   });
-
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded"
   };
