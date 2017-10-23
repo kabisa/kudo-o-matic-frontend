@@ -14,6 +14,7 @@ const httpClient = axios.create({
 });
 
 export const requestToken = googleToken => {
+  console.log(JSON.stringify(googleToken));
   const body = uriEncode({
     jwt_token: googleToken.tokenObj.id_token,
     uid: googleToken.profileObj.googleId,
