@@ -26,9 +26,7 @@ export const Transaction = ({ transaction, likeAction }) => {
             <span class={styles.kudoCurrency}>₭</span> to{" "}
             {transaction.receiver.name} for {transaction.activity.name}
           </div>
-          <div class={styles.transactionTimestamp}>
-            {transaction.interval} ago
-          </div>
+          <div class={styles.transactionTimestamp}>{transaction.interval}</div>
         </div>
         <div class={styles.transactionAction}>
           <a
