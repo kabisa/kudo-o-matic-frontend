@@ -2,13 +2,18 @@ import { h, Component } from "preact";
 import { connect } from "preact-redux";
 import { Router, route } from "preact-router";
 
+import {
+  makeFormInvisible,
+  makeFormVisible
+} from "../modules/transaction/actions";
+
 import FeedPage from "src/modules/feed/containers/FeedPage";
 import GoalPage from "src/modules/goal/containers/GoalPage";
 import StatisticsPage from "src/modules/statistics/containers/StatisticsPage";
 import ProfilePage from "src/modules/profile/containers/ProfilePage";
 
 import NavBar from "src/components/NavBar";
-import TransactionForm from "src/components/TransactionForm/TransactionForm";
+import TransactionForm from "src/modules/transaction/components/TransactionForm";
 
 export class App extends Component {
   componentWillMount() {
@@ -17,7 +22,7 @@ export class App extends Component {
     }
   }
 
-  render() {
+  render({ transactionFormVisible, makeFormVisible, makeFormInvisible }) {
     return (
       <div>
         <Router>
@@ -26,17 +31,25 @@ export class App extends Component {
           <StatisticsPage path="/statistics" />
           <ProfilePage path="/profile" user={this.props.user} />
         </Router>
-        <TransactionForm />
-        {/*
-        <NavBar />
-        */}
+
+        {transactionFormVisible ? (
+          <TransactionForm makeFormInvisible={makeFormInvisible} />
+        ) : (
+          <NavBar makeFormVisible={makeFormVisible} />
+        )}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.authentication.user
+  user: state.authentication.user,
+  transactionFormVisible: state.transaction.formVisible
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  makeFormVisible,
+  makeFormInvisible
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

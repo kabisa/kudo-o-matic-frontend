@@ -5,20 +5,26 @@
     bottom: 0;
     width: 100%;
     height: 85%;
+    z-index: $form-z-index;
     background-color: white;
     box-shadow: 0 -2px 3px rgba(99, 99, 99, 0.75);
-    animation-duration: 0.4s;
+    animation-duration: 0.3s;
     animation-timing-function: ease-out;
-    //animation-name: slideInFromBottom;
+    animation-name: slideInFromBottom;
 }
 
+.formContainer::after {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-name: slideOutToBottom;
+}
 button {
     position: absolute;
     left: 50%;
     height: 6.5rem;
     width: 6.5rem;
     margin-left: -3.25rem; //To center; half the width
-    z-index: $navbar-button-z-index;
+    z-index: $form-button-z-index;
     color: white;
     border-radius: 50%;
     border: 0.2rem solid white;

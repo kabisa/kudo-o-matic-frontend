@@ -1,10 +1,12 @@
 import { h } from "preact";
 import styles from "./TransactionForm.scss";
 
-export const TransactionForm = () => {
+export const TransactionForm = ({ makeFormInvisible }) => {
   return (
     <div class={styles.formContainer}>
-      <button class={styles.closeButton}>X</button>
+      <button class={styles.closeButton} onClick={() => makeFormInvisible()}>
+        X
+      </button>
       <form class={styles.transactionForm}>
         <label>
           Amount
