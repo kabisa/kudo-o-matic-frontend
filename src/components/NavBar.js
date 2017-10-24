@@ -7,6 +7,7 @@ import feedIcon from "src/assets/icons/nav/feed.svg";
 import goalIcon from "src/assets/icons/nav/goal.svg";
 import profileIcon from "src/assets/icons/nav/profile.svg";
 import statisticsIcon from "src/assets/icons/nav/statistics.svg";
+import kudoIcon from "src/assets/icons/kudo.svg";
 
 export const NavBar = ({ makeFormVisible }) => {
   return (
@@ -27,7 +28,7 @@ export const NavBar = ({ makeFormVisible }) => {
       </div>
 
       <button class={styles.kudoButton} onClick={() => makeFormVisible()}>
-        ₭
+        <img src={kudoIcon} />
       </button>
 
       <div class={styles.navRight}>
