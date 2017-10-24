@@ -8,7 +8,7 @@ import goalIcon from "src/assets/icons/nav/goal.svg";
 import profileIcon from "src/assets/icons/nav/profile.svg";
 import statisticsIcon from "src/assets/icons/nav/statistics.svg";
 
-export const NavBar = () => {
+export const NavBar = ({ makeFormVisible }) => {
   return (
     <nav class={styles.navBar}>
       <div class={styles.navLeft}>
@@ -26,7 +26,9 @@ export const NavBar = () => {
         </Link>
       </div>
 
-      <button class={styles.kudoButton}>₭</button>
+      <button class={styles.kudoButton} onClick={() => makeFormVisible()}>
+        ₭
+      </button>
 
       <div class={styles.navRight}>
         <Link href="/statistics">
