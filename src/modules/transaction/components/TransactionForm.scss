@@ -11,32 +11,32 @@
     animation-duration: 0.3s;
     animation-timing-function: ease-out;
     animation-name: slideInFromBottom;
+
+    button {
+        position: absolute;
+        left: 50%;
+        height: 6.5rem;
+        width: 6.5rem;
+        margin-left: -3.25rem; //To center; half the width
+        z-index: $form-button-z-index;
+        color: white;
+        border-radius: 50%;
+        border: 0.2rem solid white;
+        outline: none;
+        font-size: 2.8rem;
+        font-weight: 300;
+
+        img {
+            width: 2.3rem;
+            height: 2.3rem;
+        }
+    }
 }
 
 .formContainer::after {
     animation-duration: 0.3s;
     animation-timing-function: ease-out;
     animation-name: slideOutToBottom;
-}
-
-button {
-    position: absolute;
-    left: 50%;
-    height: 6.5rem;
-    width: 6.5rem;
-    margin-left: -3.25rem; //To center; half the width
-    z-index: $form-button-z-index;
-    color: white;
-    border-radius: 50%;
-    border: 0.2rem solid white;
-    outline: none;
-    font-size: 2.8rem;
-    font-weight: 300;
-
-    img {
-        width: 2.3rem;
-        height: 2.3rem;
-    }
 }
 
 .closeButton {
