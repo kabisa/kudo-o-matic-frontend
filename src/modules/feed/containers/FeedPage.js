@@ -33,7 +33,7 @@ export class FeedPage extends Component {
           <h1>{I18n.t("feed.title")}</h1>
         </Header>
         <main />
-        <ul class={styles.transactionList}>
+        <ul class={styles.transactionList} id="transactionList">
           {transactions.map(transaction => {
             let likeAction;
             transaction.voted
