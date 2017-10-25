@@ -96,6 +96,11 @@ lane :deploy_ios do
       build_configuration: "Release"
     )
 
+    upgrade_super_old_xcode_project(
+      path: "#{currentDir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
+      team_id: "9H6JXDUXPW"
+    )
+
     # opening xcode prevents timeout
     sh("open -a xcode cordova/platforms/ios/#{@app_name}.xcodeproj")
 

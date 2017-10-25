@@ -34,6 +34,11 @@ xcode-select --install
 fastlane deploy
 ```
 
+### upgrade_project
+```
+fastlane upgrade_project
+```
+
 ### deploy_android
 ```
 fastlane deploy_android
