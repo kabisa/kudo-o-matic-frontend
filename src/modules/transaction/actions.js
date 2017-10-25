@@ -17,6 +17,13 @@ export const finishedAddingTransaction = () => {
   return { type: constants.FINISHED_ADDING_TRANSACTION };
 };
 
+export const receivedApiError = error => {
+  return {
+    type: constants.RECEIVED_API_ERROR,
+    error: error
+  };
+};
+
 export const addTransaction = (
   amount,
   activity,
