@@ -1,7 +1,5 @@
 import { h, Component } from "preact";
 import styles from "./TransactionForm.scss";
-import kudoIcon from "src/assets/icons/kudo.svg";
-import closeIcon from "src/assets/icons/close.svg";
 import I18n from "src/config/i18n";
 
 class TransactionForm extends Component {
@@ -12,11 +10,13 @@ class TransactionForm extends Component {
       receiver: "",
       activity: ""
     };
+
+    this.onInput = this.onInput.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onInput(e) {
     this.setState({ [e.target.name]: e.target.value });
-    this.setState({ formSubmittable: this.isFormSubmittable() });
   }
 
   onSubmit(e) {
@@ -28,18 +28,17 @@ class TransactionForm extends Component {
     );
   }
 
-  render({ makeFormInvisible, amount, receiver, activity }) {
+  render({ amount, receiver, activity }) {
     return (
-      <div class={styles.formContainer}>
-        <button class={styles.closeButton} onClick={() => makeFormInvisible()}>
-          <img src={closeIcon} />
-        </button>
+      <div>
         <form class={styles.transactionForm}>
           <label>
             {I18n.t("transaction.amount")}
             <input
               name="amount"
               type="number"
+              min="1"
+              max="500"
               value={amount}
               onInput={this.onInput}
             />
@@ -64,11 +63,9 @@ class TransactionForm extends Component {
             />
           </label>
         </form>
-        <button class={styles.kudoButton} type="submit">
-          <img src={kudoIcon} />
-        </button>
       </div>
     );
   }
 }
+
 export default TransactionForm;
