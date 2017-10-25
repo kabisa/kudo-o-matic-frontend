@@ -12,8 +12,8 @@ import GoalPage from "src/modules/goal/containers/GoalPage";
 import StatisticsPage from "src/modules/statistics/containers/StatisticsPage";
 import ProfilePage from "src/modules/profile/containers/ProfilePage";
 
+import TransactionContainer from "src/modules/transaction/containers/TransactionContainer";
 import NavBar from "src/components/NavBar";
-import TransactionForm from "src/modules/transaction/components/TransactionForm";
 
 export class App extends Component {
   componentWillMount() {
@@ -33,7 +33,7 @@ export class App extends Component {
         </Router>
 
         {transactionFormVisible ? (
-          <TransactionForm makeFormInvisible={makeFormInvisible} />
+          <TransactionContainer makeFormInvisible={makeFormInvisible} />
         ) : (
           <NavBar makeFormVisible={makeFormVisible} />
         )}
