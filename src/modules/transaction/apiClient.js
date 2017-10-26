@@ -8,6 +8,29 @@ const httpClient = axios.create({
 
 let headers = {};
 
+export const fetchUsers = apiToken => {
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Api-Token": apiToken
+  };
+
+  return new Promise(resolve => {
+    const request = httpClient.get(
+      "users?fields[users]=name",
+      {},
+      {
+        headers
+      }
+    );
+
+    request.then(response => {
+      var JSONAPIDeserializer = require("jsonapi-serializer").Deserializer;
+      var TransactionDeserialize = new JSONAPIDeserializer();
+      TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
+    });
+  });
+};
+
 export const postTransaction = (
   amount,
   activity,
@@ -17,46 +40,48 @@ export const postTransaction = (
   apiToken
 ) => {
   headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/vnd.api+json",
     "Api-Token": apiToken
   };
 
   addActivity(activity).then(activityId => {
-    const body = uriEncode({
-      type: "transactions",
-      attributes: {
-        amount: amount
-      },
-      relationships: {
-        activity: {
-          data: {
-            type: "activities",
-            id: activityId
-          }
+    const body = {
+      data: {
+        type: "transactions",
+        attributes: {
+          amount: amount
         },
-        sender: {
-          data: {
-            type: "users",
-            id: senderId
-          }
-        },
-        receiver: {
-          data: {
-            type: "users",
-            id: receiverId
-          }
-        },
-        balance: {
-          data: {
-            type: "balances",
-            id: balanceId
+        relationships: {
+          activity: {
+            data: {
+              type: "activities",
+              id: activityId
+            }
+          },
+          sender: {
+            data: {
+              type: "users",
+              id: senderId
+            }
+          },
+          receiver: {
+            data: {
+              type: "users",
+              id: receiverId
+            }
+          },
+          balance: {
+            data: {
+              type: "balances",
+              id: balanceId
+            }
           }
         }
       }
-    });
+    };
 
     return new Promise(resolve => {
-      const request = httpClient.post("/", body, {
+      const request = httpClient.post("/transactions", body, {
         headers
       });
 
@@ -68,12 +93,14 @@ export const postTransaction = (
 };
 
 const addActivity = activity => {
-  const body = uriEncode({
-    type: "activities",
-    attributes: {
-      name: activity
+  const body = {
+    data: {
+      type: "activities",
+      attributes: {
+        name: activity
+      }
     }
-  });
+  };
 
   return new Promise(resolve => {
     const request = httpClient.post("/activities", body, {

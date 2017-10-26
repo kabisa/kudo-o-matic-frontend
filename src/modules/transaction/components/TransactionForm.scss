@@ -32,5 +32,11 @@
     textarea {
         height: 9rem;
     }
+
+    .kudoButton {
+        background-color: $brand-green;
+        bottom: 0;
+        margin-bottom: -1.5rem; //Close-button has to stick out a bit.
+    }
 }
 
