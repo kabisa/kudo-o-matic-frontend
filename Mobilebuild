@@ -27,8 +27,8 @@ pipeline {
             steps {
                 script {
                   currUser = sh(returnStdout: true, script: 'whoami')
-                  env.ANDROID_SDK_ROOT = '/Users/${currUser}/Library/Android/sdk/'
-                  env.ANDROID_HOME = '/Users/${currUser}/Library/Android/sdk/'
+                  env.ANDROID_SDK_ROOT = "/Users/${currUser}/Library/Android/sdk/"
+                  env.ANDROID_HOME = "/Users/${currUser}/Library/Android/sdk/"
                 }
 
                 sh '''#!/bin/bash -l
