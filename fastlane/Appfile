@@ -1,2 +1,3 @@
 json_key_file "fastlane/vault/GOOGLE_JSON_KEY_FILE.json"
-package_name "nl.kabisa.kudoomatic" # e.g. com.krausefx.app
+package_name "nl.kabisa.kudoomatic"
+team_id "9H6JXDUXPW"

@@ -24,3 +24,14 @@ fastlane/report.xml
 /.gradle
 /fastlane/metadata/*
 !/fastlane/metadata/android/
+/fastlane/metadata/android/*/images/phoneScreenshots/*
+!/fastlane/metadata/android/*/images/phoneScreenshots/.keep
+/fastlane/metadata/android/*/images/sevenInchScreenshots/*
+!/fastlane/metadata/android/*/images/sevenInchScreenshots/.keep
+/fastlane/metadata/android/*/images/tenInchScreenshots/*
+!/fastlane/metadata/android/*/images/tenInchScreenshots/.keep
+/fastlane/metadata/android/*/images/tvScreenshots/*
+!/fastlane/metadata/android/*/images/tvScreenshots/.keep
+/profiles/
+/fastlane/test_servers/
+/fastlane/vault/

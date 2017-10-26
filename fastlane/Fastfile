@@ -42,16 +42,27 @@ lane :deploy_android do
 
     sh("calabash-android resign #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}")
 
+    sh 'mkdir -p fastlane/screenshots/android/'
+
+    avds_path = "~/.fastlane/avds/"
+    sh("mkdir -p #{avds_path}")
+    sh("rm -Rf #{avds_path}/*")
+    sh("cp fastlane/avds/* #{avds_path}")
 
     automated_test_emulator_run(
+      ADB_restart: false,
       AVD_setup_path: "#{currentDir}/fastlane/AVD_setup.json",
-      shell_task:"SCREENSHOT_PATH=fastlane/screenshots/android cd #{File.expand_path("fastlane/", File.dirname(__FILE__))} && bundler exec calabash-android run #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
+      shell_task:"cd #{File.expand_path("fastlane/", File.dirname(__FILE__))} && SCREENSHOT_PATH=#{File.expand_path("fastlane/screenshots/android/", File.dirname(__FILE__))}/ bundler exec calabash-android run #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
     )
+
+    # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
+    sh 'echo $PWD && cp fastlane/screenshots/android/* fastlane/metadata/android/*/images/phoneScreenshots/'
+    sh 'rm -Rf fastlane/screenshots/android/'
 
     supply  track: "rollout",
             apk: "#{currentDir}/cordova/platforms/android/build/outputs/apk/android-release.apk",
-            json_key: "#{currentDir}/fastlane/vault/GOOGLE_JSON_KEY_FILE.json"
-
+            json_key: "#{currentDir}/fastlane/vault/GOOGLE_JSON_KEY_FILE.json",
+            package_name: @app_identifier
   end
 end
 
@@ -75,7 +86,7 @@ lane :deploy_ios do
     sh("rm -R profiles/")
 
     #Build the app for ios
-    sh("APP_ENV=#{@environment} bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
+    sh("APP_ENV=#{@environment} bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (#{@team_id})\" --developmentTeam=\"#{@team_id}\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
 
     match username: 'info@kabisa.nl',
           git_url: 'git@github.com:kabisa/match-certificates.git',
@@ -86,7 +97,7 @@ lane :deploy_ios do
     #Make sure automatic code signing is disabled, we dont want this.
     disable_automatic_code_signing(
         path: "#{currentDir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
-        team_id: "9H6JXDUXPW"
+        team_id: @team_id
     )
 
     #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
@@ -98,7 +109,7 @@ lane :deploy_ios do
 
     upgrade_super_old_xcode_project(
       path: "#{currentDir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
-      team_id: "9H6JXDUXPW"
+      team_id: @team_id
     )
 
     # opening xcode prevents timeout
@@ -150,6 +161,7 @@ before_all do
   message =  changelog_from_git_commits(commits_count: 1)
   @app_version = sh('cat ../cordova/config.xml | grep \'^<widget\' | sed -E \'s|^.*version="([^"]+)".*|\1|\'').chomp
   @app_name = sh('cat ../cordova/config.xml | egrep \'<name>(.*?)<\/name>\' | sed -e \'s,.*<name>\([^<]*\)</name>.*,\1,g\'').chomp
+  @team_id = sh('cat ../cordova/config.xml | egrep \'<team_id>(.*?)<\/team_id>\' | sed -e \'s,.*<team_id>\([^<]*\)</team_id>.*,\1,g\'').chomp
   @app_identifier = sh('cat ../cordova/package.json | grep -o \'"name": *"[^"]*"\'  | grep -o \'"[^"]*"$\'').chomp.gsub!(/\A"|"\Z/, '')
   @environment = "development"
   if @branch == 'appstore'
