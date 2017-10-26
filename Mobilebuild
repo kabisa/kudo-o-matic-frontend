@@ -26,7 +26,7 @@ pipeline {
             }
             steps {
                 script {
-                  currUser = sh(returnStdout: true, script: 'whoami')
+                  currUser = sh(returnStdout: true, script: 'whoami').trim()
                   env.ANDROID_SDK_ROOT = "/Users/${currUser}/Library/Android/sdk/"
                   env.ANDROID_HOME = "/Users/${currUser}/Library/Android/sdk/"
                 }
