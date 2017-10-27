@@ -39,6 +39,11 @@ fastlane deploy
 fastlane deploy_android
 ```
 
+### android_supply
+```
+fastlane android_supply
+```
+
 ### deploy_ios
 ```
 fastlane deploy_ios

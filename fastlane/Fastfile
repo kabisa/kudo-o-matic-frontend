@@ -59,10 +59,11 @@ lane :deploy_android do
     sh 'echo $PWD && cp fastlane/screenshots/android/* fastlane/metadata/android/*/images/phoneScreenshots/'
     sh 'rm -Rf fastlane/screenshots/android/'
 
-    supply  track: "rollout",
+    supply  track: "production",
             apk: "#{currentDir}/cordova/platforms/android/build/outputs/apk/android-release.apk",
             json_key: "#{currentDir}/fastlane/vault/GOOGLE_JSON_KEY_FILE.json",
-            package_name: @app_identifier
+            package_name: @app_identifier,
+            metadata_path: "#{currentDir}/fastlane/metadata/android/"
   end
 end
 
