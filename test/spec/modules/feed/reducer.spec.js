@@ -1,6 +1,6 @@
 import { feed } from "src/modules/feed/reducer";
 import * as constants from "src/modules/feed/constants";
-import { timeSince } from "src/support/dateUtils";
+import moment from "moment";
 
 describe("Feed reducer", () => {
   it("returns the initial state", () => {
@@ -49,7 +49,7 @@ describe("Feed reducer", () => {
             "created-at": "2017-01-01T12:00:00.000Z",
             votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
             voted: false,
-            interval: timeSince("2017-01-01T12:00:00.000Z")
+            interval: moment("2017-01-01T12:00:00.000Z").fromNow()
           },
           {
             name: "Transaction2",
@@ -57,7 +57,7 @@ describe("Feed reducer", () => {
             "created-at": "2017-01-01T12:00:00.000Z",
             votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
             voted: true,
-            interval: timeSince("2017-01-01T12:00:00.000Z")
+            interval: moment("2017-01-01T12:00:00.000Z").fromNow()
           }
         ]
       });

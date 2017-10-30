@@ -1,5 +1,6 @@
 import * as constants from "./constants";
-import { timeSince } from "../../support/dateUtils";
+import { FINISHED_ADDING_TRANSACTION } from "../transaction/constants";
+import moment from "moment";
 
 const initialState = {
   fetching: false,
@@ -22,10 +23,16 @@ export const feed = (state = initialState, action) => {
         return {
           ...transaction,
           voted: voted,
-          interval: timeSince(transaction["created-at"])
+          interval: moment(transaction["created-at"]).fromNow()
         };
       });
       return { ...state, fetching: false, transactions: transactions };
+    }
+    case FINISHED_ADDING_TRANSACTION: {
+      return {
+        ...state,
+        transactions: state.transactions.concat(action.transaction)
+      };
     }
     case constants.LIKED_TRANSACTION: {
       const _transactions = state.transactions.map(
