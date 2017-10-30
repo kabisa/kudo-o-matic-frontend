@@ -1,5 +1,6 @@
 import Settings from "src/config/settings";
 import { create } from "apisauce";
+import { Deserializer } from "jsonapi-serializer";
 
 const api = create({
   baseURL: Settings.apiLocation,
@@ -22,8 +23,7 @@ export const fetchTransactions = apiToken => {
     );
 
     request.then(response => {
-      var JSONAPIDeserializer = require("jsonapi-serializer").Deserializer;
-      var TransactionDeserialize = new JSONAPIDeserializer();
+      var TransactionDeserialize = new Deserializer();
       TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
     });
   });
