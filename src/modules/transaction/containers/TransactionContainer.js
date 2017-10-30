@@ -41,6 +41,7 @@ export class TransactionContainer extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   user: state.authentication.user,
   users: state.transaction.users
@@ -56,7 +57,7 @@ const mapDispatchToProps = dispatch => {
       receiverId,
       balanceId,
       apiToken
-    ) =>
+    ) => {
       dispatch(
         addTransaction(
           amount,
@@ -66,7 +67,8 @@ const mapDispatchToProps = dispatch => {
           balanceId,
           apiToken
         )
-      )
+      );
+    }
   };
 };
 

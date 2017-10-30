@@ -1,5 +1,6 @@
 import Settings from "src/config/settings";
 import axios from "axios";
+import { Deserializer } from "jsonapi-serializer";
 
 const httpClient = axios.create({
   baseURL: Settings.apiLocation
@@ -18,8 +19,7 @@ export const fetchUsers = apiToken => {
     });
 
     request.then(response => {
-      var JSONAPIDeserializer = require("jsonapi-serializer").Deserializer;
-      var TransactionDeserialize = new JSONAPIDeserializer();
+      var TransactionDeserialize = new Deserializer();
       TransactionDeserialize.deserialize(response.data).then(u => resolve(u));
     });
   });
@@ -37,50 +37,54 @@ export const postTransaction = (
     "Content-Type": "application/vnd.api+json",
     "Api-Token": apiToken
   };
-
-  addActivity(activity).then(activityId => {
-    const body = {
-      data: {
-        type: "transactions",
-        attributes: {
-          amount: amount
-        },
-        relationships: {
-          activity: {
-            data: {
-              type: "activities",
-              id: activityId
-            }
+  return new Promise(resolve => {
+    addActivity(activity).then(activityId => {
+      const body = {
+        data: {
+          type: "transactions",
+          attributes: {
+            amount: amount
           },
-          sender: {
-            data: {
-              type: "users",
-              id: senderId
-            }
-          },
-          receiver: {
-            data: {
-              type: "users",
-              id: receiverId
-            }
-          },
-          balance: {
-            data: {
-              type: "balances",
-              id: balanceId
+          relationships: {
+            activity: {
+              data: {
+                type: "activities",
+                id: activityId
+              }
+            },
+            sender: {
+              data: {
+                type: "users",
+                id: senderId
+              }
+            },
+            receiver: {
+              data: {
+                type: "users",
+                id: receiverId
+              }
+            },
+            balance: {
+              data: {
+                type: "balances",
+                id: balanceId
+              }
             }
           }
         }
-      }
-    };
+      };
 
-    return new Promise(resolve => {
-      const request = httpClient.post("/transactions", body, {
-        headers
-      });
+      const request = httpClient.post(
+        "/transactions?include=activity,sender,receiver,votes&sort=-created_at",
+        body,
+        {
+          headers
+        }
+      );
 
       request.then(response => {
-        resolve(response.data.data);
+        var TransactionDeserialize = new Deserializer();
+        TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
       });
     });
   });
