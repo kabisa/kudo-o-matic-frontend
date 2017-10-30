@@ -1,6 +1,5 @@
 import Settings from "src/config/settings";
 import axios from "axios";
-import { uriEncode } from "src/support/uriUtils";
 
 const httpClient = axios.create({
   baseURL: Settings.apiLocation
@@ -9,24 +8,19 @@ const httpClient = axios.create({
 let headers = {};
 
 export const fetchUsers = apiToken => {
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Api-Token": apiToken
+  headers = {
+    "api-token": apiToken
   };
 
   return new Promise(resolve => {
-    const request = httpClient.get(
-      "users?fields[users]=name",
-      {},
-      {
-        headers
-      }
-    );
+    const request = httpClient.get("/users?fields[users]=name", {
+      headers
+    });
 
     request.then(response => {
       var JSONAPIDeserializer = require("jsonapi-serializer").Deserializer;
       var TransactionDeserialize = new JSONAPIDeserializer();
-      TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
+      TransactionDeserialize.deserialize(response.data).then(u => resolve(u));
     });
   });
 };

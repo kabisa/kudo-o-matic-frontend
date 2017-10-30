@@ -6,12 +6,14 @@ describe("Transaction reducer", () => {
     expect(transaction(undefined, {})).to.eql({
       addingTransaction: false,
       formVisible: false,
+      fetchingUsers: false,
+      users: [],
       error: undefined
     });
   });
 
   describe("fetch Current State", () => {
-    it("handles STARTED_FETCHING_GOAL", () => {
+    it("handles STARTED_FETCHING_TRANSACTION", () => {
       expect(
         transaction([], { type: constants.STARTED_ADDING_TRANSACTION })
       ).to.eql({
@@ -19,13 +21,13 @@ describe("Transaction reducer", () => {
       });
     });
 
-    it("handles FINISHED_FETCHING_TRANSACTION", () => {
+    it("handles FINISHED_ADDING_TRANSACTION", () => {
       expect(
         transaction(
           {
             addingTransaction: true
           },
-          { type: constants.STARTED_ADDING_TRANSACTION }
+          { type: constants.FINISHED_ADDING_TRANSACTION }
         )
       ).to.eql({
         addingTransaction: false
