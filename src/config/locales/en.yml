@@ -27,3 +27,4 @@ en:
     amount: 'Amount'
     receiver: 'Receiver'
     giving_kudos_for: 'I''m giving ₭udo''s for'
+    transactionError: 'Something went wrong adding this transaction'

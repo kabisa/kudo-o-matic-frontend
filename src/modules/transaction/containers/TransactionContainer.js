@@ -5,10 +5,14 @@ import TransactionForm from "../components/TransactionForm";
 import styles from "./TransactionContainer.scss";
 import closeIcon from "src/assets/icons/close.svg";
 
-import { addTransaction } from "../actions";
+import { addTransaction, fetchAllUsers } from "../actions";
 
 export class TransactionContainer extends Component {
-  render({ user }) {
+  componentWillMount() {
+    this.props.fetchUsers(this.props.user.apiToken);
+  }
+
+  render({ user, users }) {
     const makeTransaction = (amount, receiver, activity) => {
       this.props.postTransaction(
         amount,
@@ -28,17 +32,23 @@ export class TransactionContainer extends Component {
         >
           <img src={closeIcon} />
         </button>
-        <TransactionForm addTransaction={makeTransaction} />
+        <TransactionForm
+          addTransaction={makeTransaction}
+          users={users}
+          formError={false}
+        />
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
-  user: state.authentication.user
+  user: state.authentication.user,
+  users: state.transaction.users
 });
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchUsers: apiToken => dispatch(fetchAllUsers(apiToken)),
     postTransaction: (
       amount,
       activity,

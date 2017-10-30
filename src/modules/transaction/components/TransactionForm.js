@@ -1,6 +1,7 @@
 import { h, Component } from "preact";
 import styles from "./TransactionForm.scss";
 import I18n from "src/config/i18n";
+import Select from "react-select";
 
 import kudoIcon from "src/assets/icons/kudo.svg";
 
@@ -11,23 +12,37 @@ class TransactionForm extends Component {
       amount: 0,
       receiver: "",
       activity: "",
+      formSubmittable: false,
       formDisabled: false
     };
     this.onInput = this.onInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentWillReceiveProps(props) {
-    this.setState({ formDisabled: !props.formError });
-    this.setState({ formSubmittable: this.isFormSubmittable() });
+    this.setState({ formDisabled: props.formError });
+  }
+
+  isFormSubmittable() {
+    return (
+      this.state.amount !== "" &&
+      this.state.receiver !== "" &&
+      this.state.activity !== ""
+    );
   }
 
   onInput(e) {
     this.setState({ [e.target.name]: e.target.value });
+    this.setState({ formSubmittable: this.isFormSubmittable() });
+  }
+
+  onChange(e) {
+    this.setState({ receiver: e.value });
+    this.setState({ formSubmittable: this.isFormSubmittable() });
   }
 
   onSubmit(e) {
-    console.log("done");
     e.preventDefault();
     this.setState({ formDisabled: true });
     this.props.addTransaction(
@@ -38,7 +53,7 @@ class TransactionForm extends Component {
   }
 
   render(
-    { formError },
+    { formError, users },
     { amount, receiver, activity, formSubmittable, formDisabled }
   ) {
     return (
@@ -53,17 +68,21 @@ class TransactionForm extends Component {
                 type="number"
                 min="1"
                 max="500"
+                className={styles.userSelection}
                 value={amount}
                 onInput={this.onInput}
               />
             </label>
             <label>
               {I18n.t("transaction.receiver")}
-              <input
+
+              <Select
                 name="receiver"
-                type="text"
                 value={receiver}
-                onInput={this.onInput}
+                options={users.map(user => {
+                  return { value: user.id, label: user.name };
+                })}
+                onChange={this.onChange}
               />
             </label>
             <label>
@@ -76,7 +95,11 @@ class TransactionForm extends Component {
                 onInput={this.onInput}
               />
             </label>
-            <button class={styles.kudoButton} type="submit">
+            <button
+              class={styles.kudoButton}
+              type="submit"
+              disabled={!formSubmittable}
+            >
               <img src={kudoIcon} />
             </button>
           </fieldset>
