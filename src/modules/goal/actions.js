@@ -27,11 +27,12 @@ export const fetchCurrentGoalState = apiToken => {
   return dispatch => {
     dispatch(startedFetchingGoal);
 
-    return Promise.all([
-      fetchCurrentBalance(apiToken),
-      fetchNextGoal(apiToken)
-    ]).then(values => {
-      return dispatch(finishedFetchingGoal(values[0], values[1]));
-    });
+    return Promise.all([fetchCurrentBalance(apiToken), fetchNextGoal(apiToken)])
+      .then(values => {
+        return dispatch(finishedFetchingGoal(values[0], values[1]));
+      })
+      .catch(error => {
+        return dispatch(receivedApiError(error));
+      });
   };
 };

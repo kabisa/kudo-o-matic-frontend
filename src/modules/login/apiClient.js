@@ -1,13 +1,6 @@
 import Settings from "src/config/settings";
 import axios from "axios";
-
-const uriEncode = obj => {
-  return Object.entries(obj)
-    .map(
-      ([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`
-    )
-    .join("&");
-};
+import { uriEncode } from "src/support/uriUtils";
 
 const httpClient = axios.create({
   baseURL: Settings.apiLocation

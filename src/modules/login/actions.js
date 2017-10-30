@@ -33,13 +33,17 @@ export const requestApiToken = googleToken => {
   return dispatch => {
     dispatch(handleGoogleLoginSuccess(googleToken));
 
-    return requestToken(googleToken).then(
-      token => {
-        return dispatch(handleApiLoginSuccess(token));
-      },
-      error => {
+    return requestToken(googleToken)
+      .then(
+        token => {
+          return dispatch(handleApiLoginSuccess(token));
+        },
+        error => {
+          return dispatch(handleApiLoginFailure(error));
+        }
+      )
+      .catch(error => {
         return dispatch(handleApiLoginFailure(error));
-      }
-    );
+      });
   };
 };

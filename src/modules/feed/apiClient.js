@@ -1,8 +1,9 @@
 import Settings from "src/config/settings";
-import axios from "axios";
+import { create } from "apisauce";
 
-const httpClient = axios.create({
-  baseURL: Settings.apiLocation
+const api = create({
+  baseURL: Settings.apiLocation,
+  headers: { Accept: "application/vnd.api+json" }
 });
 
 export const fetchTransactions = apiToken => {
@@ -12,8 +13,9 @@ export const fetchTransactions = apiToken => {
   };
 
   return new Promise(resolve => {
-    const request = httpClient.get(
+    const request = api.get(
       "transactions?include=activity,sender,receiver,votes&sort=-created_at",
+      {},
       {
         headers
       }
@@ -30,17 +32,15 @@ export const fetchTransactions = apiToken => {
 export const voteTransaction = (apiToken, userId, transactionId) => {
   const headers = {
     headers: {
-      "Content-Type": "application/vnd.api+json",
+      "Content-Type": "application/x-www-form-urlencoded",
       "Api-Token": apiToken
     }
   };
 
-  const data = {};
-
   return new Promise(resolve => {
-    const request = httpClient.put(
+    const request = api.put(
       "transactions/" + transactionId + "/votes/" + userId,
-      data,
+      {},
       headers
     );
 
@@ -56,13 +56,11 @@ export const unVoteTransaction = (apiToken, userId, transactionId) => {
     }
   };
 
-  const data = {};
-
   return new Promise(resolve => {
-    const request = httpClient.delete(
+    const request = api.delete(
       "transactions/" + transactionId + "/votes/" + userId,
-      headers,
-      data
+      {},
+      headers
     );
 
     request.then(resolve(transactionId));

@@ -12,7 +12,19 @@ en:
     title: 'GOAL'
   feed:
     title: 'FEED'
+    seconds_ago: ' seconds ago'
+    minutes_ago: ' minutes ago'
+    hours_ago: ' hours ago'
+    days_ago: ' days ago'
+    months_ago: ' months ago'
+    weeks_ago: ' weeks ago'
+    years_ago: ' years ago'
   profile:
     title: 'PROFILE'
   statistics:
     title: 'STATISTICS'
+  transaction:
+    amount: 'Amount'
+    receiver: 'Receiver'
+    giving_kudos_for: 'I''m giving ₭udo''s for'
+    transactionError: 'Something went wrong adding this transaction'
