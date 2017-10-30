@@ -9,6 +9,7 @@ class TransactionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: "",
       amount: 0,
       receiver: "",
       activity: "",
@@ -44,22 +45,35 @@ class TransactionForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.setState({ formDisabled: true });
-    this.props.addTransaction(
-      this.state.amount,
-      this.state.receiver,
-      this.state.activity
-    );
+    if (!this.state.formSubmittable) {
+      this.setState({ error: true });
+    } else {
+      this.setState({ formDisabled: true });
+      this.props.addTransaction(
+        this.state.amount,
+        this.state.receiver,
+        this.state.activity
+      );
+    }
   }
 
   render(
     { formError, users },
-    { amount, receiver, activity, formSubmittable, formDisabled }
+    { error, amount, receiver, activity, formDisabled }
   ) {
     return (
       <div>
         <form class={styles.transactionForm} onSubmit={this.onSubmit}>
-          {formError && <p>{I18n.t("transaction.transactionError")}</p>}
+          {formError && (
+            <div class={styles.formError}>
+              {I18n.t("transaction.formError")}
+            </div>
+          )}
+          {error && (
+            <div class={styles.formError}>
+              {I18n.t("transaction.transactionError")}
+            </div>
+          )}
           <fieldset disabled={formDisabled}>
             <label>
               {I18n.t("transaction.amount")}
@@ -96,9 +110,9 @@ class TransactionForm extends Component {
               />
             </label>
             <button
+              id="submitTransaction"
               class={styles.kudoButton}
               type="submit"
-              disabled={!formSubmittable}
             >
               <img src={kudoIcon} />
             </button>
