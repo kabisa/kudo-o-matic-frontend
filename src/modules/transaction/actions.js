@@ -13,8 +13,11 @@ export const startedAddingTransaction = () => {
   return { type: constants.STARTED_ADDING_TRANSACTION };
 };
 
-export const finishedAddingTransaction = () => {
-  return { type: constants.FINISHED_ADDING_TRANSACTION };
+export const finishedAddingTransaction = transaction => {
+  return {
+    type: constants.FINISHED_ADDING_TRANSACTION,
+    transaction: transaction
+  };
 };
 
 export const startedFetchingUsers = () => {
@@ -60,6 +63,10 @@ export const addTransaction = (
       receiverId,
       balanceId,
       apiToken
-    );
+    )
+      .then(transaction => dispatch(finishedAddingTransaction(transaction)))
+      .catch(error => {
+        return dispatch(receivedApiError(error));
+      });
   };
 };
