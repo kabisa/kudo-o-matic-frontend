@@ -72,7 +72,7 @@ describe("Feed reducer", () => {
         amount: 100,
         votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
         voted: false,
-        "likes-amount": 1
+        "votes-count": 1
       },
       {
         id: 2,
@@ -80,7 +80,7 @@ describe("Feed reducer", () => {
         amount: 110,
         votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
         voted: true,
-        "likes-amount": 1
+        "votes-count": 1
       }
     ]
   };
@@ -100,7 +100,7 @@ describe("Feed reducer", () => {
             amount: 100,
             votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
             voted: true,
-            "likes-amount": 2
+            "votes-count": 2
           },
           {
             id: 2,
@@ -108,7 +108,7 @@ describe("Feed reducer", () => {
             amount: 110,
             votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
             voted: true,
-            "likes-amount": 1
+            "votes-count": 1
           }
         ]
       });
@@ -128,7 +128,7 @@ describe("Feed reducer", () => {
             amount: 100,
             votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
             voted: false,
-            "likes-amount": 1
+            "votes-count": 1
           },
           {
             id: 2,
@@ -136,7 +136,7 @@ describe("Feed reducer", () => {
             amount: 110,
             votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
             voted: false,
-            "likes-amount": 0
+            "votes-count": 0
           }
         ]
       });

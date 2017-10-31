@@ -13,7 +13,7 @@ describe("Transaction Item", function() {
       activity: { name: "fixing bugs" },
       sender: { name: "Robin" },
       receiver: { name: "Luuk" },
-      "likes-amount": 5
+      "votes-count": 5
     };
   });
 
