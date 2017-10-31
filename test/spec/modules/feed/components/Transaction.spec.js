@@ -21,9 +21,9 @@ describe("Transaction Item", function() {
     const context = shallow(<Transaction transaction={transaction} />);
     expect(
       context.contains(
-        <div class={styles.value} id="kudoAmount">
+        <p class={styles.value} id="kudoAmount">
           105
-        </div>
+        </p>
       )
     ).to.be.true;
   });
@@ -32,11 +32,11 @@ describe("Transaction Item", function() {
     const context = shallow(<Transaction transaction={transaction} />);
     expect(
       context.contains(
-        <div class={styles.transactionText}>
+        <p class={styles.transactionText}>
           Robin: 100 <span class={styles.kudoCurrency}>₭</span> to{" "}
           <span id="receiver"> Luuk </span>
           for <span id="activity">fixing bugs</span>
-        </div>
+        </p>
       )
     ).to.be.true;
   });

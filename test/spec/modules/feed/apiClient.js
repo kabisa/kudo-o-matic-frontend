@@ -44,7 +44,7 @@ describe("Feed API client", () => {
     it("performs GET-Request on feed-endpoint", done => {
       fetchCurrentBalance(API_TOKEN);
 
-      setTimeout(() => {
+      return new Promise(resolve => setTimeout(resolve)).then(() => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
         expect(method).to.eql("GET");
         expect(url).to.eql(`${Settings.apiLocation}/balances/current`);

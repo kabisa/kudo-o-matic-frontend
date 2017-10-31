@@ -23,7 +23,7 @@ export const fetchTransactions = apiToken => {
     );
 
     request.then(response => {
-      var TransactionDeserialize = new Deserializer();
+      const TransactionDeserialize = new Deserializer();
       TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
     });
   });

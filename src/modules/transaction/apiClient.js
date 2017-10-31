@@ -19,7 +19,7 @@ export const fetchUsers = apiToken => {
     });
 
     request.then(response => {
-      var TransactionDeserialize = new Deserializer();
+      const TransactionDeserialize = new Deserializer();
       TransactionDeserialize.deserialize(response.data).then(u => resolve(u));
     });
   });
@@ -65,7 +65,7 @@ export const postTransaction = (
     );
 
     request.then(response => {
-      var TransactionDeserialize = new Deserializer();
+      const TransactionDeserialize = new Deserializer();
       TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
     });
   });

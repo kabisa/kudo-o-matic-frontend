@@ -14,20 +14,20 @@ export const Transaction = ({ transaction, likeAction }) => {
     <div class={styles.transaction} id="transaction">
       <div class={styles.transactionContent}>
         <div class={styles.transactionValue}>
-          <div class={styles.value} id="kudoAmount">
+          <p class={styles.value} id="kudoAmount">
             {transaction.amount + transaction["votes-count"]}
-          </div>
+          </p>
           <div class={styles.kudoCurrency}>₭</div>
-          <div class={styles.divider} />
+          <hr class={styles.divider} />
         </div>
         <div class={styles.transactionDescription}>
-          <div class={styles.transactionText}>
+          <p class={styles.transactionText}>
             {transaction.sender.name}: {transaction.amount}{" "}
             <span class={styles.kudoCurrency}>₭</span> to{" "}
             <span id="receiver"> {transaction.receiver.name} </span>
             for <span id="activity">{transaction.activity}</span>
-          </div>
-          <div class={styles.transactionTimestamp}>{transaction.interval}</div>
+          </p>
+          <p class={styles.transactionTimestamp}>{transaction.interval}</p>
         </div>
         <div class={styles.transactionAction}>
           <a
@@ -38,9 +38,9 @@ export const Transaction = ({ transaction, likeAction }) => {
           >
             <img src={thumb} />
           </a>
-          <div class={styles.likes}>
+          <p class={styles.likes}>
             + <span id="likeAmount">{transaction["votes-count"]}</span>
-          </div>
+          </p>
         </div>
       </div>
       <hr class={styles.hr} />
