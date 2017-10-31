@@ -10,7 +10,7 @@ describe("Transaction Item", function() {
     transaction = {
       id: 1,
       amount: 100,
-      activity: { name: "fixing bugs" },
+      activity: "fixing bugs",
       sender: { name: "Robin" },
       receiver: { name: "Luuk" },
       "votes-count": 5

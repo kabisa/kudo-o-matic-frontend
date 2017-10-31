@@ -14,14 +14,12 @@ describe("Feed actions", () => {
 
     it("creates an action to handle current transactions", () => {
       const transactions = {};
-      const userId = "USER_ID";
       const expectedAction = {
         type: constants.FINISHED_FETCHING_TRANSACTIONS,
-        transactions: {},
-        userId: userId
+        transactions: {}
       };
 
-      expect(actions.finishedFetchingTransaction(transactions, userId)).to.eql(
+      expect(actions.finishedFetchingTransaction(transactions)).to.eql(
         expectedAction
       );
     });
