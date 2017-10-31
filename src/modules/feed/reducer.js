@@ -1,5 +1,4 @@
 import * as constants from "./constants";
-import { FINISHED_ADDING_TRANSACTION } from "../transaction/constants";
 import moment from "moment";
 
 const initialState = {
