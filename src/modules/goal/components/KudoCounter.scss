@@ -1,0 +1,41 @@
+@import 'src/styles/settings/general';
+
+.kudoCounter {
+    width: 12rem;
+    height: 12rem;
+    margin-top: 4rem;
+    border: 0.9rem solid;
+    border-radius: 6rem;
+    border-color: $brand-blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+}
+
+.currentAmount {
+    text-align: center;
+    color: $brand-black;
+    font-size: 2.3rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+
+    .kudoCurrency {
+        font-size: 60%;
+        color: $brand-grey;
+    }
+}
+
+.nextGoal {
+    text-align: center;
+    margin-bottom: 0.1rem;
+    color: $brand-grey;
+    font-size: 1.4rem;
+    font-weight: 300;
+
+    .kudoCurrency {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}

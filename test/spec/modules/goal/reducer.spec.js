@@ -51,7 +51,8 @@ describe("Goal reducer", () => {
           error: "API_ERROR"
         })
       ).to.eql({
-        error: "API_ERROR"
+        error: "API_ERROR",
+        fetching: false
       });
     });
   });

@@ -1,8 +1,10 @@
 import * as constants from "./constants";
+import Settings from "src/config/settings";
 
 const initialState = {
   user: {
-    apiToken: undefined,
+    apiToken: Settings.testApiToken,
+    id: Settings.testUserId,
     name: undefined,
     imageUri: undefined
   },
@@ -16,7 +18,11 @@ export const authentication = (state = initialState, action) => {
     case constants.API_TOKEN_SUCCESS:
       return {
         ...state,
-        user: { ...state.user, apiToken: action.token["api-token"] }
+        user: {
+          ...state.user,
+          apiToken: action.token["api-token"],
+          id: action.token["user-id"]
+        }
       };
     case constants.API_TOKEN_FAILURE:
       return {

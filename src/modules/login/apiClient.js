@@ -22,7 +22,6 @@ export const requestToken = googleToken => {
     email: googleToken.profileObj.email,
     avatar_url: googleToken.profileObj.imageUrl
   });
-
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded"
   };
