@@ -33,21 +33,9 @@
     }
 }
 
-.formContainer::after {
-    animation-duration: 0.3s;
-    animation-timing-function: ease-out;
-    animation-name: slideOutToBottom;
-}
-
 .closeButton {
     background-color: $brand-blue;
     margin-top: -1.5rem; //Close-button has to stick out a bit.
-}
-
-.kudoButton {
-    background-color: $brand-green;
-    bottom: 0;
-    margin-bottom: -1.5rem; //Close-button has to stick out a bit.
 }
 
 @keyframes slideInFromBottom {

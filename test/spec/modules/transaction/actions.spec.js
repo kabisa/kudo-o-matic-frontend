@@ -12,7 +12,8 @@ describe("Transaction actions", () => {
 
   it("creates an action to finish adding a transaction", () => {
     const expectedAction = {
-      type: constants.FINISHED_ADDING_TRANSACTION
+      type: constants.FINISHED_ADDING_TRANSACTION,
+      transaction: undefined
     };
 
     expect(actions.finishedAddingTransaction()).to.eql(expectedAction);

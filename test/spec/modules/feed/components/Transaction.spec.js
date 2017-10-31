@@ -3,7 +3,7 @@ import Transaction from "src/modules/feed/components/Transaction";
 import styles from "src/modules/feed/components/Transaction.scss";
 import { shallow } from "preact-render-spy";
 
-describe("KudoCounter", function() {
+describe("Transaction Item", function() {
   let transaction;
 
   beforeEach(function() {
@@ -13,7 +13,7 @@ describe("KudoCounter", function() {
       activity: { name: "fixing bugs" },
       sender: { name: "Robin" },
       receiver: { name: "Luuk" },
-      "likes-amount": 5
+      "votes-count": 5
     };
   });
 
@@ -33,8 +33,9 @@ describe("KudoCounter", function() {
     expect(
       context.contains(
         <div class={styles.transactionText}>
-          Robin: 100 <span class={styles.kudoCurrency}>₭</span> to Luuk for
-          fixing bugs
+          Robin: 100 <span class={styles.kudoCurrency}>₭</span> to{" "}
+          <span id="receiver"> Luuk </span>
+          for <span id="activity">fixing bugs</span>
         </div>
       )
     ).to.be.true;

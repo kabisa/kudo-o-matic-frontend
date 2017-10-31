@@ -1,6 +1,6 @@
 import { feed } from "src/modules/feed/reducer";
 import * as constants from "src/modules/feed/constants";
-import { timeSince } from "src/support/dateUtils";
+import moment from "moment";
 
 describe("Feed reducer", () => {
   it("returns the initial state", () => {
@@ -49,7 +49,7 @@ describe("Feed reducer", () => {
             "created-at": "2017-01-01T12:00:00.000Z",
             votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
             voted: false,
-            interval: timeSince("2017-01-01T12:00:00.000Z")
+            interval: moment("2017-01-01T12:00:00.000Z").fromNow()
           },
           {
             name: "Transaction2",
@@ -57,7 +57,7 @@ describe("Feed reducer", () => {
             "created-at": "2017-01-01T12:00:00.000Z",
             votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
             voted: true,
-            interval: timeSince("2017-01-01T12:00:00.000Z")
+            interval: moment("2017-01-01T12:00:00.000Z").fromNow()
           }
         ]
       });
@@ -72,7 +72,7 @@ describe("Feed reducer", () => {
         amount: 100,
         votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
         voted: false,
-        "likes-amount": 1
+        "votes-count": 1
       },
       {
         id: 2,
@@ -80,7 +80,7 @@ describe("Feed reducer", () => {
         amount: 110,
         votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
         voted: true,
-        "likes-amount": 1
+        "votes-count": 1
       }
     ]
   };
@@ -100,7 +100,7 @@ describe("Feed reducer", () => {
             amount: 100,
             votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
             voted: true,
-            "likes-amount": 2
+            "votes-count": 2
           },
           {
             id: 2,
@@ -108,7 +108,7 @@ describe("Feed reducer", () => {
             amount: 110,
             votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
             voted: true,
-            "likes-amount": 1
+            "votes-count": 1
           }
         ]
       });
@@ -128,7 +128,7 @@ describe("Feed reducer", () => {
             amount: 100,
             votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
             voted: false,
-            "likes-amount": 1
+            "votes-count": 1
           },
           {
             id: 2,
@@ -136,7 +136,7 @@ describe("Feed reducer", () => {
             amount: 110,
             votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
             voted: false,
-            "likes-amount": 0
+            "votes-count": 0
           }
         ]
       });

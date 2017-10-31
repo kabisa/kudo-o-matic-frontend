@@ -21,7 +21,7 @@ export const transaction = (state = initialState, action) => {
     case constants.STARTED_ADDING_TRANSACTION:
       return { ...state, addingTransaction: true };
     case constants.FINISHED_ADDING_TRANSACTION:
-      return { ...state, addingTransaction: false };
+      return { ...state, addingTransaction: false, formVisible: false };
     case constants.RECEIVED_API_ERROR:
       return { ...state, error: action.error };
     default:

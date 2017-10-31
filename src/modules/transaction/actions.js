@@ -1,5 +1,6 @@
 import * as constants from "./constants";
 import { postTransaction, fetchUsers } from "./apiClient";
+import { fetchAllTransactions } from "src/modules/feed/actions";
 
 export const makeFormVisible = () => {
   return { type: constants.MAKE_FORM_VISIBLE };
@@ -13,8 +14,11 @@ export const startedAddingTransaction = () => {
   return { type: constants.STARTED_ADDING_TRANSACTION };
 };
 
-export const finishedAddingTransaction = () => {
-  return { type: constants.FINISHED_ADDING_TRANSACTION };
+export const finishedAddingTransaction = transaction => {
+  return {
+    type: constants.FINISHED_ADDING_TRANSACTION,
+    transaction: transaction
+  };
 };
 
 export const startedFetchingUsers = () => {
@@ -60,6 +64,13 @@ export const addTransaction = (
       receiverId,
       balanceId,
       apiToken
-    );
+    )
+      .then(transaction => {
+        dispatch(finishedAddingTransaction(transaction));
+        dispatch(fetchAllTransactions(apiToken));
+      })
+      .catch(error => {
+        return dispatch(receivedApiError(error));
+      });
   };
 };

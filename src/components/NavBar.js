@@ -27,7 +27,11 @@ export const NavBar = ({ makeFormVisible }) => {
         </Link>
       </div>
 
-      <button class={styles.kudoButton} onClick={() => makeFormVisible()}>
+      <button
+        class={styles.kudoButton}
+        id="openTransaction"
+        onClick={() => makeFormVisible()}
+      >
         <img src={kudoIcon} />
       </button>
 

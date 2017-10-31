@@ -12,7 +12,7 @@ describe("Transaction reducer", () => {
     });
   });
 
-  describe("fetch Current State", () => {
+  describe("handle new transactions", () => {
     it("handles STARTED_FETCHING_TRANSACTION", () => {
       expect(
         transaction([], { type: constants.STARTED_ADDING_TRANSACTION })
@@ -25,15 +25,19 @@ describe("Transaction reducer", () => {
       expect(
         transaction(
           {
-            addingTransaction: true
+            addingTransaction: true,
+            formVisible: true
           },
           { type: constants.FINISHED_ADDING_TRANSACTION }
         )
       ).to.eql({
-        addingTransaction: false
+        addingTransaction: false,
+        formVisible: false
       });
     });
+  });
 
+  describe("handle new transactions", () => {
     it("handles MAKE_FORM_VISIBLE", () => {
       expect(transaction([], { type: constants.MAKE_FORM_VISIBLE })).to.eql({
         formVisible: true
@@ -50,17 +54,6 @@ describe("Transaction reducer", () => {
         )
       ).to.eql({
         formVisible: false
-      });
-    });
-
-    it("handles RECEIVED_API_ERROR", () => {
-      expect(
-        transaction([], {
-          type: constants.RECEIVED_API_ERROR,
-          error: "API_ERROR"
-        })
-      ).to.eql({
-        error: "API_ERROR"
       });
     });
   });

@@ -5,7 +5,7 @@ import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 
 export const Transaction = ({ transaction, likeAction }) => {
   let thumb;
-  if (transaction.voted) {
+  if (transaction["api-user-voted"]) {
     thumb = LikeIconActive;
   } else {
     thumb = LikeIconInactive;
@@ -15,7 +15,7 @@ export const Transaction = ({ transaction, likeAction }) => {
       <div class={styles.transactionContent}>
         <div class={styles.transactionValue}>
           <div class={styles.value} id="kudoAmount">
-            {transaction.amount + transaction["likes-amount"]}
+            {transaction.amount + transaction["votes-count"]}
           </div>
           <div class={styles.kudoCurrency}>₭</div>
           <div class={styles.divider} />
@@ -24,7 +24,8 @@ export const Transaction = ({ transaction, likeAction }) => {
           <div class={styles.transactionText}>
             {transaction.sender.name}: {transaction.amount}{" "}
             <span class={styles.kudoCurrency}>₭</span> to{" "}
-            {transaction.receiver.name} for {transaction.activity.name}
+            <span id="receiver"> {transaction.receiver.name} </span>
+            for <span id="activity">{transaction.activity}</span>
           </div>
           <div class={styles.transactionTimestamp}>{transaction.interval}</div>
         </div>
@@ -38,7 +39,7 @@ export const Transaction = ({ transaction, likeAction }) => {
             <img src={thumb} />
           </a>
           <div class={styles.likes}>
-            + <span id="likeAmount">{transaction["likes-amount"]}</span>
+            + <span id="likeAmount">{transaction["votes-count"]}</span>
           </div>
         </div>
       </div>

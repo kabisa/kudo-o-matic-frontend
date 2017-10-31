@@ -1,5 +1,6 @@
 import Settings from "src/config/settings";
 import axios from "axios";
+import { Deserializer } from "jsonapi-serializer";
 
 const httpClient = axios.create({
   baseURL: Settings.apiLocation
@@ -18,8 +19,7 @@ export const fetchUsers = apiToken => {
     });
 
     request.then(response => {
-      var JSONAPIDeserializer = require("jsonapi-serializer").Deserializer;
-      var TransactionDeserialize = new JSONAPIDeserializer();
+      var TransactionDeserialize = new Deserializer();
       TransactionDeserialize.deserialize(response.data).then(u => resolve(u));
     });
   });
@@ -37,72 +37,36 @@ export const postTransaction = (
     "Content-Type": "application/vnd.api+json",
     "Api-Token": apiToken
   };
-
-  addActivity(activity).then(activityId => {
+  return new Promise(resolve => {
     const body = {
       data: {
         type: "transactions",
         attributes: {
-          amount: amount
+          amount: amount,
+          activity: activity
         },
         relationships: {
-          activity: {
-            data: {
-              type: "activities",
-              id: activityId
-            }
-          },
-          sender: {
-            data: {
-              type: "users",
-              id: senderId
-            }
-          },
           receiver: {
             data: {
               type: "users",
               id: receiverId
-            }
-          },
-          balance: {
-            data: {
-              type: "balances",
-              id: balanceId
             }
           }
         }
       }
     };
 
-    return new Promise(resolve => {
-      const request = httpClient.post("/transactions", body, {
+    const request = httpClient.post(
+      "/transactions?include=sender,receiver",
+      body,
+      {
         headers
-      });
-
-      request.then(response => {
-        resolve(response.data.data);
-      });
-    });
-  });
-};
-
-const addActivity = activity => {
-  const body = {
-    data: {
-      type: "activities",
-      attributes: {
-        name: activity
       }
-    }
-  };
-
-  return new Promise(resolve => {
-    const request = httpClient.post("/activities", body, {
-      headers
-    });
+    );
 
     request.then(response => {
-      resolve(response.data.data.id);
+      var TransactionDeserialize = new Deserializer();
+      TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
     });
   });
 };
