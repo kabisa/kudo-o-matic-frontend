@@ -15,7 +15,7 @@ export const fetchTransactions = apiToken => {
 
   return new Promise(resolve => {
     const request = api.get(
-      "transactions?include=activity,sender,receiver,votes&sort=-created_at",
+      "transactions?include=sender,receiver&sort=-created_at",
       {},
       {
         headers
@@ -29,7 +29,7 @@ export const fetchTransactions = apiToken => {
   });
 };
 
-export const voteTransaction = (apiToken, userId, transactionId) => {
+export const voteTransaction = (apiToken, transactionId) => {
   const headers = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -39,7 +39,7 @@ export const voteTransaction = (apiToken, userId, transactionId) => {
 
   return new Promise(resolve => {
     const request = api.put(
-      "transactions/" + transactionId + "/votes/" + userId,
+      "transactions/" + transactionId + "/votes",
       {},
       headers
     );
@@ -48,7 +48,7 @@ export const voteTransaction = (apiToken, userId, transactionId) => {
   });
 };
 
-export const unVoteTransaction = (apiToken, userId, transactionId) => {
+export const unVoteTransaction = (apiToken, transactionId) => {
   const headers = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -58,7 +58,7 @@ export const unVoteTransaction = (apiToken, userId, transactionId) => {
 
   return new Promise(resolve => {
     const request = api.delete(
-      "transactions/" + transactionId + "/votes/" + userId,
+      "transactions/" + transactionId + "/votes",
       {},
       headers
     );

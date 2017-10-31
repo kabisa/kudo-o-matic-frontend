@@ -34,23 +34,19 @@ export const unLikedTransaction = transactionId => {
   };
 };
 
-export const likeTransaction = (transactionId, userId, apiToken) => {
+export const likeTransaction = (transactionId, apiToken) => {
   return dispatch => {
-    return voteTransaction(
-      transactionId,
-      userId,
-      apiToken
-    ).then(transactionId => dispatch(likedTransaction(transactionId)));
+    return voteTransaction(transactionId, apiToken).then(transactionId =>
+      dispatch(likedTransaction(transactionId))
+    );
   };
 };
 
-export const unLikeTransaction = (transactionId, userId, apiToken) => {
+export const unLikeTransaction = (transactionId, apiToken) => {
   return dispatch => {
-    return unVoteTransaction(
-      transactionId,
-      userId,
-      apiToken
-    ).then(transactionId => dispatch(unLikedTransaction(transactionId)));
+    return unVoteTransaction(transactionId, apiToken).then(transactionId =>
+      dispatch(unLikedTransaction(transactionId))
+    );
   };
 };
 

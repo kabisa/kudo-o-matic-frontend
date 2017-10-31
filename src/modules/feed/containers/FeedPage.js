@@ -20,11 +20,11 @@ export class FeedPage extends Component {
 
   render({ transactions, user, like, unLike }) {
     const likeTransaction = transactionId => {
-      like(user.apiToken, user.id, transactionId);
+      like(user.apiToken, transactionId);
     };
 
     const unLikeTransaction = transactionId => {
-      unLike(user.apiToken, user.id, transactionId);
+      unLike(user.apiToken, transactionId);
     };
 
     return (
@@ -36,7 +36,7 @@ export class FeedPage extends Component {
         <ul class={styles.transactionList} id="transactionList">
           {transactions.map(transaction => {
             let likeAction;
-            transaction.voted
+            transaction["api-user-voted"]
               ? (likeAction = unLikeTransaction)
               : (likeAction = likeTransaction);
 
@@ -64,11 +64,11 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchTransactions: (token, userId) =>
       dispatch(fetchAllTransactions(token, userId)),
-    like: (apiToken, senderId, transactionId) => {
-      dispatch(likeTransaction(apiToken, senderId, transactionId));
+    like: (apiToken, transactionId) => {
+      dispatch(likeTransaction(apiToken, transactionId));
     },
-    unLike: (apiToken, senderId, transactionId) => {
-      dispatch(unLikeTransaction(apiToken, senderId, transactionId));
+    unLike: (apiToken, transactionId) => {
+      dispatch(unLikeTransaction(apiToken, transactionId));
     }
   };
 };
