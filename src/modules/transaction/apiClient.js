@@ -38,75 +38,35 @@ export const postTransaction = (
     "Api-Token": apiToken
   };
   return new Promise(resolve => {
-    addActivity(activity).then(activityId => {
-      const body = {
-        data: {
-          type: "transactions",
-          attributes: {
-            amount: amount
-          },
-          relationships: {
-            activity: {
-              data: {
-                type: "activities",
-                id: activityId
-              }
-            },
-            sender: {
-              data: {
-                type: "users",
-                id: senderId
-              }
-            },
-            receiver: {
-              data: {
-                type: "users",
-                id: receiverId
-              }
-            },
-            balance: {
-              data: {
-                type: "balances",
-                id: balanceId
-              }
+    const body = {
+      data: {
+        type: "transactions",
+        attributes: {
+          amount: amount,
+          activity: activity
+        },
+        relationships: {
+          receiver: {
+            data: {
+              type: "users",
+              id: receiverId
             }
           }
         }
-      };
-
-      const request = httpClient.post(
-        "/transactions?include=activity,sender,receiver,votes&sort=-created_at",
-        body,
-        {
-          headers
-        }
-      );
-
-      request.then(response => {
-        var TransactionDeserialize = new Deserializer();
-        TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
-      });
-    });
-  });
-};
-
-const addActivity = activity => {
-  const body = {
-    data: {
-      type: "activities",
-      attributes: {
-        name: activity
       }
-    }
-  };
+    };
 
-  return new Promise(resolve => {
-    const request = httpClient.post("/activities", body, {
-      headers
-    });
+    const request = httpClient.post(
+      "/transactions?include=sender,receiver",
+      body,
+      {
+        headers
+      }
+    );
 
     request.then(response => {
-      resolve(response.data.data.id);
+      var TransactionDeserialize = new Deserializer();
+      TransactionDeserialize.deserialize(response.data).then(t => resolve(t));
     });
   });
 };
