@@ -14,11 +14,11 @@
 
     button {
         position: absolute;
+        z-index: $form-button-z-index;
         left: 50%;
         height: 6.5rem;
         width: 6.5rem;
         margin-left: -3.25rem; //To center; half the width
-        z-index: $form-button-z-index;
         border-radius: 50%;
         border: 0.2rem solid white;
         outline: none;
