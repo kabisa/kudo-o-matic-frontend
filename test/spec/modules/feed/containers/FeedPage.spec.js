@@ -12,14 +12,14 @@ describe("FeedPage", function() {
       {
         id: 1,
         amount: 100,
-        activity: { name: "transaction1" },
+        activity: "transaction1",
         sender: { name: "Robin" },
         receiver: { name: "Luuk" }
       },
       {
         id: 2,
         amount: 200,
-        activity: { name: "transaction1" },
+        activity: "transaction1",
         sender: { name: "Luuk" },
         receiver: { name: "Robin" }
       }
@@ -37,7 +37,7 @@ describe("FeedPage", function() {
       <FeedPage
         transactions={transactions}
         user={user}
-        fetchTransactions={fetchTransactions}
+        fetchAllTransactions={fetchTransactions}
       />
     );
     expect(page.outerHTML).to.contain(
@@ -50,7 +50,7 @@ describe("FeedPage", function() {
       <FeedPage
         transactions={transactions}
         user={user}
-        fetchTransactions={fetchTransactions}
+        fetchAllTransactions={fetchTransactions}
       />
     );
     expect(page.outerHTML).to.contain(

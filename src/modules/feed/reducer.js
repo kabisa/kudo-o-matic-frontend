@@ -1,5 +1,5 @@
 import * as constants from "./constants";
-import { timeSince } from "../../support/dateUtils";
+import moment from "moment";
 
 const initialState = {
   fetching: false,
@@ -13,18 +13,12 @@ export const feed = (state = initialState, action) => {
       return { ...state, fetching: true };
     case constants.FINISHED_FETCHING_TRANSACTIONS: {
       const transactions = action.transactions.map(transaction => {
-        let voted = false;
-        transaction.votes.forEach(vote => {
-          if (vote["voter-id"] == action.userId) {
-            voted = true;
-          }
-        });
         return {
           ...transaction,
-          voted: voted,
-          interval: timeSince(transaction["created-at"])
+          interval: moment(transaction["created-at"]).fromNow()
         };
       });
+
       return { ...state, fetching: false, transactions: transactions };
     }
     case constants.LIKED_TRANSACTION: {
@@ -34,8 +28,8 @@ export const feed = (state = initialState, action) => {
             ? transaction
             : {
                 ...transaction,
-                voted: true,
-                "likes-amount": transaction["likes-amount"] + 1
+                "api-user-voted": true,
+                "votes-count": transaction["votes-count"] + 1
               }
       );
       return {
@@ -50,8 +44,8 @@ export const feed = (state = initialState, action) => {
             ? transaction
             : {
                 ...transaction,
-                voted: false,
-                "likes-amount": transaction["likes-amount"] - 1
+                "api-user-voted": false,
+                "votes-count": transaction["votes-count"] - 1
               }
       );
       return {

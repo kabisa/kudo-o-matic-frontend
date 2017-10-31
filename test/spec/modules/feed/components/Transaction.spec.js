@@ -3,17 +3,17 @@ import Transaction from "src/modules/feed/components/Transaction";
 import styles from "src/modules/feed/components/Transaction.scss";
 import { shallow } from "preact-render-spy";
 
-describe("KudoCounter", function() {
+describe("Transaction Item", function() {
   let transaction;
 
   beforeEach(function() {
     transaction = {
       id: 1,
       amount: 100,
-      activity: { name: "fixing bugs" },
+      activity: "fixing bugs",
       sender: { name: "Robin" },
       receiver: { name: "Luuk" },
-      "likes-amount": 5
+      "votes-count": 5
     };
   });
 
@@ -21,9 +21,9 @@ describe("KudoCounter", function() {
     const context = shallow(<Transaction transaction={transaction} />);
     expect(
       context.contains(
-        <div class={styles.value} id="kudoAmount">
+        <p class={styles.value} id="kudoAmount">
           105
-        </div>
+        </p>
       )
     ).to.be.true;
   });
@@ -32,10 +32,11 @@ describe("KudoCounter", function() {
     const context = shallow(<Transaction transaction={transaction} />);
     expect(
       context.contains(
-        <div class={styles.transactionText}>
-          Robin: 100 <span class={styles.kudoCurrency}>₭</span> to Luuk for
-          fixing bugs
-        </div>
+        <p class={styles.transactionText}>
+          Robin: 100 <span class={styles.kudoCurrency}>₭</span> to{" "}
+          <span id="receiver"> Luuk </span>
+          for <span id="activity">fixing bugs</span>
+        </p>
       )
     ).to.be.true;
   });

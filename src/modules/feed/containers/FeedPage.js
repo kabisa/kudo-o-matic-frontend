@@ -15,16 +15,16 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchTransactions(this.props.user.apiToken, this.props.user.id);
+    this.props.fetchAllTransactions(this.props.user.apiToken);
   }
 
-  render({ transactions, user, like, unLike }) {
-    const likeTransaction = transactionId => {
-      like(user.apiToken, user.id, transactionId);
+  render({ transactions, user, likeTransaction, unLikeTransaction }) {
+    const voteTransaction = transactionId => {
+      likeTransaction(user.apiToken, transactionId);
     };
 
-    const unLikeTransaction = transactionId => {
-      unLike(user.apiToken, user.id, transactionId);
+    const unVoteTransaction = transactionId => {
+      unLikeTransaction(user.apiToken, transactionId);
     };
 
     return (
@@ -35,10 +35,9 @@ export class FeedPage extends Component {
         <main />
         <ul class={styles.transactionList} id="transactionList">
           {transactions.map(transaction => {
-            let likeAction;
-            transaction.voted
-              ? (likeAction = unLikeTransaction)
-              : (likeAction = likeTransaction);
+            let likeAction = transaction["api-user-voted"]
+              ? (likeAction = unVoteTransaction)
+              : (likeAction = voteTransaction);
 
             return (
               <li key={transaction.id}>
@@ -60,17 +59,10 @@ const mapStateToProps = state => ({
   transactions: state.feed.transactions
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchTransactions: (token, userId) =>
-      dispatch(fetchAllTransactions(token, userId)),
-    like: (apiToken, senderId, transactionId) => {
-      dispatch(likeTransaction(apiToken, senderId, transactionId));
-    },
-    unLike: (apiToken, senderId, transactionId) => {
-      dispatch(unLikeTransaction(apiToken, senderId, transactionId));
-    }
-  };
+const mapDispatchToProps = {
+  fetchAllTransactions,
+  likeTransaction,
+  unLikeTransaction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedPage);

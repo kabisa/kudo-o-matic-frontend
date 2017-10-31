@@ -35,7 +35,7 @@ describe("Authentication API client", () => {
     it("performs token-request on auth-endpoint", done => {
       requestToken(googleToken);
 
-      setTimeout(() => {
+      return new Promise(resolve => setTimeout(resolve)).then(() => {
         const {
           method,
           url,

@@ -1,6 +1,6 @@
 import { feed } from "src/modules/feed/reducer";
 import * as constants from "src/modules/feed/constants";
-import { timeSince } from "src/support/dateUtils";
+import moment from "moment";
 
 describe("Feed reducer", () => {
   it("returns the initial state", () => {
@@ -29,13 +29,13 @@ describe("Feed reducer", () => {
               name: "Transaction1",
               amount: 100,
               "created-at": "2017-01-01T12:00:00.000Z",
-              votes: [{ "voter-id": 1 }, { "voter-id": 2 }]
+              "api-user-voted": false
             },
             {
               name: "Transaction2",
               amount: 110,
               "created-at": "2017-01-01T12:00:00.000Z",
-              votes: [{ "voter-id": 3 }, { "voter-id": 4 }]
+              "api-user-voted": true
             }
           ],
           userId: 3
@@ -47,17 +47,15 @@ describe("Feed reducer", () => {
             name: "Transaction1",
             amount: 100,
             "created-at": "2017-01-01T12:00:00.000Z",
-            votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
-            voted: false,
-            interval: timeSince("2017-01-01T12:00:00.000Z")
+            "api-user-voted": false,
+            interval: moment("2017-01-01T12:00:00.000Z").fromNow()
           },
           {
             name: "Transaction2",
             amount: 110,
             "created-at": "2017-01-01T12:00:00.000Z",
-            votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
-            voted: true,
-            interval: timeSince("2017-01-01T12:00:00.000Z")
+            "api-user-voted": true,
+            interval: moment("2017-01-01T12:00:00.000Z").fromNow()
           }
         ]
       });
@@ -70,17 +68,15 @@ describe("Feed reducer", () => {
         id: 1,
         name: "Transaction1",
         amount: 100,
-        votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
-        voted: false,
-        "likes-amount": 1
+        "api-user-voted": false,
+        "votes-count": 1
       },
       {
         id: 2,
         name: "Transaction2",
         amount: 110,
-        votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
-        voted: true,
-        "likes-amount": 1
+        "api-user-voted": true,
+        "votes-count": 1
       }
     ]
   };
@@ -98,17 +94,15 @@ describe("Feed reducer", () => {
             id: 1,
             name: "Transaction1",
             amount: 100,
-            votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
-            voted: true,
-            "likes-amount": 2
+            "api-user-voted": true,
+            "votes-count": 2
           },
           {
             id: 2,
             name: "Transaction2",
             amount: 110,
-            votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
-            voted: true,
-            "likes-amount": 1
+            "api-user-voted": true,
+            "votes-count": 1
           }
         ]
       });
@@ -126,17 +120,15 @@ describe("Feed reducer", () => {
             id: 1,
             name: "Transaction1",
             amount: 100,
-            votes: [{ "voter-id": 1 }, { "voter-id": 2 }],
-            voted: false,
-            "likes-amount": 1
+            "api-user-voted": false,
+            "votes-count": 1
           },
           {
             id: 2,
             name: "Transaction2",
             amount: 110,
-            votes: [{ "voter-id": 3 }, { "voter-id": 4 }],
-            voted: false,
-            "likes-amount": 0
+            "api-user-voted": false,
+            "votes-count": 0
           }
         ]
       });

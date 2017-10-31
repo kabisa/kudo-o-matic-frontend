@@ -5,7 +5,7 @@ import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 
 export const Transaction = ({ transaction, likeAction }) => {
   let thumb;
-  if (transaction.voted) {
+  if (transaction["api-user-voted"]) {
     thumb = LikeIconActive;
   } else {
     thumb = LikeIconInactive;
@@ -14,21 +14,20 @@ export const Transaction = ({ transaction, likeAction }) => {
     <div class={styles.transaction} id="transaction">
       <div class={styles.transactionContent}>
         <div class={styles.transactionValue}>
-          <div class={styles.value} id="kudoAmount">
-            {transaction.amount + transaction["likes-amount"]}
-          </div>
+          <p class={styles.value} id="kudoAmount">
+            {transaction.amount + transaction["votes-count"]}
+          </p>
           <div class={styles.kudoCurrency}>₭</div>
-          <div class={styles.divider} />
+          <hr class={styles.divider} />
         </div>
         <div class={styles.transactionDescription}>
-          <div class={styles.transactionText}>
+          <p class={styles.transactionText}>
             {transaction.sender.name}: {transaction.amount}{" "}
             <span class={styles.kudoCurrency}>₭</span> to{" "}
-            {transaction.receiver.name} for {transaction.activity.name}
-          </div>
-          <div class={styles.transactionTimestamp}>
-            {transaction.interval} ago
-          </div>
+            <span id="receiver"> {transaction.receiver.name} </span>
+            for <span id="activity">{transaction.activity}</span>
+          </p>
+          <p class={styles.transactionTimestamp}>{transaction.interval}</p>
         </div>
         <div class={styles.transactionAction}>
           <a
@@ -39,9 +38,9 @@ export const Transaction = ({ transaction, likeAction }) => {
           >
             <img src={thumb} />
           </a>
-          <div class={styles.likes}>
-            + <span id="likeAmount">{transaction["likes-amount"]}</span>
-          </div>
+          <p class={styles.likes}>
+            + <span id="likeAmount">{transaction["votes-count"]}</span>
+          </p>
         </div>
       </div>
       <hr class={styles.hr} />
