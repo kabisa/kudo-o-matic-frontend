@@ -22,12 +22,6 @@ export const feed = (state = initialState, action) => {
 
       return { ...state, fetching: false, transactions: transactions };
     }
-    case FINISHED_ADDING_TRANSACTION: {
-      return {
-        ...state,
-        transactions: state.transactions.concat(action.transaction)
-      };
-    }
     case constants.LIKED_TRANSACTION: {
       const _transactions = state.transactions.map(
         transaction =>

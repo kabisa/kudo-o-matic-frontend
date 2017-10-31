@@ -81,7 +81,7 @@ class TransactionForm extends Component {
                 name="amount"
                 type="number"
                 min="1"
-                max="500"
+                max="999"
                 className={styles.userSelection}
                 value={amount}
                 onInput={this.onInput}

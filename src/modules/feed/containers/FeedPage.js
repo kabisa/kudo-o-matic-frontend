@@ -15,7 +15,7 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchTransactions(this.props.user.apiToken, this.props.user.id);
+    this.props.fetchTransactions(this.props.user.apiToken);
   }
 
   render({ transactions, user, like, unLike }) {
@@ -62,8 +62,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchTransactions: (token, userId) =>
-      dispatch(fetchAllTransactions(token, userId)),
+    fetchTransactions: token => dispatch(fetchAllTransactions(token)),
     like: (apiToken, transactionId) => {
       dispatch(likeTransaction(apiToken, transactionId));
     },
