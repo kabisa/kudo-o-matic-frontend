@@ -20,8 +20,8 @@ name(
 )
 
 short_description(
-  'nl-NL' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects.",
-  'en-US' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects."
+  'nl-NL' => "Kabisa's Kudo-o-Matic",
+  'en-US' => "Kabisa's Kudo-o-Matic"
 )
 
 description(
