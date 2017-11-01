@@ -144,7 +144,11 @@ lane :deploy_ios do
       deliver ipa: "#{output_dir}/#{@app_name}.ipa",
               submit_for_review: true,
               force: true,
-              username: "info@kabisa.nl"
+              username: "info@kabisa.nl",
+              overwrite_screenshots: true,
+              metadata_path: "#{currentDir}/fastlane/metadata/",
+              screenshots_path: "#{currentDir}/fastlane/screenshots/",
+              app_icon: "#{currentDir}/src/assets/logo/AppStore-1024.png"
 
     end
 
