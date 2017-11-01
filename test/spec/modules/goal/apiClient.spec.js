@@ -44,7 +44,7 @@ describe("Goal API client", () => {
     it("performs GET-Request on goal-endpoint", done => {
       fetchCurrentBalance(API_TOKEN);
 
-      return new Promise(resolve => setTimeout(resolve)).then(() => {
+      new Promise(resolve => setTimeout(resolve)).then(() => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
         expect(method).to.eql("GET");
         expect(url).to.eql(`${Settings.apiLocation}/balances/current`);
@@ -99,7 +99,7 @@ describe("Goal API client", () => {
     it("performs GET-Request on goal-endpoint", done => {
       fetchNextGoal(API_TOKEN);
 
-      return new Promise(resolve => setTimeout(resolve)).then(() => {
+      new Promise(resolve => setTimeout(resolve)).then(() => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
         expect(method).to.eql("GET");
         expect(url).to.eql(`${Settings.apiLocation}/goals/next`);
