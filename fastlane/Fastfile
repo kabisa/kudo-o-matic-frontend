@@ -36,7 +36,7 @@ lane :prepare_android_metadata do
   p getDeliverOption("name", "nl-NL")
 
   sh 'rm -Rf fastlane/metadata/'
-  sh 'mdkir -p fastlane/metadata/android'
+  sh 'mkdir -p fastlane/metadata/android'
   sh 'rm -Rf fastlane/screenshots/*'
   sh 'mkdir -p fastlane/screenshots/android/'
 
