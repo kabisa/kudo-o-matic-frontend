@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="nl.kabisa.kudoomatic" version="1.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="nl.kabisa.kudoomatic" version="1.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>kudo-o-matic</name>
     <team_id>9H6JXDUXPW</team_id>
     <description />
     <content src="index.html" />
     <access origin="*" />
     <hook src="../node_modules/maji/cordova/hooks/before_platform_add.js" type="before_platform_add" />
+    <icon src="../src/assets/logo/AppStore-1024.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
