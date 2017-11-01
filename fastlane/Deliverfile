@@ -43,6 +43,7 @@ support_url(
 app_rating_config_path "fastlane/ratings_config.json"
 
 app_icon "src/assets/logo/AppStore-1024.png"
+android_app_icon "src/assets/logo/PlayStore-512.png"
 feature_graphic "src/assets/logo/PlayStore-feature-graphic.png"
 promo_graphic "src/assets/logo/PlayStore-promo-graphic.png"
 

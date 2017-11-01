@@ -51,7 +51,7 @@ lane :prepare_android_metadata do
     sh ("echo '#{getDeliverOption("name", "nl-NL")}' > fastlane/metadata/android/#{lang}/title.txt")
     sh ("echo '#{getDeliverOption("short_description", "nl-NL")}' > fastlane/metadata/android/#{lang}/short_description.txt")
     sh ("echo '#{getDeliverOption("description", "nl-NL")}' > fastlane/metadata/android/#{lang}/full_description.txt")
-    sh ("cp \"#{getSingleDeliverOption("app_icon")}\" fastlane/metadata/android/#{lang}/images/icon.png")
+    sh ("cp \"#{getSingleDeliverOption("android_app_icon")}\" fastlane/metadata/android/#{lang}/images/icon.png")
     sh ("cp \"#{getSingleDeliverOption("feature_graphic")}\" fastlane/metadata/android/#{lang}/images/featureGraphic.png")
     sh ("cp \"#{getSingleDeliverOption("promo_graphic")}\" fastlane/metadata/android/#{lang}/images/promoGraphic.png")
   end
