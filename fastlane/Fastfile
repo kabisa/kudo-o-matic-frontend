@@ -105,7 +105,7 @@ lane :deploy_android do
     )
 
     # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
-    sh 'echo $PWD && cp fastlane/screenshots/android/* fastlane/metadata/android/*/images/phoneScreenshots/'
+    sh 'cp fastlane/screenshots/android/* fastlane/metadata/android/*/images/phoneScreenshots/*'
     sh 'rm -Rf fastlane/screenshots/android/'
 
 
