@@ -18,7 +18,7 @@ def getSingleDeliverOption(option)
 end
 
 def getDeliverOption (option, language)
-    options = (sh ("cat fastlane/Deliverfile | egrep -zo '#{option}\\(([^\)]+)\)'")).chomp.sub! "#{option}(", ''
+    options = (sh ("cat fastlane/Deliverfile | grep -Ezo '#{option}\\(([^\)]+)\)'")).chomp.sub! "#{option}(", ''
     options = sanitizeDeliverString(options)
     found = options.split("\",")
     for lang in found do
@@ -32,7 +32,7 @@ def getDeliverOption (option, language)
 end
 
 lane :prepare_android_metadata do
-  languages = sanitizeDeliverString((sh("cat fastlane/Deliverfile | egrep -zo 'languages\(([^\)]+)\)'").chomp.sub! 'languages(', '')).split(',').map { |n| sanitizeDeliverString(n) }
+  languages = sanitizeDeliverString((sh("cat fastlane/Deliverfile | grep -Ezo 'languages\(([^\)]+)\)'").chomp.sub! 'languages(', '')).split(',').map { |n| sanitizeDeliverString(n) }
   p getDeliverOption("name", "nl-NL")
 
   sh 'rm -Rf fastlane/metadata/'
@@ -107,7 +107,6 @@ lane :deploy_android do
     # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
     sh 'echo $PWD && cp fastlane/screenshots/android/* fastlane/metadata/android/*/images/phoneScreenshots/'
     sh 'rm -Rf fastlane/screenshots/android/'
-
 
 
     supply  track: "production",
@@ -216,8 +215,8 @@ end
 before_all do
   message =  changelog_from_git_commits(commits_count: 1)
   @app_version = sh('cat ../cordova/config.xml | grep \'^<widget\' | sed -E \'s|^.*version="([^"]+)".*|\1|\'').chomp
-  @app_name = sh('cat ../cordova/config.xml | egrep \'<name>(.*?)<\/name>\' | sed -e \'s,.*<name>\([^<]*\)</name>.*,\1,g\'').chomp
-  @team_id = sh('cat ../cordova/config.xml | egrep \'<team_id>(.*?)<\/team_id>\' | sed -e \'s,.*<team_id>\([^<]*\)</team_id>.*,\1,g\'').chomp
+  @app_name = sh('cat ../cordova/config.xml | grep -E \'<name>(.*?)<\/name>\' | sed -e \'s,.*<name>\([^<]*\)</name>.*,\1,g\'').chomp
+  @team_id = sh('cat ../cordova/config.xml | grep -E \'<team_id>(.*?)<\/team_id>\' | sed -e \'s,.*<team_id>\([^<]*\)</team_id>.*,\1,g\'').chomp
   @app_identifier = sh('cat ../cordova/package.json | grep -o \'"name": *"[^"]*"\'  | grep -o \'"[^"]*"$\'').chomp.gsub!(/\A"|"\Z/, '')
   @environment = "development"
   if @branch == 'appstore'

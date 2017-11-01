@@ -14,7 +14,7 @@ xcode-select --install
 <tr>
 <th width="33%"><a href="http://brew.sh">Homebrew</a></td>
 <th width="33%">Installer Script</td>
-<th width="33%">Rubygems</td>
+<th width="33%">RubyGems</td>
 </tr>
 <tr>
 <td width="33%" align="center">macOS</td>
@@ -34,14 +34,14 @@ xcode-select --install
 fastlane deploy
 ```
 
+### prepare_android_metadata
+```
+fastlane prepare_android_metadata
+```
+
 ### deploy_android
 ```
 fastlane deploy_android
-```
-
-### android_supply
-```
-fastlane android_supply
 ```
 
 ### deploy_ios
