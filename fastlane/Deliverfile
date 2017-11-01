@@ -9,9 +9,19 @@
 app_identifier "nl.kabisa.kudoomatic" # The bundle identifier of your app
 username "info@kabisa.nl" # your Apple ID user
 
+languages(
+  'en-US',
+  'nl-NL',
+)
+
 name(
   'nl-NL' => "Kabisa Kudo-o-matic",
   'en-US' => "Kabisa Kudo-o-matic"
+)
+
+short_description(
+  'nl-NL' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects.",
+  'en-US' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects."
 )
 
 description(
@@ -33,6 +43,8 @@ support_url(
 app_rating_config_path "fastlane/ratings_config.json"
 
 app_icon "src/assets/logo/AppStore-1024.png"
+feature_graphic "src/assets/logo/PlayStore-feature-graphic.png"
+promo_graphic "src/assets/logo/PlayStore-promo-graphic.png"
 
 price_tier 0 # free app
 

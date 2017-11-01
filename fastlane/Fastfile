@@ -7,6 +7,57 @@ lane :deploy do
   end
 end
 
+
+def sanitizeDeliverString (deliverString)
+   return deliverString.gsub("^[\r\n]+|\.|[\r\n]+$", '').delete('\'').delete("\u0000").gsub(/\A[[:space:]]+|[[:space:]]+\z/, '')
+end
+
+def getSingleDeliverOption(option)
+  option = (((sh ("cat fastlane/Deliverfile | grep #{option}")).chomp.sub! option, ''))
+  return option.delete("\"").delete(" ")
+end
+
+def getDeliverOption (option, language)
+    options = (sh ("cat fastlane/Deliverfile | egrep -zo '#{option}\\(([^\)]+)\)'")).chomp.sub! "#{option}(", ''
+    options = sanitizeDeliverString(options)
+    found = options.split("\",")
+    for lang in found do
+      if lang.include? language
+        lang = lang.sub! (language + " =>"), ''
+        lang = sanitizeDeliverString(lang).chomp('"').reverse.chomp('"').reverse
+        return lang
+      end
+    end
+    return ""
+end
+
+lane :prepare_android_metadata do
+  languages = sanitizeDeliverString((sh("cat fastlane/Deliverfile | egrep -zo 'languages\(([^\)]+)\)'").chomp.sub! 'languages(', '')).split(',').map { |n| sanitizeDeliverString(n) }
+  p getDeliverOption("name", "nl-NL")
+
+  sh 'rm -Rf fastlane/metadata/'
+  sh 'mdkir -p fastlane/metadata/android'
+  sh 'rm -Rf fastlane/screenshots/*'
+  sh 'mkdir -p fastlane/screenshots/android/'
+
+  for lang in languages do
+    sh ("mkdir -p fastlane/metadata/android/#{lang}/images")
+    sh ("mkdir -p fastlane/metadata/android/#{lang}/images/phoneScreenshots")
+    sh ("mkdir -p fastlane/metadata/android/#{lang}/images/sevenInchScreenshots")
+    sh ("mkdir -p fastlane/metadata/android/#{lang}/images/tenInchScreenshots")
+    sh ("mkdir -p fastlane/metadata/android/#{lang}/images/tvScreenshots")
+    sh ("mkdir -p fastlane/metadata/android/#{lang}/images/wearScreenshots")
+    sh ("touch fastlane/metadata/android/#{lang}/video.txt")
+    sh ("echo '#{getDeliverOption("name", "nl-NL")}' > fastlane/metadata/android/#{lang}/title.txt")
+    sh ("echo '#{getDeliverOption("short_description", "nl-NL")}' > fastlane/metadata/android/#{lang}/short_description.txt")
+    sh ("echo '#{getDeliverOption("description", "nl-NL")}' > fastlane/metadata/android/#{lang}/full_description.txt")
+    sh ("cp \"#{getSingleDeliverOption("app_icon")}\" fastlane/metadata/android/#{lang}/images/icon.png")
+    sh ("cp \"#{getSingleDeliverOption("feature_graphic")}\" fastlane/metadata/android/#{lang}/images/featureGraphic.png")
+    sh ("cp \"#{getSingleDeliverOption("promo_graphic")}\" fastlane/metadata/android/#{lang}/images/promoGraphic.png")
+  end
+
+end
+
 lane :deploy_android do
   FileUtils.rm_rf('cordova/platforms/android/build/outputs/apk/.', secure: true)
   version_splitted = @app_version.split "."
@@ -38,11 +89,9 @@ lane :deploy_android do
 
     zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
 
-    sh 'rm -Rf fastlane/screenshots/*'
-
     sh("calabash-android resign #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}")
 
-    sh 'mkdir -p fastlane/screenshots/android/'
+    prepare_android_metadata
 
     avds_path = "~/.fastlane/avds/"
     sh("mkdir -p #{avds_path}")
@@ -58,6 +107,8 @@ lane :deploy_android do
     # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
     sh 'echo $PWD && cp fastlane/screenshots/android/* fastlane/metadata/android/*/images/phoneScreenshots/'
     sh 'rm -Rf fastlane/screenshots/android/'
+
+
 
     supply  track: "production",
             apk: "#{currentDir}/cordova/platforms/android/build/outputs/apk/android-release.apk",
