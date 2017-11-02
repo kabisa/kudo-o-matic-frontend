@@ -1,8 +1,8 @@
 import sinon from "sinon";
-import { fetchCurrentBalance } from "src/modules/goal/apiClient";
+import { fetchTransactions } from "src/modules/feed/apiClient";
 import Settings from "src/config/settings";
 
-describe("Transaction API client", () => {
+describe("Feed API client", () => {
   const API_TOKEN = "API_TOKEN";
 
   beforeEach(() => {
@@ -14,14 +14,16 @@ describe("Transaction API client", () => {
     this.sandbox.restore();
   });
 
-  describe("post new activity", () => {
-    it("performs Post-Request on activity-endpoint", done => {
-      fetchCurrentBalance(API_TOKEN);
+  describe("fetchTransactions", () => {
+    it("performs GET-Request on transactions-endpoint", done => {
+      fetchTransactions(API_TOKEN);
 
       new Promise(resolve => setTimeout(resolve)).then(() => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
         expect(method).to.eql("GET");
-        expect(url).to.eql(`${Settings.apiLocation}/balances/current`);
+        expect(url).to.eql(
+          `${Settings.apiLocation}/transactions?include=sender,receiver&sort=-created_at`
+        );
         expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
         done();
       });
