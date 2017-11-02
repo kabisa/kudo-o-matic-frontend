@@ -28,6 +28,7 @@
     "preact-compat": "^3.17.0",
     "preact-redux": "^2.0.2",
     "preact-router": "^2.5.7",
+    "preact-select": "^1.0.0",
     "raven-js": "^3.18.1",
     "react-select": "^1.0.0-rc.10",
     "redux": "^3.7.2",

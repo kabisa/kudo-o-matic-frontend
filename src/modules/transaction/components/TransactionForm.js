@@ -1,9 +1,9 @@
 import { h, Component } from "preact";
 import styles from "./TransactionForm.scss";
 import I18n from "src/config/i18n";
-import Select from "react-select";
 
 import kudoIcon from "src/assets/icons/kudo.svg";
+import photoIcon from "src/assets/icons/photo-camera.svg";
 
 class TransactionForm extends Component {
   constructor(props) {
@@ -77,20 +77,25 @@ class TransactionForm extends Component {
           <fieldset disabled={formDisabled}>
             <label>
               {I18n.t("transaction.amount")}
-              <input
-                name="amount"
-                type="number"
-                min="1"
-                max="999"
-                className={styles.userSelection}
-                value={amount}
-                onInput={this.onInput}
-              />
+              <div class={styles.amountInput}>
+                <input
+                  name="amount"
+                  type="number"
+                  min="1"
+                  max="999"
+                  className={styles.userSelection}
+                  value={amount}
+                  onInput={this.onInput}
+                  autoFocus={true}
+                  class={styles.amountInput}
+                />
+                <span class={styles.kudoCurrency}>₭</span>
+              </div>
             </label>
             <label>
               {I18n.t("transaction.receiver")}
 
-              <Select
+              <input
                 name="receiver"
                 value={receiver}
                 options={users.map(user => {
@@ -109,6 +114,12 @@ class TransactionForm extends Component {
                 onInput={this.onInput}
               />
             </label>
+
+            <div class={styles.imageButton}>
+              <img src={photoIcon} />
+              <p>Add a picture</p>
+            </div>
+
             <button
               id="submitTransaction"
               class={styles.kudoButton}

@@ -32,6 +32,10 @@
             height: 2.3rem;
         }
     }
+
+    button:hover {
+        background-color: $brand-blue-gradient;
+    }
 }
 
 .closeButton {
