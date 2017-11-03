@@ -46,6 +46,22 @@ export const fetchAllUsers = apiToken => {
   };
 };
 
+export const searchUser = (searchQuery, users) => {
+  let filteredUsers = [];
+  users.forEach(user => {
+    if (searchQuery.length) {
+      if (user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1) {
+        filteredUsers.push({ user });
+      }
+    }
+  });
+
+  return {
+    type: "FILTERED_USERS",
+    filteredUsers: filteredUsers.slice(0, 8)
+  };
+};
+
 export const addTransaction = (
   amount,
   activity,
