@@ -57,6 +57,8 @@ class TransactionForm extends Component {
     }
   }
 
+  openCamera() {}
+
   render(
     { formError, users },
     { error, amount, receiver, activity, formDisabled }
@@ -109,6 +111,7 @@ class TransactionForm extends Component {
                 onInput={this.onInput}
               />
             </label>
+            <div onClick={() => console.log("test")}>Add a Picture</div>
             <button
               id="submitTransaction"
               class={styles.kudoButton}
