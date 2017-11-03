@@ -14,7 +14,7 @@ export const fetchUsers = apiToken => {
   };
 
   return new Promise(resolve => {
-    const request = httpClient.get("/users?fields[users]=name", {
+    const request = httpClient.get("/users?fields[users]=name,avatar-url", {
       headers
     });
 
