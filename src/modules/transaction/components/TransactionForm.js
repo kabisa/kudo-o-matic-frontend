@@ -1,6 +1,10 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
 import styles from "./TransactionForm.scss";
 import I18n from "src/config/i18n";
+
+import { searchUser } from "src/modules/transaction/actions";
+import Suggestions from "./UserSuggestions";
 
 import kudoIcon from "src/assets/icons/kudo.svg";
 import photoIcon from "src/assets/icons/photo-camera.svg";
@@ -19,6 +23,7 @@ class TransactionForm extends Component {
     this.onInput = this.onInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.searchUsers = this.searchUsers.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -33,6 +38,13 @@ class TransactionForm extends Component {
     );
   }
 
+  searchUsers(e) {
+    let searchQuery = e.target.value;
+    this.setState({ receiver: searchQuery });
+    this.props.searchUser(searchQuery, this.props.users);
+    return false;
+  }
+
   onInput(e) {
     this.setState({ [e.target.name]: e.target.value });
     this.setState({ formSubmittable: this.isFormSubmittable() });
@@ -41,6 +53,11 @@ class TransactionForm extends Component {
   onChange(e) {
     this.setState({ receiver: e.value });
     this.setState({ formSubmittable: this.isFormSubmittable() });
+  }
+
+  onSelect(user) {
+    this.setState({ receiver: user });
+    this.props.searchUser("");
   }
 
   onSubmit(e) {
@@ -58,7 +75,7 @@ class TransactionForm extends Component {
   }
 
   render(
-    { formError, users },
+    { formError, filteredUsers },
     { error, amount, receiver, activity, formDisabled }
   ) {
     return (
@@ -96,12 +113,14 @@ class TransactionForm extends Component {
               {I18n.t("transaction.receiver")}
 
               <input
-                name="receiver"
                 value={receiver}
-                options={users.map(user => {
-                  return { value: user.id, label: user.name };
-                })}
-                onChange={this.onChange}
+                onInput={this.searchUsers}
+                placeholder="Search for users"
+              />
+              <Suggestions
+                searchQuery={receiver}
+                users={filteredUsers}
+                onSelect={this.onSelect}
               />
             </label>
             <label>
@@ -134,4 +153,13 @@ class TransactionForm extends Component {
   }
 }
 
-export default TransactionForm;
+const mapStateToProps = state => ({
+  filteredUsers: state.transaction.filteredUsers,
+  users: state.transaction.users
+});
+
+const mapDispatchToProps = {
+  searchUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);
