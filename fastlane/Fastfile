@@ -34,7 +34,7 @@ end
 
 def getIncrementedVersion(cordova_version)
   require 'spaceship'
-  Spaceship::Tunes.login("info@kabisa.nl")
+  Spaceship::Tunes.login("info@kabisa.nl", ENV['FASTLANE_PASSWORD'])
   app = Spaceship::Tunes::Application.find(@app_identifier)
   version = app.build_trains.keys.last
   last_version_num = version.split(".")[-1]
