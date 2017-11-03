@@ -18,7 +18,7 @@ pipeline {
 
     stages {
 
-        stage("Deploy hockey") {
+        stage("Deploy") {
             when {
                  anyOf {
                     branch 'demo';branch 'appstore';

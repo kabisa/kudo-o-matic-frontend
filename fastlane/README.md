@@ -34,6 +34,11 @@ xcode-select --install
 fastlane deploy
 ```
 
+### test
+```
+fastlane test
+```
+
 ### prepare_android_metadata
 ```
 fastlane prepare_android_metadata

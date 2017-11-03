@@ -31,9 +31,24 @@ def getDeliverOption (option, language)
     return ""
 end
 
+
+def getIncrementedVersion(cordova_version)
+  require 'spaceship'
+  Spaceship::Tunes.login
+  app = Spaceship::Tunes::Application.find(@app_identifier)
+  version = app.build_trains.keys.last
+  last_version_num = version.split(".")[-1]
+  version = version.chomp(last_version_num) + (last_version_num.to_i + 1).to_s
+  cordova_version = cordova_version.split(".")[0]
+  new_version = cordova_version + version.reverse.chomp(version.split(".")[0]).reverse
+
+  sh("xmlstarlet edit -L -N w=http://www.w3.org/ns/widgets -u \"//@version\" -v \"#{new_version}\" #{File.expand_path("../cordova/config.xml")}")
+
+  return new_version
+end
+
 lane :prepare_android_metadata do
   languages = sanitizeDeliverString((sh("cat fastlane/Deliverfile | grep -Ezo 'languages\(([^\)]+)\)'").chomp.sub! 'languages(', '')).split(',').map { |n| sanitizeDeliverString(n) }
-  p getDeliverOption("name", "nl-NL")
 
   sh 'rm -Rf fastlane/metadata/'
   sh 'mkdir -p fastlane/metadata/android'
@@ -214,10 +229,10 @@ end
 
 before_all do
   message =  changelog_from_git_commits(commits_count: 1)
-  @app_version = sh('cat ../cordova/config.xml | grep \'^<widget\' | sed -E \'s|^.*version="([^"]+)".*|\1|\'').chomp
+  @app_identifier = sh('cat ../cordova/package.json | grep -o \'"name": *"[^"]*"\'  | grep -o \'"[^"]*"$\'').chomp.gsub!(/\A"|"\Z/, '')
+  @app_version = getIncrementedVersion(sh('cat ../cordova/config.xml | grep \'^<widget\' | sed -E \'s|^.*version="([^"]+)".*|\1|\'').chomp)
   @app_name = sh('cat ../cordova/config.xml | grep -E \'<name>(.*?)<\/name>\' | sed -e \'s,.*<name>\([^<]*\)</name>.*,\1,g\'').chomp
   @team_id = sh('cat ../cordova/config.xml | grep -E \'<team_id>(.*?)<\/team_id>\' | sed -e \'s,.*<team_id>\([^<]*\)</team_id>.*,\1,g\'').chomp
-  @app_identifier = sh('cat ../cordova/package.json | grep -o \'"name": *"[^"]*"\'  | grep -o \'"[^"]*"$\'').chomp.gsub!(/\A"|"\Z/, '')
   @environment = "development"
   if @branch == 'appstore'
      @environment = "production"
