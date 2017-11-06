@@ -23,6 +23,7 @@ class TransactionForm extends Component {
     this.onInput = this.onInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.searchUsers = this.searchUsers.bind(this);
   }
 
@@ -56,8 +57,9 @@ class TransactionForm extends Component {
   }
 
   onSelect(user) {
-    this.setState({ receiver: user });
-    this.props.searchUser("");
+    console.log(user);
+    this.setState({ receiver: user.user.name });
+    this.props.searchUser("", []);
   }
 
   onSubmit(e) {

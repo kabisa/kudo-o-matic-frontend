@@ -1,22 +1,21 @@
 import { h, Component } from "preact";
+import styles from "./UserSuggestion.scss";
 
 export default class UserSuggestion extends Component {
   shouldComponentUpdate({ user, onSelect }) {
     return user !== this.props.user || onSelect !== this.props.onSelect;
   }
 
-  render({ user }) {
+  render({ onSelect, user }) {
     return (
       <div
-        class={{
-          "autocomplete-suggestion animated fadeInUp": true
-        }}
-        onClick={this.props.onSelect.bind(this, user)}
+        class={styles["autocomplete-suggestion"]}
+        onClick={() => onSelect(user)}
       >
-        <div class="left animated zoomIn">
-          <img src={user["avatar-url"]} />
+        <div class={styles.left}>
+          <img src={user.user["avatar-url"]} />
         </div>
-        <div class="right">{user.name}</div>
+        <div class={styles.right}>{user.user.name}</div>
       </div>
     );
   }

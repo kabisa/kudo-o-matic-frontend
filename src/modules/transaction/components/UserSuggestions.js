@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import UserSuggestion from "./UserSuggestion";
+import styles from "./UserSuggestions.scss";
 
 export default class Suggestions extends Component {
   shouldComponentUpdate({
@@ -20,18 +21,14 @@ export default class Suggestions extends Component {
 
   render({ searchQuery, users, onSelect }) {
     return (
-      <div class="autocomplete-suggestions">
+      <div class={styles["autocomplete-suggestions"]}>
         {searchQuery && searchQuery.length && users.length ? (
           users.map((user, i) => (
-            <UserSuggestion
-              key={Object.keys(user)[0]}
-              onSelect={onSelect}
-              user={user}
-            />
+            <UserSuggestion key={i} onSelect={onSelect} user={user} />
           ))
         ) : searchQuery && searchQuery.length ? (
-          <div class="autocomplete-suggestion">
-            No country found with that name.
+          <div class={styles["autocomplete-nosuggestions"]}>
+            No users found with that name.
           </div>
         ) : null}
       </div>
