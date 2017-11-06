@@ -1,18 +1,24 @@
 .autocomplete-suggestion {
-    height: 2rem;
+    height: 3rem;
+    margin: 0.3rem;
     overflow: hidden;
     display: flex;
     align-items: center;
-    z-index: 500;
 
     .left {
-        width: 2rem;
-        padding: 10px;
-        height: 2rem;
+        width: 3rem;
+        height: 3rem;
+        margin: 0.5rem;
 
         img {
-            max-width: 2rem;
-            max-height: 2rem;
+            border-radius: 50%;
+            max-width: 3rem;
+            max-height: 3rem;
         }
+    }
+
+    .right {
+        font-size: 0.9rem;
+        font-weight: 300;
     }
 }
