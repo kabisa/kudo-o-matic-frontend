@@ -19,6 +19,8 @@ class TransactionForm extends Component {
     this.onInput = this.onInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.openCamera = this.openCamera.bind(this);
+    this.addPicture = this.addPicture.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -58,12 +60,22 @@ class TransactionForm extends Component {
   }
 
   openCamera() {
-    camera.getPicture(this.addPicture, this.handleCameraError, options);
+    console.log("hello");
+    navigator.camera.getPicture(
+      this.addPicture,
+      this.handleCameraError,
+      setCameraOptions
+    );
   }
 
-  addPicture() {}
+  addPicture(imageData) {
+    let image = document.getElementById("picture");
+    image.src = "data:image/jpeg;base64," + imageData;
+  }
 
-  handleCameraError() {}
+  handleCameraError(error) {
+    console.log(error);
+  }
 
   render(
     { formError, users },
@@ -117,7 +129,7 @@ class TransactionForm extends Component {
                 onInput={this.onInput}
               />
             </label>
-            <div onClick={() => console.log("test")}>Add a Picture</div>
+            <div onClick={this.openCamera}>Add a Picture</div>
             <button
               id="submitTransaction"
               class={styles.kudoButton}
@@ -131,5 +143,17 @@ class TransactionForm extends Component {
     );
   }
 }
+
+const setCameraOptions = () => {
+  let options = {
+    quality: 50,
+    destinationType: navigator.Camera.DestinationType.DATA_URL,
+    encodingType: navigator.Camera.EncodingType.JPEG,
+    mediaType: navigator.Camera.MediaType.PICTURE,
+    allowEdit: true,
+    correctOrientation: true
+  };
+  return options;
+};
 
 export default TransactionForm;
