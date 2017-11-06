@@ -57,7 +57,13 @@ class TransactionForm extends Component {
     }
   }
 
-  openCamera() {}
+  openCamera() {
+    camera.getPicture(this.addPicture, this.handleCameraError, options);
+  }
+
+  addPicture() {}
+
+  handleCameraError() {}
 
   render(
     { formError, users },
