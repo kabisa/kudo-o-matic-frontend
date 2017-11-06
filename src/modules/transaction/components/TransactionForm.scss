@@ -9,6 +9,7 @@
     label,
     textarea {
         display: block;
+        position: relative;
     }
 
     input,
@@ -21,10 +22,6 @@
         font-weight: 300;
         margin-top: 0.3rem;
         outline: none;
-    }
-
-    input.Select-control {
-        width: 100%;
     }
 
     label {
