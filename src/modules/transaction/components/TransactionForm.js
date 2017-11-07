@@ -60,11 +60,10 @@ class TransactionForm extends Component {
   }
 
   openCamera() {
-    console.log("hello");
     navigator.camera.getPicture(
       this.addPicture,
       this.handleCameraError,
-      setCameraOptions
+      setCameraOptions()
     );
   }
 
@@ -147,9 +146,9 @@ class TransactionForm extends Component {
 const setCameraOptions = () => {
   let options = {
     quality: 50,
-    destinationType: navigator.Camera.DestinationType.DATA_URL,
-    encodingType: navigator.Camera.EncodingType.JPEG,
-    mediaType: navigator.Camera.MediaType.PICTURE,
+    destinationType: Camera.DestinationType.DATA_URL,
+    encodingType: Camera.EncodingType.JPEG,
+    mediaType: Camera.MediaType.PICTURE,
     allowEdit: true,
     correctOrientation: true
   };
