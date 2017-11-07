@@ -5,6 +5,7 @@ import I18n from "src/config/i18n";
 
 import { searchUser } from "src/modules/transaction/actions";
 import Suggestions from "./UserSuggestions";
+import SelectedUser from "./SelectedUser";
 
 import kudoIcon from "src/assets/icons/kudo.svg";
 import photoIcon from "src/assets/icons/photo-camera.svg";
@@ -14,17 +15,17 @@ class TransactionForm extends Component {
     super(props);
     this.state = {
       error: "",
-      amount: 0,
-      receiver: "",
+      amount: "",
+      receiver: {},
       activity: "",
       formSubmittable: false,
       formDisabled: false
     };
     this.onInput = this.onInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.searchUsers = this.searchUsers.bind(this);
+    this.clearSelection = this.clearSelection.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -34,14 +35,14 @@ class TransactionForm extends Component {
   isFormSubmittable() {
     return (
       this.state.amount !== "" &&
-      this.state.receiver !== "" &&
+      this.state.receiver !== undefined &&
       this.state.activity !== ""
     );
   }
 
   searchUsers(e) {
     let searchQuery = e.target.value;
-    this.setState({ receiver: searchQuery });
+    this.setState({ receiver: { name: searchQuery } });
     this.props.searchUser(searchQuery, this.props.users);
     return false;
   }
@@ -51,15 +52,14 @@ class TransactionForm extends Component {
     this.setState({ formSubmittable: this.isFormSubmittable() });
   }
 
-  onChange(e) {
-    this.setState({ receiver: e.value });
+  onSelect(user) {
+    this.setState({ receiver: user.user });
+    this.props.searchUser("", []);
     this.setState({ formSubmittable: this.isFormSubmittable() });
   }
 
-  onSelect(user) {
-    console.log(user);
-    this.setState({ receiver: user.user.name });
-    this.props.searchUser("", []);
+  clearSelection() {
+    this.setState({ receiver: {} });
   }
 
   onSubmit(e) {
@@ -70,7 +70,7 @@ class TransactionForm extends Component {
       this.setState({ formDisabled: true });
       this.props.addTransaction(
         this.state.amount,
-        this.state.receiver,
+        this.state.receiver.id,
         this.state.activity
       );
     }
@@ -114,16 +114,25 @@ class TransactionForm extends Component {
             <label>
               {I18n.t("transaction.receiver")}
 
-              <input
-                value={receiver}
-                onInput={this.searchUsers}
-                placeholder="Search for users"
-              />
-              <Suggestions
-                searchQuery={receiver}
-                users={filteredUsers}
-                onSelect={this.onSelect}
-              />
+              {receiver.id !== undefined ? (
+                <SelectedUser
+                  user={receiver}
+                  clearSelection={this.clearSelection}
+                />
+              ) : (
+                <div>
+                  <input
+                    value={receiver.name}
+                    onInput={this.searchUsers}
+                    placeholder="Search for users"
+                  />
+                  <Suggestions
+                    searchQuery={receiver.name}
+                    users={filteredUsers}
+                    onSelect={this.onSelect}
+                  />
+                </div>
+              )}
             </label>
             <label>
               {I18n.t("transaction.giving_kudos_for")}
