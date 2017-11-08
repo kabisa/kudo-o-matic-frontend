@@ -7,6 +7,17 @@ lane :deploy do
   end
 end
 
+def fixAvdLocation()
+  json_file = "fastlane/AVD_setup.json"
+
+  json = JSON.parse(File.read(json_file))
+
+  json["avd_list"].each do |avd|
+    avd["create_avd_hardware_config_filepath"] = File.expand_path(avd["create_avd_hardware_config_filepath"])
+  end
+
+  File.write(json_file, JSON.pretty_generate(json))
+end
 
 def sanitizeDeliverString (deliverString)
    return deliverString.gsub("^[\r\n]+|\.|[\r\n]+$", '').delete('\'').delete("\u0000").gsub(/\A[[:space:]]+|[[:space:]]+\z/, '')
@@ -47,7 +58,7 @@ def getIncrementedVersion(cordova_version)
   return new_version
 end
 
-lane :prepare_android_metadata do
+def prepare_android_metadata()
   languages = sanitizeDeliverString((sh("cat fastlane/Deliverfile | grep -Ezo 'languages\(([^\)]+)\)'").chomp.sub! 'languages(', '')).split(',').map { |n| sanitizeDeliverString(n) }
 
   sh 'rm -Rf fastlane/metadata/'
@@ -108,10 +119,7 @@ lane :deploy_android do
 
     prepare_android_metadata
 
-    avds_path = "~/.fastlane/avds/"
-    sh("mkdir -p #{avds_path}")
-    sh("rm -Rf #{avds_path}/*")
-    sh("cp fastlane/avds/* #{avds_path}")
+    fixAvdLocation
 
     automated_test_emulator_run(
       ADB_restart: false,
