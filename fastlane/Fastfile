@@ -157,7 +157,8 @@ lane :lane_deploy_ios do
     #generate new screenshots
     snapshot  project: "#{currentDir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
               output_directory: "#{currentDir}/fastlane/screenshots/",
-              scheme: @app_name
+              scheme: @app_name,
+              skip_helper_version_check: true
 
 
     deliver ipa: "#{output_dir}/#{@app_name}.ipa",
