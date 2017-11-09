@@ -18,6 +18,7 @@ class TransactionForm extends Component {
       amount: "",
       receiver: {},
       activity: "",
+      img: "",
       formSubmittable: false,
       formDisabled: false
     };
@@ -26,7 +27,6 @@ class TransactionForm extends Component {
     this.onSelect = this.onSelect.bind(this);
     this.searchUsers = this.searchUsers.bind(this);
     this.clearSelection = this.clearSelection.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.openCamera = this.openCamera.bind(this);
     this.addPicture = this.addPicture.bind(this);
   }
@@ -89,7 +89,7 @@ class TransactionForm extends Component {
 
   addPicture(imageData) {
     let image = document.getElementById("picture");
-    console.log(imageData);
+    this.setState({ img: imageData });
     image.src = "data:image/jpeg;base64," + imageData;
   }
 
@@ -165,11 +165,9 @@ class TransactionForm extends Component {
                 onInput={this.onInput}
               />
             </label>
-            <div onClick={this.openCamera}>Add a Picture</div>
 
-
-            <div class={styles.imageButton}>
-              <img src={photoIcon} />
+            <div class={styles.imageButton} onClick={this.openCamera}>
+              <img id="picture" src={photoIcon} />
               <p>Add a picture</p>
             </div>
 
@@ -178,7 +176,6 @@ class TransactionForm extends Component {
               class={styles.kudoButton}
               type="submit"
             >
-              <img id="picture" />
               <img src={kudoIcon} />
             </button>
           </fieldset>
@@ -200,7 +197,6 @@ const setCameraOptions = () => {
   return options;
 };
 
-export default TransactionForm;
 const mapStateToProps = state => ({
   filteredUsers: state.transaction.filteredUsers,
   users: state.transaction.users
