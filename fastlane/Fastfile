@@ -182,8 +182,8 @@ def check_version
 
 end
 
-def get_android_version(version)
-  version_splitted = version "."
+def get_android_version (config_version)
+  version_splitted = config_version.split "."
   version_splitted[0] + "00" + version_splitted[1] + version_splitted[2]
 end
 
