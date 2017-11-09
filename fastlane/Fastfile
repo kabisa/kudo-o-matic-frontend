@@ -26,8 +26,6 @@ lane :lane_deploy do
     check_version
   end
 
-  raise "STOP!"
-
   if @build_hockey || @deploy_store
     lane_deploy_android
     lane_deploy_ios
