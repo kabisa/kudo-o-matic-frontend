@@ -1,5 +1,6 @@
 import { h } from "preact";
 import styles from "./SelectedObject.scss";
+import clearIcon from "src/assets/icons/clear.svg";
 
 const SelectedUser = ({ user, clearSelection }) => {
   return (
@@ -9,7 +10,7 @@ const SelectedUser = ({ user, clearSelection }) => {
       </div>
       <div class={styles.right}>{user.name}</div>
       <div onClick={clearSelection} class={styles.clear}>
-        Clear
+        <img src={clearIcon} />
       </div>
     </div>
   );

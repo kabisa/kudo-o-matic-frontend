@@ -30,7 +30,12 @@
     }
 
     .clear {
-        font-size: 0.8rem;
-        margin-right: 2rem;
+        width: 2.5rem;
+        margin-right: 1.5rem;
+
+        img {
+            max-width: 1.5rem;
+            max-height: 1.5rem;
+        }
     }
 }
