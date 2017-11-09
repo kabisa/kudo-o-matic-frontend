@@ -1,5 +1,5 @@
 import { h } from "preact";
-import styles from "./SelectedUser.scss";
+import styles from "./SelectedObject.scss";
 
 const SelectedUser = ({ user, clearSelection }) => {
   return (
