@@ -180,7 +180,7 @@ def check_version
   apple_version = app.build_trains.keys.last
 
   if Gem::Version.new(@config_version) <= Gem::Version.new(apple_version)
-    raise 'The version is your Cordova config is NOT higher than the version in iTunes Connect. Please increment your version.'
+    raise 'The version is your Cordova config is NOT higher than the version in iTunes Connect. Please increment your version. The iTunes Connect version is: ' + apple_version
   end
 
 end
