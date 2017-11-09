@@ -64,9 +64,9 @@ export const searchUser = (searchQuery, users) => {
 export const addTransaction = (
   amount,
   activity,
-  senderId,
   receiverId,
-  balanceId,
+  imageData,
+  fileType,
   apiToken
 ) => {
   return dispatch => {
@@ -75,9 +75,9 @@ export const addTransaction = (
     return postTransaction(
       amount,
       activity,
-      senderId,
       receiverId,
-      balanceId,
+      imageData,
+      fileType,
       apiToken
     )
       .then(transaction => {
