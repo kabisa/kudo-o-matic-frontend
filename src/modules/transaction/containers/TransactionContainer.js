@@ -13,13 +13,19 @@ export class TransactionContainer extends Component {
   }
 
   render({ user, users }) {
-    const makeTransaction = (amount, receiver, activity) => {
+    const makeTransaction = (
+      amount,
+      receiver,
+      activity,
+      imageData,
+      fileType
+    ) => {
       this.props.postTransaction(
         amount,
         activity,
-        user.id,
         receiver,
-        4,
+        imageData,
+        fileType,
         user.apiToken
       );
     };
@@ -53,18 +59,18 @@ const mapDispatchToProps = dispatch => {
     postTransaction: (
       amount,
       activity,
-      userId,
       receiverId,
-      balanceId,
+      imageData,
+      fileType,
       apiToken
     ) => {
       dispatch(
         addTransaction(
           amount,
           activity,
-          userId,
           receiverId,
-          balanceId,
+          imageData,
+          fileType,
           apiToken
         )
       );
