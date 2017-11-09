@@ -6,6 +6,7 @@ import I18n from "src/config/i18n";
 import { searchUser } from "src/modules/transaction/actions";
 import Suggestions from "./UserSuggestions";
 import SelectedUser from "./SelectedUser";
+import SelectedImage from "./SelectedImage";
 
 import kudoIcon from "src/assets/icons/kudo.svg";
 import photoIcon from "src/assets/icons/photo-camera.svg";
@@ -16,8 +17,9 @@ class TransactionForm extends Component {
     this.state = {
       error: "",
       amount: "",
-      receiver: {},
+      receiver: { name: "", id: "" },
       activity: "",
+      imageData: "",
       formSubmittable: false,
       formDisabled: false
     };
@@ -26,6 +28,9 @@ class TransactionForm extends Component {
     this.onSelect = this.onSelect.bind(this);
     this.searchUsers = this.searchUsers.bind(this);
     this.clearSelection = this.clearSelection.bind(this);
+    this.clearImage = this.clearImage.bind(this);
+    this.openCamera = this.openCamera.bind(this);
+    this.addPicture = this.addPicture.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -35,14 +40,14 @@ class TransactionForm extends Component {
   isFormSubmittable() {
     return (
       this.state.amount !== "" &&
-      this.state.receiver !== undefined &&
+      this.state.receiver.id !== "" &&
       this.state.activity !== ""
     );
   }
 
   searchUsers(e) {
     let searchQuery = e.target.value;
-    this.setState({ receiver: { name: searchQuery } });
+    this.setState({ receiver: { name: searchQuery, id: "" } });
     this.props.searchUser(searchQuery, this.props.users);
     return false;
   }
@@ -59,26 +64,49 @@ class TransactionForm extends Component {
   }
 
   clearSelection() {
-    this.setState({ receiver: {} });
+    this.setState({ receiver: { name: "", id: "" } });
+    this.setState({ formSubmittable: this.isFormSubmittable() });
+  }
+
+  clearImage() {
+    this.setState({ imageData: "" });
   }
 
   onSubmit(e) {
     e.preventDefault();
     if (!this.state.formSubmittable) {
-      this.setState({ error: true });
+      this.setState({ error: I18n.t("transaction.transactionError") });
     } else {
       this.setState({ formDisabled: true });
       this.props.addTransaction(
         this.state.amount,
         this.state.receiver.id,
-        this.state.activity
+        this.state.activity,
+        this.state.imageData,
+        "jpg"
       );
     }
   }
 
+  openCamera() {
+    navigator.camera.getPicture(
+      this.addPicture,
+      this.handleCameraError,
+      setCameraOptions()
+    );
+  }
+
+  addPicture(imageData) {
+    this.setState({ imageData: imageData });
+  }
+
+  handleCameraError() {
+    this.setState({ error: I18n.t("transaction.cameraError") });
+  }
+
   render(
     { formError, filteredUsers },
-    { error, amount, receiver, activity, formDisabled }
+    { error, amount, receiver, activity, imageData, formDisabled }
   ) {
     return (
       <div>
@@ -88,11 +116,7 @@ class TransactionForm extends Component {
               {I18n.t("transaction.formError")}
             </div>
           )}
-          {error && (
-            <div class={styles.formError}>
-              {I18n.t("transaction.transactionError")}
-            </div>
-          )}
+          {error !== "" && <div class={styles.formError}>{error}</div>}
           <fieldset disabled={formDisabled}>
             <label>
               {I18n.t("transaction.amount")}
@@ -114,7 +138,7 @@ class TransactionForm extends Component {
             <label>
               {I18n.t("transaction.receiver")}
 
-              {receiver.id !== undefined ? (
+              {receiver.id !== "" ? (
                 <SelectedUser
                   user={receiver}
                   clearSelection={this.clearSelection}
@@ -145,11 +169,17 @@ class TransactionForm extends Component {
               />
             </label>
 
-            <div class={styles.imageButton}>
-              <img src={photoIcon} />
-              <p>Add a picture</p>
-            </div>
-
+            {imageData !== "" ? (
+              <SelectedImage
+                imageData={imageData}
+                clearImage={this.clearImage}
+              />
+            ) : (
+              <div class={styles.imageButton} onClick={this.openCamera}>
+                <img id="picture" src={photoIcon} />
+                <p>Add a picture</p>
+              </div>
+            )}
             <button
               id="submitTransaction"
               class={styles.kudoButton}
@@ -163,6 +193,18 @@ class TransactionForm extends Component {
     );
   }
 }
+
+const setCameraOptions = () => {
+  let options = {
+    quality: 50,
+    destinationType: Camera.DestinationType.DATA_URL,
+    encodingType: Camera.EncodingType.JPEG,
+    mediaType: Camera.MediaType.PICTURE,
+    allowEdit: true,
+    correctOrientation: true
+  };
+  return options;
+};
 
 const mapStateToProps = state => ({
   filteredUsers: state.transaction.filteredUsers,

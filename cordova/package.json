@@ -13,12 +13,18 @@
             "cordova-plugin-whitelist": {},
             "cordova-plugin-googleplus": {
                 "REVERSED_CLIENT_ID": "com.googleusercontent.apps.242980876083-0cksfoq3gqljjc7n0b1mflpasg0t544l"
+            },
+            "cordova-plugin-camera": {
+                "CAMERA_USAGE_DESCRIPTION": " ",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
             }
         }
     },
     "dependencies": {
         "cordova-android": "~6.2.3",
-        "cordova-ios": "^4.4.0",
+        "cordova-ios": "^4.5.3",
+        "cordova-plugin-camera": "^2.4.1",
+        "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
         "cordova-plugin-networkactivityindicator": "~0.1.1",
         "cordova-plugin-splashscreen": "~4.0.0",

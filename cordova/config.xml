@@ -15,7 +15,11 @@
     <preference name="android-targetSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="local" />
     <engine name="android" spec="~6.2.3" />
-    <engine name="ios" spec="^4.4.0" />
+    <engine name="ios" spec="^4.5.3" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.242980876083-0cksfoq3gqljjc7n0b1mflpasg0t544l" />
     </plugin>
