@@ -19,9 +19,14 @@ before_all do
 end
 
 lane :lane_deploy do
+  p @deploy_store
+
   if @deploy_store
+    p "Checking version"
     check_version
   end
+
+  raise "STOP!"
 
   if @build_hockey || @deploy_store
     lane_deploy_android
