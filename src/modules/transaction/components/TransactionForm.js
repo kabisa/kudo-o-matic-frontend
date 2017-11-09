@@ -1,23 +1,31 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
 import styles from "./TransactionForm.scss";
 import I18n from "src/config/i18n";
-import Select from "react-select";
+
+import { searchUser } from "src/modules/transaction/actions";
+import Suggestions from "./UserSuggestions";
+import SelectedUser from "./SelectedUser";
 
 import kudoIcon from "src/assets/icons/kudo.svg";
+import photoIcon from "src/assets/icons/photo-camera.svg";
 
 class TransactionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       error: "",
-      amount: 0,
-      receiver: "",
+      amount: "",
+      receiver: {},
       activity: "",
       formSubmittable: false,
       formDisabled: false
     };
     this.onInput = this.onInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.searchUsers = this.searchUsers.bind(this);
+    this.clearSelection = this.clearSelection.bind(this);
     this.onChange = this.onChange.bind(this);
     this.openCamera = this.openCamera.bind(this);
     this.addPicture = this.addPicture.bind(this);
@@ -30,9 +38,16 @@ class TransactionForm extends Component {
   isFormSubmittable() {
     return (
       this.state.amount !== "" &&
-      this.state.receiver !== "" &&
+      this.state.receiver !== undefined &&
       this.state.activity !== ""
     );
+  }
+
+  searchUsers(e) {
+    let searchQuery = e.target.value;
+    this.setState({ receiver: { name: searchQuery } });
+    this.props.searchUser(searchQuery, this.props.users);
+    return false;
   }
 
   onInput(e) {
@@ -40,9 +55,14 @@ class TransactionForm extends Component {
     this.setState({ formSubmittable: this.isFormSubmittable() });
   }
 
-  onChange(e) {
-    this.setState({ receiver: e.value });
+  onSelect(user) {
+    this.setState({ receiver: user.user });
+    this.props.searchUser("", []);
     this.setState({ formSubmittable: this.isFormSubmittable() });
+  }
+
+  clearSelection() {
+    this.setState({ receiver: {} });
   }
 
   onSubmit(e) {
@@ -53,7 +73,7 @@ class TransactionForm extends Component {
       this.setState({ formDisabled: true });
       this.props.addTransaction(
         this.state.amount,
-        this.state.receiver,
+        this.state.receiver.id,
         this.state.activity
       );
     }
@@ -78,7 +98,7 @@ class TransactionForm extends Component {
   }
 
   render(
-    { formError, users },
+    { formError, filteredUsers },
     { error, amount, receiver, activity, formDisabled }
   ) {
     return (
@@ -97,27 +117,43 @@ class TransactionForm extends Component {
           <fieldset disabled={formDisabled}>
             <label>
               {I18n.t("transaction.amount")}
-              <input
-                name="amount"
-                type="number"
-                min="1"
-                max="999"
-                className={styles.userSelection}
-                value={amount}
-                onInput={this.onInput}
-              />
+              <div class={styles.amountInput}>
+                <input
+                  name="amount"
+                  type="number"
+                  min="1"
+                  max="999"
+                  className={styles.userSelection}
+                  value={amount}
+                  onInput={this.onInput}
+                  autoFocus={true}
+                  class={styles.amountInput}
+                />
+                <span class={styles.kudoCurrency}>₭</span>
+              </div>
             </label>
             <label>
               {I18n.t("transaction.receiver")}
 
-              <Select
-                name="receiver"
-                value={receiver}
-                options={users.map(user => {
-                  return { value: user.id, label: user.name };
-                })}
-                onChange={this.onChange}
-              />
+              {receiver.id !== undefined ? (
+                <SelectedUser
+                  user={receiver}
+                  clearSelection={this.clearSelection}
+                />
+              ) : (
+                <div>
+                  <input
+                    value={receiver.name}
+                    onInput={this.searchUsers}
+                    placeholder="Search for users"
+                  />
+                  <Suggestions
+                    searchQuery={receiver.name}
+                    users={filteredUsers}
+                    onSelect={this.onSelect}
+                  />
+                </div>
+              )}
             </label>
             <label>
               {I18n.t("transaction.giving_kudos_for")}
@@ -130,6 +166,12 @@ class TransactionForm extends Component {
               />
             </label>
             <div onClick={this.openCamera}>Add a Picture</div>
+
+
+            <div class={styles.imageButton}>
+              <img src={photoIcon} />
+              <p>Add a picture</p>
+            </div>
 
             <button
               id="submitTransaction"
@@ -159,3 +201,13 @@ const setCameraOptions = () => {
 };
 
 export default TransactionForm;
+const mapStateToProps = state => ({
+  filteredUsers: state.transaction.filteredUsers,
+  users: state.transaction.users
+});
+
+const mapDispatchToProps = {
+  searchUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);

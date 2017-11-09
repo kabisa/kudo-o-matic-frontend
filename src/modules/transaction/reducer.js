@@ -5,6 +5,7 @@ const initialState = {
   formVisible: false,
   fetchingUsers: false,
   users: [],
+  filteredUsers: [],
   error: undefined
 };
 
@@ -18,6 +19,8 @@ export const transaction = (state = initialState, action) => {
       return { ...state, fetchingUsers: true };
     case constants.FINISHED_FETCHING_USERS:
       return { ...state, fetchingUsers: false, users: action.users };
+    case constants.FILTERED_USERS:
+      return { ...state, filteredUsers: action.filteredUsers };
     case constants.STARTED_ADDING_TRANSACTION:
       return { ...state, addingTransaction: true };
     case constants.FINISHED_ADDING_TRANSACTION:

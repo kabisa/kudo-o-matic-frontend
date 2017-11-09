@@ -1,0 +1,36 @@
+@import 'src/styles/settings/general';
+
+.selectedUser {
+    height: 2.5rem;
+    width: 100%;
+    margin-top: 0.3rem;
+    background: $brand-grey;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: white;
+
+    .left {
+        align-self: center;
+        width: 5rem;
+        height: 2.5rem;
+        margin-left: 0.5rem;
+
+        img {
+            border-radius: 50%;
+            max-width: 2.5rem;
+            max-height: 2.5rem;
+        }
+    }
+
+    .right {
+        width: 100%;
+        font-size: 0.9rem;
+        font-weight: 300;
+    }
+
+    .clear {
+        font-size: 0.8rem;
+        margin-right: 2rem;
+    }
+}
