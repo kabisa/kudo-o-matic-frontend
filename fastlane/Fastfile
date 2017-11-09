@@ -39,8 +39,6 @@ lane :lane_deploy_android do
   sh('APP_ENV=#{@environment} bin/maji build android')
 
   unless @deploy_store
-    p "ANDROID VERSION:"
-    p android_version
 
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
@@ -187,13 +185,9 @@ def check_version
 
 end
 
-lane :test_version do
-   p get_android_version("1.0.17")
-end
-
 def get_android_version (config_version)
   version_splitted = config_version.split "."
-  version_splitted[0].ljust(2, '0') + version_splitted[1].rjust(2, '0') + version_splitted[2].rjust(2, '0')
+  return version_splitted[0] + version_splitted[1].rjust(2, '0') + version_splitted[2].rjust(2, '0')
 end
 
 def fixAvdLocation()

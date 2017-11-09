@@ -12,9 +12,9 @@ xcode-select --install
 
 <table width="100%" >
 <tr>
-<th width="33%"><a href="http://brew.sh">Homebrew</a></td>
-<th width="33%">Installer Script</td>
-<th width="33%">RubyGems</td>
+<th width="33%"><a href="http://brew.sh">Homebrew</a></th>
+<th width="33%">Installer Script</th>
+<th width="33%">RubyGems</th>
 </tr>
 <tr>
 <td width="33%" align="center">macOS</td>
@@ -29,29 +29,24 @@ xcode-select --install
 </table>
 
 # Available Actions
-### deploy
+### lane_deploy
 ```
-fastlane deploy
-```
-
-### test
-```
-fastlane test
+fastlane lane_deploy
 ```
 
-### prepare_android_metadata
+### lane_deploy_android
 ```
-fastlane prepare_android_metadata
-```
-
-### deploy_android
-```
-fastlane deploy_android
+fastlane lane_deploy_android
 ```
 
-### deploy_ios
+### lane_deploy_ios
 ```
-fastlane deploy_ios
+fastlane lane_deploy_ios
+```
+
+### test_version
+```
+fastlane test_version
 ```
 
 
