@@ -7,7 +7,7 @@ pipeline {
         PATH = '/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/rvm/bin/:/Users/jenkins/Library/Android/sdk/platform-tools:/Users/jenkins/Library/Android/sdk/tools:/Users/jenkins/Library/Android/sdk/build-tools/26.0.1:/Users/jenkins/Library/Android/sdk/platform-tools:'
         LC_ALL = 'en_US.UTF-8'
         MATCH_PASSWORD = credentials('MATCH_PASSWORD')
-        FL_HOCKEY_API_TOKEN = credentials('FL_HOCKEY_API_TOKEN')
+        FL_HOCKEY_API_TOKEN = credentials('HOCKEY_API_TOKEN')
         FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID = credentials('FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID')
         FL_HOCKEY_PUBLIC_IDENTIFIER_IOS = credentials('FL_HOCKEY_PUBLIC_IDENTIFIER_IOS')
         FASTLANE_PASSWORD = credentials('FASTLANE_PASSWORD')
