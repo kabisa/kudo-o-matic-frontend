@@ -69,6 +69,7 @@ class TransactionForm extends Component {
 
   addPicture(imageData) {
     let image = document.getElementById("picture");
+    console.log(imageData);
     image.src = "data:image/jpeg;base64," + imageData;
   }
 
@@ -129,11 +130,13 @@ class TransactionForm extends Component {
               />
             </label>
             <div onClick={this.openCamera}>Add a Picture</div>
+
             <button
               id="submitTransaction"
               class={styles.kudoButton}
               type="submit"
             >
+              <img id="picture" />
               <img src={kudoIcon} />
             </button>
           </fieldset>
