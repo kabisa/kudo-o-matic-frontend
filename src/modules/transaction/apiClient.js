@@ -28,9 +28,9 @@ export const fetchUsers = apiToken => {
 export const postTransaction = (
   amount,
   activity,
-  senderId,
   receiverId,
-  balanceId,
+  imageData,
+  fileType,
   apiToken
 ) => {
   headers = {
@@ -38,13 +38,24 @@ export const postTransaction = (
     "Api-Token": apiToken
   };
   return new Promise(resolve => {
+    let attributes = {};
+
+    imageData !== ""
+      ? (attributes = {
+          amount: amount,
+          activity: activity,
+          image: imageData,
+          "image-file-type": fileType
+        })
+      : (attributes = {
+          amount: amount,
+          activity: activity
+        });
+
     const body = {
       data: {
         type: "transactions",
-        attributes: {
-          amount: amount,
-          activity: activity
-        },
+        attributes: attributes,
         relationships: {
           receiver: {
             data: {
