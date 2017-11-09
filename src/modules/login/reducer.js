@@ -1,5 +1,6 @@
 import * as constants from "./constants";
 import Settings from "src/config/settings";
+import { saveLogin } from "../../localStorage";
 
 const initialState = {
   user: {
@@ -15,8 +16,8 @@ const initialState = {
 
 export const authentication = (state = initialState, action) => {
   switch (action.type) {
-    case constants.API_TOKEN_SUCCESS:
-      return {
+    case constants.API_TOKEN_SUCCESS: {
+      const newState = {
         ...state,
         user: {
           ...state.user,
@@ -24,6 +25,9 @@ export const authentication = (state = initialState, action) => {
           id: action.token["user-id"]
         }
       };
+      saveLogin(newState);
+      return newState;
+    }
     case constants.API_TOKEN_FAILURE:
       return {
         ...state,
