@@ -144,7 +144,7 @@ lane :lane_deploy_ios do
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_IOS'],
            ipa: File.join(output_dir, "#{@app_name}.ipa"),
            create_update: true,
-           bundle_version: @app_version,
+           bundle_version: @config_version,
            bundle_short_version: @branch,
            status: '2',
            notes: @release_notes
