@@ -1,6 +1,7 @@
 import { h } from "preact";
 import I18n from "src/config/i18n";
 import styles from "./SelectedObject.scss";
+import clearIcon from "src/assets/icons/clear.svg";
 
 const SelectedUser = ({ imageData, clearImage }) => {
   return (
@@ -10,7 +11,7 @@ const SelectedUser = ({ imageData, clearImage }) => {
       </div>
       <div class={styles.right}>{I18n.t("transaction.selectedImage")}</div>
       <div onClick={clearImage} class={styles.clear}>
-        Clear
+        <img src={clearIcon} />
       </div>
     </div>
   );
