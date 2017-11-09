@@ -8,12 +8,11 @@ before_all do
   @app_name = sh('cat ../cordova/config.xml | grep -E \'<name>(.*?)<\/name>\' | sed -e \'s,.*<name>\([^<]*\)</name>.*,\1,g\'').chomp
   @team_id = sh('cat ../cordova/config.xml | grep -E \'<team_id>(.*?)<\/team_id>\' | sed -e \'s,.*<team_id>\([^<]*\)</team_id>.*,\1,g\'').chomp
   @environment = "development"
-  @deploy_store = false
   if @branch == 'appstore'
     @environment = "production"
-    @deploy_store = true
   end
   @build_hockey = message.include?('BUILD_HOCKEY')
+  @deploy_store = message.include?('DEPLOY_STORE')
   @release_notes = message.gsub('BUILD_HOCKEY', '')
   @branch = git_branch.gsub('origin/', '')
   Dir.chdir('..') if inFastlane
@@ -24,7 +23,7 @@ lane :lane_deploy do
     check_version
   end
 
-  if @build_hockey
+  if @build_hockey || @deploy_store
     lane_deploy_android
     lane_deploy_ios
   end
