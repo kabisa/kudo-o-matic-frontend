@@ -11,7 +11,7 @@ before_all do
   if @branch == 'appstore'
     @environment = "production"
   end
-  @build_hockey = message.include?('BUILD_HOCKEY')
+  @build_hockey = message.include?('DEPLOY_HOCKEY')
   @deploy_store = message.include?('DEPLOY_STORE')
   @release_notes = message.gsub('BUILD_HOCKEY', '')
   @branch = git_branch.gsub('origin/', '')
