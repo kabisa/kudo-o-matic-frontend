@@ -39,9 +39,6 @@ lane :lane_deploy_android do
   sh('APP_ENV=#{@environment} bin/maji build android')
 
   unless @deploy_store
-    p "ANDROID VERSION:"
-    p @config_version
-    p android_version
 
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
