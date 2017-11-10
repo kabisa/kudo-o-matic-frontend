@@ -43,10 +43,7 @@ pipeline {
                 bundle install
                 yarn install
 
-                security -v list-keychains -d system -s ~/Library/Keychains/codesign.keychain >/dev/null
-                security -v unlock-keychain -p $MACMINI_CODESIGN_KEYCHAIN_PASSWORD ~/Library/Keychains/codesign.keychain >/dev/null
-                security set-keychain-settings -t 3600 -l ~/Library/Keychains/codesign.keychain >/dev/null
-                security set-key-partition-list -S apple-tool:,apple: -s -k $MACMINI_LOGIN_KEYCHAIN_PASSWORD /Users/jenkins/Library/Keychains/login.keychain-db >/dev/null
+                /usr/local/bin/prepare-keychain-for-codesign
 
                 mkdir -p fastlane/vault/
                 cat $ANDROID_JSON_KEY_FILE > fastlane/vault/ANDROID_JSON_KEY_FILE.json
