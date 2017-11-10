@@ -6,6 +6,7 @@ gem 'xcodeproj'
 gem 'calabash-android', '>=0.9.0'
 gem 'cucumber'
 
+gem "nokogiri"
 gem 'dotenv'
 
 gem 'pry-byebug'

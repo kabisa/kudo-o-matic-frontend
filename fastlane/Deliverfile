@@ -1,68 +1,62 @@
-###################### More Options ######################
-# If you want to have even more control, check out the documentation
-# https://github.com/fastlane/fastlane/blob/master/deliver/Deliverfile.md
+require 'yaml'
 
+$metadata = YAML.load_file('fastlane/metadata.yml')
+$metadata["copyright"] = $metadata["copyright"].gsub("&current_year", Time.now.year.to_s)
 
-###################### Automatically generated ######################
-# Feel free to remove the following line if you use fastlane (which you should)
+def get_languages
+  result = []
+  $metadata["languages"].each do |key, value|
+    result.push(key)
+  end
+  result
+end
 
-app_identifier "nl.kabisa.kudoomatic" # The bundle identifier of your app
-username "info@kabisa.nl" # your Apple ID user
+def get_language_property_hash(property)
+  languages = $metadata["languages"]
+  result = {}
+  languages.each do |key, value|
+    next unless value.key?(property)
 
-languages(
-  'en-US',
-  'nl-NL',
-)
+    result[key] = value[property]
+  end
+  result
+end
 
-name(
-  'nl-NL' => "Kabisa Kudo-o-matic",
-  'en-US' => "Kabisa Kudo-o-matic"
-)
+app_identifier            $metadata["app_identifier"]
+username                  $metadata["username"]
+app_rating_config_path    $metadata["app_rating_config_path"]
+app_icon                  $metadata["app_icon"]
+apple_watch_app_icon      $metadata["apple_watch_app_icon"]
+price_tier                $metadata["price_tier"]
+copyright                 $metadata["copyright"]
+primary_category          $metadata["primary_category"]
+secondary_category        $metadata["secondary_category"]
+automatic_release         $metadata["automatic_release"]
 
-short_description(
-  'nl-NL' => "Kabisa's Kudo-o-Matic",
-  'en-US' => "Kabisa's Kudo-o-Matic"
-)
+languages(get_languages)
 
-description(
-  'nl-NL' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects. Goals come in various forms: financial, satisfaction of customers, collaborating and so on... \nTo keep a good overview we decided to create one 'Kudo Meter', where all these components have been processed in. The goal is not literally a target. It is more like a gauge instead, to stimulate good things.",
-  'en-US' => "The Kudo-o-Matic is originated from the wish to create a common goal for people and teams who are working on different projects. Goals come in various forms: financial, satisfaction of customers, collaborating and so on... \nTo keep a good overview we decided to create one 'Kudo Meter', where all these components have been processed in. The goal is not literally a target. It is more like a gauge instead, to stimulate good things."
-)
+name(get_language_property_hash("name"))
 
-keywords(
-  'nl-NL' => "kudo-o-matic kabisa kudo kudos's",
-  'en-US' => "kudo-o-matic kabisa kudo kudos's"
-)
+subtitle(get_language_property_hash("short_description"))
 
-support_url = 'https://www.kabisa.nl/contact/'
-support_url(
-  'nl-NL' => support_url,
-  'en-US' => support_url
-)
+description(get_language_property_hash("description"))
 
-app_rating_config_path "fastlane/ratings_config.json"
+keywords(get_language_property_hash("keywords"))
 
-app_icon "src/assets/logo/AppStore-1024.png"
-android_app_icon "src/assets/logo/PlayStore-512.png"
-feature_graphic "src/assets/logo/PlayStore-feature-graphic.png"
-promo_graphic "src/assets/logo/PlayStore-promo-graphic.png"
+promotional_text(get_language_property_hash("promotional_text"))
 
-price_tier 0 # free app
+support_url(get_language_property_hash("support_url"))
 
-copyright "#{Time.now.year} Kabisa B.V."
+marketing_url(get_language_property_hash("marketing_url"))
 
-primary_category "Reference"
-
-secondary_category "Business"
-
-automatic_release true
+privacy_url(get_language_property_hash("privacy_url"))
 
 app_review_information({
-  first_name: "Bart",
-  last_name: "Vollebregt",
-  phone_number: "+31611892504",
-  email_address: "bart@kabisa.nl",
-  demo_user: "",
-  demo_password: "",
-  notes: ""
+  first_name: $metadata["app_review_information"]["first_name"],
+  last_name: $metadata["app_review_information"]["last_name"],
+  phone_number: $metadata["app_review_information"]["phone_number"],
+  email_address: $metadata["app_review_information"]["email_address"],
+  demo_user: $metadata["app_review_information"]["demo_user"],
+  demo_password: $metadata["app_review_information"]["demo_password"],
+  notes: $metadata["app_review_information"]["notes"]
 })
