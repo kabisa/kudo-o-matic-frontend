@@ -5,8 +5,8 @@ fastlane_require 'nokogiri'
 before_all do
   message =  changelog_from_git_commits(commits_count: 1)
 
-  @cordova_folder = File.expand_path("cordova")
-  @fastlane_folder = File.expand_path("fastlane")
+  @cordova_folder = File.expand_path("../cordova")
+  @fastlane_folder = File.expand_path("../fastlane")
 
   cordova_config = Nokogiri::XML((File.read("#{@cordova_folder}/config.xml")))
   @app_identifier = cordova_config.xpath("/*/@id").first.value
