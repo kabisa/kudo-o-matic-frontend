@@ -241,9 +241,9 @@ def prepare_android_metadata
     File.write("#{@fastlane_folder}/metadata/android/#{lang}/short_description.txt", language_metadata["short_description"])
     File.write("#{@fastlane_folder}/metadata/android/#{lang}/full_description.txt", language_metadata["description"])
 
-    File.write("#{@fastlane_folder}/metadata/android/#{lang}/images/icon.png", @metadata["android_app_icon"])
-    File.write("#{@fastlane_folder}/metadata/android/#{lang}/images/featureGraphic.png", @metadata["feature_graphic"])
-    File.write("#{@fastlane_folder}/metadata/android/#{lang}/images/promoGraphicpng", @metadata["promo_graphic"])
+    File.cp(@metadata["android_app_icon"], "#{@fastlane_folder}/metadata/android/#{lang}/images/icon.png")
+    File.cp(@metadata["feature_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/featureGraphic.png")
+    File.cp(@metadata["promo_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/promoGraphicpng")
   }
 
 end
