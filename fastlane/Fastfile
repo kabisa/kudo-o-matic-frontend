@@ -28,14 +28,13 @@ before_all do
   @release_notes = message.gsub('BUILD_HOCKEY', '')
   @branch = git_branch.gsub('origin/', '')
   Dir.chdir('..') if in_fastlane
+
+  if @deploy_store
+    check_version
+  end
 end
 
 lane :lane_deploy do
-
-  if @deploy_store
-    p "Checking version"
-    check_version
-  end
 
   if @build_hockey || @deploy_store
     lane_deploy_android
