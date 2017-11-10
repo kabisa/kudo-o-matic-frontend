@@ -16,7 +16,10 @@ class TransactionForm extends Component {
     this.state = {
       error: "",
       amount: "",
-      receiver: {},
+      receiver: {
+        name: "",
+        id: ""
+      },
       activity: "",
       formSubmittable: false,
       formDisabled: false
@@ -35,14 +38,14 @@ class TransactionForm extends Component {
   isFormSubmittable() {
     return (
       this.state.amount !== "" &&
-      this.state.receiver !== undefined &&
+      this.state.receiver.id !== "" &&
       this.state.activity !== ""
     );
   }
 
   searchUsers(e) {
     let searchQuery = e.target.value;
-    this.setState({ receiver: { name: searchQuery } });
+    this.setState({ receiver: { name: searchQuery, id: "" } });
     this.props.searchUser(searchQuery, this.props.users);
     return false;
   }
@@ -59,7 +62,8 @@ class TransactionForm extends Component {
   }
 
   clearSelection() {
-    this.setState({ receiver: {} });
+    this.setState({ receiver: { name: "", id: "" } });
+    this.setState({ formSubmittable: this.isFormSubmittable() });
   }
 
   onSubmit(e) {
@@ -114,7 +118,7 @@ class TransactionForm extends Component {
             <label>
               {I18n.t("transaction.receiver")}
 
-              {receiver.id !== undefined ? (
+              {receiver.id !== "" ? (
                 <SelectedUser
                   user={receiver}
                   clearSelection={this.clearSelection}
