@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0" version="1.0.22" id="nl.kabisa.kudoomatic">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0" version="1.0.23" id="nl.kabisa.kudoomatic">
   <name>kudo-o-matic</name>
   <team_id>9H6JXDUXPW</team_id>
   <description/>
   <content src="index.html"/>
   <access origin="*"/>
   <hook src="../node_modules/maji/cordova/hooks/before_platform_add.js" type="before_platform_add"/>
+  <platform name="ios">
+    <hook src="scripts/add_target_attributes_and_push_notification_cap.js" type="after_build" />
+  </platform>
   <icon src="../src/assets/logo/AppStore-1024.png"/>
   <platform name="ios">
     <icon src="../src/assets/logo/AppStore-76.png" width="76" height="76"/>
