@@ -5,7 +5,7 @@ fastlane_require 'nokogiri'
 before_all do
   message =  changelog_from_git_commits(commits_count: 1)
 
-  cordova_config = Nokogiri::XML((File.read("cordova/config.xml")))
+  cordova_config = Nokogiri::XML((File.read("#{current_dir}/cordova/config.xml")))
   @app_identifier = cordova_config.xpath("/*/@id").first.value
   @config_version = cordova_config.xpath("/*/@version").first.value
   @app_name = cordova_config.xpath("//xmlns:name").text
@@ -41,7 +41,7 @@ lane :lane_deploy do
 end
 
 lane :lane_deploy_android do
-  FileUtils.rm_rf('cordova/platforms/android/build/outputs/apk/.', secure: true)
+  FileUtils.rm_rf("#{current_dir}/cordova/platforms/android/build/outputs/apk/.", secure: true)
   android_version = get_android_version(@config_version)
 
   sh('APP_ENV=#{@environment} bin/maji build android')
@@ -49,7 +49,7 @@ lane :lane_deploy_android do
   unless @deploy_store
 
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
-           apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
+           apk: "#{current_dir}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
            create_update: true,
            bundle_version: android_version,
            bundle_short_version: @branch,
@@ -64,12 +64,12 @@ lane :lane_deploy_android do
       alias: "android-release-signed",
       storepass: ENV['ANDROID_KEY_STORE_PASSWORD'],
       tsa: "http://timestamp.comodoca.com/rfc316",
-      apk_path: File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))
+      apk_path: File.expand_path("#{current_dir}/cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))
     )
 
     zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
 
-    sh("calabash-android resign #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}")
+    sh("calabash-android resign #{File.expand_path("#{current_dir}/cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}")
 
     prepare_android_metadata
 
@@ -78,7 +78,7 @@ lane :lane_deploy_android do
     automated_test_emulator_run(
       ADB_restart: false,
       AVD_setup_path: "#{current_dir}/fastlane/AVD_setup.json",
-      shell_task:"cd #{File.expand_path("fastlane/", File.dirname(__FILE__))} && SCREENSHOT_PATH=#{File.expand_path("fastlane/screenshots/android/", File.dirname(__FILE__))}/ bundler exec calabash-android run #{File.expand_path("cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
+      shell_task:"cd #{File.expand_path("fastlane/", File.dirname(__FILE__))} && SCREENSHOT_PATH=#{File.expand_path("fastlane/screenshots/android/", File.dirname(__FILE__))}/ bundler exec calabash-android run #{File.expand_path("#{current_dir}/cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
     )
 
     # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
@@ -94,7 +94,7 @@ lane :lane_deploy_android do
 end
 
 lane :lane_deploy_ios do
-  FileUtils.rm_rf("cordova/platforms/ios/build/device/.", secure: true)
+  FileUtils.rm_rf("#{current_dir}/cordova/platforms/ios/build/device/.", secure: true)
   FileUtils.rm_rf("tmp/output/#{@app_name}.result/", secure: true)
 
   # where the signed ipa is placed
@@ -138,7 +138,7 @@ lane :lane_deploy_ios do
   )
 
   # opening xcode prevents timeout
-  sh("open -a xcode cordova/platforms/ios/#{@app_name}.xcodeproj")
+  sh("open -a xcode #{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj")
 
   gym scheme: @app_name,
       project: "#{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
@@ -196,7 +196,7 @@ def get_android_version (config_version)
 end
 
 def fix_avd_location
-  json_file = "fastlane/AVD_setup.json"
+  json_file = "#{current_dir}/fastlane/AVD_setup.json"
 
   json = JSON.parse(File.read(json_file))
 
