@@ -30,7 +30,6 @@ before_all do
 end
 
 lane :lane_deploy do
-  p @deploy_store
 
   if @deploy_store
     p "Checking version"
@@ -241,9 +240,9 @@ def prepare_android_metadata
     File.write("#{@fastlane_folder}/metadata/android/#{lang}/short_description.txt", language_metadata["short_description"])
     File.write("#{@fastlane_folder}/metadata/android/#{lang}/full_description.txt", language_metadata["description"])
 
-    File.cp(@metadata["android_app_icon"], "#{@fastlane_folder}/metadata/android/#{lang}/images/icon.png")
-    File.cp(@metadata["feature_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/featureGraphic.png")
-    File.cp(@metadata["promo_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/promoGraphicpng")
+    FileUtils.cp(@metadata["android_app_icon"], "#{@fastlane_folder}/metadata/android/#{lang}/images/icon.png")
+    FileUtils.cp(@metadata["feature_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/featureGraphic.png")
+    FileUtils.cp(@metadata["promo_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/promoGraphicpng")
   }
 
 end
