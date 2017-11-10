@@ -85,7 +85,9 @@ lane :lane_deploy_android do
     )
 
     # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
-    FileUtils.cp_r("#{@fastlane_folder}/screenshots/android/.", "#{@fastlane_folder}/metadata/android/*/images/phoneScreenshots/")
+    @languages.each {|lang|
+      FileUtils.cp_r("#{@fastlane_folder}/screenshots/android/.", "#{@fastlane_folder}/metadata/android/#{lang}/images/phoneScreenshots/")
+    }
     FileUtils.rm_rf("#{@fastlane_folder}/screenshots/android/", secure: true)
 
     supply  track: "production",
