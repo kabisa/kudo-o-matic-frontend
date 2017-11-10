@@ -5,13 +5,16 @@ fastlane_require 'nokogiri'
 before_all do
   message =  changelog_from_git_commits(commits_count: 1)
 
-  cordova_config = Nokogiri::XML((File.read("#{current_dir}/cordova/config.xml")))
+  @cordova_folder = File.expand_path("#{current_dir}/../cordova/")
+  @fastlane_folder = File.expand_path("fastlane")
+
+  cordova_config = Nokogiri::XML((File.read("#{@cordova_folder}/config.xml")))
   @app_identifier = cordova_config.xpath("/*/@id").first.value
   @config_version = cordova_config.xpath("/*/@version").first.value
   @app_name = cordova_config.xpath("//xmlns:name").text
   @team_id = cordova_config.xpath("//xmlns:team_id").text
 
-  @metadata = YAML.load_file('fastlane/metadata.yml')
+  @metadata = YAML.load_file("#{@fastlane_folder}/metadata.yml")
   @metadata["copyright"] = @metadata["copyright"].gsub("&current_year", Time.now.year.to_s)
   @languages = get_languages(@metadata)
 
@@ -41,7 +44,7 @@ lane :lane_deploy do
 end
 
 lane :lane_deploy_android do
-  FileUtils.rm_rf("#{current_dir}/cordova/platforms/android/build/outputs/apk/.", secure: true)
+  FileUtils.rm_rf("#{@cordova_folder}/platforms/android/build/outputs/apk/.", secure: true)
   android_version = get_android_version(@config_version)
 
   sh('APP_ENV=#{@environment} bin/maji build android')
@@ -49,7 +52,7 @@ lane :lane_deploy_android do
   unless @deploy_store
 
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
-           apk: "#{current_dir}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
+           apk: "#{@cordova_folder}/platforms/android/build/outputs/apk/android-debug.apk",
            create_update: true,
            bundle_version: android_version,
            bundle_short_version: @branch,
@@ -60,16 +63,16 @@ lane :lane_deploy_android do
     sh('APP_ENV=#{@environment} bin/maji build android --release')
 
     sign_apk(
-      keystore_path: "#{current_dir}/fastlane/vault/android.jks",
+      keystore_path: "#{@fastlane_folder}/vault/android.jks",
       alias: "android-release-signed",
       storepass: ENV['ANDROID_KEY_STORE_PASSWORD'],
       tsa: "http://timestamp.comodoca.com/rfc316",
-      apk_path: File.expand_path("#{current_dir}/cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))
+      apk_path: "#{@cordova_folder}/platforms/android/build/outputs/apk/android-release-unsigned.apk"
     )
 
     zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
 
-    sh("calabash-android resign #{File.expand_path("#{current_dir}/cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}")
+    sh("calabash-android resign #{@cordova_folder}/platforms/android/build/outputs/apk/android-release-unsigned.apk")
 
     prepare_android_metadata
 
@@ -77,24 +80,24 @@ lane :lane_deploy_android do
 
     automated_test_emulator_run(
       ADB_restart: false,
-      AVD_setup_path: "#{current_dir}/fastlane/AVD_setup.json",
-      shell_task:"cd #{File.expand_path("fastlane/", File.dirname(__FILE__))} && SCREENSHOT_PATH=#{File.expand_path("fastlane/screenshots/android/", File.dirname(__FILE__))}/ bundler exec calabash-android run #{File.expand_path("#{current_dir}/cordova/platforms/android/build/outputs/apk/android-release-unsigned.apk", File.dirname(__FILE__))}"
+      AVD_setup_path: "#{@fastlane_folder}/AVD_setup.json",
+      shell_task:"cd #{@fastlane_folder}/ && SCREENSHOT_PATH=#{@fastlane_folder}/screenshots/android/ bundler exec calabash-android run #{@cordova_folder}/platforms/android/build/outputs/apk/android-release-unsigned.apk"
     )
 
     # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
-    FileUtils.cp_r("fastlane/screenshots/android/.", "fastlane/metadata/android/*/images/phoneScreenshots/")
-    FileUtils.rm_rf("fastlane/screenshots/android/", secure: true)
+    FileUtils.cp_r("#{@fastlane_folder}/screenshots/android/.", "#{@fastlane_folder}/metadata/android/*/images/phoneScreenshots/")
+    FileUtils.rm_rf("#{@fastlane_folder}/screenshots/android/", secure: true)
 
     supply  track: "production",
-            apk: "#{current_dir}/cordova/platforms/android/build/outputs/apk/android-release.apk",
-            json_key: "#{current_dir}/fastlane/vault/ANDROID_JSON_KEY_FILE.json",
+            apk: "#{@cordova_folder}/platforms/android/build/outputs/apk/android-release.apk",
+            json_key: "#{@fastlane_folder}/vault/ANDROID_JSON_KEY_FILE.json",
             package_name: @app_identifier,
-            metadata_path: "#{current_dir}/fastlane/metadata/android/"
+            metadata_path: "#{@fastlane_folder}/metadata/android/"
   end
 end
 
 lane :lane_deploy_ios do
-  FileUtils.rm_rf("#{current_dir}/cordova/platforms/ios/build/device/.", secure: true)
+  FileUtils.rm_rf("#{@cordova_folder}/platforms/ios/build/device/.", secure: true)
   FileUtils.rm_rf("tmp/output/#{@app_name}.result/", secure: true)
 
   # where the signed ipa is placed
@@ -121,27 +124,27 @@ lane :lane_deploy_ios do
 
   #Make sure automatic code signing is disabled, we dont want this.
   disable_automatic_code_signing(
-    path: "#{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
+    path: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
     team_id: @team_id
   )
 
   #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
   update_project_provisioning(
-    xcodeproj: "#{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
+    xcodeproj: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
     profile: "/Users/jenkins/Library/MobileDevice/Provisioning\ Profiles/#{profile_uuid}.mobileprovision",
     build_configuration: "Release"
   )
 
   upgrade_super_old_xcode_project(
-    path: "#{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
+    path: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
     team_id: @team_id
   )
 
   # opening xcode prevents timeout
-  sh("open -a xcode #{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj")
+  sh("open -a xcode #{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj")
 
   gym scheme: @app_name,
-      project: "#{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
+      project: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
       export_method: "ad-hoc"
 
 
@@ -157,11 +160,11 @@ lane :lane_deploy_ios do
   else
     # release procedure for appstore here
     # Make sure old screenshots are removed
-    FileUtils.rm_rf("fastlane/screenshots/*", secure: true)
+    FileUtils.rm_rf("#{@fastlane_folder}/screenshots/*", secure: true)
 
     #generate new screenshots
-    snapshot  project: "#{current_dir}/cordova/platforms/ios/#{@app_name}.xcodeproj",
-              output_directory: "#{current_dir}/fastlane/screenshots/",
+    snapshot  project: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
+              output_directory: "#{@fastlane_folder}/screenshots/",
               scheme: @app_name,
               skip_helper_version_check: true
 
@@ -171,8 +174,8 @@ lane :lane_deploy_ios do
             force: true,
             username: "info@kabisa.nl",
             overwrite_screenshots: true,
-            metadata_path: "#{current_dir}/fastlane/metadata/",
-            screenshots_path: "#{current_dir}/fastlane/screenshots/",
+            metadata_path: "#{@fastlane_folder}/metadata/",
+            screenshots_path: "#{@fastlane_folder}/screenshots/",
             app_icon: "#{current_dir}/src/assets/logo/AppStore-1024.png"
 
   end
@@ -196,7 +199,7 @@ def get_android_version (config_version)
 end
 
 def fix_avd_location
-  json_file = "#{current_dir}/fastlane/AVD_setup.json"
+  json_file = "#{@fastlane_folder}/AVD_setup.json"
 
   json = JSON.parse(File.read(json_file))
 
@@ -217,28 +220,28 @@ end
 
 def prepare_android_metadata
 
-  FileUtils.rm_rf("fastlane/metadata/", secure: true)
-  FileUtils.mkdir_p("fastlane/metadata/android")
-  FileUtils.rm_rf("fastlane/screenshots/*", secure: true)
-  FileUtils.mkdir_p("fastlane/screenshots/android/")
+  FileUtils.rm_rf("#{@fastlane_folder}/metadata/", secure: true)
+  FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android")
+  FileUtils.rm_rf("#{@fastlane_folder}/screenshots/*", secure: true)
+  FileUtils.mkdir_p("#{@fastlane_folder}/screenshots/android/")
 
   @languages.each {|lang|
-    FileUtils.mkdir_p("fastlane/metadata/android/#{lang}/images")
-    FileUtils.mkdir_p("fastlane/metadata/android/#{lang}/images/phoneScreenshots")
-    FileUtils.mkdir_p("fastlane/metadata/android/#{lang}/images/sevenInchScreenshots")
-    FileUtils.mkdir_p("fastlane/metadata/android/#{lang}/images/tenInchScreenshots")
-    FileUtils.mkdir_p("fastlane/metadata/android/#{lang}/images/tvScreenshots")
-    FileUtils.mkdir_p("fastlane/metadata/android/#{lang}/images/wearScreenshots")
-    FileUtils.touch("fastlane/metadata/android/#{lang}/video.txt")
+    FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images")
+    FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images/phoneScreenshots")
+    FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images/sevenInchScreenshots")
+    FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images/tenInchScreenshots")
+    FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images/tvScreenshots")
+    FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images/wearScreenshots")
+    FileUtils.touch("#{@fastlane_folder}/metadata/android/#{lang}/video.txt")
 
     language_metadata = @metadata["languages"][lang]
-    File.write("fastlane/metadata/android/#{lang}/title.txt", language_metadata["name"])
-    File.write("fastlane/metadata/android/#{lang}/short_description.txt", language_metadata["short_description"])
-    File.write("fastlane/metadata/android/#{lang}/full_description.txt", language_metadata["description"])
+    File.write("#{@fastlane_folder}/metadata/android/#{lang}/title.txt", language_metadata["name"])
+    File.write("#{@fastlane_folder}/metadata/android/#{lang}/short_description.txt", language_metadata["short_description"])
+    File.write("#{@fastlane_folder}/metadata/android/#{lang}/full_description.txt", language_metadata["description"])
 
-    File.write("fastlane/metadata/android/#{lang}/images/icon.png", @metadata["android_app_icon"])
-    File.write("fastlane/metadata/android/#{lang}/images/featureGraphic.png", @metadata["feature_graphic"])
-    File.write("fastlane/metadata/android/#{lang}/images/promoGraphicpng", @metadata["promo_graphic"])
+    File.write("#{@fastlane_folder}/metadata/android/#{lang}/images/icon.png", @metadata["android_app_icon"])
+    File.write("#{@fastlane_folder}/metadata/android/#{lang}/images/featureGraphic.png", @metadata["feature_graphic"])
+    File.write("#{@fastlane_folder}/metadata/android/#{lang}/images/promoGraphicpng", @metadata["promo_graphic"])
   }
 
 end
