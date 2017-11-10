@@ -13,8 +13,8 @@ module.exports = {
       .click("#openTransaction")
       .waitForElementVisible("form")
       .setValue("input[name=amount]", 3)
-      .setValue("input.Select-input", "Test User 2")
-      .sendKeys("input.Select-input", browser.Keys.ENTER)
+      .setValue("input[name=user]", "Test User 2")
+      .click("#userSuggestion")
       .click("#submitTransaction");
 
     browser.expect
@@ -32,12 +32,13 @@ module.exports = {
       .click("#openTransaction")
       .waitForElementVisible("form")
       .setValue("input[name=amount]", 3)
-      .setValue("input.Select-input", "Test User 2")
-      .sendKeys("input.Select-input", browser.Keys.ENTER)
+      .setValue("input[name=user]", "Test User 2")
+      .click("#userSuggestion")
       .setValue("textarea[name=activity]", "Test " + random)
       .click("#submitTransaction")
       .waitForElementVisible("nav")
       .click("#feed")
+      .waitForElementVisible("#transactionList")
       .getText("#transactionList li:nth-child(1) #activity", result => {
         browser.assert.equal(result.value, "Test " + random);
       })

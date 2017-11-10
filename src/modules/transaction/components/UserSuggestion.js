@@ -11,6 +11,7 @@ export default class UserSuggestion extends Component {
       <div
         class={styles["autocomplete-suggestion"]}
         onClick={() => onSelect(user)}
+        id="userSuggestion"
       >
         <div class={styles.left}>
           <img src={user.user["avatar-url"]} />

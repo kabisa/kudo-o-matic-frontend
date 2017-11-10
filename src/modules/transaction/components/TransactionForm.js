@@ -122,6 +122,7 @@ class TransactionForm extends Component {
               ) : (
                 <div>
                   <input
+                    name="user"
                     value={receiver.name}
                     onInput={this.searchUsers}
                     placeholder="Search for users"
