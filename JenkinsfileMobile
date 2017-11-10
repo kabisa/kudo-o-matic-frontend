@@ -35,6 +35,7 @@ pipeline {
                 }
 
                 sh '''#!/bin/bash -l
+                set -eu
 
                 rvm install $(cat .ruby-version)
                 rvm use $(cat .ruby-version)
