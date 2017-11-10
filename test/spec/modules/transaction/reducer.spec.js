@@ -8,6 +8,7 @@ describe("Transaction reducer", () => {
       formVisible: false,
       fetchingUsers: false,
       users: [],
+      filteredUsers: [],
       error: undefined
     });
   });
@@ -37,6 +38,27 @@ describe("Transaction reducer", () => {
     });
   });
 
+  describe("handle fetching users", () => {
+    it("handles STARTED_FETCHING_USERS", () => {
+      expect(
+        transaction([], { type: constants.STARTED_FETCHING_USERS })
+      ).to.eql({
+        fetchingUsers: true
+      });
+    });
+    it("handles FINISHED_FETCHING_USERS", () => {
+      expect(
+        transaction([], {
+          type: constants.FINISHED_FETCHING_USERS,
+          users: [{ name: "user1", id: 1 }, { name: "user2", id: 2 }]
+        })
+      ).to.eql({
+        fetchingUsers: false,
+        users: [{ name: "user1", id: 1 }, { name: "user2", id: 2 }]
+      });
+    });
+  });
+
   describe("handle new transactions", () => {
     it("handles MAKE_FORM_VISIBLE", () => {
       expect(transaction([], { type: constants.MAKE_FORM_VISIBLE })).to.eql({
@@ -55,6 +77,16 @@ describe("Transaction reducer", () => {
       ).to.eql({
         formVisible: false
       });
+    });
+  });
+  it("handles FILTERED_USERS", () => {
+    expect(
+      transaction([], {
+        type: constants.FILTERED_USERS,
+        filteredUsers: [{ name: "user1", id: 1 }, { name: "user2", id: 2 }]
+      })
+    ).to.eql({
+      filteredUsers: [{ name: "user1", id: 1 }, { name: "user2", id: 2 }]
     });
   });
 });
