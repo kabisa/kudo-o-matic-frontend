@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        PATH = '/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/rvm/bin/:/Users/jenkins/Library/Android/sdk/platform-tools:/Users/jenkins/Library/Android/sdk/tools:/Users/jenkins/Library/Android/sdk/build-tools/26.0.1:/Users/jenkins/Library/Android/sdk/platform-tools:'
+        PATH = '/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/rvm/bin/:/Users/jenkins/Library/Android/sdk/platform-tools:/Users/jenkins/Library/Android/sdk/tools:/Users/jenkins/Library/Android/sdk/build-tools/26.0.1:/Users/jenkins/Library/Android/sdk/platform-tools'
         LC_ALL = 'en_US.UTF-8'
         MATCH_PASSWORD = credentials('MATCH_PASSWORD')
         FL_HOCKEY_API_TOKEN = credentials('HOCKEY_API_TOKEN')
@@ -34,7 +34,7 @@ pipeline {
                   env.ANDROID_HOME = "/Users/${currUser}/Library/Android/sdk/"
                 }
 
-                sh '''#!/bin/bash -lxe
+                sh '''#!/bin/bash -le
 
                 rvm install $(cat .ruby-version)
                 rvm use $(cat .ruby-version)
