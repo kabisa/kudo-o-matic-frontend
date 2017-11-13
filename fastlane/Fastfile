@@ -170,7 +170,7 @@ lane :lane_deploy_ios do
     #generate new screenshots
     snapshot  project: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
               output_directory: "#{@fastlane_folder}/screenshots/",
-              scheme: "maji-screen-shots",
+              scheme: @app_name,
               skip_helper_version_check: true
 
 
