@@ -6,6 +6,5 @@
   "googleHostedDomain":  "kabisa.nl",
   "provider": "google_oauth2",
   "testApiToken": "s429EA9340Id9diBLaCAg",
-  "testUserId": 60,
-  "empty": "null"
+  "testUserId": 60
 }
