@@ -164,8 +164,8 @@ lane :lane_deploy_ios do
     FileUtils.rm_rf("#{@fastlane_folder}/screenshots/*", secure: true)
 
     ionic_ios_config_snapshot ionic_scheme_name:"maji-screen-shots",
-                              ionic_ios_xcode_path: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj"
-
+                              ionic_ios_xcode_path: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
+                              ionic_min_target_ios: "11.0.1"
 
     #generate new screenshots
     snapshot  project: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
