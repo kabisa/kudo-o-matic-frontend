@@ -124,10 +124,10 @@ lane :lane_deploy_ios do
         force_for_new_devices: :true
 
   #Make sure automatic code signing is disabled, we dont want this.
-  disable_automatic_code_signing(
-    path: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
-    team_id: @team_id
-  )
+  # disable_automatic_code_signing(
+  #   path: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
+  #   team_id: @team_id
+  # )
 
   #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
   update_project_provisioning(
