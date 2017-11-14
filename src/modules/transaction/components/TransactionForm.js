@@ -29,8 +29,10 @@ class TransactionForm extends Component {
     this.searchUsers = this.searchUsers.bind(this);
     this.clearSelection = this.clearSelection.bind(this);
     this.clearImage = this.clearImage.bind(this);
-    this.openCamera = this.openCamera.bind(this);
     this.addPicture = this.addPicture.bind(this);
+    this.handleCameraError = this.handleCameraError.bind(this);
+    this.openCamera = this.openCamera.bind(this);
+    this.showCameraOptions = this.showCameraOptions.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -88,12 +90,40 @@ class TransactionForm extends Component {
     }
   }
 
-  openCamera() {
+  openCamera(index) {
+    let options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL,
+      encodingType: Camera.EncodingType.JPEG,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      mediaType: Camera.MediaType.PICTURE,
+      allowEdit: true,
+      correctOrientation: true
+    };
+    if (index == 1) {
+      options = { ...options, sourceType: Camera.PictureSourceType.CAMERA };
+    }
     navigator.camera.getPicture(
       this.addPicture,
       this.handleCameraError,
-      setCameraOptions()
+      options
     );
+  }
+
+  showCameraOptions() {
+    const options = {
+      title: I18n.t("transaction.photoLocation"),
+      buttonLabels: [
+        I18n.t("transaction.camera"),
+        I18n.t("transaction.photoLibrary")
+      ],
+      androidEnableCancelButton: true,
+      androidTheme:
+        window.plugins.actionsheet.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
+      addCancelButtonWithLabel: I18n.t("transaction.cancel")
+    };
+
+    window.plugins.actionsheet.show(options, this.openCamera);
   }
 
   addPicture(imageData) {
@@ -175,7 +205,7 @@ class TransactionForm extends Component {
                 clearImage={this.clearImage}
               />
             ) : (
-              <div class={styles.imageButton} onClick={this.openCamera}>
+              <div class={styles.imageButton} onClick={this.showCameraOptions}>
                 <img id="picture" src={photoIcon} />
                 <p>Add a picture</p>
               </div>
@@ -193,18 +223,6 @@ class TransactionForm extends Component {
     );
   }
 }
-
-const setCameraOptions = () => {
-  let options = {
-    quality: 50,
-    destinationType: Camera.DestinationType.DATA_URL,
-    encodingType: Camera.EncodingType.JPEG,
-    mediaType: Camera.MediaType.PICTURE,
-    allowEdit: true,
-    correctOrientation: true
-  };
-  return options;
-};
 
 const mapStateToProps = state => ({
   filteredUsers: state.transaction.filteredUsers,
