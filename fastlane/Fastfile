@@ -171,22 +171,8 @@ lane :lane_deploy_ios do
     #                           ionic_min_target_ios: "11.0.1"
 
     #generate new screenshots
-    snapshot  project: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
-              output_directory: "#{@fastlane_folder}/screenshots/",
-              scheme: @app_name,
-              skip_helper_version_check: true,
-              ios_version: "11.1",
-              test_target_name: @app_name,
-              app_identifier: @app_identifier,
-              reinstall_app: true,
-              erase_simulator: true,
-              skip_open_summary: true,
-              clear_previous_screenshots: true,
-              stop_after_first_error: false,
-              clean: true,
-              devices: ["iPhone 7 Plus", "iPad Pro (12.9-inch) (2nd generation)"],
-              languages: ["en-US", "nl-NL"]
 
+    test_snapshot
 
     # FileUtils.rm_rf("#{@cordova_folder}/platforms/iosTest/", secure: true)
 
@@ -200,6 +186,25 @@ lane :lane_deploy_ios do
             app_icon: "#{current_dir}/src/assets/logo/AppStore-1024.png"
 
   end
+
+end
+
+lane :test_snapshot do
+  snapshot  project: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
+            output_directory: "#{@fastlane_folder}/screenshots/",
+            scheme: @app_name,
+            skip_helper_version_check: true,
+            ios_version: "11.1",
+            test_target_name: @app_name,
+            app_identifier: @app_identifier,
+            reinstall_app: true,
+            erase_simulator: true,
+            skip_open_summary: true,
+            clear_previous_screenshots: true,
+            stop_after_first_error: false,
+            clean: true,
+            devices: ["iPhone 7 Plus", "iPad Pro (12.9-inch) (2nd generation)"],
+            languages: ["en-US", "nl-NL"]
 
 end
 
