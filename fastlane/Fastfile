@@ -185,7 +185,7 @@ lane :lane_deploy_ios do
               stop_after_first_error: false,
               clean: true,
               devices: ["iPhone 7 Plus", "iPad Pro (12.9-inch) (2nd generation)"],
-              languages: ["en-US", "nl-NL"],
+              languages: ["en-US", "nl-NL"]
 
 
     # FileUtils.rm_rf("#{@cordova_folder}/platforms/iosTest/", secure: true)
