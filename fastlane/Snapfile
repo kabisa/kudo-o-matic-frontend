@@ -1,5 +1,5 @@
 
-ios_version '11.0.1'
+ios_version '11.1'
 
 # A list of devices you want to take the screenshots from
  devices([

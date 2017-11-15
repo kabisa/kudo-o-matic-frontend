@@ -172,7 +172,7 @@ lane :lane_deploy_ios do
               output_directory: "#{@fastlane_folder}/screenshots/",
               scheme: @app_name,
               skip_helper_version_check: true,
-              ios_version: "11.0.1",
+              ios_version: "11.1",
               test_target_name: "maji-screen-shots"
 
 
