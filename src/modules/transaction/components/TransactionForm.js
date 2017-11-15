@@ -29,6 +29,12 @@ class TransactionForm extends Component {
     this.setState({ formDisabled: props.formError });
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      document.getElementById("inputAmount").focus();
+    }, 300);
+  }
+
   isFormSubmittable() {
     return (
       this.state.amount !== "" &&
@@ -144,12 +150,12 @@ class TransactionForm extends Component {
                 <input
                   name="amount"
                   type="number"
+                  id="inputAmount"
                   min="1"
                   max="999"
                   className={styles.userSelection}
                   value={amount}
                   onInput={this.onInput}
-                  autoFocus={true}
                   class={styles.amountInput}
                 />
                 <span class={styles.kudoCurrency}>₭</span>

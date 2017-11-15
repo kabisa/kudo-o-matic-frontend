@@ -2,12 +2,12 @@ import { h, Component } from "preact";
 import { connect } from "preact-redux";
 
 import TransactionForm from "../components/TransactionForm";
-import styles from "./TransactionContainer.scss";
+import styles from "./TransactionPage.scss";
 import closeIcon from "src/assets/icons/close.svg";
 
 import { addTransaction, fetchAllUsers } from "../actions";
 
-export class TransactionContainer extends Component {
+export class TransactionPage extends Component {
   componentWillMount() {
     this.props.fetchUsers(this.props.user.apiToken);
   }
@@ -34,7 +34,7 @@ export class TransactionContainer extends Component {
       <div class={styles.formContainer}>
         <button
           class={styles.closeButton}
-          onClick={() => this.props.makeFormInvisible()}
+          onClick={this.props.makeFormInvisible}
         >
           <img src={closeIcon} />
         </button>
@@ -78,6 +78,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  TransactionContainer
-);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionPage);
