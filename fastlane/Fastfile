@@ -176,14 +176,17 @@ lane :lane_deploy_ios do
               scheme: @app_name,
               skip_helper_version_check: true,
               ios_version: "11.1",
-              test_target_name: "maji-screen-shots",
+              test_target_name: @app_name,
               app_identifier: @app_identifier,
               reinstall_app: true,
               erase_simulator: true,
               skip_open_summary: true,
               clear_previous_screenshots: true,
               stop_after_first_error: false,
-              clean: true
+              clean: true,
+              devices: ["iPhone 7 Plus", "iPad Pro (12.9-inch) (2nd generation)"],
+              languages: ["en-US", "nl-NL"],
+
 
     # FileUtils.rm_rf("#{@cordova_folder}/platforms/iosTest/", secure: true)
 
