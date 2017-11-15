@@ -3,7 +3,7 @@
 .transactionForm {
     width: 85%;
     margin: 0 auto;
-    margin-top: 4.5rem;
+    margin-top: 5rem;
 
     input,
     label,
@@ -45,7 +45,7 @@
     }
 
     textarea {
-        height: 8rem;
+        height: 5.4rem;
     }
 
     .formError {
@@ -82,6 +82,7 @@
     }
 
     .kudoButton {
+        position: fixed;
         background-color: $brand-green;
         bottom: 0;
         margin-bottom: -1.5rem; //Close-button has to stick out a bit.
