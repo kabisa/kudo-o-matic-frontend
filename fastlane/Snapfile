@@ -3,6 +3,7 @@ stop_after_first_error true
 
 
 ios_version '11.1'
+app_identifier "nl.kabisa.kudoomatic"
 
 # A list of devices you want to take the screenshots from
  devices([

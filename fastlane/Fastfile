@@ -176,9 +176,8 @@ lane :lane_deploy_ios do
               test_target_name: "maji-screen-shots",
               app_identifier: @app_identifier,
               reinstall_app: true,
-              erase_simulator: true
-
-
+              erase_simulator: true,
+              skip_open_summary: true
 
     deliver ipa: "#{output_dir}/#{@app_name}.ipa",
             submit_for_review: true,
