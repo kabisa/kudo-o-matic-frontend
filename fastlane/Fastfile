@@ -176,7 +176,7 @@ lane :lane_deploy_ios do
               scheme: @app_name,
               skip_helper_version_check: true,
               ios_version: "11.1",
-              test_target_name: "maji-screen-shots",
+              test_target_name: @app_identifier,
               app_identifier: @app_identifier,
               reinstall_app: true,
               erase_simulator: true,
