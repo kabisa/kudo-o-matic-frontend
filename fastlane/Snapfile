@@ -1,3 +1,6 @@
+clear_previous_screenshots true
+stop_after_first_error true
+
 
 ios_version '11.1'
 
@@ -12,3 +15,6 @@ languages([
   "en-US",
   "nl-NL",
 ])
+
+
+

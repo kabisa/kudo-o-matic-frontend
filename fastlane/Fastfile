@@ -173,7 +173,8 @@ lane :lane_deploy_ios do
               scheme: @app_name,
               skip_helper_version_check: true,
               ios_version: "11.1",
-              test_target_name: "maji-screen-shots"
+              test_target_name: "maji-screen-shots",
+              app_identifier: @app_identifier
 
 
     deliver ipa: "#{output_dir}/#{@app_name}.ipa",
