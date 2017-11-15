@@ -189,6 +189,12 @@ lane :lane_deploy_ios do
 
 end
 
+lane test_ionic_config do
+  ionic_ios_config_snapshot ionic_scheme_name:"maji-screen-shots",
+                            ionic_ios_xcode_path: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
+                            ionic_min_target_ios: "11.0.1"
+end
+
 lane :test_snapshot do
   snapshot  project: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
             output_directory: "#{@fastlane_folder}/screenshots/",
