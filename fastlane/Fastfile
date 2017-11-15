@@ -163,12 +163,12 @@ lane :lane_deploy_ios do
     # Make sure old screenshots are removed
     FileUtils.rm_rf("#{@fastlane_folder}/screenshots/*", secure: true)
 
-    FileUtils.rm_rf("#{@cordova_folder}/platforms/iosTest/", secure: true)
-    FileUtils.cp_r("#{@cordova_folder}/platforms/ios/", "#{@cordova_folder}/platforms/iosTest/")
-
-    ionic_ios_config_snapshot ionic_scheme_name:"maji-screen-shots",
-                              ionic_ios_xcode_path: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
-                              ionic_min_target_ios: "11.0.1"
+    # FileUtils.rm_rf("#{@cordova_folder}/platforms/iosTest/", secure: true)
+    # FileUtils.cp_r("#{@cordova_folder}/platforms/ios/", "#{@cordova_folder}/platforms/iosTest/")
+    #
+    # ionic_ios_config_snapshot ionic_scheme_name:"maji-screen-shots",
+    #                           ionic_ios_xcode_path: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
+    #                           ionic_min_target_ios: "11.0.1"
 
     #generate new screenshots
     snapshot  project: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
