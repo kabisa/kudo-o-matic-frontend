@@ -23,16 +23,6 @@ class TransactionForm extends Component {
       formSubmittable: false,
       formDisabled: false
     };
-    this.onInput = this.onInput.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onSelect = this.onSelect.bind(this);
-    this.searchUsers = this.searchUsers.bind(this);
-    this.clearSelection = this.clearSelection.bind(this);
-    this.clearImage = this.clearImage.bind(this);
-    this.addPicture = this.addPicture.bind(this);
-    this.handleCameraError = this.handleCameraError.bind(this);
-    this.openCamera = this.openCamera.bind(this);
-    this.showCameraOptions = this.showCameraOptions.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -47,34 +37,34 @@ class TransactionForm extends Component {
     );
   }
 
-  searchUsers(e) {
+  searchUsers = e => {
     let searchQuery = e.target.value;
     this.setState({ receiver: { name: searchQuery, id: "" } });
     this.props.searchUser(searchQuery, this.props.users);
     return false;
-  }
+  };
 
-  onInput(e) {
+  onInput = e => {
     this.setState({ [e.target.name]: e.target.value });
     this.setState({ formSubmittable: this.isFormSubmittable() });
-  }
+  };
 
-  onSelect(user) {
+  onSelect = user => {
     this.setState({ receiver: user.user });
     this.props.searchUser("", []);
     this.setState({ formSubmittable: this.isFormSubmittable() });
-  }
+  };
 
-  clearSelection() {
+  clearSelection = () => {
     this.setState({ receiver: { name: "", id: "" } });
     this.setState({ formSubmittable: this.isFormSubmittable() });
-  }
+  };
 
-  clearImage() {
+  clearImage = () => {
     this.setState({ imageData: "" });
-  }
+  };
 
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     if (!this.state.formSubmittable) {
       this.setState({ error: I18n.t("transaction.transactionError") });
@@ -88,9 +78,9 @@ class TransactionForm extends Component {
         "jpg"
       );
     }
-  }
+  };
 
-  openCamera(index) {
+  openCamera = index => {
     let options = {
       quality: 50,
       destinationType: Camera.DestinationType.DATA_URL,
@@ -108,9 +98,9 @@ class TransactionForm extends Component {
       this.handleCameraError,
       options
     );
-  }
+  };
 
-  showCameraOptions() {
+  showCameraOptions = () => {
     const options = {
       title: I18n.t("transaction.photoLocation"),
       buttonLabels: [
@@ -124,15 +114,15 @@ class TransactionForm extends Component {
     };
 
     window.plugins.actionsheet.show(options, this.openCamera);
-  }
+  };
 
-  addPicture(imageData) {
+  addPicture = imageData => {
     this.setState({ imageData: imageData });
-  }
+  };
 
-  handleCameraError() {
+  handleCameraError = () => {
     this.setState({ error: I18n.t("transaction.cameraError") });
-  }
+  };
 
   render(
     { formError, filteredUsers },

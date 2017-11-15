@@ -5,7 +5,8 @@
   "cordova": {
     "platforms": [
       "android",
-      "ios"
+      "ios",
+      "browser"
     ],
     "plugins": {
       "cordova-plugin-networkactivityindicator": {},
