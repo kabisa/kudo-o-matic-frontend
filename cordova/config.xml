@@ -7,7 +7,7 @@
     <access origin="*" />
     <hook src="../node_modules/maji/cordova/hooks/before_platform_add.js" type="before_platform_add" />
     <platform name="ios">
-        <hook src="scripts/add_target_attributes_and_push_notification_cap.js" type="after_build" />
+        <hook src="scripts/target_attributes.rb" type="after_build" />
         <hook src="scripts/share_schemes.rb" type="after_platform_add" />
     </platform>
     <icon src="../src/assets/logo/AppStore-1024.png" />

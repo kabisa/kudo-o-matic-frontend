@@ -6,8 +6,9 @@ gem 'xcodeproj'
 gem 'calabash-android', '>=0.9.0'
 gem 'cucumber'
 
-gem "nokogiri"
+gem 'nokogiri'
 gem 'dotenv'
+gem 'pbxplorer'
 
 gem 'pry-byebug'
 
