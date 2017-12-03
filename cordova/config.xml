@@ -31,6 +31,7 @@
             <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
         </config-file>
+      <hook src="scripts/prepare_screengrab.rb" type="after_build" />
     </platform>
     <engine name="android" spec="~6.2.3" />
     <engine name="ios" spec="^4.4.0" />

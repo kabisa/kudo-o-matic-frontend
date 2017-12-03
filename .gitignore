@@ -26,3 +26,4 @@ fastlane/report.xml
 /profiles/
 /fastlane/test_servers/
 /fastlane/vault/
+/fastlane/android/
