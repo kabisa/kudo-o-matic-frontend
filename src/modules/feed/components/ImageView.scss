@@ -1,0 +1,30 @@
+@import 'src/styles/settings/general';
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: absolute;
+    z-index: $overlay-image-z-index;
+    width: 100%;
+    height: 100%;
+
+    .closeButton {
+        width: 1.5rem;
+        height: 1.5rem;
+        position: absolute;
+        left: 1.5rem;
+        top: 1.5rem;
+
+        img {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
+    .fullImage {
+        width: 100%;
+    }
+}
+

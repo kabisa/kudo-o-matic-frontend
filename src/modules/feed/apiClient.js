@@ -39,7 +39,7 @@ export const voteTransaction = (apiToken, transactionId) => {
 
   return new Promise(resolve => {
     const request = api.put(
-      "transactions/" + transactionId + "/votes",
+      "transactions/" + transactionId + "/like",
       {},
       headers
     );
@@ -58,7 +58,7 @@ export const unVoteTransaction = (apiToken, transactionId) => {
 
   return new Promise(resolve => {
     const request = api.delete(
-      "transactions/" + transactionId + "/votes",
+      "transactions/" + transactionId + "/like",
       {},
       headers
     );

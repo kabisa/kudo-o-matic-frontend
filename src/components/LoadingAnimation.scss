@@ -1,0 +1,128 @@
+@import 'src/styles/settings/general';
+
+@keyframes loadingIcon-opacity {
+    0% {
+        -webkit-transform: translate(0 0);
+        transform: translate(0 0);
+        opacity: 1;
+    }
+
+    49.99% {
+        opacity: 1;
+        -webkit-transform: translate(80px, 0);
+        transform: translate(80px, 0);
+    }
+
+    50% {
+        opacity: 0;
+        -webkit-transform: translate(80px, 0);
+        transform: translate(80px, 0);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+@-webkit-keyframes loadingIcon-opacity {
+    0% {
+        -webkit-transform: translate(0 0);
+        transform: translate(0 0);
+        opacity: 1;
+    }
+
+    49.99% {
+        opacity: 1;
+        -webkit-transform: translate(80px, 0);
+        transform: translate(80px, 0);
+    }
+
+    50% {
+        opacity: 0;
+        -webkit-transform: translate(80px, 0);
+        transform: translate(80px, 0);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes loadingIcon {
+    0% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    50% {
+        -webkit-transform: translate(80px, 0);
+        transform: translate(80px, 0);
+    }
+
+    100% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+@-webkit-keyframes loadingIcon {
+    0% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    50% {
+        -webkit-transform: translate(80px, 0);
+        transform: translate(80px, 0);
+    }
+
+    100% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+.loadingIcon {
+    div {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+
+    div:nth-child(1) {
+        background: $brand-blue;
+        -webkit-animation: loadingIcon 1s linear infinite;
+        animation: loadingIcon 1s linear infinite;
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+    }
+
+    div:nth-child(2) {
+        background: $brand-green;
+        -webkit-animation: loadingIcon 1s linear infinite;
+        animation: loadingIcon 1s linear infinite;
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+    }
+
+    div:nth-child(3) {
+        background: $brand-blue;
+        -webkit-animation: loadingIcon-opacity 1s linear infinite;
+        animation: loadingIcon-opacity 1s linear infinite;
+        animation: loadingIcon-opacity 1s linear infinite;
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+    }
+}
+
+.loadingIcon {
+    width: 40px !important;
+    height: 40px !important;
+    -webkit-transform: translate(-20px, 0) scale(0.2) translate(20px, 0);
+    transform: translate(-20px, 0) scale(0.2) translate(20px, 0);
+}
