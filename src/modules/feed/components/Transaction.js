@@ -73,7 +73,18 @@ export class Transaction extends Component {
               for <span id="activity">{transaction.activity}</span>
             </p>
             {image}
-            <p class={styles.transactionTimestamp}>{transaction.interval}</p>
+          </div>
+        </div>
+        <div class={styles.transactionBottom}>
+          <div class={styles.transactionUsers}>
+            <img src={transaction.sender["avatar-url"]} />
+            <img
+              class={styles.imgReceiver}
+              src={transaction.receiver["avatar-url"]}
+            />
+          </div>
+          <div class={styles.timeStamp}>
+            <span>{transaction.interval}</span>
           </div>
           <div class={styles.transactionAction}>
             <a
@@ -89,7 +100,6 @@ export class Transaction extends Component {
             </p>
           </div>
         </div>
-        <hr class={styles.hr} />
       </div>
     );
   }
