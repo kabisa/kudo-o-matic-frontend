@@ -21,6 +21,7 @@ en:
     years_ago: ' years ago'
   profile:
     title: 'PROFILE'
+    logout: 'Logout'
   statistics:
     title: 'STATISTICS'
   transaction:
