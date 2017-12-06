@@ -1,4 +1,5 @@
 import * as constants from "./constants";
+import { LOGOUT_USER } from "../profile/constants";
 import Settings from "src/config/settings";
 
 const initialState = {
@@ -42,6 +43,10 @@ export const authentication = (state = initialState, action) => {
       return {
         ...state,
         googleError: action.error
+      };
+    case LOGOUT_USER:
+      return {
+        user: initialState.user
       };
     default:
       return state;
