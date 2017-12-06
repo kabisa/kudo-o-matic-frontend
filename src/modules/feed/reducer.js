@@ -4,6 +4,7 @@ import moment from "moment";
 const initialState = {
   fetching: false,
   transactions: [],
+  offset: 0,
   fullImage: undefined,
   error: undefined
 };
@@ -20,7 +21,12 @@ export const feed = (state = initialState, action) => {
         };
       });
 
-      return { ...state, fetching: false, transactions: transactions };
+      return {
+        ...state,
+        fetching: false,
+        transactions: state.transactions.concat(transactions),
+        offset: state.offset + 10
+      };
     }
     case constants.LIKED_TRANSACTION: {
       const _transactions = state.transactions.map(

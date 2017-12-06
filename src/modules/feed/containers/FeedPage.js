@@ -18,18 +18,28 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchAllTransactions(this.props.user.apiToken);
+    this.props.fetchAllTransactions(this.props.user.apiToken, 0);
   }
 
   render({
     transactions,
     user,
+    offset,
     fullImage,
     showFullImage,
     hideFullImage,
     likeTransaction,
     unLikeTransaction
   }) {
+    const checkPageScroll = e => {
+      if (
+        (e.target.scrollHeight - e.target.scrollTop == e.target.offsetHeight) &
+        (this.props.fetching != true)
+      ) {
+        this.props.fetchAllTransactions(this.props.user.apiToken, offset);
+      }
+    };
+
     const voteTransaction = transactionId => {
       likeTransaction(user.apiToken, transactionId);
     };
@@ -51,7 +61,13 @@ export class FeedPage extends Component {
           <h1>{I18n.t("feed.title")}</h1>
         </Header>
         <main />
-        <ul class={styles.transactionList} id="transactionList">
+        <ul
+          class={styles.transactionList}
+          id="transactionList"
+          onScroll={e => {
+            checkPageScroll(e);
+          }}
+        >
           {transactions.map(transaction => {
             let likeAction = transaction["api-user-voted"]
               ? (likeAction = unVoteTransaction)
@@ -77,6 +93,8 @@ export class FeedPage extends Component {
 const mapStateToProps = state => ({
   user: state.authentication.user,
   transactions: state.feed.transactions,
+  offset: state.feed.offset,
+  fetching: state.feed.fetching,
   fullImage: state.feed.fullImage
 });
 
