@@ -1,15 +1,23 @@
-app_package_name 'nl.kabisa.kudoomatic'
-use_tests_in_classes ['androidTest.java.nl.kabisa.kudoomatic.MainActivityTestTest']
+$LOAD_PATH << '.'
+require './fastlane/helpers/metadata_helper.rb'
+helper = Metadata_helper.new
 
-app_apk_path 'cordova/platforms/android/build/outputs/apk/android-debug.apk'
-tests_apk_path 'cordova/platforms/android/build/outputs/apk/android-debug-androidTest.apk'
+package_name = helper.get_property('app_identifier')
 
-locales ['nl-NL']
+app_package_name package_name
+
+use_tests_in_classes ["androidTest.java.#{package_name}.MainActivityTestTest"]
+
+app_apk_path './cordova/platforms/android/build/outputs/apk/debug/android-debug.apk'
+tests_apk_path './cordova/platforms/android/build/outputs/apk/androidTest/debug/android-debug-androidTest.apk'
+
+
+locales helper.get_languages
 
 # clear all previously generated screenshots in your local output directory before creating new ones
 clear_previous_screenshots true
 
-output_directory './fastlane/android'
+output_directory './fastlane/metadata/android'
 
 skip_open_summary true
 clear_previous_screenshots true

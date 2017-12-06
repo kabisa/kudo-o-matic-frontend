@@ -14,9 +14,11 @@ before_all do
   @app_name = cordova_config.xpath("//xmlns:name").text
   @team_id = cordova_config.xpath("//xmlns:team_id").text
 
-  @metadata = YAML.load_file("#{@fastlane_folder}/metadata.yml")
-  @metadata["copyright"] = @metadata["copyright"].gsub("&current_year", Time.now.year.to_s)
-  @languages = get_languages(@metadata)
+  $LOAD_PATH << '.'
+  require './helpers/metadata_helper.rb'
+  @helper = Metadata_helper.new
+
+  @languages = @helper.get_languages
 
   @environment = "development"
   if @branch == 'appstore'
@@ -34,6 +36,22 @@ before_all do
   end
 end
 
+lane :android_screenshots do
+
+  prepare_android_metadata
+
+  fix_avd_location
+
+  automated_test_emulator_run(
+    ADB_restart: false,
+    AVD_setup_path: "#{@fastlane_folder}/AVD_setup.json",
+    shell_task:"cd #{@fastlane_folder}/../ && #{@cordova_folder}/platforms/android/gradlew -p #{@cordova_folder}/platforms/android/ installDebug installDebugAndroidTest && fastlane screengrab"
+  )
+
+  FileUtils.rm_f("#{@fastlane_folder}/metadata/android/screenshots.html")
+
+end
+
 lane :lane_deploy do
 
   if @build_hockey || @deploy_store
@@ -46,9 +64,8 @@ lane :lane_deploy_android do
   FileUtils.rm_rf("#{@cordova_folder}/platforms/android/build/outputs/apk/.", secure: true)
   android_version = get_android_version(@config_version)
 
-  sh('APP_ENV=#{@environment} bin/maji build android')
-
   unless @deploy_store
+    sh('APP_ENV=#{@environment} bin/maji build android')
 
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{@cordova_folder}/platforms/android/build/outputs/apk/android-debug.apk",
@@ -71,23 +88,7 @@ lane :lane_deploy_android do
 
     zipalign(apk_path: "#{lane_context[SharedValues::SIGNED_APK_PATH]}")
 
-    sh("calabash-android resign #{@cordova_folder}/platforms/android/build/outputs/apk/android-release-unsigned.apk")
-
-    prepare_android_metadata
-
-    fix_avd_location
-
-    automated_test_emulator_run(
-      ADB_restart: false,
-      AVD_setup_path: "#{@fastlane_folder}/AVD_setup.json",
-      shell_task:"cd #{@fastlane_folder}/ && SCREENSHOT_PATH=#{@fastlane_folder}/screenshots/android/ bundler exec calabash-android run #{@cordova_folder}/platforms/android/build/outputs/apk/android-release-unsigned.apk"
-    )
-
-    # For now just copy it over to all the language directories. There's no way we can change the language of the phone from cli yet.
-    @languages.each {|lang|
-      FileUtils.cp_r("#{@fastlane_folder}/screenshots/android/.", "#{@fastlane_folder}/metadata/android/#{lang}/images/phoneScreenshots/")
-    }
-    FileUtils.rm_rf("#{@fastlane_folder}/screenshots/android/", secure: true)
+    android_screenshots
 
     supply  track: "production",
             apk: "#{@cordova_folder}/platforms/android/build/outputs/apk/android-release.apk",
@@ -109,7 +110,7 @@ lane :lane_deploy_ios do
   FileUtils.rm_rf("profiles/", secure: true)
   FileUtils.mkdir_p("profiles")
 
-  sh("fastlane sigh --provisioning_name=\"match AdHoc #{@app_identifier}\" --username=\"info@kabisa.nl\" --app_identifier=\"#{@app_identifier}\" --skip_install --adhoc --ignore_profiles_with_different_name --output_path=\"./profiles\"")
+  sh("fastlane sigh --provisioning_name=\"match AdHoc #{@app_identifier}\" --username=\"#{ENV['FASTLANE_USER']}\" --app_identifier=\"#{@app_identifier}\" --skip_install --adhoc --ignore_profiles_with_different_name --output_path=\"./profiles\"")
   sh("security cms -D -i ./profiles/AdHoc_#{@app_identifier}.mobileprovision > ./profiles/AdHoc_#{@app_identifier}.plist || true")
   profile_uuid = sh("/usr/libexec/PlistBuddy -c \"Print :UUID\" ./profiles/AdHoc_#{@app_identifier}.plist").chomp
   FileUtils.rm_rf("profiles/", secure: true)
@@ -117,17 +118,11 @@ lane :lane_deploy_ios do
   #Build the app for ios
   sh("APP_ENV=#{@environment} bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (#{@team_id})\" --developmentTeam=\"#{@team_id}\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
 
-  match username: 'info@kabisa.nl',
+  match username: ENV['FASTLANE_USER'],
         git_url: 'git@github.com:kabisa/match-certificates.git',
         type: 'adhoc',
         app_identifier: @app_identifier,
         force_for_new_devices: :true
-
-  #Make sure automatic code signing is disabled, we dont want this.
-  # disable_automatic_code_signing(
-  #   path: "#{@cordova_folder}/platforms/ios/#{@app_name}.xcodeproj",
-  #   team_id: @team_id
-  # )
 
   #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
   update_project_provisioning(
@@ -172,14 +167,14 @@ lane :lane_deploy_ios do
 
     #generate new screenshots
 
-    test_snapshot
+    ios_screenshots
 
     # FileUtils.rm_rf("#{@cordova_folder}/platforms/iosTest/", secure: true)
 
     deliver ipa: "#{output_dir}/#{@app_name}.ipa",
             submit_for_review: true,
             force: true,
-            username: "info@kabisa.nl",
+            username: ENV['FASTLANE_USER'],
             overwrite_screenshots: true,
             metadata_path: "#{@fastlane_folder}/metadata/",
             screenshots_path: "#{@fastlane_folder}/screenshots/",
@@ -189,13 +184,7 @@ lane :lane_deploy_ios do
 
 end
 
-lane :test_ionic_config do
-  ionic_ios_config_snapshot ionic_scheme_name:"maji-screen-shots",
-                            ionic_ios_xcode_path: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
-                            ionic_min_target_ios: "11.0.1"
-end
-
-lane :test_snapshot do
+lane :ios_screenshots do
   snapshot  project: "#{@cordova_folder}/platforms/iosTest/#{@app_name}.xcodeproj",
             output_directory: "#{@fastlane_folder}/screenshots/",
             scheme: @app_name,
@@ -215,7 +204,7 @@ lane :test_snapshot do
 end
 
 def check_version
-  Spaceship::Tunes.login("info@kabisa.nl", ENV['FASTLANE_PASSWORD'])
+  Spaceship::Tunes.login(ENV['FASTLANE_USER'], ENV['FASTLANE_PASSWORD'])
   app = Spaceship::Tunes::Application.find(@app_identifier)
   apple_version = app.build_trains.keys.last
 
@@ -242,20 +231,11 @@ def fix_avd_location
   File.write(json_file, JSON.pretty_generate(json))
 end
 
-def get_languages(metadata)
-  result = []
-  metadata["languages"].each do |key, _|
-    result.push(key)
-  end
-  result
-end
 
 def prepare_android_metadata
 
   FileUtils.rm_rf("#{@fastlane_folder}/metadata/", secure: true)
   FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android")
-  FileUtils.rm_rf("#{@fastlane_folder}/screenshots/*", secure: true)
-  FileUtils.mkdir_p("#{@fastlane_folder}/screenshots/android/")
 
   @languages.each {|lang|
     FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images")
@@ -266,14 +246,14 @@ def prepare_android_metadata
     FileUtils.mkdir_p("#{@fastlane_folder}/metadata/android/#{lang}/images/wearScreenshots")
     FileUtils.touch("#{@fastlane_folder}/metadata/android/#{lang}/video.txt")
 
-    language_metadata = @metadata["languages"][lang]
+    language_metadata = @helper.get_property("languages")[lang]
     File.write("#{@fastlane_folder}/metadata/android/#{lang}/title.txt", language_metadata["name"])
     File.write("#{@fastlane_folder}/metadata/android/#{lang}/short_description.txt", language_metadata["short_description"])
     File.write("#{@fastlane_folder}/metadata/android/#{lang}/full_description.txt", language_metadata["description"])
 
-    FileUtils.cp(@metadata["android_app_icon"], "#{@fastlane_folder}/metadata/android/#{lang}/images/icon.png")
-    FileUtils.cp(@metadata["feature_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/featureGraphic.png")
-    FileUtils.cp(@metadata["promo_graphic"], "#{@fastlane_folder}/metadata/android/#{lang}/images/promoGraphicpng")
+    FileUtils.cp(@helper.get_property("android_app_icon"), "#{@fastlane_folder}/metadata/android/#{lang}/images/icon.png")
+    FileUtils.cp(@helper.get_property("feature_graphic"), "#{@fastlane_folder}/metadata/android/#{lang}/images/featureGraphic.png")
+    FileUtils.cp(@helper.get_property("promo_graphic"), "#{@fastlane_folder}/metadata/android/#{lang}/images/promoGraphic.png")
   }
 
 end

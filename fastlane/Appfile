@@ -1,4 +1,8 @@
+$LOAD_PATH << '.'
+require './helpers/metadata_helper.rb'
+helper = Metadata_helper.new
+
 json_key_file "fastlane/vault/GOOGLE_JSON_KEY_FILE.json"
-package_name "nl.kabisa.kudoomatic"
-team_id "9H6JXDUXPW"
-app_identifier "nl.kabisa.kudoomatic"
+package_name helper.get_property('app_identifier')
+team_id helper.get_property('team_id')
+app_identifier helper.get_property('app_identifier')

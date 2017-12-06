@@ -16,7 +16,7 @@
     }
   },
   "dependencies": {
-    "cordova-android": "~6.2.3",
+    "cordova-android": "^6.2.3",
     "cordova-ios": "^4.4.0",
     "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
     "cordova-plugin-networkactivityindicator": "~0.1.1",

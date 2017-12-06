@@ -1,4 +1,5 @@
 app_identifier: 'nl.kabisa.kudoomatic'
+team_id: '9H6JXDUXPW'
 username: 'info@kabisa.nl'
 app_rating_config_path: 'fastlane/ratings_config.json'
 app_icon: 'src/assets/logo/AppStore-1024.png'
@@ -19,6 +20,9 @@ app_review_information:
   demo_user:
   demo_password:
   notes:
+ios_devices:
+  - 'iPhone 7 Plus'
+  - 'iPad Pro (12.9-inch) (2nd generation)'
 languages:
   nl-NL:
     name: 'Kabisa Kudo-o-matic'

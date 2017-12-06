@@ -7,7 +7,7 @@
       "create_avd_tag": "google_apis",
       "create_avd_abi": "x86",
       "create_avd_additional_options": "",
-      "create_avd_hardware_config_filepath": "fastlane/avds/Nexus5X.ini",
+      "create_avd_hardware_config_filepath": "/Users/bv/IdeaProjects/kudo-o-matic-frontend/fastlane/avds/Nexus5X.ini",
       "launch_avd_port": "",
       "launch_avd_snapshot_filepath": "",
       "launch_avd_launch_binary_name": "emulator",

@@ -29,6 +29,11 @@ xcode-select --install
 </table>
 
 # Available Actions
+### android_screenshots
+```
+fastlane android_screenshots
+```
+
 ### lane_deploy
 ```
 fastlane lane_deploy
@@ -44,9 +49,14 @@ fastlane lane_deploy_android
 fastlane lane_deploy_ios
 ```
 
-### test_version
+### test_ionic_config
 ```
-fastlane test_version
+fastlane test_ionic_config
+```
+
+### test_snapshot
+```
+fastlane test_snapshot
 ```
 
 
