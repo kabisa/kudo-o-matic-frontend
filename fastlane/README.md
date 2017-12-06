@@ -49,14 +49,9 @@ fastlane lane_deploy_android
 fastlane lane_deploy_ios
 ```
 
-### test_ionic_config
+### ios_screenshots
 ```
-fastlane test_ionic_config
-```
-
-### test_snapshot
-```
-fastlane test_snapshot
+fastlane ios_screenshots
 ```
 
 
