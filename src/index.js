@@ -3,6 +3,7 @@ import "./styles/shell.scss";
 import { h, render } from "preact";
 import { Provider } from "preact-redux";
 import { Router as PreactRouter } from "preact-router";
+import { route } from "preact-router";
 import { history } from "src/support/history";
 import { augmentRouter } from "src/support/pageTransitionSupport";
 
@@ -30,6 +31,29 @@ const renderApp = function() {
 
 FastClick.attach(document.body);
 renderApp();
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+  ThreeDeeTouch.configureQuickActions([
+    {
+      type: "kudos",
+      title: "Give Kudos",
+      subtitle: "Compose transaction",
+      iconType: "Compose"
+    }
+  ]);
+
+  ThreeDeeTouch.onHomeIconPressed = function(payload) {
+    if (payload.type == "kudos") {
+      route("/transaction", true);
+    } else {
+      setTimeout(function() {
+        alert(JSON.stringify(payload));
+      }, 500);
+    }
+  };
+}
 
 if (process.env.NODE_ENV !== "production") {
   require("preact/devtools");
