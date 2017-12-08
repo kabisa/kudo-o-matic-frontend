@@ -27,7 +27,7 @@ before_all do
 
   @build_hockey = message.include?('DEPLOY_HOCKEY')
   @deploy_store = message.include?('DEPLOY_STORE')
-  @release_notes = message.gsub('BUILD_HOCKEY', '')
+  @release_notes = message.gsub(/DEPLOY_(HOCKEY|STORE)/, '')
   @branch = git_branch.gsub('origin/', '')
   Dir.chdir('..') if in_fastlane
 
