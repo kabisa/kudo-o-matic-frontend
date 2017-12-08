@@ -4,6 +4,7 @@ import { connect } from "preact-redux";
 import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
 import Transaction from "../components/Transaction";
+import LoadingBlock from "../components/LoadingBlock";
 import ImageView from "../components/ImageView";
 import I18n from "src/config/i18n";
 import styles from "./FeedPage.scss";
@@ -25,6 +26,7 @@ export class FeedPage extends Component {
     transactions,
     user,
     offset,
+    fetching,
     fullImage,
     showFullImage,
     hideFullImage,
@@ -34,7 +36,7 @@ export class FeedPage extends Component {
     const checkPageScroll = e => {
       if (
         (e.target.scrollHeight - e.target.scrollTop == e.target.offsetHeight) &
-        (this.props.fetching != true)
+        (fetching != true)
       ) {
         this.props.fetchAllTransactions(this.props.user.apiToken, offset);
       }
@@ -84,6 +86,11 @@ export class FeedPage extends Component {
               </li>
             );
           })}
+          {fetching == true ? (
+            <li>
+              <LoadingBlock />
+            </li>
+          ) : null}
         </ul>
       </Page>
     );
