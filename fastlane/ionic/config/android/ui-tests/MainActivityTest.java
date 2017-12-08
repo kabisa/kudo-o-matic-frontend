@@ -29,7 +29,7 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.findElemen
  * Created by bv on 01/12/2017.
  */
 @RunWith(JUnit4.class)
-public class MainActivityTestTest {
+public class MainActivityTest {
     @BeforeClass
     public static void beforeAll() {
       Screengrab.setDefaultScreenshotStrategy(new UiAutomatorScreenshotStrategy());

@@ -6,7 +6,7 @@ package_name = helper.get_property('app_identifier')
 
 app_package_name package_name
 
-use_tests_in_classes ["androidTest.java.#{package_name}.MainActivityTestTest"]
+use_tests_in_classes ["androidTest.java.#{package_name}.MainActivityTest"]
 
 app_apk_path './cordova/platforms/android/build/outputs/apk/debug/android-debug.apk'
 tests_apk_path './cordova/platforms/android/build/outputs/apk/androidTest/debug/android-debug-androidTest.apk'
