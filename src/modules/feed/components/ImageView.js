@@ -3,7 +3,7 @@ import { imageExists } from "src/support/imageUtils";
 
 import styles from "./ImageView.scss";
 import closeIcon from "src/assets/icons/close.svg";
-import { LoadingAnimation } from "src/components/LoadingAnimation";
+import LoadingAnimation from "src/components/LoadingAnimation";
 
 class imageView extends Component {
   constructor(props) {

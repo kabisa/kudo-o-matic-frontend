@@ -2,7 +2,7 @@ import { h, Component } from "preact";
 import { imageExists } from "src/support/imageUtils";
 
 import styles from "./Transaction.scss";
-import { LoadingAnimation } from "src/components/LoadingAnimation";
+import LoadingAnimation from "src/components/LoadingAnimation";
 import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.svg";
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 
