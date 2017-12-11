@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "242980876083",
+    "firebase_url": "https://kudo-o-matic-180317.firebaseio.com",
+    "project_id": "kudo-o-matic-180317",
+    "storage_bucket": "kudo-o-matic-180317.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242980876083:android:0eb11e3f80cc1eec",
+        "android_client_info": {
+          "package_name": "nl.kabisa.kudoomatic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242980876083-r1f3f0ojpmm2s1gdgtnq7kflpk4j55ma.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "242980876083-0jsv8frdecdeh3n5n7iqnmnf636bgm57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.kabisa.kudoomatic",
+            "certificate_hash": "0270dc1163a611789fa3ee0e96e165d0a606d499"
+          }
+        },
+        {
+          "client_id": "242980876083-r7i1q0lr81lga27risu8b5ksmprd05pp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.kabisa.kudoomatic",
+            "certificate_hash": "fd4fefa952b7eff081e908f32c4ae14fb185af7a"
+          }
+        },
+        {
+          "client_id": "242980876083-7432bd7u544r3s04f86r8849b202hbpr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "242980876083-f72dobpq65bl62r92438jmsejrk0fgvp.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "242980876083-alcqeo098jkpmsrpd8813ds7gd2f5un6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3V1eUG6mld7CSnP2pFyQ1puTyAaJA9R0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242980876083-0cksfoq3gqljjc7n0b1mflpasg0t544l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nl.kabisa.kudoomatic"
+              }
+            },
+            {
+              "client_id": "242980876083-r1f3f0ojpmm2s1gdgtnq7kflpk4j55ma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -69,11 +69,11 @@ export const receivedApiError = error => {
   };
 };
 
-export const fetchAllTransactions = apiToken => {
+export const fetchAllTransactions = (apiToken, offset) => {
   return dispatch => {
-    dispatch(startedFetchingTransactions);
+    dispatch(startedFetchingTransactions());
 
-    return fetchTransactions(apiToken)
+    return fetchTransactions(apiToken, offset)
       .then(transactions => {
         dispatch(finishedFetchingTransaction(transactions));
       })
