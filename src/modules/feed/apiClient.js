@@ -7,7 +7,7 @@ const api = create({
   headers: { Accept: "application/vnd.api+json" }
 });
 
-export const fetchTransactions = apiToken => {
+export const fetchTransactions = (apiToken, offset) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
     "Api-Token": apiToken
@@ -15,7 +15,9 @@ export const fetchTransactions = apiToken => {
 
   return new Promise(resolve => {
     const request = api.get(
-      "transactions?include=sender,receiver&sort=-created_at",
+      "transactions?page[limit]=10&page[offset]=" +
+        offset +
+        "&include=sender,receiver&sort=-created_at",
       {},
       {
         headers

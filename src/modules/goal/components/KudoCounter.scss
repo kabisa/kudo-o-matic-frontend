@@ -1,11 +1,11 @@
 @import 'src/styles/settings/general';
 
 .kudoCounter {
-    width: 12rem;
-    height: 12rem;
+    width: 14rem;
+    height: 14rem;
     margin-top: 4rem;
-    border: 0.9rem solid;
-    border-radius: 6rem;
+    border: 1rem solid;
+    border-radius: 90%;
     border-color: $brand-blue;
     display: flex;
     flex-direction: column;
