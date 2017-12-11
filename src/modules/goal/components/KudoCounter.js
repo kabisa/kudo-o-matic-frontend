@@ -4,7 +4,20 @@ import ProgressBar from "progressbar.js";
 
 import styles from "./KudoCounter.scss";
 
+let bar;
+
 class KudoCounter extends Component {
+  componentDidMount() {
+    bar = new ProgressBar.Circle("#container", {
+      easing: "easeInOut",
+      duration: 1500,
+      strokeWidth: 6,
+      color: "#6692a6",
+      trailColor: "#eee",
+      trailWidth: 6
+    });
+  }
+
   componentWillReceiveProps({ currentAmount, nextAmount }) {
     let options = {
       useEasing: true,
@@ -20,14 +33,6 @@ class KudoCounter extends Component {
     );
 
     let percentage = currentAmount / nextAmount;
-    let bar = new ProgressBar.Circle("#container", {
-      easing: "easeInOut",
-      duration: 1500,
-      strokeWidth: 6,
-      color: "#6692a6",
-      trailColor: "#eee",
-      trailWidth: 6
-    });
     bar.animate(percentage);
     countUp.start();
   }
