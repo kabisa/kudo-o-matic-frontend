@@ -1,10 +1,11 @@
 import { h, Component } from "preact";
 import CountUp from "countup.js";
+import ProgressBar from "progressbar.js";
 
 import styles from "./KudoCounter.scss";
 
 class KudoCounter extends Component {
-  componentWillReceiveProps({ currentAmount }) {
+  componentWillReceiveProps({ currentAmount, nextAmount }) {
     let options = {
       useEasing: true,
       useGrouping: false
@@ -18,6 +19,16 @@ class KudoCounter extends Component {
       options
     );
 
+    let percentage = currentAmount / nextAmount;
+    let bar = new ProgressBar.Circle("#container", {
+      easing: "easeInOut",
+      duration: 1500,
+      strokeWidth: 6,
+      color: "#6692a6",
+      trailColor: "#eee",
+      trailWidth: 6
+    });
+    bar.animate(percentage);
     countUp.start();
   }
 
@@ -34,6 +45,7 @@ class KudoCounter extends Component {
           </div>
           <div class={styles.nextGoal}>{nextText}</div>
         </div>
+        <div class={styles.progressBar} id="container" />
       </div>
     );
   }

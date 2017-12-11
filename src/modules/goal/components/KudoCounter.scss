@@ -1,12 +1,23 @@
 @import 'src/styles/settings/general';
 
 .kudoCounter {
+    position: absolute;
+    margin-top: 4rem;
+    width: 14rem;
+    height: 14rem;
+    border-radius: 90%;
+    border-color: $brand-blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+}
+
+.progressBar {
     width: 14rem;
     height: 14rem;
     margin-top: 4rem;
-    border: 1rem solid;
-    border-radius: 90%;
-    border-color: $brand-blue;
     display: flex;
     flex-direction: column;
     align-items: center;
