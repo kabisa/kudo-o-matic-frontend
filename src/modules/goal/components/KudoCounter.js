@@ -14,9 +14,10 @@ class KudoCounter extends Component {
       0,
       currentAmount,
       0,
-      2.5,
+      1.5,
       options
     );
+
     countUp.start();
   }
 
