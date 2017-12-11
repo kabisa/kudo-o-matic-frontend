@@ -1,0 +1,106 @@
+@import 'src/styles/settings/general';
+
+@keyframes loadingIcon-opacity {
+    0% {
+        transform: translate(0 0);
+        opacity: 1;
+    }
+
+    49.99% {
+        opacity: 1;
+        transform: translate(5rem, 0);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translate(5rem, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+}
+
+@-webkit-keyframes loadingIcon-opacity {
+    0% {
+        transform: translate(0 0);
+        opacity: 1;
+    }
+
+    49.99% {
+        opacity: 1;
+        transform: translate(5rem, 0);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translate(5rem, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes loadingIcon {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(5rem, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@-webkit-keyframes loadingIcon {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(5rem, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.loadingIcon {
+    div {
+        position: absolute;
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+    }
+
+    div:nth-child(1) {
+        background: $brand-blue;
+        animation: loadingIcon 1s linear infinite;
+        animation-delay: -0.5s;
+    }
+
+    div:nth-child(2) {
+        background: $brand-green;
+        animation: loadingIcon 1s linear infinite;
+        animation-delay: 0s;
+    }
+
+    div:nth-child(3) {
+        background: $brand-blue;
+        animation: loadingIcon-opacity 1s linear infinite;
+        animation-delay: -0.5s;
+    }
+}
+
+.loadingIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    transform: translate(-1.25rem, 0) scale(0.2) translate(1.25rem, 0);
+}

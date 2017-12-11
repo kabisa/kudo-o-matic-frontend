@@ -4,6 +4,7 @@ import moment from "moment";
 const initialState = {
   fetching: false,
   transactions: [],
+  fullImage: undefined,
   error: undefined
 };
 
@@ -53,6 +54,10 @@ export const feed = (state = initialState, action) => {
         transactions: trans
       };
     }
+    case constants.SHOW_FULL_IMAGE:
+      return { ...state, fullImage: action.imageURL };
+    case constants.HIDE_FULL_IMAGE:
+      return { ...state, fullImage: undefined };
     case constants.RECEIVED_API_ERROR:
       return { ...state, fetching: false, error: action.error };
     default:

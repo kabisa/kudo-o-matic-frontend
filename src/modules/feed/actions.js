@@ -49,6 +49,19 @@ export const unLikeTransaction = (transactionId, apiToken) => {
   };
 };
 
+export const showFullImage = imageURL => {
+  return {
+    type: constants.SHOW_FULL_IMAGE,
+    imageURL: imageURL
+  };
+};
+
+export const hideFullImage = () => {
+  return {
+    type: constants.HIDE_FULL_IMAGE
+  };
+};
+
 export const receivedApiError = error => {
   return {
     type: constants.RECEIVED_API_ERROR,
