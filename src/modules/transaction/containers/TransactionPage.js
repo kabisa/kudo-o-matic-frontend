@@ -11,7 +11,7 @@ import { addTransaction, fetchAllUsers } from "../actions";
 export class TransactionPage extends Component {
   componentWillMount() {
     if (typeof this.props.user.apiToken === "undefined") {
-      route("/login", true);
+      location.reload();
     } else {
       this.props.fetchUsers(this.props.user.apiToken);
     }
