@@ -1,6 +1,18 @@
 import * as constants from "./constants";
-import { requestToken } from "./apiClient";
+import { requestToken, postFCMToken } from "./apiClient";
 
+export const startedStoringFCMToken = () => {
+  return {
+    type: constants.STARTED_STORING_FCM_TOKEN
+  };
+};
+
+export const storedFCMToken = FCMToken => {
+  return {
+    type: constants.STORED_FCM_TOKEN,
+    fcm_token: FCMToken
+  };
+};
 export const handleGoogleLoginSuccess = token => {
   return {
     type: constants.GOOGLE_TOKEN_SUCCESS,
@@ -45,5 +57,15 @@ export const requestApiToken = googleToken => {
       .catch(error => {
         return dispatch(handleApiLoginFailure(error));
       });
+  };
+};
+
+export const storeFCMToken = FCMToken => {
+  return dispatch => {
+    dispatch(startedStoringFCMToken());
+
+    return postFCMToken(FCMToken).then(token => {
+      return dispatch(storedFCMToken(token));
+    });
   };
 };
