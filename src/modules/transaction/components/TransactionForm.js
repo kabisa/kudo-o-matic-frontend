@@ -144,75 +144,83 @@ class TransactionForm extends Component {
           )}
           {error !== "" && <div class={styles.formError}>{error}</div>}
           <fieldset disabled={formDisabled}>
-            <label>
-              {I18n.t("transaction.amount")}
-              <div class={styles.amountInput}>
-                <input
-                  name="amount"
-                  type="number"
-                  id="inputAmount"
-                  min="1"
-                  max="999"
-                  className={styles.userSelection}
-                  value={amount}
-                  onInput={this.onInput}
-                  class={styles.amountInput}
-                />
-                <span class={styles.kudoCurrency}>₭</span>
-              </div>
-            </label>
-            <label>
-              {I18n.t("transaction.receiver")}
+            <div class={styles.formContainer}>
+              <label>
+                {I18n.t("transaction.amount")}
+                <div class={styles.amountInput}>
+                  <input
+                    name="amount"
+                    type="number"
+                    id="inputAmount"
+                    min="1"
+                    max="999"
+                    className={styles.userSelection}
+                    value={amount}
+                    onInput={this.onInput}
+                    class={styles.amountInput}
+                  />
+                  <span class={styles.kudoCurrency}>₭</span>
+                </div>
+              </label>
+              <label>
+                {I18n.t("transaction.receiver")}
 
-              {receiver.id !== "" ? (
-                <SelectedUser
-                  user={receiver}
-                  clearSelection={this.clearSelection}
+                {receiver.id !== "" ? (
+                  <SelectedUser
+                    user={receiver}
+                    clearSelection={this.clearSelection}
+                  />
+                ) : (
+                  <div>
+                    <input
+                      value={receiver.name}
+                      onInput={this.searchUsers}
+                      placeholder="Search for users"
+                    />
+                    <Suggestions
+                      searchQuery={receiver.name}
+                      users={filteredUsers}
+                      onSelect={this.onSelect}
+                    />
+                  </div>
+                )}
+              </label>
+              <label>
+                {I18n.t("transaction.giving_kudos_for")}
+                <textarea
+                  maxLength="90"
+                  name="activity"
+                  type="text"
+                  value={activity}
+                  onInput={this.onInput}
+                />
+              </label>
+
+              {imageData !== "" ? (
+                <SelectedImage
+                  imageData={imageData}
+                  clearImage={this.clearImage}
                 />
               ) : (
-                <div>
-                  <input
-                    value={receiver.name}
-                    onInput={this.searchUsers}
-                    placeholder="Search for users"
-                  />
-                  <Suggestions
-                    searchQuery={receiver.name}
-                    users={filteredUsers}
-                    onSelect={this.onSelect}
-                  />
+                <div
+                  class={styles.imageButton}
+                  onClick={this.showCameraOptions}
+                >
+                  <img id="picture" src={photoIcon} />
+                  <p>Add a picture</p>
                 </div>
               )}
-            </label>
-            <label>
-              {I18n.t("transaction.giving_kudos_for")}
-              <textarea
-                maxLength="90"
-                name="activity"
-                type="text"
-                value={activity}
-                onInput={this.onInput}
-              />
-            </label>
-
-            {imageData !== "" ? (
-              <SelectedImage
-                imageData={imageData}
-                clearImage={this.clearImage}
-              />
-            ) : (
-              <div class={styles.imageButton} onClick={this.showCameraOptions}>
-                <img id="picture" src={photoIcon} />
-                <p>Add a picture</p>
+              <div class={styles.buttonContainer}>
+                <div
+                  id="submitTransaction"
+                  class={styles.kudoButton}
+                  onClick={this.onSubmit}
+                >
+                  <img src={kudoIcon} />
+                  <p>Give ₭udos</p>
+                </div>
               </div>
-            )}
-            <button
-              id="submitTransaction"
-              class={styles.kudoButton}
-              type="submit"
-            >
-              <img src={kudoIcon} />
-            </button>
+            </div>
           </fieldset>
         </form>
       </div>
