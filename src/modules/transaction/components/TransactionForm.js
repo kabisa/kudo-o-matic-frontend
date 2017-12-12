@@ -206,13 +206,14 @@ class TransactionForm extends Component {
                 <p>Add a picture</p>
               </div>
             )}
-            <button
+            <div
               id="submitTransaction"
               class={styles.kudoButton}
-              type="submit"
+              onClick={this.onSubmit}
             >
               <img src={kudoIcon} />
-            </button>
+              <p>Give ₭udos</p>
+            </div>
           </fieldset>
         </form>
       </div>
