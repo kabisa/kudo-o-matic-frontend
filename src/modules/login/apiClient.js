@@ -29,3 +29,22 @@ export const requestToken = googleToken => {
     });
   });
 };
+
+export const postFCMToken = FCMToken => {
+  const body = uriEncode({
+    fcm_token: FCMToken
+  });
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded"
+  };
+
+  return new Promise(resolve => {
+    const request = httpClient.post("/authentication/store_fcm_token", body, {
+      headers
+    });
+
+    request.then(response => {
+      resolve(response.data.data["fcm-token"]);
+    });
+  });
+};
