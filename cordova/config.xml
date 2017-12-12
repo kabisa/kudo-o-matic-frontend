@@ -5,6 +5,7 @@
     <content src="index.html" />
     <access origin="*" />
     <hook src="../node_modules/maji/cordova/hooks/before_platform_add.js" type="before_platform_add" />
+    <icon src="../src/assets/icons/icon.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
@@ -15,7 +16,21 @@
     <preference name="android-targetSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="local" />
     <engine name="browser" />
-    <engine name="android" spec="^6.3.0" />
+    <platform name="ios">
+        <icon height="180" src="../src/assets/icons/home-icons/ios/Icon-60@3x.png" width="180" />
+        <icon height="120" src="../src/assets/icons/home-icons/ios/Icon-60@2x.png" width="120" />
+        <icon height="57" src="../src/assets/icons/home-icons/ios/Icon.png" width="57" />
+        <icon height="114" src="../src/assets/icons/home-icons/ios/Icon@2x.png" width="114" />
+        <icon height="29" src="../src/assets/icons/home-icons/ios/Icon-Small.png" width="29" />
+        <icon height="58" src="../src/assets/icons/home-icons/ios/Icon-Small@2x.png" width="58" />
+    </platform>
+    <platform name="android">
+        <icon density="hdpi" src="../src/assets/icons/home-icons/android/hdpi.png" />
+        <icon density="xhdpi" src="../src/assets/icons/home-icons/android/xhdpi.png" />
+        <icon density="xxhdpi" src="../src/assets/icons/home-icons/android/xxhdpi.png" />
+        <icon density="xxxhdpi" src="../src/assets/icons/home-icons/android/xxxhdpi.png" />
+    </platform>
+    <engine name="android" spec="^6.4.0" />
     <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-networkactivityindicator" spec="~0.1.1" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
