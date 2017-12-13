@@ -2,7 +2,7 @@
   "environment": "production",
   "defaultLocale": "en-US",
   "version": "0.3",
-  "apiLocation": "https://kudo-o-matic-staging.dokku.kabisa.io/api/v1",
+  "apiLocation": "https://88410a3e.ngrok.io/api/v1",
   "googleClientID": "242980876083-f72dobpq65bl62r92438jmsejrk0fgvp.apps.googleusercontent.com",
   "googleHostedDomain":  "kabisa.nl",
   "provider": "google_oauth2"
