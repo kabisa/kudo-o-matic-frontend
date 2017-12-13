@@ -13,6 +13,14 @@ export const storedFCMToken = FCMToken => {
     fcm_token: FCMToken
   };
 };
+
+export const errorFCMToken = error => {
+  return {
+    type: constants.ERROR_FCM_TOKEN,
+    error: error
+  };
+};
+
 export const handleGoogleLoginSuccess = token => {
   return {
     type: constants.GOOGLE_TOKEN_SUCCESS,
@@ -47,8 +55,17 @@ export const requestApiToken = googleToken => {
 
     return requestToken(googleToken)
       .then(
-        token => {
-          return dispatch(handleApiLoginSuccess(token));
+        ApiToken => {
+          dispatch(handleApiLoginSuccess(ApiToken));
+
+          window.FirebasePlugin.getToken(
+            function(FcmToken) {
+              dispatch(storeFCMToken(FcmToken, ApiToken["api-token"]));
+            },
+            function(error) {
+              dispatch(errorFCMToken(error));
+            }
+          );
         },
         error => {
           return dispatch(handleApiLoginFailure(error));
@@ -60,11 +77,12 @@ export const requestApiToken = googleToken => {
   };
 };
 
-export const storeFCMToken = FCMToken => {
+export const storeFCMToken = (FcmToken, ApiToken) => {
   return dispatch => {
     dispatch(startedStoringFCMToken());
 
-    return postFCMToken(FCMToken).then(token => {
+    return postFCMToken(FcmToken, ApiToken).then(token => {
+      console.log("stored token");
       return dispatch(storedFCMToken(token));
     });
   };

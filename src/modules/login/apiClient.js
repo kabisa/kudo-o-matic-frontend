@@ -30,12 +30,14 @@ export const requestToken = googleToken => {
   });
 };
 
-export const postFCMToken = FCMToken => {
+export const postFCMToken = (FcmToken, ApiToken) => {
+  console.log(ApiToken);
   const body = uriEncode({
-    fcm_token: FCMToken
+    fcm_token: FcmToken
   });
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded"
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Api-Token": ApiToken
   };
 
   return new Promise(resolve => {
