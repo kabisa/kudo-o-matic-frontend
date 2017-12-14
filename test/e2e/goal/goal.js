@@ -10,7 +10,7 @@ module.exports = {
   "Like of transaction results in currentAmount increase": function(browser) {
     let currentAmount;
     browser
-      .pause(500)
+      .pause(1600)
       .getText("#kudoCounter #currentAmount ", result => {
         currentAmount = parseInt(result.value);
       })
@@ -18,7 +18,7 @@ module.exports = {
       .waitForElementVisible("#transaction")
       .click("#transactionList li:nth-child(1) #likeTransaction")
       .click("#goal")
-      .pause(500)
+      .pause(1600)
       .getText("#kudoCounter #currentAmount ", result => {
         browser.assert.equal(result.value, currentAmount + 1);
       });
@@ -26,7 +26,7 @@ module.exports = {
   "UnLike of transaction results in currentAmount decrease": function(browser) {
     let currentAmount;
     browser
-      .pause(500)
+      .pause(1600)
       .getText("#kudoCounter #currentAmount ", result => {
         currentAmount = parseInt(result.value);
       })
@@ -34,7 +34,7 @@ module.exports = {
       .waitForElementVisible("#transaction")
       .click("#transactionList li:nth-child(1) #likeTransaction")
       .click("#goal")
-      .pause(500)
+      .pause(1600)
       .getText("#kudoCounter #currentAmount ", result => {
         browser.assert.equal(result.value, currentAmount - 1);
       })
