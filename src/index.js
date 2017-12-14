@@ -43,6 +43,7 @@ function onDeviceReady() {
 
   window.FirebasePlugin.onNotificationOpen(
     function(notification) {
+      console.log(JSON.stringify(notification, null, 4));
       switch (notification.gcm.event) {
         case "transaction":
           route("/feed", true);
@@ -52,6 +53,7 @@ function onDeviceReady() {
           break;
         case "reminder":
           route("/transaction", true);
+          break;
       }
       console.log(notification);
     },
