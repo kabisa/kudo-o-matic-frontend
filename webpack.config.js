@@ -145,6 +145,18 @@ module.exports = {
         options: {
           extract: true
         }
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        include: path.resolve(__dirname, "src/assets/icons"),
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192
+            }
+          }
+        ]
       }
     ]
   },

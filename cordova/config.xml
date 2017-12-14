@@ -15,7 +15,7 @@
     <preference name="android-targetSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="local" />
     <engine name="browser" />
-    <engine name="android" spec="^6.3.0" />
+    <engine name="android" spec="^6.4.0" />
     <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-networkactivityindicator" spec="~0.1.1" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
