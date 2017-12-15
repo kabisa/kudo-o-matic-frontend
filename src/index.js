@@ -35,6 +35,28 @@ renderApp();
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+  window.FirebasePlugin.hasPermission(function(data) {
+    if (!data.isEnabled) {
+      window.FirebasePlugin.grantPermission();
+    }
+  });
+
+  window.FirebasePlugin.onNotificationOpen(function(notification) {
+    window.FirebasePlugin.setBadgeNumber(0);
+
+    switch (notification.event) {
+      case "transaction":
+        route("/feed", true);
+        break;
+      case "goal":
+        route("/goal", true);
+        break;
+      case "reminder":
+        route("/transaction", true);
+        break;
+    }
+  });
+
   ThreeDeeTouch.configureQuickActions([
     {
       type: "kudos",
