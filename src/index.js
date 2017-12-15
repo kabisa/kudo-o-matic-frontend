@@ -41,26 +41,21 @@ function onDeviceReady() {
     }
   });
 
-  window.FirebasePlugin.onNotificationOpen(
-    function(notification) {
-      console.log(JSON.stringify(notification, null, 4));
-      switch (notification.gcm.event) {
-        case "transaction":
-          route("/feed", true);
-          break;
-        case "goal":
-          route("/goal", true);
-          break;
-        case "reminder":
-          route("/transaction", true);
-          break;
-      }
-      console.log(notification);
-    },
-    function(error) {
-      console.error(error);
+  window.FirebasePlugin.onNotificationOpen(function(notification) {
+    window.FirebasePlugin.setBadgeNumber(0);
+
+    switch (notification.event) {
+      case "transaction":
+        route("/feed", true);
+        break;
+      case "goal":
+        route("/goal", true);
+        break;
+      case "reminder":
+        route("/transaction", true);
+        break;
     }
-  );
+  });
 }
 
 if (process.env.NODE_ENV !== "production") {
