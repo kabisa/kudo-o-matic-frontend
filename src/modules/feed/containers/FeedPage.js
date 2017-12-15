@@ -4,6 +4,7 @@ import { connect } from "preact-redux";
 import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
 import Transaction from "../components/Transaction";
+import LoadingBlock from "../components/LoadingBlock";
 import ImageView from "../components/ImageView";
 import I18n from "src/config/i18n";
 import styles from "./FeedPage.scss";
@@ -18,18 +19,29 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchAllTransactions(this.props.user.apiToken);
+    this.props.fetchAllTransactions(this.props.user.apiToken, 0);
   }
 
   render({
     transactions,
     user,
+    offset,
+    fetching,
     fullImage,
     showFullImage,
     hideFullImage,
     likeTransaction,
     unLikeTransaction
   }) {
+    const checkPageScroll = e => {
+      if (
+        (e.target.scrollHeight - e.target.scrollTop == e.target.offsetHeight) &
+        (fetching != true)
+      ) {
+        this.props.fetchAllTransactions(this.props.user.apiToken, offset);
+      }
+    };
+
     const voteTransaction = transactionId => {
       likeTransaction(user.apiToken, transactionId);
     };
@@ -51,7 +63,13 @@ export class FeedPage extends Component {
           <h1>{I18n.t("feed.title")}</h1>
         </Header>
         <main />
-        <ul class={styles.transactionList} id="transactionList">
+        <ul
+          class={styles.transactionList}
+          id="transactionList"
+          onScroll={e => {
+            checkPageScroll(e);
+          }}
+        >
           {transactions.map(transaction => {
             let likeAction = transaction["api-user-voted"]
               ? (likeAction = unVoteTransaction)
@@ -68,6 +86,11 @@ export class FeedPage extends Component {
               </li>
             );
           })}
+          {fetching == true ? (
+            <li>
+              <LoadingBlock />
+            </li>
+          ) : null}
         </ul>
       </Page>
     );
@@ -77,6 +100,8 @@ export class FeedPage extends Component {
 const mapStateToProps = state => ({
   user: state.authentication.user,
   transactions: state.feed.transactions,
+  offset: state.feed.offset,
+  fetching: state.feed.fetching,
   fullImage: state.feed.fullImage
 });
 

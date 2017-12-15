@@ -37,12 +37,25 @@ class TransactionForm extends Component {
 
   isFormSubmittable() {
     return (
-      this.state.amount !== "" &&
+      this.checkAmount(this.state.amount) !== false &&
       this.state.receiver.id !== "" &&
-      this.state.activity !== ""
+      this.checkActivity(this.state.activity) !== false
     );
   }
 
+  checkAmount(amount) {
+    if (amount > 9999 || amount < 1) {
+      return false;
+    }
+    return true;
+  }
+
+  checkActivity(activity) {
+    if (activity.length < 4 || activity.length > 140) {
+      return false;
+    }
+    return true;
+  }
   searchUsers = e => {
     let searchQuery = e.target.value;
     this.setState({ receiver: { name: searchQuery, id: "" } });
@@ -73,7 +86,15 @@ class TransactionForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     if (!this.state.formSubmittable) {
-      this.setState({ error: I18n.t("transaction.transactionError") });
+      if (!this.checkActivity(this.state.activity)) {
+        this.setState({ error: I18n.t("transaction.notEnoughCharacters") });
+      }
+      if (this.state.receiver.id === "") {
+        this.setState({ error: I18n.t("transaction.noReceiver") });
+      }
+      if (!this.checkAmount(this.state.amount)) {
+        this.setState({ error: I18n.t("transaction.amountNotCorrect") });
+      }
     } else {
       this.setState({ formDisabled: true });
       this.props.addTransaction(
@@ -187,7 +208,7 @@ class TransactionForm extends Component {
             <label>
               {I18n.t("transaction.giving_kudos_for")}
               <textarea
-                maxLength="90"
+                maxLength="140"
                 name="activity"
                 type="text"
                 value={activity}
@@ -206,13 +227,14 @@ class TransactionForm extends Component {
                 <p>Add a picture</p>
               </div>
             )}
-            <button
+            <div
               id="submitTransaction"
               class={styles.kudoButton}
-              type="submit"
+              onClick={this.onSubmit}
             >
               <img src={kudoIcon} />
-            </button>
+              <p>Give ₭udos</p>
+            </div>
           </fieldset>
         </form>
       </div>
