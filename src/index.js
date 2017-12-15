@@ -56,6 +56,21 @@ function onDeviceReady() {
         break;
     }
   });
+
+  ThreeDeeTouch.configureQuickActions([
+    {
+      type: "kudos",
+      title: "Give Kudos",
+      subtitle: "Compose transaction",
+      iconType: "Compose"
+    }
+  ]);
+
+  ThreeDeeTouch.onHomeIconPressed = function(payload) {
+    if (payload.type == "kudos") {
+      route("/transaction", true);
+    }
+  };
 }
 
 if (process.env.NODE_ENV !== "production") {
