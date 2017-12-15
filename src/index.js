@@ -47,10 +47,6 @@ function onDeviceReady() {
   ThreeDeeTouch.onHomeIconPressed = function(payload) {
     if (payload.type == "kudos") {
       route("/transaction", true);
-    } else {
-      setTimeout(function() {
-        alert(JSON.stringify(payload));
-      }, 500);
     }
   };
 }
