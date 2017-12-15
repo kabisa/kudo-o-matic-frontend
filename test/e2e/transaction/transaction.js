@@ -6,20 +6,47 @@ module.exports = {
       .click("#openTransaction")
       .expect.element("input").to.be.present;
   },
-  "Performs input validation": function(browser) {
+  "Performs input validation amount": function(browser) {
     browser
       .url(browser.launch_url + "#/goal")
       .waitForElementVisible("div")
       .click("#openTransaction")
       .waitForElementVisible("form")
       .setValue("input[name=amount]", 3)
-      .setValue("input.Select-input", "Test User 2")
-      .sendKeys("input.Select-input", browser.Keys.ENTER)
       .click("#submitTransaction");
 
     browser.expect
       .element("form")
-      .text.to.contain("You'll have to fill out all fields");
+      .text.to.contain("There's no receiver selected");
+
+    browser.end();
+  },
+  "Performs input validation receiver": function(browser) {
+    browser
+      .url(browser.launch_url + "#/goal")
+      .waitForElementVisible("div")
+      .click("#openTransaction")
+      .waitForElementVisible("form")
+      .click("#submitTransaction");
+
+    browser.expect
+      .element("form")
+      .text.to.contain("There's no receiver selected");
+
+    browser.end();
+  },
+  "Performs input validation activity": function(browser) {
+    browser
+      .url(browser.launch_url + "#/goal")
+      .waitForElementVisible("div")
+      .click("#openTransaction")
+      .waitForElementVisible("form")
+      .setValue("input[name=amount]", 3)
+      .click("#submitTransaction");
+
+    browser.expect
+      .element("form")
+      .text.to.contain("There's no receiver selected");
 
     browser.end();
   },
@@ -32,8 +59,6 @@ module.exports = {
       .click("#openTransaction")
       .waitForElementVisible("form")
       .setValue("input[name=amount]", 3)
-      .setValue("input.Select-input", "Test User 2")
-      .sendKeys("input.Select-input", browser.Keys.ENTER)
       .setValue("textarea[name=activity]", "Test " + random)
       .click("#submitTransaction")
       .waitForElementVisible("nav")
