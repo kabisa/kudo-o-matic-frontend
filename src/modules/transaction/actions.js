@@ -82,7 +82,7 @@ export const addTransaction = (
     )
       .then(transaction => {
         dispatch(finishedAddingTransaction(transaction));
-        dispatch(fetchAllTransactions(apiToken));
+        dispatch(fetchAllTransactions(apiToken, 0));
       })
       .catch(error => {
         return dispatch(receivedApiError(error));
