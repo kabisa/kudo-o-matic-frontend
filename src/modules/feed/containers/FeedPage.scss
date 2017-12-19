@@ -1,15 +1,3 @@
-@import "src/styles/settings/general";
-
-.feedContainer {
-    flex: auto;
-    display: flex;
-    background: $brand-white;
-    height: 100%;
-    margin-bottom: 3.5rem;
-    flex-direction: column;
-    overflow-y: scroll; // has to be scroll, not auto
-    -webkit-overflow-scrolling: touch;
-}
 
 .imageView {
     width: 100%;

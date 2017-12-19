@@ -38,8 +38,8 @@ export class FeedPage extends Component {
   }) {
     const checkPageScroll = e => {
       if (
-        (e.target.scrollHeight - e.target.scrollTop <
-          e.target.offsetHeight + 250) &
+        e.target.scrollHeight - e.target.scrollTop <
+          e.target.offsetHeight + 250 &&
         !fetching
       ) {
         fetchAllTransactions(this.props.user.apiToken, offset);
@@ -66,10 +66,8 @@ export class FeedPage extends Component {
         <Header>
           <h1>{I18n.t("feed.title")}</h1>
         </Header>
-        <main />
         <PullToRefresh
           onRefresh={() => fetchAllTransactions(this.props.user.apiToken, 0)}
-          className={styles.feedContainer}
           id="feedContainer"
           onScroll={e => checkPageScroll(e)}
         >
@@ -80,6 +78,7 @@ export class FeedPage extends Component {
 
             return (
               <Transaction
+                key={transaction.id}
                 transaction={transaction}
                 likeAction={likeAction}
                 showFullImage={showFullImage}
