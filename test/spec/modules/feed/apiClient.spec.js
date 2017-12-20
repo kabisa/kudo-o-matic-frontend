@@ -1,4 +1,5 @@
 import sinon from "sinon";
+import { Deserializer } from "jsonapi-serializer";
 import { fetchTransactions } from "src/modules/feed/apiClient";
 import Settings from "src/config/settings";
 
@@ -148,6 +149,24 @@ describe("Feed API client", () => {
         expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
         done();
       });
+    });
+
+    it("forwards json content of ok responses", done => {
+      const TransactionDeserialize = new Deserializer();
+      fetchTransactions(API_TOKEN, OFFSET).then(response => {
+        TransactionDeserialize.deserialize(okResponse).then(t => {
+          expect(response).to.eql(t);
+        });
+        done();
+      });
+
+      setTimeout(() => {
+        this.sandbox.server.respond([
+          200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(okResponse)
+        ]);
+      }, 0);
     });
   });
 });
