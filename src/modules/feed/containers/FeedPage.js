@@ -37,7 +37,6 @@ export class FeedPage extends Component {
     fetchAllTransactions
   }) {
     const checkPageScroll = e => {
-      console.log(e);
       if (
         e.target.scrollHeight - e.target.scrollTop <
           e.target.offsetHeight + 250 &&
@@ -68,12 +67,13 @@ export class FeedPage extends Component {
           <h1>{I18n.t("feed.title")}</h1>
         </Header>
         <PullToRefresh
-          onRefresh={() => fetchAllTransactions(this.props.user.apiToken, 0)}
+          onRefresh={() => {
+            fetchAllTransactions(this.props.user.apiToken, 0);
+          }}
           className={styles.feedContainer}
           onScroll={checkPageScroll}
           id="feedContainer"
         >
-          <div class={styles.feedPlaceholder} />
           {transactions.map(transaction => {
             let likeAction = transaction["api-user-voted"]
               ? (likeAction = unVoteTransaction)
@@ -89,6 +89,7 @@ export class FeedPage extends Component {
               />
             );
           })}
+          <LoadingBlock />
         </PullToRefresh>
       </Page>
     );
