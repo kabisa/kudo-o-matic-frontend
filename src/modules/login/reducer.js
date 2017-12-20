@@ -11,6 +11,8 @@ const initialState = {
     imageUri: undefined
   },
   googleToken: undefined,
+  FCMToken: undefined,
+  FCMError: undefined,
   googleError: undefined,
   apiError: undefined
 };
@@ -47,6 +49,16 @@ export const authentication = (state = initialState, action) => {
       return {
         ...state,
         googleError: action.error
+      };
+    case constants.STORED_FCM_TOKEN:
+      return {
+        ...state,
+        FCMToken: action.fcm_token
+      };
+    case constants.ERROR_FCM_TOKEN:
+      return {
+        ...state,
+        FCMError: action.error
       };
     case LOGOUT_USER:
       return {

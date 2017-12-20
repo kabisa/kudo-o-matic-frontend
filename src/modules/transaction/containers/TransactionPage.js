@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import { connect } from "preact-redux";
+import { route } from "preact-router";
 
 import TransactionForm from "../components/TransactionForm";
 import styles from "./TransactionPage.scss";
@@ -9,7 +10,11 @@ import { addTransaction, fetchAllUsers } from "../actions";
 
 export class TransactionPage extends Component {
   componentWillMount() {
-    this.props.fetchUsers(this.props.user.apiToken);
+    if (typeof this.props.user.apiToken === "undefined") {
+      location.reload();
+    } else {
+      this.props.fetchUsers(this.props.user.apiToken);
+    }
   }
 
   render({ user, users }) {
