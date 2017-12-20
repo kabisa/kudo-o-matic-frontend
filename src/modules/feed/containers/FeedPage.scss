@@ -6,31 +6,10 @@
     display: flex;
     flex-direction: column;
     // Specific main styles
-    background: $brand-white;
     height: 100%;
-
-    // Kind of a nasty hack to target the #pull-container
-    > div:last-child {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        overflow-y: scroll; // has to be scroll, not auto
-        -webkit-overflow-scrolling: touch;
-    }
-}
-
-.feedPlaceholder {
-    display: none;
-    opacity: 0.5;
-    width: calc(100% - 1rem); // Minus twice the margin
-    max-width: $single-column-max-width;
-    align-self: center;
-    flex: 1;
-    margin-top: 0.5rem;
-    background-image: url("src/assets/images/feed-placeholder.svg");
-    background-repeat: repeat-y;
-    background-position: top center;
-    background-size: 100%;
+    overflow-y: scroll; // has to be scroll, not auto
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 3.5rem;
 }
 
 .imageView {
