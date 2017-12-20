@@ -21,12 +21,21 @@ export const feed = (state = initialState, action) => {
         };
       });
 
-      return {
-        ...state,
-        fetching: false,
-        transactions: state.transactions.concat(transactions),
-        offset: state.offset + 10
-      };
+      if (action.offset == 0) {
+        return {
+          ...state,
+          fetching: false,
+          transactions: transactions,
+          offset: 10
+        };
+      } else {
+        return {
+          ...state,
+          fetching: false,
+          transactions: state.transactions.concat(transactions),
+          offset: state.offset + 10
+        };
+      }
     }
     case constants.LIKED_TRANSACTION: {
       const _transactions = state.transactions.map(
