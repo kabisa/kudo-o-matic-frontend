@@ -1,52 +1,72 @@
 module.exports = {
   "Shows TransactionForm": function(browser) {
-    browser
-      .url(browser.launch_url + "/#/goal")
-      .waitForElementVisible("div")
-      .click("#openTransaction")
-      .expect.element("input").to.be.present;
+    browser.url(browser.launch_url + "/#/transaction").expect.element("input")
+      .to.be.present;
   },
-  "Performs input validation": function(browser) {
+  "Performs input validation amount": function(browser) {
     browser
-      .url(browser.launch_url + "#/goal")
-      .waitForElementVisible("div")
-      .click("#openTransaction")
+      .url(browser.launch_url + "/#/transaction")
       .waitForElementVisible("form")
-      .setValue("input[name=amount]", 3)
-      .setValue("input.Select-input", "Test User 2")
-      .sendKeys("input.Select-input", browser.Keys.ENTER)
-      .click("#submitTransaction");
+      .sendKeys("input[name=amount]", browser.Keys.ENTER);
 
-    browser.expect
-      .element("form")
-      .text.to.contain("You'll have to fill out all fields");
+    browser
+      .waitForElementVisible("#error")
+      .expect.element("#error")
+      .text.to.contain(
+        "Amount is not correct. you can't give negative ₭udo's or exceed over 1000"
+      );
 
     browser.end();
   },
-
-  "Adds transaction and closes form": function(browser) {
-    const random = Math.floor(Math.random() * 100 + 1);
+  "Performs input validation receiver": function(browser) {
     browser
-      .url(browser.launch_url + "#/goal")
-      .waitForElementVisible("div")
-      .click("#openTransaction")
+      .url(browser.launch_url + "/#/transaction")
       .waitForElementVisible("form")
       .setValue("input[name=amount]", 3)
-      .setValue("input.Select-input", "Test User 2")
-      .sendKeys("input.Select-input", browser.Keys.ENTER)
-      .setValue("textarea[name=activity]", "Test " + random)
-      .click("#submitTransaction")
-      .waitForElementVisible("nav")
-      .click("#feed")
-      .getText("#transactionList li:nth-child(1) #activity", result => {
-        browser.assert.equal(result.value, "Test " + random);
-      })
-      .getText("#transactionList li:nth-child(1) #receiver", result => {
-        browser.assert.equal(result.value, "Test User 2");
-      })
-      .getText("#transactionList li:nth-child(1) #kudoAmount", result => {
-        browser.assert.equal(result.value, 3);
-      })
-      .end();
+      .sendKeys("input[name=amount]", browser.Keys.ENTER);
+
+    browser
+      .waitForElementVisible("#error")
+      .expect.element("#error")
+      .text.to.contain("There's no receiver selected");
+
+    browser.end();
+  },
+  "Performs input validation activity": function(browser) {
+    browser
+      .url(browser.launch_url + "/#/transaction")
+      .waitForElementVisible("form")
+      .setValue("input[name=amount]", 3)
+      .setValue("input[name=receiver]", "Test User 2")
+      .waitForElementVisible("#userSuggestions")
+      .pause(500)
+      .click("#userSuggestions div:nth-child(1)")
+      .sendKeys("input[name=amount]", browser.Keys.ENTER);
+
+    browser
+      .waitForElementVisible("#error")
+      .expect.element("#error")
+      .text.to.contain("Activity is too short (minimum is 4 characters)");
+
+    browser.end();
+  },
+  "Performs input validation activity short": function(browser) {
+    browser
+      .url(browser.launch_url + "/#/transaction")
+      .waitForElementVisible("form")
+      .setValue("input[name=amount]", 3)
+      .setValue("input[name=receiver]", "Test User 2")
+      .waitForElementVisible("#userSuggestions")
+      .pause(500)
+      .click("#userSuggestions div:nth-child(1)")
+      .setValue("textarea[name=activity]", "hi")
+      .sendKeys("input[name=amount]", browser.Keys.ENTER);
+
+    browser
+      .waitForElementVisible("#error")
+      .expect.element("#error")
+      .text.to.contain("Activity is too short (minimum is 4 characters)");
+
+    browser.end();
   }
 };

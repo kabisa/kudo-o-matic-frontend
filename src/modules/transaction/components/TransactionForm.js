@@ -23,6 +23,8 @@ class TransactionForm extends Component {
       formSubmittable: false,
       formDisabled: false
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -83,7 +85,7 @@ class TransactionForm extends Component {
     this.setState({ imageData: "" });
   };
 
-  onSubmit = e => {
+  onSubmit(e) {
     e.preventDefault();
     if (!this.state.formSubmittable) {
       if (!this.checkActivity(this.state.activity)) {
@@ -159,11 +161,11 @@ class TransactionForm extends Component {
       <div>
         <form class={styles.transactionForm} onSubmit={this.onSubmit}>
           {formError && (
-            <div class={styles.formError}>
+            <div class={styles.formError} id="error">
               {I18n.t("transaction.formError")}
             </div>
           )}
-          {error !== "" && <div class={styles.formError}>{error}</div>}
+          {error !== "" && <div class={styles.formError} id="error">{error}</div>}
           <fieldset disabled={formDisabled}>
             <label>
               {I18n.t("transaction.amount")}
@@ -193,6 +195,7 @@ class TransactionForm extends Component {
               ) : (
                 <div>
                   <input
+                    name="receiver"
                     value={receiver.name}
                     onInput={this.searchUsers}
                     placeholder="Search for users"
@@ -227,14 +230,14 @@ class TransactionForm extends Component {
                 <p>Add a picture</p>
               </div>
             )}
-            <div
+            <button
               id="submitTransaction"
               class={styles.kudoButton}
-              onClick={this.onSubmit}
+              type="submit"
             >
               <img src={kudoIcon} />
               <p>Give ₭udos</p>
-            </div>
+            </button>
           </fieldset>
         </form>
       </div>

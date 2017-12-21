@@ -21,7 +21,7 @@ export default class Suggestions extends Component {
 
   render({ searchQuery, users, onSelect }) {
     return (
-      <div class={styles["autocomplete-suggestions"]}>
+      <div class={styles["autocomplete-suggestions"]} id="userSuggestions">
         {searchQuery && searchQuery.length && users.length ? (
           users.map((user, i) => (
             <UserSuggestion key={i} onSelect={onSelect} user={user} />

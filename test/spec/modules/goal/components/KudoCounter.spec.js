@@ -20,7 +20,7 @@ describe("KudoCounter", function() {
         nextText={nextText}
       />
     );
-    expect(context.contains(<span id="currentAmount">100</span>)).to.be.true;
+    expect(context.contains(<span id="currentAmount" />)).to.be.true;
   });
 
   it("displays the right next-goal amount", function() {

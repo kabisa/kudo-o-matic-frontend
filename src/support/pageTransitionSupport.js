@@ -37,15 +37,15 @@ class PageContainer extends Component {
     const currentClassName =
       this.state.previousPage == null
         ? ""
-        : `maji-page-animating maji-page-animation-${animation} maji-page-incoming${isBack
-            ? " maji-page-reverse"
-            : ""}`;
+        : `maji-page-animating maji-page-animation-${
+            animation
+          } maji-page-incoming${isBack ? " maji-page-reverse" : ""}`;
     const previousClassName =
       this.state.previousPage == null
         ? ""
-        : `maji-page-animating maji-page-animation-${animation} maji-page-outgoing${isBack
-            ? " maji-page-reverse"
-            : ""}`;
+        : `maji-page-animating maji-page-animation-${
+            animation
+          } maji-page-outgoing${isBack ? " maji-page-reverse" : ""}`;
 
     return (
       <div class="maji-page-container">
