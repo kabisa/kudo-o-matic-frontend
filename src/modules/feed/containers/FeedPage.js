@@ -30,6 +30,7 @@ export class FeedPage extends Component {
     offset,
     fetching,
     fullImage,
+    enabled,
     showFullImage,
     hideFullImage,
     likeTransaction,
@@ -73,6 +74,7 @@ export class FeedPage extends Component {
           className={styles.feedContainer}
           onScroll={checkPageScroll}
           id="feedContainer"
+          enabled={enabled}
         >
           {transactions.map(transaction => {
             let likeAction = transaction["api-user-voted"]
@@ -101,7 +103,8 @@ const mapStateToProps = state => ({
   transactions: state.feed.transactions,
   offset: state.feed.offset,
   fetching: state.feed.fetching,
-  fullImage: state.feed.fullImage
+  fullImage: state.feed.fullImage,
+  enabled: true
 });
 
 const mapDispatchToProps = {
