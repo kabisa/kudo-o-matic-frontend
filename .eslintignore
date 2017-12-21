@@ -3,3 +3,4 @@ config/*.js
 script/*.js
 
 src/modules/transaction/components/TransactionForm.js
+src/index.js

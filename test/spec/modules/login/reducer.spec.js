@@ -12,6 +12,8 @@ describe("Authentication reducer", () => {
         imageUri: undefined
       },
       googleToken: undefined,
+      FCMToken: undefined,
+      FCMError: undefined,
       googleError: undefined,
       apiError: undefined
     });
