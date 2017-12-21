@@ -31,16 +31,20 @@ class PTR extends Component {
       onRefresh
     } = this.props;
 
-    this.puller = Pull.init({
-      ...baseSettings,
-      instructionsPullToRefresh:
-        pullInstruction || I18n.t("pull_to_refresh.pull"),
-      instructionsReleaseToRefresh:
-        releaseInstruction || I18n.t("pull_to_refresh.release"),
-      instructionsRefreshing:
-        refreshing || I18n.t("pull_to_refresh.refreshing"),
-      onRefresh
-    });
+    iNoBounce.enable;
+
+    if (this.props.enabled) {
+      this.puller = Pull.init({
+        ...baseSettings,
+        instructionsPullToRefresh:
+          pullInstruction || I18n.t("pull_to_refresh.pull"),
+        instructionsReleaseToRefresh:
+          releaseInstruction || I18n.t("pull_to_refresh.release"),
+        instructionsRefreshing:
+          refreshing || I18n.t("pull_to_refresh.refreshing"),
+        onRefresh
+      });
+    }
   }
 
   render({ children, id, className, onScroll }) {
