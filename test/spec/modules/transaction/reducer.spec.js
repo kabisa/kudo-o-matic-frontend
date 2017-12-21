@@ -8,6 +8,7 @@ describe("Transaction reducer", () => {
       formVisible: false,
       fetchingUsers: false,
       users: [],
+      filteredUsers: [],
       error: undefined
     });
   });

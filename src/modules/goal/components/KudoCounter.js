@@ -5,20 +5,11 @@ import ProgressBar from "progressbar.js";
 import styles from "./KudoCounter.scss";
 
 let bar;
+let container = <div class={styles.progressBar} id="container" />;
 
 class KudoCounter extends Component {
-  componentDidMount() {
-    bar = new ProgressBar.Circle("#container", {
-      easing: "easeInOut",
-      duration: 1500,
-      strokeWidth: 6,
-      color: "#6692a6",
-      trailColor: "#eee",
-      trailWidth: 6
-    });
-  }
-
   componentWillReceiveProps({ currentAmount, nextAmount }) {
+    document.getElementById("container").innerHTML = "";
     let options = {
       useEasing: true,
       useGrouping: false
@@ -31,6 +22,15 @@ class KudoCounter extends Component {
       1.5,
       options
     );
+
+    bar = new ProgressBar.Circle("#container", {
+      easing: "easeInOut",
+      duration: 1500,
+      strokeWidth: 6,
+      color: "#6692a6",
+      trailColor: "#eee",
+      trailWidth: 6
+    });
 
     let percentage = currentAmount / nextAmount;
     bar.animate(percentage);
@@ -50,7 +50,7 @@ class KudoCounter extends Component {
           </div>
           <div class={styles.nextGoal}>{nextText}</div>
         </div>
-        <div class={styles.progressBar} id="container" />
+        {container}
       </div>
     );
   }

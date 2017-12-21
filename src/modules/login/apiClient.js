@@ -31,7 +31,6 @@ export const requestToken = googleToken => {
 };
 
 export const postFCMToken = (FcmToken, ApiToken) => {
-  console.log(ApiToken);
   const body = uriEncode({
     fcm_token: FcmToken
   });
