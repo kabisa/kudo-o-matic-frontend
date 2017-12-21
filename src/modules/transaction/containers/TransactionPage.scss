@@ -12,7 +12,7 @@
     animation-timing-function: ease-out;
     animation-name: slideInFromBottom;
 
-    button {
+    .kudoButton {
         position: absolute;
         z-index: $form-button-z-index;
         left: 50%;
@@ -22,6 +22,8 @@
         border-radius: 50%;
         border: 0.2rem solid white;
         outline: none;
+        background-color: $brand-blue;
+        margin-top: -1.5rem; //Close-button has to stick out a bit.
 
         img {
             position: absolute;
@@ -36,11 +38,6 @@
     button:hover {
         background-color: $brand-blue-gradient;
     }
-}
-
-.closeButton {
-    background-color: $brand-blue;
-    margin-top: -1.5rem; //Close-button has to stick out a bit.
 }
 
 @keyframes slideInFromBottom {
