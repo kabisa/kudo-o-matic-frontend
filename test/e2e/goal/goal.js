@@ -10,16 +10,20 @@ module.exports = {
   "Like of transaction results in currentAmount increase": function(browser) {
     let currentAmount;
     browser
+      .useXpath()
       .pause(1600)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .getText("//span[@id = 'currentAmount'] ", result => {
         currentAmount = parseInt(result.value);
       })
-      .click("#feed")
-      .waitForElementVisible("#transaction")
-      .click("#transactionList li:nth-child(1) #likeTransaction")
-      .click("#goal")
+      .click("//div[@id = 'feed']")
+
+      .waitForElementVisible(
+        "//div[contains(@class, 'Transaction__transaction')]"
+      )
+      .click("//a[@id = 'likeTransaction'] ")
+      .click("//div[@id = 'goal'] ")
       .pause(1600)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .getText("//span[@id = 'currentAmount'] ", result => {
         browser.assert.equal(result.value, currentAmount + 1);
       });
   },
@@ -27,15 +31,18 @@ module.exports = {
     let currentAmount;
     browser
       .pause(1600)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .getText("//span[@id = 'currentAmount'] ", result => {
         currentAmount = parseInt(result.value);
       })
-      .click("#feed")
-      .waitForElementVisible("#transaction")
-      .click("#transactionList li:nth-child(1) #likeTransaction")
-      .click("#goal")
+      .click("//div[@id = 'feed']")
+
+      .waitForElementVisible(
+        "//div[contains(@class, 'Transaction__transaction')]"
+      )
+      .click("//a[@id = 'likeTransaction'] ")
+      .click("//div[@id = 'goal'] ")
       .pause(1600)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .getText("//span[@id = 'currentAmount'] ", result => {
         browser.assert.equal(result.value, currentAmount - 1);
       })
       .end();
