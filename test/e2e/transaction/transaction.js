@@ -13,7 +13,7 @@ module.exports = {
       .waitForElementVisible("#error")
       .expect.element("#error")
       .text.to.contain(
-        "Amount is not correct. you can't give negative ₭udo's or exceed over 1000"
+        "Amount is not correct. You can't give negative ₭udo's or exceed over 1000."
       );
 
     browser.end();
