@@ -14,12 +14,15 @@ describe("Feed actions", () => {
 
     it("creates an action to handle current transactions", () => {
       const transactions = {};
+      const offset = 0;
+
       const expectedAction = {
         type: constants.FINISHED_FETCHING_TRANSACTIONS,
-        transactions: {}
+        transactions: {},
+        offset: 0
       };
 
-      expect(actions.finishedFetchingTransaction(transactions)).to.eql(
+      expect(actions.finishedFetchingTransaction(transactions, offset)).to.eql(
         expectedAction
       );
     });

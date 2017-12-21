@@ -12,10 +12,11 @@ export const startedFetchingTransactions = () => {
   };
 };
 
-export const finishedFetchingTransaction = transactions => {
+export const finishedFetchingTransaction = (transactions, offset) => {
   return {
     type: constants.FINISHED_FETCHING_TRANSACTIONS,
-    transactions: transactions
+    transactions: transactions,
+    offset: offset
   };
 };
 
@@ -75,7 +76,7 @@ export const fetchAllTransactions = (apiToken, offset) => {
 
     return fetchTransactions(apiToken, offset)
       .then(transactions => {
-        dispatch(finishedFetchingTransaction(transactions));
+        dispatch(finishedFetchingTransaction(transactions, offset));
       })
       .catch(error => dispatch(receivedApiError(error)));
   };

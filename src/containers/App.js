@@ -6,6 +6,8 @@ import {
   makeFormInvisible,
   makeFormVisible
 } from "../modules/transaction/actions";
+import { fetchAllTransactions } from "src/modules/feed/actions";
+import { subscribeToNotifications } from "src/support/firebaseInstance";
 
 import FeedPage from "src/modules/feed/containers/FeedPage";
 import GoalPage from "src/modules/goal/containers/GoalPage";
@@ -20,6 +22,17 @@ export class App extends Component {
     if (typeof this.props.user.apiToken === "undefined") {
       route("/login", true);
     }
+  }
+
+  componentDidMount() {
+    document.addEventListener(
+      "deviceready",
+      subscribeToNotifications(
+        this.props.fetchAllTransactions,
+        this.props.user
+      ),
+      false
+    );
   }
 
   render({ transactionFormVisible, makeFormVisible, makeFormInvisible }) {
@@ -54,7 +67,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   makeFormVisible,
-  makeFormInvisible
+  makeFormInvisible,
+  fetchAllTransactions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

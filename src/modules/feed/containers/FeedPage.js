@@ -5,7 +5,9 @@ import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
 import Transaction from "../components/Transaction";
 import LoadingBlock from "../components/LoadingBlock";
+import PullToRefresh from "src/components/PullToRefresh";
 import ImageView from "../components/ImageView";
+
 import I18n from "src/config/i18n";
 import styles from "./FeedPage.scss";
 
@@ -28,17 +30,20 @@ export class FeedPage extends Component {
     offset,
     fetching,
     fullImage,
+    enabled,
     showFullImage,
     hideFullImage,
     likeTransaction,
-    unLikeTransaction
+    unLikeTransaction,
+    fetchAllTransactions
   }) {
     const checkPageScroll = e => {
       if (
-        (e.target.scrollHeight - e.target.scrollTop == e.target.offsetHeight) &
-        (fetching != true)
+        e.target.scrollHeight - e.target.scrollTop <
+          e.target.offsetHeight + 250 &&
+        !fetching
       ) {
-        this.props.fetchAllTransactions(this.props.user.apiToken, offset);
+        fetchAllTransactions(this.props.user.apiToken, offset);
       }
     };
 
@@ -51,7 +56,7 @@ export class FeedPage extends Component {
     };
 
     return (
-      <Page>
+      <Page class={styles.page}>
         {fullImage !== undefined ? (
           <ImageView
             class={styles.imageView}
@@ -62,13 +67,14 @@ export class FeedPage extends Component {
         <Header>
           <h1>{I18n.t("feed.title")}</h1>
         </Header>
-        <main />
-        <ul
-          class={styles.transactionList}
-          id="transactionList"
-          onScroll={e => {
-            checkPageScroll(e);
+        <PullToRefresh
+          onRefresh={() => {
+            fetchAllTransactions(this.props.user.apiToken, 0);
           }}
+          className={styles.feedContainer}
+          onScroll={checkPageScroll}
+          id="feedContainer"
+          enabled={enabled}
         >
           {transactions.map(transaction => {
             let likeAction = transaction["api-user-voted"]
@@ -76,22 +82,17 @@ export class FeedPage extends Component {
               : (likeAction = voteTransaction);
 
             return (
-              <li key={transaction.id}>
-                <Transaction
-                  transaction={transaction}
-                  likeAction={likeAction}
-                  showFullImage={showFullImage}
-                  image={transaction["image-url-thumb"]}
-                />
-              </li>
+              <Transaction
+                key={transaction.id}
+                transaction={transaction}
+                likeAction={likeAction}
+                showFullImage={showFullImage}
+                image={transaction["image-url-thumb"]}
+              />
             );
           })}
-          {fetching == true ? (
-            <li>
-              <LoadingBlock />
-            </li>
-          ) : null}
-        </ul>
+          <LoadingBlock />
+        </PullToRefresh>
       </Page>
     );
   }
@@ -102,7 +103,8 @@ const mapStateToProps = state => ({
   transactions: state.feed.transactions,
   offset: state.feed.offset,
   fetching: state.feed.fetching,
-  fullImage: state.feed.fullImage
+  fullImage: state.feed.fullImage,
+  enabled: true
 });
 
 const mapDispatchToProps = {

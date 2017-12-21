@@ -59,7 +59,7 @@ export class Transaction extends Component {
     }
 
     return (
-      <div class={styles.transaction} id="transaction">
+      <div class={styles.transaction} id={transaction.id}>
         <div class={styles.transactionContent}>
           <div class={styles.transactionValue}>
             <p class={styles.value} id="kudoAmount">
