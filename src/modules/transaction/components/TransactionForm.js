@@ -3,6 +3,7 @@ import { connect } from "preact-redux";
 import styles from "./TransactionForm.scss";
 import I18n from "src/config/i18n";
 
+import LoadingScreen from "../components/loadingScreen";
 import { searchUser } from "src/modules/transaction/actions";
 import Suggestions from "./UserSuggestions";
 import SelectedUser from "./SelectedUser";
@@ -155,102 +156,110 @@ class TransactionForm extends Component {
   };
 
   render(
-    { formError, filteredUsers },
+    { formError, filteredUsers, loading },
     { error, amount, receiver, activity, imageData, formDisabled }
-  ) {
-    filteredUsers.push({user: {name: receiver.name, id: 1, "avatar-url": KabisaLizard}});
+  )
+  {
+    if(loading) {
+      return (
+        <LoadingScreen/>
+      )
+    } else {
+      filteredUsers.push({user: {name: receiver.name, id: 1, "avatar-url": KabisaLizard}});
 
-    return (
-      <div>
-        <form class={styles.transactionForm} onSubmit={this.onSubmit}>
-          {formError && (
-            <div class={styles.formError} id="error">
-              {I18n.t("transaction.formError")}
-            </div>
-          )}
-          {error !== "" && <div class={styles.formError} id="error">{error}</div>}
-          <fieldset disabled={formDisabled}>
-            <label>
-              {I18n.t("transaction.amount")}
-              <div class={styles.amountInput}>
-                <input
-                  name="amount"
-                  type="number"
-                  id="inputAmount"
-                  min="1"
-                  max="999"
-                  className={styles.userSelection}
-                  value={amount}
-                  onInput={this.onInput}
-                  class={styles.amountInput}
-                />
-                <span class={styles.kudoCurrency}>₭</span>
-              </div>
-            </label>
-            <label>
-              {I18n.t("transaction.receiver")}
-
-              {receiver.id !== "" ? (
-                <SelectedUser
-                  user={receiver}
-                  clearSelection={this.clearSelection}
-                />
-              ) : (
-                <div>
-                  <input
-                    name="receiver"
-                    value={receiver.name}
-                    onInput={this.searchUsers}
-                    placeholder="Search for users"
-                  />
-                  <Suggestions
-                    searchQuery={receiver.name}
-                    users={filteredUsers}
-                    onSelect={this.onSelect}
-                  />
-                </div>
-              )}
-            </label>
-            <label>
-              {I18n.t("transaction.giving_kudos_for")}
-              <textarea
-                maxLength="140"
-                name="activity"
-                type="text"
-                value={activity}
-                onInput={this.onInput}
-              />
-            </label>
-
-            {imageData !== "" ? (
-              <SelectedImage
-                imageData={imageData}
-                clearImage={this.clearImage}
-              />
-            ) : (
-              <div class={styles.imageButton} onClick={this.showCameraOptions}>
-                <img id="picture" src={photoIcon} />
-                <p>Add a picture</p>
+      return (
+        <div>
+          <form class={styles.transactionForm} onSubmit={this.onSubmit}>
+            {formError && (
+              <div class={styles.formError} id="error">
+                {I18n.t("transaction.formError")}
               </div>
             )}
-            <button
-              id="submitTransaction"
-              class={styles.kudoButton}
-              type="submit"
-            >
-              <img src={kudoIcon} />
-              <p>Give ₭udos</p>
-            </button>
-          </fieldset>
-        </form>
-      </div>
-    );
-  }
+            {error !== "" && <div class={styles.formError} id="error">{error}</div>}
+            <fieldset disabled={formDisabled}>
+              <label>
+                {I18n.t("transaction.amount")}
+                <div class={styles.amountInput}>
+                  <input
+                    name="amount"
+                    type="number"
+                    id="inputAmount"
+                    min="1"
+                    max="999"
+                    className={styles.userSelection}
+                    value={amount}
+                    onInput={this.onInput}
+                    class={styles.amountInput}
+                  />
+                  <span class={styles.kudoCurrency}>₭</span>
+                </div>
+              </label>
+              <label>
+                {I18n.t("transaction.receiver")}
+
+                {receiver.id !== "" ? (
+                  <SelectedUser
+                    user={receiver}
+                    clearSelection={this.clearSelection}
+                  />
+                ) : (
+                  <div>
+                    <input
+                      name="receiver"
+                      value={receiver.name}
+                      onInput={this.searchUsers}
+                      placeholder="Search for users"
+                    />
+                    <Suggestions
+                      searchQuery={receiver.name}
+                      users={filteredUsers}
+                      onSelect={this.onSelect}
+                    />
+                  </div>
+                )}
+              </label>
+              <label>
+                {I18n.t("transaction.giving_kudos_for")}
+                <textarea
+                  maxLength="140"
+                  name="activity"
+                  type="text"
+                  value={activity}
+                  onInput={this.onInput}
+                />
+              </label>
+
+              {imageData !== "" ? (
+                <SelectedImage
+                  imageData={imageData}
+                  clearImage={this.clearImage}
+                />
+              ) : (
+                <div class={styles.imageButton} onClick={this.showCameraOptions}>
+                  <img id="picture" src={photoIcon} />
+                  <p>Add a picture</p>
+                </div>
+              )}
+              <button
+                id="submitTransaction"
+                class={styles.kudoButton}
+                type="submit"
+              >
+                <img src={kudoIcon} />
+                <p>Give ₭udos</p>
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      );
+    }
+    }
 }
 
 const mapStateToProps = state => ({
   filteredUsers: state.transaction.filteredUsers,
-  users: state.transaction.users
+  users: state.transaction.users,
+  loading: state.transaction.addingTransaction
 });
 
 const mapDispatchToProps = {
