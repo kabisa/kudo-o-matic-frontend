@@ -15,7 +15,7 @@
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-targetSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="local" />
-    <preference name="ShowSplashScreenSpinner" value="false"/>
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <engine name="browser" />
     <platform name="ios">
         <icon height="180" src="../src/assets/icons/home-icons/ios/Icon-60@3x.png" width="180" />
