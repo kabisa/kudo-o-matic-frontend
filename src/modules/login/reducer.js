@@ -60,7 +60,7 @@ export const authentication = (state = initialState, action) => {
         ...state,
         FCMError: action.error
       };
-    case LOGOUT_USER:
+    case constants.LOGOUT_USER:
       return {
         user: initialState.user
       };
