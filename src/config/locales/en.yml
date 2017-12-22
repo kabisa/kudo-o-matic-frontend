@@ -39,6 +39,7 @@ en:
     camera: 'Camera'
     photoLocation: 'Choose your picture-location'
     cancel: 'Cancel'
+    processing: 'Processing transaction...'
   pull_to_refresh:
     pull: 'Pull down to load new transactions'
     release: 'Release to load new transactions'
