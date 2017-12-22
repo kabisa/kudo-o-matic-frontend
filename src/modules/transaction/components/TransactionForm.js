@@ -159,7 +159,6 @@ class TransactionForm extends Component {
     { error, amount, receiver, activity, imageData, formDisabled }
   ) {
     filteredUsers.push({user: {name: receiver.name, id: 1, "avatar-url": KabisaLizard}});
-
     return (
       <div>
         <form class={styles.transactionForm} onSubmit={this.onSubmit}>
@@ -220,8 +219,8 @@ class TransactionForm extends Component {
                 value={activity}
                 onInput={this.onInput}
               />
+              <p class={styles.characterCount}>{activity.length} / 140</p>
             </label>
-
             {imageData !== "" ? (
               <SelectedImage
                 imageData={imageData}
