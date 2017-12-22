@@ -197,63 +197,62 @@ class TransactionForm extends Component {
               <label>
                 {I18n.t("transaction.receiver")}
 
-                {receiver.id !== "" ? (
-                  <SelectedUser
-                    user={receiver}
-                    clearSelection={this.clearSelection}
-                  />
-                ) : (
-                  <div>
-                    <input
-                      name="receiver"
-                      value={receiver.name}
-                      onInput={this.searchUsers}
-                      placeholder="Search for users"
-                    />
-                    <Suggestions
-                      searchQuery={receiver.name}
-                      users={filteredUsers}
-                      onSelect={this.onSelect}
-                    />
-                  </div>
-                )}
-              </label>
-              <label>
-                {I18n.t("transaction.giving_kudos_for")}
-                <textarea
-                  maxLength="140"
-                  name="activity"
-                  type="text"
-                  value={activity}
-                  onInput={this.onInput}
-                />
-              </label>
-
-              {imageData !== "" ? (
-                <SelectedImage
-                  imageData={imageData}
-                  clearImage={this.clearImage}
+              {receiver.id !== "" ? (
+                <SelectedUser
+                  user={receiver}
+                  clearSelection={this.clearSelection}
                 />
               ) : (
-                <div class={styles.imageButton} onClick={this.showCameraOptions}>
-                  <img id="picture" src={photoIcon} />
-                  <p>Add a picture</p>
+                <div>
+                  <input
+                    name="receiver"
+                    value={receiver.name}
+                    onInput={this.searchUsers}
+                    placeholder="Search for users"
+                  />
+                  <Suggestions
+                    searchQuery={receiver.name}
+                    users={filteredUsers}
+                    onSelect={this.onSelect}
+                  />
                 </div>
               )}
-              <button
-                id="submitTransaction"
-                class={styles.kudoButton}
-                type="submit"
-              >
-                <img src={kudoIcon} />
-                <p>Give ₭udos</p>
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      );
-    }
-    }
+            </label>
+            <label>
+              {I18n.t("transaction.giving_kudos_for")}
+              <textarea
+                maxLength="140"
+                name="activity"
+                type="text"
+                value={activity}
+                onInput={this.onInput}
+              />
+              <p class={styles.characterCount}>{activity.length} / 140</p>
+            </label>
+            {imageData !== "" ? (
+              <SelectedImage
+                imageData={imageData}
+                clearImage={this.clearImage}
+              />
+            ) : (
+              <div class={styles.imageButton} onClick={this.showCameraOptions}>
+                <img id="picture" src={photoIcon} />
+                <p>Add a picture</p>
+              </div>
+            )}
+            <button
+              id="submitTransaction"
+              class={styles.kudoButton}
+              type="submit"
+            >
+              <img src={kudoIcon} />
+              <p>Give ₭udos</p>
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({

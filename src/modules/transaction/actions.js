@@ -57,7 +57,7 @@ export const searchUser = (searchQuery, users) => {
   });
   return {
     type: "FILTERED_USERS",
-    filteredUsers: filteredUsers.slice(0, 4)
+    filteredUsers: filteredUsers.slice(0, 3)
   };
 };
 
