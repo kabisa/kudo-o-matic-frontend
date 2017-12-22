@@ -1,0 +1,24 @@
+@import "src/styles/settings/general";
+
+$pull-to-refresh-background: $brand-blue;
+$pull-to-refresh-text: $brand-white;
+
+// Customised styling for Pulljs
+#pull-anchor {
+    background: $pull-to-refresh-background;
+    color: $pull-to-refresh-text;
+    pointer-events: none;
+    top: 0;
+    height: 0;
+    transition: height 0.3s, min-height 0.3s;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ptr--pull {
+    transition: none;
+}

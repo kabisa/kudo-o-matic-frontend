@@ -9,7 +9,11 @@ import { addTransaction, fetchAllUsers } from "../actions";
 
 export class TransactionPage extends Component {
   componentWillMount() {
-    this.props.fetchUsers(this.props.user.apiToken);
+    if (typeof this.props.user.apiToken === "undefined") {
+      location.reload();
+    } else {
+      this.props.fetchUsers(this.props.user.apiToken);
+    }
   }
 
   render({ user, users }) {
@@ -33,7 +37,8 @@ export class TransactionPage extends Component {
     return (
       <div class={styles.formContainer}>
         <button
-          class={styles.closeButton}
+          id="closeButton"
+          class={styles.kudoButton}
           onClick={this.props.makeFormInvisible}
         >
           <img src={closeIcon} />

@@ -10,32 +10,39 @@ module.exports = {
   "Like of transaction results in currentAmount increase": function(browser) {
     let currentAmount;
     browser
-      .pause(500)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .useXpath()
+      .pause(1600)
+      .getText("//span[@id = 'currentAmount'] ", result => {
         currentAmount = parseInt(result.value);
       })
-      .click("#feed")
-      .waitForElementVisible("#transaction")
-      .click("#transactionList li:nth-child(1) #likeTransaction")
-      .click("#goal")
-      .pause(500)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .click("//div[@id = 'feed']")
+
+      .waitForElementVisible(
+        "//div[contains(@class, 'Transaction__transaction')]"
+      )
+      .click("//a[@id = 'likeTransaction'] ")
+      .click("//div[@id = 'goal'] ")
+      .pause(1600)
+      .getText("//span[@id = 'currentAmount'] ", result => {
         browser.assert.equal(result.value, currentAmount + 1);
       });
   },
   "UnLike of transaction results in currentAmount decrease": function(browser) {
     let currentAmount;
     browser
-      .pause(500)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .pause(1600)
+      .getText("//span[@id = 'currentAmount'] ", result => {
         currentAmount = parseInt(result.value);
       })
-      .click("#feed")
-      .waitForElementVisible("#transaction")
-      .click("#transactionList li:nth-child(1) #likeTransaction")
-      .click("#goal")
-      .pause(500)
-      .getText("#kudoCounter #currentAmount ", result => {
+      .click("//div[@id = 'feed']")
+
+      .waitForElementVisible(
+        "//div[contains(@class, 'Transaction__transaction')]"
+      )
+      .click("//a[@id = 'likeTransaction'] ")
+      .click("//div[@id = 'goal'] ")
+      .pause(1600)
+      .getText("//span[@id = 'currentAmount'] ", result => {
         browser.assert.equal(result.value, currentAmount - 1);
       })
       .end();

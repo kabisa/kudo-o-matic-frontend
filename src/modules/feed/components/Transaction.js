@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import { imageExists } from "src/support/imageUtils";
+import { checkForGroup } from "src/support/transactionUtils";
 
 import styles from "./Transaction.scss";
 import LoadingAnimation from "src/components/LoadingAnimation";
@@ -35,6 +36,8 @@ export class Transaction extends Component {
       thumb = LikeIconInactive;
     }
 
+    transaction = checkForGroup(transaction);
+
     if (transaction["image-url-thumb"] !== null) {
       if (imageLoading) {
         this.showLoadingImage();
@@ -56,7 +59,7 @@ export class Transaction extends Component {
     }
 
     return (
-      <div class={styles.transaction} id="transaction">
+      <div class={styles.transaction} id={transaction.id}>
         <div class={styles.transactionContent}>
           <div class={styles.transactionValue}>
             <p class={styles.value} id="kudoAmount">

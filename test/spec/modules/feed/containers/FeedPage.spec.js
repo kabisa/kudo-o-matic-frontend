@@ -3,7 +3,7 @@ import { FeedPage } from "src/modules/feed/containers/FeedPage";
 import Transaction from "src/modules/feed/components/Transaction";
 
 describe("FeedPage", function() {
-  let scratch, mount, transactions, user, fetchTransactions;
+  let scratch, mount, transactions, user, fetchTransactions, offset;
 
   beforeEach(function() {
     scratch = document.createElement("div");
@@ -26,6 +26,7 @@ describe("FeedPage", function() {
     ];
     fetchTransactions = () => {};
     user = { apiToken: "API_TOKEN", id: 5 };
+    offset = 0;
   });
 
   afterEach(function() {
@@ -38,6 +39,8 @@ describe("FeedPage", function() {
         transactions={transactions}
         user={user}
         fetchAllTransactions={fetchTransactions}
+        offset={offset}
+        enabled={false}
       />
     );
     expect(page.outerHTML).to.contain(
@@ -51,6 +54,7 @@ describe("FeedPage", function() {
         transactions={transactions}
         user={user}
         fetchAllTransactions={fetchTransactions}
+        offset={offset}
       />
     );
     expect(page.outerHTML).to.contain(

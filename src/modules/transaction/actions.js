@@ -57,7 +57,7 @@ export const searchUser = (searchQuery, users) => {
   });
   return {
     type: "FILTERED_USERS",
-    filteredUsers: filteredUsers.slice(0, 4)
+    filteredUsers: filteredUsers.slice(0, 3)
   };
 };
 
@@ -82,7 +82,7 @@ export const addTransaction = (
     )
       .then(transaction => {
         dispatch(finishedAddingTransaction(transaction));
-        dispatch(fetchAllTransactions(apiToken));
+        dispatch(fetchAllTransactions(apiToken, 0));
       })
       .catch(error => {
         return dispatch(receivedApiError(error));

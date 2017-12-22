@@ -28,7 +28,7 @@ export const fetchUsers = apiToken => {
 export const postTransaction = (
   amount,
   activity,
-  receiverId,
+  receiverName,
   imageData,
   fileType,
   apiToken
@@ -60,7 +60,7 @@ export const postTransaction = (
           receiver: {
             data: {
               type: "users",
-              id: receiverId
+              name: receiverName
             }
           }
         }

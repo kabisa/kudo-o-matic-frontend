@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="nl.kabisa.kudoomatic" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>kudo-o-matic</name>
+    <name>Kudo-o-Matic</name>
     <description />
     <content src="index.html" />
     <access origin="*" />
     <hook src="../node_modules/maji/cordova/hooks/before_platform_add.js" type="before_platform_add" />
+    <icon src="../src/assets/icons/icon.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
@@ -14,8 +15,45 @@
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-targetSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="local" />
+    <preference name="ShowSplashScreenSpinner" value="false"/>
     <engine name="browser" />
-    <engine name="android" spec="^6.3.0" />
+    <platform name="ios">
+        <icon height="180" src="../src/assets/icons/home-icons/ios/Icon-60@3x.png" width="180" />
+        <icon height="120" src="../src/assets/icons/home-icons/ios/Icon-60@2x.png" width="120" />
+        <icon height="57" src="../src/assets/icons/home-icons/ios/Icon.png" width="57" />
+        <icon height="114" src="../src/assets/icons/home-icons/ios/Icon@2x.png" width="114" />
+        <icon height="29" src="../src/assets/icons/home-icons/ios/Icon-Small.png" width="29" />
+        <icon height="58" src="../src/assets/icons/home-icons/ios/Icon-Small@2x.png" width="58" />
+        <splash height="1136" platform="ios" src="../src/assets/screens/ios/Default-568h@2x~iphone.png" width="640" />
+        <splash height="1334" platform="ios" src="../src/assets/screens/ios/Default-667h.png" width="750" />
+        <splash height="2208" platform="ios" src="../src/assets/screens/ios/Default-736h.png" width="1242" />
+        <splash height="1242" platform="ios" src="../src/assets/screens/ios/Default-Landscape-736h.png" width="2208" />
+        <splash height="1536" platform="ios" src="../src/assets/screens/ios/Default-Landscape@2x~ipad.png" width="2048" />
+        <splash height="768" platform="ios" src="../src/assets/screens/ios/Default-Landscape~ipad.png" width="1024" />
+        <splash height="2048" platform="ios" src="../src/assets/screens/ios/Default-Portrait@2x~ipad.png" width="1536" />
+        <splash height="1024" platform="ios" src="../src/assets/screens/ios/Default-Portrait~ipad.png" width="768" />
+        <splash height="960" platform="ios" src="../src/assets/screens/ios/Default@2x~iphone.png" width="640" />
+        <splash height="480" platform="ios" src="../src/assets/screens/ios/Default~iphone.png" width="320" />
+    </platform>
+    <platform name="android">
+        <icon density="hdpi" src="../src/assets/icons/home-icons/android/hdpi.png" />
+        <icon density="xhdpi" src="../src/assets/icons/home-icons/android/xhdpi.png" />
+        <icon density="xxhdpi" src="../src/assets/icons/home-icons/android/xxhdpi.png" />
+        <icon density="xxxhdpi" src="../src/assets/icons/home-icons/android/xxxhdpi.png" />
+        <splash density="land-ldpi" src="../src/assets/screens/android/drawable-land-ldpi-screen.png" />
+        <splash density="land-mdpi" src="../src/assets/screens/android/drawable-land-mdpi-screen.png" />
+        <splash density="land-hdpi" src="../src/assets/screens/android/drawable-land-hdpi-screen.png" />
+        <splash density="land-xhdpi" src="../src/assets/screens/android/drawable-land-xhdpi-screen.png" />
+        <splash density="land-xxhdpi" src="../src/assets/screens/android/drawable-land-xxhdpi-screen.png" />
+        <splash density="land-xxxhdpi" src="../src/assets/screens/android/drawable-land-xxxhdpi-screen.png" />
+        <splash density="port-ldpi" src="../src/assets/screens/android/drawable-port-ldpi-screen.png" />
+        <splash density="port-mdpi" src="../src/assets/screens/android/drawable-port-mdpi-screen.png" />
+        <splash density="port-hdpi" src="../src/assets/screens/android/drawable-port-hdpi-screen.png" />
+        <splash density="port-xhdpi" src="../src/assets/screens/android/drawable-port-xhdpi-screen.png" />
+        <splash density="port-xxhdpi" src="../src/assets/screens/android/drawable-port-xxhdpi-screen.png" />
+        <splash density="port-xxxhdpi" src="../src/assets/screens/android/drawable-port-xxxhdpi-screen.png" />
+    </platform>
+    <engine name="android" spec="^6.4.0" />
     <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-networkactivityindicator" spec="~0.1.1" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
@@ -30,4 +68,6 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
     <plugin name="cordova-plugin-actionsheet" spec="~2.3.3" />
+    <plugin name="cordova-plugin-firebase" spec="^0.1.25" />
+    <plugin name="cordova-plugin-3dtouch" spec="^1.3.5" />
 </widget>

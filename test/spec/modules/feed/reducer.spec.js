@@ -7,6 +7,8 @@ describe("Feed reducer", () => {
     expect(feed(undefined, {})).to.eql({
       fetching: false,
       transactions: [],
+      offset: 0,
+      fullImage: undefined,
       error: undefined
     });
   });
@@ -22,26 +24,27 @@ describe("Feed reducer", () => {
 
     it("handles FINISED_FETCHING_TRANSACTIONS", () => {
       expect(
-        feed([], {
-          type: constants.FINISHED_FETCHING_TRANSACTIONS,
-          transactions: [
-            {
-              name: "Transaction1",
-              amount: 100,
-              "created-at": "2017-01-01T12:00:00.000Z",
-              "api-user-voted": false
-            },
-            {
-              name: "Transaction2",
-              amount: 110,
-              "created-at": "2017-01-01T12:00:00.000Z",
-              "api-user-voted": true
-            }
-          ],
-          userId: 3
-        })
+        feed(
+          { transactions: [], offset: 0 },
+          {
+            type: constants.FINISHED_FETCHING_TRANSACTIONS,
+            transactions: [
+              {
+                name: "Transaction1",
+                amount: 100,
+                "created-at": "2017-01-01T12:00:00.000Z",
+                "api-user-voted": false
+              },
+              {
+                name: "Transaction2",
+                amount: 110,
+                "created-at": "2017-01-01T12:00:00.000Z",
+                "api-user-voted": true
+              }
+            ]
+          }
+        )
       ).to.eql({
-        fetching: false,
         transactions: [
           {
             name: "Transaction1",
@@ -57,7 +60,9 @@ describe("Feed reducer", () => {
             "api-user-voted": true,
             interval: moment("2017-01-01T12:00:00.000Z").fromNow()
           }
-        ]
+        ],
+        fetching: false,
+        offset: 10
       });
     });
   });
