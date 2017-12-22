@@ -10,6 +10,7 @@ import SelectedImage from "./SelectedImage";
 
 import kudoIcon from "src/assets/icons/kudo.svg";
 import photoIcon from "src/assets/icons/photo-camera.svg";
+import KabisaLizard from "src/assets/icons/transaction/kabisa_lizard.png";
 
 class TransactionForm extends Component {
   constructor(props) {
@@ -91,7 +92,7 @@ class TransactionForm extends Component {
       if (!this.checkActivity(this.state.activity)) {
         this.setState({ error: I18n.t("transaction.notEnoughCharacters") });
       }
-      if (this.state.receiver.id === "") {
+      if (this.state.receiver.name === "") {
         this.setState({ error: I18n.t("transaction.noReceiver") });
       }
       if (!this.checkAmount(this.state.amount)) {
@@ -101,7 +102,7 @@ class TransactionForm extends Component {
       this.setState({ formDisabled: true });
       this.props.addTransaction(
         this.state.amount,
-        this.state.receiver.id,
+        this.state.receiver.name,
         this.state.activity,
         this.state.imageData,
         "jpg"
@@ -157,6 +158,8 @@ class TransactionForm extends Component {
     { formError, filteredUsers },
     { error, amount, receiver, activity, imageData, formDisabled }
   ) {
+    filteredUsers.push({user: {name: receiver.name, id: 1, "avatar-url": KabisaLizard}});
+
     return (
       <div>
         <form class={styles.transactionForm} onSubmit={this.onSubmit}>
