@@ -13,7 +13,7 @@ export const UserStatistics = ({ given, received }) => {
         <span class={styles.statisticsValue}>{received}</span>
       </div>
       <div class={styles.totalTransactions}>
-        <span>Total</span>
+        <span class={styles.statisticsTitle}>Total</span>
         <span class={styles.statisticsValue}>{given + received}</span>
       </div>
     </div>
