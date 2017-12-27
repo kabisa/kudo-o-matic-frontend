@@ -1,0 +1,18 @@
+@import "src/styles/settings/general";
+
+.feedContainer {
+    // Generic main styles
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    // Specific main styles
+    height: 100%;
+    overflow-y: scroll; // has to be scroll, not auto
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 3.5rem;
+}
+
+.imageView {
+    width: 100%;
+    height: 100%;
+}

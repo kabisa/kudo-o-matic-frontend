@@ -6,6 +6,7 @@
     width: 100%;
     height: 3.5rem;
     background-color: $brand-navbar-color;
+    z-index: $navbar-z-index;
     box-shadow: 0 -2px 3px rgba(99, 99, 99, 0.75);
 }
 
@@ -13,8 +14,8 @@
     position: absolute;
     left: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     border: none;
     height: 100%;
     width: 50%;
@@ -25,17 +26,34 @@
     position: absolute;
     right: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     border: none;
     height: 100%;
     width: 50%;
     padding-left: 50px; //To make them equally centered
 }
 
+/* Items to equally space the navButtons */
+.navLeft::before {
+    content: "";
+}
+
+.navLeft::after {
+    content: "";
+}
+
+.navRight::before {
+    content: "";
+}
+
+.navRight::after {
+    content: "";
+}
+
 .navButton {
     height: 100%;
-    width: 3rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,7 +62,6 @@
     border: none;
     outline: none;
     padding: 0;
-    background: transparent;
 
     img {
         width: 1.2rem;
@@ -70,10 +87,20 @@
     margin-top: -1.5rem; //Kudo-button has to stick out a bit.
     z-index: $navbar-button-z-index;
     background-color: $brand-blue;
-    color: white;
     border-radius: 50%;
     border: 0.2rem solid white;
     outline: none;
-    font-size: 2.8rem;
-    font-weight: 300;
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 2.3rem;
+        height: 2.3rem;
+    }
+}
+
+.kudoButton:hover {
+    background-color: $brand-blue-gradient;
 }

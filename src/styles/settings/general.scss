@@ -11,7 +11,7 @@ $text-color-medium: $brand-grey-medium;
 $text-color-light: $brand-grey;
 $text-color-highlight: $brand-blue;
 $text-color-link: $brand-blue;
-$page-background: $brand-grey-lightest;
+$page-background: $brand-white;
 $page-background-light: $brand-white;
 $general-border-color: $brand-grey-light;
 
@@ -28,7 +28,19 @@ $page-padding: 1rem; // Distance from edge of screen
 
 ///////////////////////////////////////////////////////////
 //
+// Responsiveness and min/max widths
+//
+///////////////////////////////////////////////////////////
+$single-column-max-width: 30rem; // 480 pixels
+
+///////////////////////////////////////////////////////////
+//
 // Z-index
 //
 ///////////////////////////////////////////////////////////
-$navbar-button-z-index: 100;
+$navbar-z-index: 100;
+$navbar-button-z-index: 200;
+$form-z-index: 200;
+$form-button-z-index: 200;
+$suggestions-z-index: 400;
+$overlay-image-z-index: 200;
