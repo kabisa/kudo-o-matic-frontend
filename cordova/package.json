@@ -15,15 +15,18 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.242980876083-0cksfoq3gqljjc7n0b1mflpasg0t544l"
       },
-      "cordova-plugin-camera": {
-        "CAMERA_USAGE_DESCRIPTION": " ",
-        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
-      },
       "ionic-plugin-keyboard": {},
       "cordova-plugin-compat": {},
       "cordova-plugin-actionsheet": {},
       "cordova-plugin-firebase": {},
-      "cordova-plugin-3dtouch": {}
+      "cordova-plugin-3dtouch": {},
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": "To make a picture for your transaction",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "To choose a picture for your transaction"
+      },
+      "cordova-plugin-media-capture": {
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "To choose a picture for your transaction"
+      }
     }
   },
   "dependencies": {
@@ -32,8 +35,7 @@
     "cordova-ios": "^4.5.4",
     "cordova-plugin-3dtouch": "^1.3.5",
     "cordova-plugin-actionsheet": "~2.3.3",
-    "cordova-plugin-camera": "^2.4.1",
-    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-firebase": "^0.1.25",
     "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
     "cordova-plugin-networkactivityindicator": "~0.1.1",
@@ -41,6 +43,7 @@
     "cordova-plugin-whitelist": "~1.3.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ios-deploy": "^1.9.2",
-    "ios-sim": "^6.1.2"
+    "ios-sim": "^6.1.2",
+    "cordova-plugin-compat": "^1.2.0"
   }
 }
