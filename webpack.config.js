@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const babel = require("./config/babel");
 const uglify = require("./config/uglify");
 
@@ -52,7 +53,7 @@ const plugins = [
 if (isProd) {
   plugins.push(
     new webpack.LoaderOptionsPlugin({ minimize: true, debug: false }),
-    new webpack.optimize.UglifyJsPlugin(uglify)
+    new UglifyJsPlugin({uglifyOptions: uglify})
   );
 } else {
   plugins.push(
