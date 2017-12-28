@@ -25,7 +25,7 @@ const ProfilePage = ({ user, handleLogoutUser }) => {
       <main class={styles.main}>
         <h3 class={styles.name}>{user.name}</h3>
         <img class={styles.profileImage} src={user.imageUri} />
-        <h3 class={styles.name}>Your transactions</h3>
+        <h3 class={styles.header}>{I18n.t("profile.your_transactions")}</h3>
         <UserStatistics given={10} received={10} />
         <button className={styles.logoutButton} onClick={logOutUser}>
           {I18n.t("profile.logout")}
