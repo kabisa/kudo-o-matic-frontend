@@ -6,25 +6,25 @@
     padding: 1.25rem;
     width: 100%;
 
-    .sendTransactions {
+    .leftStats {
         text-align: center;
         flex: 1 0 auto;
         border-right: 0.01rem solid $brand-grey-stripes
     }
 
-    .receivedTransactions {
+    .leftStats {
         text-align: center;
         flex: 1 0 auto;
         border-right: 0.01rem solid $brand-grey-stripes
     }
 
-    .totalTransactions {
+    .rightStats {
         text-align: center;
         flex: 1 0 auto;
     }
 
     .statisticsTitle {
-        display: bl
+        display: block;
     }
 
     .statisticsValue {
