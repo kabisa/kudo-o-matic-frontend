@@ -7,10 +7,14 @@ module.exports = {
       .assert.containsText("header", "FEED");
   },
   "Shows list of transactions": function(browser) {
-    browser.waitForElementVisible("#transactionList");
+    browser.waitForElementVisible("#feedContainer");
   },
   "List of transactions contains transactions": function(browser) {
-    browser.waitForElementVisible("#transaction");
+    browser
+      .useXpath()
+      .waitForElementVisible(
+        "//div[contains(@class, 'Transaction__transaction')]"
+      );
   },
   "Like of transaction results in like/total Amount increase": function(
     browser
@@ -19,18 +23,18 @@ module.exports = {
     let currentLikes;
 
     browser
-      .getText("#transactionList li:nth-child(1) #kudoAmount ", result => {
+      .getText("//p[@id = 'kudoAmount']", result => {
         currentValue = parseInt(result.value);
       })
-      .getText("#transactionList li:nth-child(1) #likeAmount ", result => {
+      .getText("//span[@id = 'likeAmount'] ", result => {
         currentLikes = parseInt(result.value);
       })
-      .click("#transactionList li:nth-child(1) #likeTransaction")
+      .click("//a[@id = 'likeTransaction'] ")
       .pause(500)
-      .getText("#transactionList li:nth-child(1) #kudoAmount ", result => {
+      .getText("//p[@id = 'kudoAmount']", result => {
         browser.assert.equal(result.value, currentValue + 1);
       })
-      .getText("#transactionList li:nth-child(1) #likeAmount ", result => {
+      .getText("//span[@id = 'likeAmount'] ", result => {
         browser.assert.equal(result.value, currentLikes + 1);
       });
   },
@@ -41,18 +45,18 @@ module.exports = {
     let currentLikes;
 
     browser
-      .getText("#transactionList li:nth-child(1) #kudoAmount ", result => {
+      .getText("//p[@id = 'kudoAmount']", result => {
         currentValue = parseInt(result.value);
       })
-      .getText("#transactionList li:nth-child(1) #likeAmount ", result => {
+      .getText("//span[@id = 'likeAmount'] ", result => {
         currentLikes = parseInt(result.value);
       })
-      .click("#transactionList li:nth-child(1) #likeTransaction")
+      .click("//a[@id = 'likeTransaction'] ")
       .pause(500)
-      .getText("#transactionList li:nth-child(1) #kudoAmount ", result => {
+      .getText("//p[@id = 'kudoAmount']", result => {
         browser.assert.equal(result.value, currentValue - 1);
       })
-      .getText("#transactionList li:nth-child(1) #likeAmount ", result => {
+      .getText("//span[@id = 'likeAmount'] ", result => {
         browser.assert.equal(result.value, currentLikes - 1);
       })
       .end();

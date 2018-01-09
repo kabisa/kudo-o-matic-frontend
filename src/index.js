@@ -29,10 +29,8 @@ const renderApp = function() {
   );
 };
 
-FastClick.attach(document.body);
-renderApp();
-
 document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("resume", onDeviceResume, false);
 
 function onDeviceReady() {
   ThreeDeeTouch.configureQuickActions([
@@ -50,6 +48,13 @@ function onDeviceReady() {
     }
   };
 }
+
+function onDeviceResume() {
+  window.FirebasePlugin.setBadgeNumber(0);
+}
+
+FastClick.attach(document.body);
+renderApp();
 
 if (process.env.NODE_ENV !== "production") {
   require("preact/devtools");

@@ -1,14 +1,9 @@
 import { route } from "preact-router";
 
 export const getToken = () => {
-  window.FirebasePlugin.getToken(
-    function(token) {
-      return token;
-    },
-    function(error) {
-      console.error(error);
-    }
-  );
+  window.FirebasePlugin.getToken(function(token) {
+    return token;
+  });
 };
 
 export const checkPermission = () => {
@@ -41,5 +36,4 @@ export const subscribeToNotifications = (fetchAllTransactions, user) => {
         break;
     }
   });
-}
-
+};

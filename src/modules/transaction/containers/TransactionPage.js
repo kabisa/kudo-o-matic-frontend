@@ -1,6 +1,5 @@
 import { h, Component } from "preact";
 import { connect } from "preact-redux";
-import { route } from "preact-router";
 
 import TransactionForm from "../components/TransactionForm";
 import styles from "./TransactionPage.scss";
@@ -38,7 +37,8 @@ export class TransactionPage extends Component {
     return (
       <div class={styles.formContainer}>
         <button
-          class={styles.closeButton}
+          id="closeButton"
+          class={styles.kudoButton}
           onClick={this.props.makeFormInvisible}
         >
           <img src={closeIcon} />

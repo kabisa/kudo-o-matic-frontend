@@ -18,3 +18,11 @@ export const loadLogin = () => {
     return undefined;
   }
 };
+
+export const removeLogin = () => {
+  try {
+    localStorage.removeItem("authentication");
+  } catch (err) {
+    return undefined;
+  }
+};

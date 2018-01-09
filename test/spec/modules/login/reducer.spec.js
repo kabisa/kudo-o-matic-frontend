@@ -12,6 +12,8 @@ describe("Authentication reducer", () => {
         imageUri: undefined
       },
       googleToken: undefined,
+      FCMToken: undefined,
+      FCMError: undefined,
       googleError: undefined,
       apiError: undefined
     });
@@ -68,5 +70,23 @@ describe("Authentication reducer", () => {
         googleError: "GOOGLE_ERROR"
       });
     });
+  });
+
+  describe("handles LOGOUT_USER", () => {
+    expect(
+      authentication(
+        { user: { name: "Test" } },
+        {
+          type: constants.LOGOUT_USER
+        }
+      ).to.eql({
+        user: {
+          apiToken: Settings.testApiToken,
+          id: Settings.testUserId,
+          name: undefined,
+          imageUri: undefined
+        }
+      })
+    );
   });
 });

@@ -82,7 +82,6 @@ export const storeFCMToken = (FcmToken, ApiToken) => {
     dispatch(startedStoringFCMToken());
 
     return postFCMToken(FcmToken, ApiToken).then(token => {
-      console.log("stored token");
       return dispatch(storedFCMToken(token));
     });
   };
