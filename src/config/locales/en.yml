@@ -23,7 +23,7 @@ en:
     title: 'PROFILE'
     logout: 'Logout'
     your_transactions: 'Your transactions'
-    given: 'Given'
+    send: 'Send'
     received: 'Received'
     total: 'Total'
   statistics:
@@ -33,7 +33,7 @@ en:
     transactions: 'Transactions'
     kudos: '₭udos'
     week: 'Week'
-    received: 'Received'
+    month: 'Month'
     total: 'Total'
   transaction:
     amount: 'Amount'
