@@ -12,6 +12,8 @@ pipeline {
         FL_HOCKEY_PUBLIC_IDENTIFIER_IOS = credentials('FL_HOCKEY_PUBLIC_IDENTIFIER_IOS')
         FASTLANE_PASSWORD = credentials('FASTLANE_PASSWORD')
         FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT = 120
+        MACMINI_CODESIGN_KEYCHAIN_PASSWORD = credentials('MACMINI_CODESIGN_KEYCHAIN_PASSWORD')
+        MACMINI_LOGIN_KEYCHAIN_PASSWORD = credentials('MACMINI_LOGIN_KEYCHAIN_PASSWORD')
     }
 
     stages {
@@ -31,7 +33,11 @@ pipeline {
                 yarn install
 
 
-                /usr/local/bin/prepare-keychain-for-codesign
+                security -v list-keychains -d system -s ~/Library/Keychains/codesign.keychain >/dev/null
+                security -v unlock-keychain -p $MACMINI_CODESIGN_KEYCHAIN_PASSWORD ~/Library/Keychains/codesign.keychain >/dev/null
+                security set-keychain-settings -t 3600 -l ~/Library/Keychains/codesign.keychain >/dev/null
+                security set-key-partition-list -S apple-tool:,apple: -s -k $MACMINI_LOGIN_KEYCHAIN_PASSWORD /Users/jenkins/Library/Keychains/login.keychain-db >/dev/null
+
 
                 eval $(ssh-agent -s)
                 ssh-add /Users/jenkins/.ssh/id_rsa
