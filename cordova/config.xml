@@ -18,6 +18,7 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <engine name="browser" />
     <platform name="ios">
+        <hook src="scripts/share_schemes.rb" type="after_platform_add" />
         <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
             <string>Allow the app to access your photos</string>
         </config-file>
