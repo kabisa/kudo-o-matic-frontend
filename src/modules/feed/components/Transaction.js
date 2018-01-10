@@ -10,9 +10,7 @@ import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 
 const emojiOptions = {
   style: {
-    height: 16,
-    "margin-top": 10,
-    "margin-bottom": 10
+    height: 16
   }
 };
 
