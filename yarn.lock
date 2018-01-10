@@ -7289,6 +7289,10 @@ react-circular-progressbar@^0.5.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-emojione@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-emojione/-/react-emojione-5.0.0.tgz#230fef5e85aa9e1183b9506a15fff37d59ef472f"
+
 react-list@^0.8.8:
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/react-list/-/react-list-0.8.8.tgz#de2cb768dd210fb3e4835b9277f158e9cd403078"

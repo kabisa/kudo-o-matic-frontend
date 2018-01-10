@@ -84,7 +84,7 @@ lane :deploy_ios do
       hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_IOS'],
              ipa: File.join(output_dir, 'kudo-o-matic.ipa'),
              create_update: true,
-             bundle_version: '1.0.7',
+             bundle_version: '10102',
              bundle_short_version: @branch,
              status: '2',
              notes: @release_notes
