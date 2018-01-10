@@ -39,9 +39,9 @@ lane :deploy_ios do
       profile_uuid = sh('/usr/libexec/PlistBuddy -c "Print :UUID" ./profiles/AdHoc_nl.kabisa.kudoomatic.plist').chomp
       sh('rm -R profiles/')
 
-      sh('cordova plugin save')
-      sh('cordova platform rm ios')
-      sh('cordova platform add ios')
+      sh('bin/cordova plugin save')
+      sh('bin/cordova platform rm ios')
+      sh('bin/cordova platform add ios')
       #Build the app for ios
       sh("APP_ENV=development bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
 
