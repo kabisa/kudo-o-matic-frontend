@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="nl.kabisa.kudoomatic" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Kudo-o-Matic</name>
+    <name>kudoomatic</name>
     <description />
     <content src="index.html" />
     <access origin="*" />
