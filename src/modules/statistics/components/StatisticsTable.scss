@@ -1,0 +1,35 @@
+@import 'src/styles/settings/general';
+
+.userStatisticsContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 1.25rem;
+    width: 100%;
+
+    .sendTransactions {
+        text-align: center;
+        flex: 1 0 auto;
+        border-right: 0.01rem solid $brand-grey-stripes
+    }
+
+    .receivedTransactions {
+        text-align: center;
+        flex: 1 0 auto;
+        border-right: 0.01rem solid $brand-grey-stripes
+    }
+
+    .totalTransactions {
+        text-align: center;
+        flex: 1 0 auto;
+    }
+
+    .statisticsTitle {
+        display: block;
+    }
+
+    .statisticsValue {
+        display: block;
+        font-weight: 700;
+        margin-top: 0.25rem;
+    }
+}
