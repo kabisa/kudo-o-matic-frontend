@@ -1,4 +1,5 @@
 import { h, Component } from "preact";
+import { emojify } from "react-emojione";
 import { imageExists } from "src/support/imageUtils";
 import { checkForGroup } from "src/support/transactionUtils";
 
@@ -6,6 +7,12 @@ import styles from "./Transaction.scss";
 import LoadingAnimation from "src/components/LoadingAnimation";
 import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.svg";
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
+
+const emojiOptions = {
+  style: {
+    height: 16
+  }
+};
 
 export class Transaction extends Component {
   constructor(props) {
@@ -73,7 +80,10 @@ export class Transaction extends Component {
               {transaction.sender.name}: {transaction.amount}{" "}
               <span class={styles.kudoCurrency}>₭</span> to{" "}
               <span id="receiver"> {transaction.receiver.name} </span>
-              for <span id="activity">{transaction.activity}</span>
+              for{" "}
+              <span id="activity">
+                {emojify(transaction.activity, emojiOptions)}
+              </span>
             </p>
             {image}
           </div>
