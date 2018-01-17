@@ -22,8 +22,19 @@ en:
   profile:
     title: 'PROFILE'
     logout: 'Logout'
+    your_transactions: 'Your transactions'
+    send: 'Send'
+    received: 'Received'
+    total: 'Total'
   statistics:
     title: 'STATISTICS'
+    number_of_transactions: 'Number of transactions'
+    number_of_kudos: 'Number of ₭udos'
+    transactions: 'Transactions'
+    kudos: '₭udos'
+    week: 'Week'
+    month: 'Month'
+    total: 'Total'
   transaction:
     amount: 'Amount'
     receiver: 'Receiver'
