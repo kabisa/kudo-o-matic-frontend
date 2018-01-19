@@ -7,10 +7,10 @@
 
 ## Development workflow
 
-* While developing you can run a local serve using `bin/maji start`. This will start a server on http://localhost:9090.
-* To create a static HTML5 app build run `bin/maji build`. The app will be build into the `dist/` directory.
+* While developing you can run a local server using `bin/maji start`. This will start a server on http://localhost:9090.
+* If the `dist/` folder dissapears, please re-build using using `bin/maji build`.
 * To run the app on a connected mobile device run `bin/maji run <platform>`.
-* To build a Cordova app run `bin/maji build <platform>`.
+* To build the native app using cordova, run `bin/maji build <platform>`.
 * To run Javascript tests run `bin/maji test --watch`. This will start a Karma server with Phantomjs and will continuously watch your Javascript files and run tests on changes.
 * To run integration specs run `bin/maji test --integration`.
 * To run all tests run `bin/maji test`.
@@ -47,7 +47,23 @@ Prettier can also be run manually using `yarn run prettier` or `yarn run prettie
 * Android platform 10+.
 * `android` and `adb` in your $PATH (add `path/to/android-sdk-macosx/tools` and `path/to/android-sdk-macosx/platform-tools` to your $PATH).
 
-##Mobile builds and automatic deployments
+## Setup environment; Connection with API
+
+### Development environment
+To make development possible, we should not be asked to login. Therefore we use a test-account on the staging-API.
+In, `src/config/settings.development.json` edit the "apiLocation" to the Staging-API.
+Edit `testApiToken` to the API-Token of a test-user at the Staging-backend.
+
+### Production environment
+`testApiToken` should not exist in the production-settings.
+In, `src/config/settings.production.json` edit the "apiLocation" to the Production-API.
+
+### Test environment
+To make testing possible, we should not be asked to login. Therefore we use a test-account on the staging-API.
+In, `src/config/settings.development.json` edit the "apiLocation" to the Staging-API.
+Edit `testApiToken` to the API-Token of a test-user at the Staging-backend. Beware; This will add transactions at particular tests.
+
+## Mobile builds and automatic deployments
 
 ### Jenkins
 At the moment we use Jenkins as our automation server for Continuous integration and deployments. It allows you to write a script with tasks to perform. These tasks run on a node, which is just a (remote) server. We've setup the jenkins server itself as our main node for non-mobile builds for now. 
