@@ -50,18 +50,18 @@ Prettier can also be run manually using `yarn run prettier` or `yarn run prettie
 ## Setup environment; Connection with API
 
 ### Development environment
-To make development possible, we should not be asked to login. Therefore we use a test-account on the staging-API.
-In, `src/config/settings.development.json` edit the "apiLocation" to the Staging-API.
-Edit `testApiToken` to the API-Token of a test-user at the Staging-backend.
+* To make development possible, we should not be asked to login. Therefore we create a test-account on the staging-API.
+* In `src/config/settings.development.json`, edit the "apiLocation" to the Staging-API.
+* Edit `testApiToken` to the API-Token of a test-user at the Staging-backend.
 
 ### Production environment
-`testApiToken` should not exist in the production-settings.
-In, `src/config/settings.production.json` edit the "apiLocation" to the Production-API.
+* `testApiToken` should not exist in the production-settings.
+* In `src/config/settings.production.json`, edit the "apiLocation" to the Production-API.
 
 ### Test environment
-To make testing possible, we should not be asked to login. Therefore we use a test-account on the staging-API.
-In, `src/config/settings.development.json` edit the "apiLocation" to the Staging-API.
-Edit `testApiToken` to the API-Token of a test-user at the Staging-backend. Beware; This will add transactions at particular tests.
+* To make testing possible, we should not be asked to login. Therefore we create a test-account on the staging-API.
+* In `src/config/settings.development.json`, edit the "apiLocation" to the Staging-API.
+* Edit `testApiToken` to the API-Token of a test-user at the Staging-backend. Beware; This will add transactions at particular tests.
 
 ## Mobile builds and automatic deployments
 
