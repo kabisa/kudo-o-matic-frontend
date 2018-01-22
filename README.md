@@ -1,4 +1,4 @@
-# kudo-o-matic
+# Kudo-o-Matic Frontend
 
 ## Getting started
 
