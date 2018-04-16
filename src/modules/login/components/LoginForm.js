@@ -1,6 +1,7 @@
 import { h, Component } from "preact";
 import styles from "./LoginForm.scss";
 import I18n from "src/config/i18n";
+import { fetchAccessToken } from "../actions";
 
 export class LoginForm extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ export class LoginForm extends Component {
 
     onSubmit = e => {
         if (this.state.formSubmittable) {
-            //todo
+            fetchAccessToken(this.state.username, this.state.password);
         }
     }
 

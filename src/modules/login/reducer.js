@@ -7,8 +7,7 @@ const initialState = {
   user: {
     apiToken: Settings.testApiToken,
     id: Settings.testUserId,
-    name: undefined,
-    imageUri: undefined
+    name: undefined
   },
   apiError: undefined
 };
