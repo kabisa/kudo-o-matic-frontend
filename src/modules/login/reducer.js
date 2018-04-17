@@ -15,12 +15,17 @@ const initialState = {
 export const authentication = (state = initialState, action) => {
   switch (action.type) {
     case constants.ACCESS_TOKEN_SUCCESS:
-      const newState = {
+      return {
         ...state,
         user: {
           ...state.user,
           apiToken: action.accessToken
         }
+      }
+      case constants.ACCESS_TOKEN_FAILURE:
+      return {
+        ...state,
+        error: action.error
       }
     default:
       return state;

@@ -2,6 +2,9 @@ import { h, Component } from "preact";
 import styles from "./LoginForm.scss";
 import I18n from "src/config/i18n";
 import { fetchAccessToken } from "../actions";
+import MessageBox from "./MessageBox";
+
+import { connect } from "preact-redux";
 
 export class LoginForm extends Component {
     constructor(props) {
@@ -15,6 +18,8 @@ export class LoginForm extends Component {
         };
 
         this.onSubmit = this.onSubmit.bind(this);
+
+        console.log(this.state);
     }
 
     onInput = e => {
@@ -26,6 +31,7 @@ export class LoginForm extends Component {
         if (this.state.formSubmittable) {
             fetchAccessToken(this.state.username, this.state.password);
         }
+        console.log(this.state);
     }
 
     isFormSubmittable = () => {
@@ -38,6 +44,7 @@ export class LoginForm extends Component {
     render({ username, password }) {
         return (
             <div>
+                <MessageBox errorMessage={this.state.error} />
                 <form onSubmit={this.onSubmit}>
                     <input
                         name="username"
@@ -66,4 +73,12 @@ export class LoginForm extends Component {
     }
 };
 
-export default LoginForm;
+const mapStateToProps = state => ({
+    user: state.authentication.user
+});
+
+const mapDispatchToProps = {
+    fetchAccessToken
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
