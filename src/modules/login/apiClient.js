@@ -19,12 +19,13 @@ export const requestAccessToken = (username, password) => {
     grant_type: "password"
   };
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     const request = httpClient.post("/oauth/token", body, { headers });
 
     request.then(response => {
-      console.log(response);
-      resolve(response.data.data);
+      resolve(response.data);
+    }).catch(ex => {
+      reject(ex);
     });
   });
 };

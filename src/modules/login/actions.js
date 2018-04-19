@@ -10,7 +10,7 @@ export const startedFetchingAccessToken = () => {
 export const finishedFetchingAccessToken = (accessToken) => {
   return {
     type: constants.ACCESS_TOKEN_SUCCESS,
-    accessToken: accessToken 
+    accessToken: accessToken[0].access_token
   }
 }
 
@@ -23,14 +23,13 @@ export const receivedAuthenticationError = error => {
 
 export const fetchAccessToken = (username, password) => {
   return dispatch => {
-
     dispatch(startedFetchingAccessToken);
+    
     return Promise.all([requestAccessToken(username, password)])
     .then(values => {
       return dispatch(finishedFetchingAccessToken(values));
     })
     .catch(error => {
-      console.log(error);
       return dispatch(receivedAuthenticationError(error));
     })
   }

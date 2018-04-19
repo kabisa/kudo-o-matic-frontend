@@ -10,7 +10,6 @@ export class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: "",
             username: "",
             password: "",
             formSubmittable: false,
@@ -18,8 +17,6 @@ export class LoginForm extends Component {
         };
 
         this.onSubmit = this.onSubmit.bind(this);
-
-        console.log(this.state);
     }
 
     onInput = e => {
@@ -28,10 +25,10 @@ export class LoginForm extends Component {
     };
 
     onSubmit = e => {
+        e.preventDefault();
         if (this.state.formSubmittable) {
-            fetchAccessToken(this.state.username, this.state.password);
+            this.props.fetchAccessToken(this.state.username, this.state.password);
         }
-        console.log(this.state);
     }
 
     isFormSubmittable = () => {
@@ -44,7 +41,7 @@ export class LoginForm extends Component {
     render({ username, password }) {
         return (
             <div>
-                <MessageBox errorMessage={this.state.error} />
+                <MessageBox errorMessage={this.props.error} />
                 <form onSubmit={this.onSubmit}>
                     <input
                         name="username"
@@ -74,7 +71,8 @@ export class LoginForm extends Component {
 };
 
 const mapStateToProps = state => ({
-    user: state.authentication.user
+    user: state.authentication.user,
+    error: state.authentication.error
 });
 
 const mapDispatchToProps = {
