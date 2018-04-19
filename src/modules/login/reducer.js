@@ -4,6 +4,7 @@ import Settings from "src/config/settings";
 import { saveLogin, loadLogin, removeLogin } from "../../localStorage";
 
 const initialState = {
+  error: undefined
 };
 
 export const authentication = (state = initialState, action) => {
@@ -12,14 +13,13 @@ export const authentication = (state = initialState, action) => {
       const newState = {
         ...state,
         user: {
-          ...state.user,
           apiToken: action.accessToken
-        }
+        },
+        error: undefined
       };
       saveLogin(newState);
       return newState;
     case constants.ACCESS_TOKEN_FAILURE:
-      console.log(action.error);
       return {
         ...state,
         error: action.error
