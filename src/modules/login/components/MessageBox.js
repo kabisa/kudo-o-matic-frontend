@@ -33,6 +33,4 @@ class MessageBox extends Component {
     }
 }
 
-
-
 export default MessageBox;

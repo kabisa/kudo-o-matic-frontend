@@ -1,6 +1,5 @@
 import { h, render } from "preact";
 import { LoginPage } from "src/modules/login/containers/LoginPage";
-import GoogleButton from "src/modules/login/components/GoogleButton";
 import styles from "src/modules/login/containers/LoginPage.scss";
 import {
   requestApiToken,
@@ -18,18 +17,6 @@ describe("LoginPage", function() {
 
   afterEach(function() {
     scratch.innerHtml = "";
-  });
-
-  it("shows Google LoginButton", function() {
-    const page = mount(<LoginPage user={user} />);
-    expect(page.outerHTML).to.contain(
-      mount(
-        <GoogleButton
-          requestApiToken={requestApiToken}
-          handleGoogleLoginFailure={handleGoogleLoginFailure}
-        />
-      ).outerHTML
-    );
   });
 
   it("shows disclaimer", function() {

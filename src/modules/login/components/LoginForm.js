@@ -61,7 +61,7 @@ export class LoginForm extends Component {
                         className={styles.loginInput}
                     />
                     <br />
-                    <button type="submit" className={styles.loginButton}>
+                    <button id="buttonLogin" type="submit" className={styles.loginButton}>
                         {I18n.t("login.login")}
                     </button>
                 </form>

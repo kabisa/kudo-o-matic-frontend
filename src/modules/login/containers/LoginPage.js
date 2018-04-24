@@ -4,7 +4,6 @@ import { route } from "preact-router";
 import { Page } from "src/components/Page";
 import LoginForm from "../components/LoginForm";
 import I18n from "src/config/i18n";
-import { fetchAccessToken } from "../actions";
 
 import styles from "./LoginPage.scss";
 
@@ -42,8 +41,4 @@ const mapStateToProps = state => ({
   user: state.authentication.user
 });
 
-const mapDispatchToProps = {
-  fetchAccessToken
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps)(LoginPage);
