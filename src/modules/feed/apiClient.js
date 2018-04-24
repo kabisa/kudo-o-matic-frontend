@@ -10,7 +10,7 @@ const api = create({
 export const fetchTransactions = (apiToken, offset) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Api-Token": apiToken
+    "Authorization": "Bearer " + apiToken
   };
 
   return new Promise(resolve => {
@@ -35,7 +35,7 @@ export const voteTransaction = (apiToken, transactionId) => {
   const headers = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Api-Token": apiToken
+      "Authorization": "Bearer " + apiToken
     }
   };
 
@@ -54,7 +54,7 @@ export const unVoteTransaction = (apiToken, transactionId) => {
   const headers = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Api-Token": apiToken
+      "Authorization": "Bearer " + apiToken
     }
   };
 
