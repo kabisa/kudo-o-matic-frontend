@@ -20,7 +20,7 @@ describe("Goal API client", () => {
         id: "1",
         type: "balances",
         links: {
-          self: "http://localhost:3000/api/v1/balances/1"
+          self: "http://localhost:3000/api/v2/balances/1"
         },
         attributes: {
           name: "Balance 1",
@@ -33,8 +33,8 @@ describe("Goal API client", () => {
           transactions: {
             links: {
               self:
-                "http://localhost:3000/api/v1/balances/1/relationships/transactions",
-              related: "http://localhost:3000/api/v1/balances/1/transactions"
+                "http://localhost:3000/api/v2/balances/1/relationships/transactions",
+              related: "http://localhost:3000/api/v2/balances/1/transactions"
             }
           }
         }
@@ -48,7 +48,7 @@ describe("Goal API client", () => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
         expect(method).to.eql("GET");
         expect(url).to.eql(`${Settings.apiLocation}/balances/current`);
-        expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
+        expect(requestHeaders["Authorization"]).to.contain("Bearer " + API_TOKEN);
         done();
       });
     });
@@ -75,7 +75,7 @@ describe("Goal API client", () => {
         id: "2",
         type: "goals",
         links: {
-          self: "http://localhost:3000/api/v1/goals/2"
+          self: "http://localhost:3000/api/v2/goals/2"
         },
         attributes: {
           name: "Goal 2",
@@ -88,8 +88,8 @@ describe("Goal API client", () => {
           balance: {
             links: {
               self:
-                "http://localhost:3000/api/v1/goals/2/relationships/balance",
-              related: "http://localhost:3000/api/v1/goals/2/balance"
+                "http://localhost:3000/api/v2/goals/2/relationships/balance",
+              related: "http://localhost:3000/api/v2/goals/2/balance"
             }
           }
         }
@@ -103,7 +103,7 @@ describe("Goal API client", () => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
         expect(method).to.eql("GET");
         expect(url).to.eql(`${Settings.apiLocation}/goals/next`);
-        expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
+        expect(requestHeaders["Authorization"]).to.contain("Bearer " + API_TOKEN);
         done();
       });
     });

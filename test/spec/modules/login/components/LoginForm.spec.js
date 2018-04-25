@@ -4,17 +4,18 @@ import I18n from "src/config/i18n";
 import { shallow } from "preact-render-spy";
 
 describe("LoginForm", function() {
-  let scratch, mount, fetchAccessToken;
+  let scratch, mount, fetchAccessToken, error;
 
   beforeEach(function() {
     scratch = document.createElement("div");
     mount = jsx => render(jsx, scratch);
-    fetchAccessToken = () => {};
+    fetchAccessToken = (username, password) => {};
+    error = {};
   });
 
   it("Shows LoginForm", function() {
-    const context = shallow(
-      <LoginForm fetchAccessToken={fetchAccessToken}/>
+    const context = mount(
+      <LoginForm fetchAccessToken={this.fetchAccessToken} error={this.error}/>
     );
   });
 });

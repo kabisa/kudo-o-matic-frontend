@@ -9,14 +9,18 @@ import styles from "./LoginPage.scss";
 
 export class LoginPage extends Component {
   componentWillMount() {
-    if (typeof this.props.user.apiToken !== "undefined") {
-      route("/", true);
+    if (this.props.user != undefined) {
+      if (typeof this.props.user.apiToken !== "undefined") {
+        route("/", true);
+      }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.user.apiToken !== "undefined") {
-      route("/", true);
+    if (nextProps.user != undefined) {
+      if (typeof nextProps.user.apiToken !== "undefined") {
+        route("/", true);
+      }
     }
   }
 

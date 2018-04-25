@@ -4,6 +4,9 @@ import Settings from "src/config/settings";
 import { saveLogin, loadLogin, removeLogin } from "../../localStorage";
 
 const initialState = {
+  user: {
+    apiToken: Settings.test_access_token
+  },
   error: undefined
 };
 
