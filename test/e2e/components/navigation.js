@@ -1,5 +1,5 @@
 module.exports = {
-  "Login user": function (browser) {
+  "Show Navigation bar": function (browser) {
     browser
       .url(browser.launch_url + "/#/feed")
       .waitForElementVisible("Header")
