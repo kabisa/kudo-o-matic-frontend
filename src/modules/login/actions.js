@@ -21,6 +21,19 @@ export const receivedAuthenticationError = error => {
   }
 }
 
+export const incorrectParameters = message => {
+  return {
+    type: constants.INCORRECT_PARAMETERS,
+    message: message
+  }
+}
+
+export const saveErrorMessage = message => {
+  return dispatch => {
+    dispatch(incorrectParameters(message));
+  }
+}
+
 export const fetchAccessToken = (username, password) => {
   return dispatch => {
     dispatch(startedFetchingAccessToken);

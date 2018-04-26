@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 import styles from "./LoginForm.scss";
 import I18n from "src/config/i18n";
-import { fetchAccessToken } from "../actions";
+import { fetchAccessToken, saveErrorMessage } from "../actions";
 import MessageBox from "./MessageBox";
 
 import { connect } from "preact-redux";
@@ -27,14 +27,16 @@ export class LoginForm extends Component {
     onSubmit = e => {
         e.preventDefault();
         if (this.state.formSubmittable) {
-            this.props.fetchAccessToken(this.state.username, this.state.password);
+            this.props.fetchAccessToken(this.state.username, this.state.password);            
+        } else {
+            this.props.saveErrorMessage("missing_parameters");
         }
     }
 
     isFormSubmittable = () => {
         return (
             this.state.username !== "" &&
-            this.state.password !== ""
+            this.state.password !== ""            
         );
     };
 
@@ -75,7 +77,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    fetchAccessToken
+    fetchAccessToken,
+    saveErrorMessage
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

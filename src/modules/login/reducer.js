@@ -25,7 +25,12 @@ export const authentication = (state = initialState, action) => {
     case constants.ACCESS_TOKEN_FAILURE:
       return {
         ...state,
-        error: action.error
+        error: action.error.response.data.error
+      }
+    case constants.INCORRECT_PARAMETERS:
+      return {
+        ...state,
+        error: action.message
       }
     default:
       return state;
