@@ -9,7 +9,7 @@ class MessageBox extends Component {
     }
 
     checkError = () => {
-        if (this.props.errorMessage != undefined) {
+        if (this.props.errorMessage != null || this.props.errorMessage != undefined) {
             switch (this.props.errorMessage) {
                 case "invalid_grant":
                     return "No access";

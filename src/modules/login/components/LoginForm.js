@@ -72,13 +72,4 @@ export class LoginForm extends Component {
     }
 };
 
-const mapStateToProps = state => ({
-    error: state.authentication.error
-});
-
-const mapDispatchToProps = {
-    fetchAccessToken,
-    saveErrorMessage
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default (LoginForm);

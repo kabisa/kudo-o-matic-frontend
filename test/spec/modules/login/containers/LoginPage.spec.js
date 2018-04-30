@@ -1,10 +1,6 @@
 import { h, render } from "preact";
 import { LoginPage } from "src/modules/login/containers/LoginPage";
 import styles from "src/modules/login/containers/LoginPage.scss";
-import {
-  requestApiToken,
-  handleGoogleLoginFailure
-} from "src/modules/login/actions";
 
 describe("LoginPage", function() {
   let scratch, mount, user;

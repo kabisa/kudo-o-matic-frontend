@@ -5,6 +5,8 @@ import { Page } from "src/components/Page";
 import LoginForm from "../components/LoginForm";
 import I18n from "src/config/i18n";
 
+import { fetchAccessToken, saveErrorMessage } from "../actions";
+
 import styles from "./LoginPage.scss";
 
 export class LoginPage extends Component {
@@ -30,7 +32,7 @@ export class LoginPage extends Component {
         <main class={styles.main}>
           <div class={styles.logo} />
           <div class={styles.login}>
-            <LoginForm />
+            <LoginForm fetchAccessToken={this.props.fetchAccessToken} saveErrorMessage={this.props.saveErrorMessage} error={this.props.error} />
           </div>
           <div class={styles.disclaimer}>
             <span>{I18n.t("login.disclaimer")}</span>
@@ -42,7 +44,13 @@ export class LoginPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.authentication.user
+  user: state.authentication.user,
+  error: state.authentication.error
 });
 
-export default connect(mapStateToProps)(LoginPage);
+const mapDispatchToProps = {
+  fetchAccessToken,
+  saveErrorMessage
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
