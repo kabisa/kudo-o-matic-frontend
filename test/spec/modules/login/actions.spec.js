@@ -23,5 +23,14 @@ describe("Authentication actions", () => {
 
       expect(actions.receivedAuthenticationError(error)).to.eql(expectedAction);
     });
+
+    it("not all parameters are given", () => {
+      const message = "MISSING_PARAMETERS";
+      const expectedAction = {
+        type: constants.INCORRECT_PARAMETERS,
+        message: message
+      };
+      expect(actions.incorrectParameters(message)).to.eql(expectedAction);
+    });
   });
 });

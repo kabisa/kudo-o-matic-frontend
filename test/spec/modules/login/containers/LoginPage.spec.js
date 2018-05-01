@@ -1,5 +1,6 @@
 import { h, render } from "preact";
 import { LoginPage } from "src/modules/login/containers/LoginPage";
+import { LoginForm } from "src/modules/login/components/LoginForm";
 import styles from "src/modules/login/containers/LoginPage.scss";
 
 describe("LoginPage", function() {
@@ -13,6 +14,11 @@ describe("LoginPage", function() {
 
   afterEach(function() {
     scratch.innerHtml = "";
+  });
+
+  it("shows Loginform", function() {
+    const page = mount(<LoginPage user={user} />);
+    expect(page.outerHTML).to.contain(mount(<LoginForm />).outerHTML);
   });
 
   it("shows disclaimer", function() {
