@@ -37,7 +37,6 @@ export const saveErrorMessage = message => {
 export const fetchAccessToken = (username, password) => {
   return dispatch => {
     dispatch(startedFetchingAccessToken);
-    
     return Promise.all([requestAccessToken(username, password)])
     .then(values => {
       return dispatch(finishedFetchingAccessToken(values));
