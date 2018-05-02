@@ -14,7 +14,7 @@ lane :deploy_android do
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/android-debug.apk",
            create_update: true,
-           bundle_version: '10007',
+           bundle_version: '10102',
            bundle_short_version: @branch,
            status: '2',
            notes: @release_notes
@@ -39,6 +39,9 @@ lane :deploy_ios do
       profile_uuid = sh('/usr/libexec/PlistBuddy -c "Print :UUID" ./profiles/AdHoc_nl.kabisa.kudoomatic.plist').chomp
       sh('rm -R profiles/')
 
+      sh('bin/cordova plugin save')
+      sh('bin/cordova platform rm ios')
+      sh('bin/cordova platform add ios')
       #Build the app for ios
       sh("APP_ENV=development bin/maji build ios -- --codeSignIdentity=\"iPhone Distribution: Kabisa BV (9H6JXDUXPW)\" --developmentTeam=\"9H6JXDUXPW\" --packageType=\"adHoc\" --provisioningProfile=\"#{profile_uuid}\"")
 
@@ -81,7 +84,7 @@ lane :deploy_ios do
       hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_IOS'],
              ipa: File.join(output_dir, 'kudo-o-matic.ipa'),
              create_update: true,
-             bundle_version: '1.0.7',
+             bundle_version: '1.1.2',
              bundle_short_version: @branch,
              status: '2',
              notes: @release_notes
