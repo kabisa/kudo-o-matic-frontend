@@ -1,11 +1,7 @@
 {
   "environment": "development",
   "defaultLocale": "en-US",
-  "apiLocation": "https://kudo-o-matic-staging.dokku.kabisa.io/api/v1",
-  "googleClientID": "242980876083-f72dobpq65bl62r92438jmsejrk0fgvp.apps.googleusercontent.com",
-  "googleHostedDomain":  "kabisa.nl",
-  "provider": "google_oauth2",
-  "testApiToken": "s429EA9340Id9diBLaCAg",
-  "testUserId": 60,
-  "version": 1.14
+  "apiLocation": "https://kudo-o-matic-staging.dokku.kabisa.io/api/v2",
+  "authorizationLocation": "https://kudo-o-matic-staging.dokku.kabisa.io",
+  "version": 1.2
 }

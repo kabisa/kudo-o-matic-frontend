@@ -1,6 +1,9 @@
 en:
   login:
     title: 'LOGIN'
+    login: 'Login'
+    username: 'Username'
+    password: 'Password'
     login_using_google: 'Login using Google'
     disclaimer: 'You can only login using a Google account from Kabisa'
   nav:

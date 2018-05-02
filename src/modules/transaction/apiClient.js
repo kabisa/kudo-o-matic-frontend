@@ -10,7 +10,7 @@ let headers = {};
 
 export const fetchUsers = apiToken => {
   headers = {
-    "api-token": apiToken
+    "Authorization": "Bearer " + apiToken
   };
 
   return new Promise(resolve => {
@@ -35,7 +35,7 @@ export const postTransaction = (
 ) => {
   headers = {
     "Content-Type": "application/vnd.api+json",
-    "Api-Token": apiToken
+    "Authorization": "Bearer " + apiToken
   };
   return new Promise(resolve => {
     let attributes = {};

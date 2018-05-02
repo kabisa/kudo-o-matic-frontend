@@ -25,14 +25,14 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener(
-      "deviceready",
-      subscribeToNotifications(
-        this.props.fetchAllTransactions,
-        this.props.user
-      ),
-      false
-    );
+    // document.addEventListener(
+    //   "deviceready",
+    //   subscribeToNotifications(
+    //     this.props.fetchAllTransactions,
+    //     this.props.user
+    //   ),
+    //   false
+    // );
   }
 
   render({ transactionFormVisible, makeFormVisible, makeFormInvisible }) {
@@ -53,17 +53,17 @@ export class App extends Component {
         {transactionFormVisible ? (
           <TransactionPage makeFormInvisible={makeFormInvisible} />
         ) : (
-          <NavBar makeFormVisible={makeFormVisible} />
-        )}
+            <NavBar makeFormVisible={makeFormVisible} />
+          )}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.authentication.user,
-  transactionFormVisible: state.transaction.formVisible
-});
+    user: state.authentication.user,
+    transactionFormVisible: state.transaction.formVisible
+  });
 
 const mapDispatchToProps = {
   makeFormVisible,

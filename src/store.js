@@ -1,6 +1,6 @@
 import thunkMiddleware from "redux-thunk";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { loadLogin } from "./localStorage";
+import { loadLogin, removeLogin } from "./localStorage";
 import { authentication } from "src/modules/login/reducer";
 import { goal } from "src/modules/goal/reducer";
 import { feed } from "src/modules/feed/reducer";
@@ -18,7 +18,13 @@ const rootReducer = combineReducers({
 });
 const middleware = applyMiddleware(thunkMiddleware);
 
-const persistedLogin = loadLogin();
+const persistedLogin = undefined;
+
+if(process.env.NODE_ENV == "development" || process.env.NODE_ENV == "test") {
+  const persistedLogin = removeLogin();
+} else {
+  const persistedLogin = loadLogin();
+}
 
 const store = createStore(
   rootReducer,

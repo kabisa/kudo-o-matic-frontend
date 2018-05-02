@@ -22,7 +22,7 @@ describe("Transaction API client", () => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
         expect(method).to.eql("GET");
         expect(url).to.eql(`${Settings.apiLocation}/balances/current`);
-        expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
+        expect(requestHeaders["Authorization"]).to.contain("Bearer " + API_TOKEN);
         done();
       });
     });

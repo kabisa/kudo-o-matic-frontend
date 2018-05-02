@@ -17,7 +17,7 @@
     "apisauce": "^0.14.1",
     "axios": "^0.16.2",
     "axios-cancel": "^0.2.2",
-    "chart.js": "^2.7.1",
+    "chart.js": "^2.7.2",
     "countup.js": "^1.9.3",
     "fastclick": "^1.0.6",
     "history": "^4.7.2",

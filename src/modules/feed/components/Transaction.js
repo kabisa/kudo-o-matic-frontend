@@ -59,7 +59,7 @@ export class Transaction extends Component {
             class={styles.imageContainer}
             src={transaction["image-url-thumb"]}
             onClick={() => showFullImage(transaction["image-url-original"])}
-            onError={() => this.showLoadingImage(this)}
+            onError={() => this.showLoadingImage(this)}            
           />
         );
       }

@@ -10,7 +10,7 @@ let headers = {};
 export const fetchUserstats = apiToken => {
   headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "api-token": apiToken
+    "Authorization": "Bearer " + apiToken
   };
 
   return new Promise(resolve => {
