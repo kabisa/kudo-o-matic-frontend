@@ -14,8 +14,8 @@ export const requestAccessToken = (username, password) => {
   const body = {
     username: username,
     password: password,
-    client_id: Settings.client_id,
-    client_credential: Settings.client_secret,
+    client_id: process.env.CLIENT_ID,
+    client_credential: process.env.CLIENT_SECRET,
     grant_type: "password"
   };
 

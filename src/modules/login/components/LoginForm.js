@@ -15,7 +15,6 @@ export class LoginForm extends Component {
             formSubmittable: false,
             formDisabled: false
         };
-
         this.onSubmit = this.onSubmit.bind(this);
     }
 

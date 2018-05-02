@@ -3,8 +3,6 @@
   "defaultLocale": "en-US",
   "apiLocation": "https://kudo-o-matic-staging.dokku.kabisa.io/api/v1",
   "authorizationLocation": "https://kudo-o-matic-staging.dokku.kabisa.io",
-  "client_id": "d1f64137a2ae8c084d99d61dc9c9fab1bf960dea136580098f8654e9e1cc0b00",
-  "client_secret": "89f3beb5ae849d86ff7cca6b1a96dc8ca88f85c8495b30244819e4f3171aa921",
   "test_access_token": "c8487d8bee51a39c8041a9cacd970352c298f4111cfdfba72c1d29263f27f9c0",
   "version": 1.2
 }
