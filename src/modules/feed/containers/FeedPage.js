@@ -21,6 +21,7 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
+    console.log(this.props);
     this.props.fetchAllTransactions(this.props.user.apiToken, 0);
   }
 
