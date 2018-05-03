@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import styles from "./MessageBox.scss";
+import I18n from "src/config/i18n";
 
 class MessageBox extends Component {
     constructor(props) {
@@ -12,9 +13,9 @@ class MessageBox extends Component {
         if (this.props.errorMessage != null || this.props.errorMessage != undefined) {
             switch (this.props.errorMessage) {
                 case "invalid_grant":
-                    return "No access";
+                    return I18n.t("messagebox.no_access");
                 case "missing_parameters":
-                    return "Username/password missing";
+                    return I18n.t("messagebox.missing_parameters");
                 default:
                     return this.props.errorMessage;
             }
