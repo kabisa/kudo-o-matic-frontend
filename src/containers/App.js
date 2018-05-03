@@ -33,6 +33,7 @@ export class App extends Component {
     //   ),
     //   false
     // );
+    
   }
 
   render({ transactionFormVisible, makeFormVisible, makeFormInvisible }) {

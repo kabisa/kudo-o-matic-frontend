@@ -70,7 +70,7 @@ lane :deploy_ios do
       #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
       update_project_provisioning(
         xcodeproj: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
-        profile: "/Users/jenkins/Library/MobileDevice/Provisioning/Profiles/#{profile_uuid}.mobileprovision",
+        profile: "/Users/jenkins/Library/MobileDevice/Provisioning\ Profiles/#{profile_uuid}.mobileprovision",
         build_configuration: "Release"
       )
 
