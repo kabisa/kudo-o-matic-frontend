@@ -2,7 +2,7 @@ require 'pry'
 
 lane :deploy do
   if @build_hockey
-    #deploy_android
+    deploy_android
     deploy_ios
   end
 end
