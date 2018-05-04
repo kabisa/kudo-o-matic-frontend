@@ -32,6 +32,13 @@ export const authentication = (state = initialState, action) => {
         ...state,
         error: action.message
       }
+    case constants.LOGOUT_USER:
+      return {
+        ...state,
+        user: {
+          apiToken: undefined
+        }
+      }
     default:
       return state;
   }

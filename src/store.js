@@ -18,13 +18,7 @@ const rootReducer = combineReducers({
 });
 const middleware = applyMiddleware(thunkMiddleware);
 
-const persistedLogin = undefined;
-
-if(process.env.NODE_ENV == "development" || process.env.NODE_ENV == "test") {
-  const persistedLogin = removeLogin();
-} else {
-  const persistedLogin = loadLogin();
-}
+const persistedLogin = loadLogin();
 
 const store = createStore(
   rootReducer,
