@@ -26,7 +26,7 @@ export class LoginForm extends Component {
     onSubmit = e => {
         e.preventDefault();
         if (this.state.formSubmittable) {
-            this.props.fetchAccessToken(this.state.username, this.state.password);            
+            this.props.fetchAccessToken(this.state.username, this.state.password);
         } else {
             this.props.saveErrorMessage("missing_parameters");
         }
@@ -35,7 +35,7 @@ export class LoginForm extends Component {
     isFormSubmittable = () => {
         return (
             this.state.username !== "" &&
-            this.state.password !== ""            
+            this.state.password !== ""
         );
     };
 
@@ -48,6 +48,7 @@ export class LoginForm extends Component {
                         name="username"
                         id="inputUsername"
                         onInput={this.onInput}
+                        value={this.state.username}
                         type='text'
                         placeholder={I18n.t("login.username")}
                         className={styles.loginInput}
@@ -57,6 +58,7 @@ export class LoginForm extends Component {
                         name="password"
                         id="inputPassword"
                         onInput={this.onInput}
+                        value={this.state.password}
                         type='password'
                         placeholder={I18n.t("login.password")}
                         className={styles.loginInput}

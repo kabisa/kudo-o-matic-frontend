@@ -21,13 +21,6 @@ describe("LoginPage", function() {
     expect(page.outerHTML).to.contain(mount(<LoginForm />).outerHTML);
   });
 
-  it("shows disclaimer", function() {
-    mount(<LoginPage user={user} />);
-    expect(scratch.querySelector("span")).to.have.text(
-      "You can only login using a Google account from Kabisa"
-    );
-  });
-
   it("shows logo", function() {
     const page = mount(<LoginPage user={user} />);
     expect(page.outerHTML).to.contain(

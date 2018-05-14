@@ -22,3 +22,7 @@
     margin-bottom: 0.3rem;
     padding: 0.8rem;
 }
+
+input:-webkit-autofill {
+    box-shadow: 0 0 0 30px white inset;
+}

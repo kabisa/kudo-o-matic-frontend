@@ -53,4 +53,16 @@ describe("Authentication reducer", () => {
       error: "MISSING_PARAMETERS"
     });
   });
+
+  it("handles LOGOUT_USER", () => {
+    expect(
+      authentication([], {
+        type: constants.LOGOUT_USER
+      })
+    ).to.eql({
+      user: {
+        apiToken: undefined
+      }
+    });
+  });
 });
