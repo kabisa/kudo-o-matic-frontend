@@ -34,9 +34,6 @@ export class LoginPage extends Component {
           <div class={styles.login}>
             <LoginForm fetchAccessToken={this.props.fetchAccessToken} saveErrorMessage={this.props.saveErrorMessage} error={this.props.error} />
           </div>
-          <div class={styles.disclaimer}>
-            <span>{I18n.t("login.disclaimer")}</span>
-          </div>
         </main>
       </Page>
     );

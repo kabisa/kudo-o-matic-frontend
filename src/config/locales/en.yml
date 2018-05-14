@@ -5,7 +5,9 @@ en:
     username: 'Username'
     password: 'Password'
     login_using_google: 'Login using Google'
-    disclaimer: 'You can only login using a Google account from Kabisa'
+  messagebox:
+    no_access: 'No access'
+    missing_parameters: 'Username/password missing'
   nav:
     feed: 'Feed'
     goal: 'Goal'
