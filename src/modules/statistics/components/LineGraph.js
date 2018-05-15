@@ -60,7 +60,7 @@ export const LineGraph = ({ stats }) => {
   };
   return (
     <div class={styles.graphContainer}>
-      <Line data={graphData} />
+        <Line data={graphData} />
     </div>
   );
 };

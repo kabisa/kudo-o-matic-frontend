@@ -129,7 +129,7 @@ describe("Feed API client", () => {
             Settings.apiLocation
           }/transactions?page[limit]=10&page[offset]=0&include=sender,receiver&sort=-created_at`
         );
-        expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
+        expect(requestHeaders["Authorization"]).to.contain("Bearer " + API_TOKEN);
         done();
       });
     });
@@ -146,7 +146,7 @@ describe("Feed API client", () => {
             Settings.apiLocation
           }/transactions?page[limit]=10&page[offset]=10&include=sender,receiver&sort=-created_at`
         );
-        expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
+        expect(requestHeaders["Authorization"]).to.contain("Bearer " + API_TOKEN);
         done();
       });
     });

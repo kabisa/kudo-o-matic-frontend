@@ -1,88 +1,49 @@
 import * as constants from "./constants";
-import { requestToken, postFCMToken } from "./apiClient";
+import { requestAccessToken} from "./apiClient";
 
-export const startedStoringFCMToken = () => {
+export const startedFetchingAccessToken = () => {
   return {
-    type: constants.STARTED_STORING_FCM_TOKEN
-  };
-};
+    type: constants.STARTED_FETCHING_ACCESS_TOKEN
+  }
+}
 
-export const storedFCMToken = FCMToken => {
+export const finishedFetchingAccessToken = (accessToken, username) => {
   return {
-    type: constants.STORED_FCM_TOKEN,
-    fcm_token: FCMToken
-  };
-};
+    type: constants.ACCESS_TOKEN_SUCCESS,
+    accessToken: accessToken[0].access_token,
+    username: username
+  }
+}
 
-export const errorFCMToken = error => {
+export const receivedAuthenticationError = error => {
   return {
-    type: constants.ERROR_FCM_TOKEN,
+    type: constants.ACCESS_TOKEN_FAILURE,
     error: error
-  };
-};
+  }
+}
 
-export const handleGoogleLoginSuccess = token => {
+export const incorrectParameters = message => {
   return {
-    type: constants.GOOGLE_TOKEN_SUCCESS,
-    googleToken: token
-  };
-};
+    type: constants.INCORRECT_PARAMETERS,
+    message: message
+  }
+}
 
-export const handleApiLoginSuccess = token => {
-  return {
-    type: constants.API_TOKEN_SUCCESS,
-    token: token
-  };
-};
-
-export const handleApiLoginFailure = error => {
-  return {
-    type: constants.API_TOKEN_FAILURE,
-    error: error
-  };
-};
-
-export const handleGoogleLoginFailure = error => {
-  return {
-    type: constants.GOOGLE_TOKEN_FAILURE,
-    error: error
-  };
-};
-
-export const requestApiToken = googleToken => {
+export const saveErrorMessage = message => {
   return dispatch => {
-    dispatch(handleGoogleLoginSuccess(googleToken));
+    dispatch(incorrectParameters(message));
+  }
+}
 
-    return requestToken(googleToken)
-      .then(
-        ApiToken => {
-          dispatch(handleApiLoginSuccess(ApiToken));
-
-          window.FirebasePlugin.getToken(
-            function(FcmToken) {
-              dispatch(storeFCMToken(FcmToken, ApiToken["api-token"]));
-            },
-            function(error) {
-              dispatch(errorFCMToken(error));
-            }
-          );
-        },
-        error => {
-          return dispatch(handleApiLoginFailure(error));
-        }
-      )
-      .catch(error => {
-        return dispatch(handleApiLoginFailure(error));
-      });
-  };
-};
-
-export const storeFCMToken = (FcmToken, ApiToken) => {
+export const fetchAccessToken = (username, password) => {
   return dispatch => {
-    dispatch(startedStoringFCMToken());
-
-    return postFCMToken(FcmToken, ApiToken).then(token => {
-      return dispatch(storedFCMToken(token));
-    });
-  };
-};
+    dispatch(startedFetchingAccessToken);
+    return Promise.all([requestAccessToken(username, password)])
+    .then(values => {
+      return dispatch(finishedFetchingAccessToken(values, username));
+    })
+    .catch(error => {
+      return dispatch(receivedAuthenticationError(error));
+    })
+  }
+}

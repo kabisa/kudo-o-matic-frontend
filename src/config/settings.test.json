@@ -1,10 +1,8 @@
 {
-  "environment": "development",
+  "environment": "test",
   "defaultLocale": "en-US",
-  "apiLocation": "<your staging API>",
-  "googleClientID": "<your googleClientID, which is known at the backend>",
-  "googleHostedDomain":  "<your domain, used for emailadresses>",
-  "provider": "google_oauth2",
-  "testApiToken": "<test API-Token, known at the backend >",
-  "testUserId": "<test UserID, known at the backend>"
+  "apiLocation": "https://kudo-o-matic-staging.dokku.kabisa.io/api/v1",
+  "authorizationLocation": "https://kudo-o-matic-staging.dokku.kabisa.io",
+  "test_access_token": "c8487d8bee51a39c8041a9cacd970352c298f4111cfdfba72c1d29263f27f9c0",
+  "version": 1.2
 }

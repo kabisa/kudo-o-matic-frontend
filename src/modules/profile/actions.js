@@ -4,7 +4,6 @@ import { fetchUserstats } from "src/modules/profile/apiClient";
 
 export const handleLogoutUser = () => {
   removeLogin();
-  window.plugins.googleplus.logout();
 
   return {
     type: constants.LOGOUT_USER
