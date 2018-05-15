@@ -7,6 +7,10 @@ const initialState = {
     sent: null,
     received: null,
     total: null
+  },
+  user: {
+    name: null,
+    imageUri: null
   }
 };
 
@@ -20,6 +24,15 @@ export const profile = (state = initialState, action) => {
         userstats: action.userstats,
         fetching: false
       };
+    case constants.FINISHED_FETCHING_USERINFO:
+      console.log(action.userinfo);
+      return {
+        ...state,
+        user: {
+          name: action.userinfo.name,
+          imageUri: action.userinfo.avatar_url
+        }
+      }
     case constants.RECEIVED_API_ERROR:
       return {
         ...state,
