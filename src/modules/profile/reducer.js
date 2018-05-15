@@ -25,7 +25,6 @@ export const profile = (state = initialState, action) => {
         fetching: false
       };
     case constants.FINISHED_FETCHING_USERINFO:
-      console.log(action.userinfo);
       return {
         ...state,
         user: {

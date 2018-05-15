@@ -36,7 +36,6 @@ export const fetchUser = apiToken => {
     });
 
     request.then(response => {
-      console.log(response);
       resolve(response.data);
     });
   });
