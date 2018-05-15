@@ -6,12 +6,14 @@ describe("Authentication actions", () => {
     it("creates an action to handle api login", () => {
       const token = [{access_token: "ACCESS_TOKEN",
                       excessData: "EXCESS_DATA"}];
+      const username = "USERNAME";
       const expectedAction = {
         type: constants.ACCESS_TOKEN_SUCCESS,
-        accessToken: token[0].access_token
+        accessToken: token[0].access_token,
+        username: username
       };
 
-      expect(actions.finishedFetchingAccessToken(token)).to.eql(expectedAction);
+      expect(actions.finishedFetchingAccessToken(token, username)).to.eql(expectedAction);
     });
 
     it("creates an action to handle api failure", () => {

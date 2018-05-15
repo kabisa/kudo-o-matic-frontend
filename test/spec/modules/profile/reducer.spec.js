@@ -1,9 +1,9 @@
 import { profile } from "src/modules/profile/reducer";
 import * as constants from "src/modules/profile/constants";
 
-describe("Authentication reducer", () => {
+describe("Profile reducer", () => {
   it("returns the initial state", () => {
-    expect(profile(null, {})).to.eql({
+    expect(profile(undefined, {})).to.eql({
         fetching: false,
         error: null,
         userstats: {

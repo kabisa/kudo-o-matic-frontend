@@ -30,7 +30,7 @@ describe("Profile actions", () => {
         userinfo: "USERINFO"
       };
 
-      expect(actions.finishedFetchingUserstats("USERINFO")).to.eql(expectedAction);
+      expect(actions.finishedFetchingUserInfo("USERINFO")).to.eql(expectedAction);
     });
   });
 });
