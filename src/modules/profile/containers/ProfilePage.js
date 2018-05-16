@@ -33,6 +33,7 @@ export class ProfilePage extends Component {
           <div class={styles.addPicture}></div>
           <h3 class={styles.header}>{I18n.t("profile.your_transactions")}</h3>
           <UserStatistics sent={sent} received={received} total={total} />
+          <h3 class={styles.username}>{user.username}</h3>
           <button className={styles.logoutButton} onClick={this.logOutUser}>
             {I18n.t("profile.logout")}
           </button>
@@ -44,6 +45,7 @@ export class ProfilePage extends Component {
 
 const mapStateToProps = state => ({
   user: {
+    username: state.authentication.user.username,
     apiToken: state.authentication.user.apiToken,
     name: state.profile.user.name,
     imageUri: state.profile.user.imageUri
