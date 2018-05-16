@@ -4,7 +4,6 @@ import I18n from "src/config/i18n";
 
 class MessageBox extends Component {
     constructor(props) {
-        console.log(props);
         super(props);
         this.checkError = this.checkError.bind(this);
     }
@@ -26,14 +25,19 @@ class MessageBox extends Component {
     }
 
     render() {
-        return (
-            <div>
-                {this.checkError() != "" &&
-                    <div className={styles.messageBox}>
-                        {this.checkError()}
-                    </div>}
-            </div>
-        );
+        if (this.checkError() != "") {
+            return (
+                <div className={styles.messageBox}>
+                    {this.checkError()}
+                </div>
+            );
+        } else {
+            return (
+                <div className={styles.messageBox_empty}>
+                    Empty
+                </div>
+            );
+        }
     }
 }
 

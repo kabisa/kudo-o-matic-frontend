@@ -49,7 +49,7 @@ export class LoginForm extends Component {
                         id="inputUsername"
                         onInput={this.onInput}
                         value={this.state.username}
-                        type='text'
+                        type='email'
                         placeholder={I18n.t("login.username")}
                         className={styles.loginInput}
                     />

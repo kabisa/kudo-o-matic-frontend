@@ -16,6 +16,7 @@ export const authentication = (state = initialState, action) => {
       const newState = {
         ...state,
         user: {
+          username: action.username,
           apiToken: action.accessToken
         },
         error: undefined
