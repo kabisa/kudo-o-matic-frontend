@@ -1,6 +1,15 @@
+@import 'src/styles/settings/general';
+
 .messageBox {
     width: 100%;
     background-color: #ff6767;
     padding: 0.8rem;
     margin-bottom: 0.3rem;
+}
+
+.messageBox_empty{
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.3rem;
+    color: $brand-blue;
 }
