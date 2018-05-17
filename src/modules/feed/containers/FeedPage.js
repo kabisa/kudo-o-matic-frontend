@@ -20,8 +20,7 @@ import {
 } from "../actions";
 
 export class FeedPage extends Component {
-  componentWillMount() {
-    console.log(this.props);
+  componentWillMount() {    
     this.props.fetchAllTransactions(this.props.user.apiToken, 0);
   }
 

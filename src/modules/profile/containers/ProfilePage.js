@@ -7,6 +7,7 @@ import { UserStatistics } from "../components/UserStatistics";
 import I18n from "src/config/i18n";
 import styles from "./ProfilePage.scss";
 import { handleLogoutUser, fetchAllUserstats, fetchUserInfo } from "../actions";
+import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
 export class ProfilePage extends Component {
   componentWillMount() {
@@ -21,6 +22,10 @@ export class ProfilePage extends Component {
 
   render({ user, userstats }) {
     const { sent, received, total } = userstats;
+
+    if (this.props.user.imageUri == null) {
+      this.props.user.imageUri = Avatar;
+    }
 
     return (
       <Page id="profilePage"> 

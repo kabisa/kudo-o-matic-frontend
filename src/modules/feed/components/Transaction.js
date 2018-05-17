@@ -7,6 +7,7 @@ import styles from "./Transaction.scss";
 import LoadingAnimation from "src/components/LoadingAnimation";
 import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.svg";
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
+import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
 const emojiOptions = {
   style: {
@@ -20,6 +21,10 @@ export class Transaction extends Component {
     this.state = {
       imageLoading: true
     };
+    let receiver = this.props.transaction["receiver"];
+    let sender = this.props.transaction["sender"];
+    this.state.avatarReceiver = receiver["avatar-url"];
+    this.state.avatarSender = sender["avatar-url"];
   }
 
   showLoadingImage = () => {
@@ -41,6 +46,14 @@ export class Transaction extends Component {
       thumb = LikeIconActive;
     } else {
       thumb = LikeIconInactive;
+    }
+
+    if(this.state.avatarReceiver == null) {
+      this.state.avatarReceiver = Avatar;
+    }
+
+    if(this.state.avatarSender == null) {
+      this.state.avatarSender = Avatar;
     }
 
     transaction = checkForGroup(transaction);
@@ -89,11 +102,11 @@ export class Transaction extends Component {
           </div>
         </div>
         <div class={styles.transactionBottom}>
-          <div class={styles.transactionUsers}>
-            <img src={transaction.sender["avatar-url"]} />
+          <div class={styles.transactionUsers}>            
+            <img src={this.state.avatarSender} />
             <img
               class={styles.imgReceiver}
-              src={transaction.receiver["avatar-url"]}
+              src={this.state.avatarReceiver}
             />
           </div>
           <div class={styles.timeStamp}>
