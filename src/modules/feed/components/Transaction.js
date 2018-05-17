@@ -21,10 +21,12 @@ export class Transaction extends Component {
     this.state = {
       imageLoading: true
     };
-    let receiver = this.props.transaction["receiver"];
-    let sender = this.props.transaction["sender"];
-    this.state.avatarReceiver = receiver["avatar-url"];
-    this.state.avatarSender = sender["avatar-url"];
+    if (this.props.transaction["receiver"] != undefined && this.props.transaction["sender"] != undefined) {
+      let receiver = this.props.transaction["receiver"];
+      let sender = this.props.transaction["sender"];
+      this.state.avatarReceiver = receiver["avatar-url"];
+      this.state.avatarSender = sender["avatar-url"];
+    }
   }
 
   showLoadingImage = () => {
@@ -48,11 +50,11 @@ export class Transaction extends Component {
       thumb = LikeIconInactive;
     }
 
-    if(this.state.avatarReceiver == null) {
+    if (this.state.avatarReceiver == null) {
       this.state.avatarReceiver = Avatar;
     }
 
-    if(this.state.avatarSender == null) {
+    if (this.state.avatarSender == null) {
       this.state.avatarSender = Avatar;
     }
 
@@ -72,7 +74,7 @@ export class Transaction extends Component {
             class={styles.imageContainer}
             src={transaction["image-url-thumb"]}
             onClick={() => showFullImage(transaction["image-url-original"])}
-            onError={() => this.showLoadingImage(this)}            
+            onError={() => this.showLoadingImage(this)}
           />
         );
       }
@@ -102,7 +104,7 @@ export class Transaction extends Component {
           </div>
         </div>
         <div class={styles.transactionBottom}>
-          <div class={styles.transactionUsers}>            
+          <div class={styles.transactionUsers}>
             <img src={this.state.avatarSender} />
             <img
               class={styles.imgReceiver}
