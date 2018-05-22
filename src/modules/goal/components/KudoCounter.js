@@ -4,6 +4,8 @@ import ProgressBar from "progressbar.js";
 
 import styles from "./KudoCounter.scss";
 
+import I18n from "src/config/i18n";
+
 let bar;
 let container = <div class={styles.progressBar} id="container" />;
 
@@ -46,7 +48,7 @@ class KudoCounter extends Component {
             <span class={styles.kudoCurrency}> ₭</span>
           </div>
           <div class={styles.nextGoal}>
-            of {nextAmount} <span class={styles.kudoCurrency}>₭</span> for
+          {I18n.t("goal.of")} {nextAmount} <span class={styles.kudoCurrency}>₭</span> {I18n.t("goal.for")}
           </div>
           <div class={styles.nextGoal}>{nextText}</div>
         </div>

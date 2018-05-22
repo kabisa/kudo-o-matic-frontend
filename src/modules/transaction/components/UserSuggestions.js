@@ -2,6 +2,8 @@ import { h, Component } from "preact";
 import UserSuggestion from "./UserSuggestion";
 import styles from "./UserSuggestions.scss";
 
+import I18n from "src/config/i18n";
+
 export default class Suggestions extends Component {
   shouldComponentUpdate({
     searchQuery,
@@ -28,7 +30,7 @@ export default class Suggestions extends Component {
           ))
         ) : searchQuery && searchQuery.length ? (
           <div class={styles["autocomplete-nosuggestions"]}>
-            No users found with that name.
+            {I18n.t("transaction.no_users")}
           </div>
         ) : null}
       </div>
