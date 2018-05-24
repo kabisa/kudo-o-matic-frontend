@@ -21,11 +21,13 @@ export class Transaction extends Component {
     this.state = {
       imageLoading: true
     };
-    if (this.props.transaction["receiver"] != undefined && this.props.transaction["sender"] != undefined) {
-      let receiver = this.props.transaction["receiver"];
-      let sender = this.props.transaction["sender"];
-      this.state.avatarReceiver = receiver["avatar-url"];
-      this.state.avatarSender = sender["avatar-url"];
+    if (this.props.transaction.receiver) {
+      let receiver = this.props.transaction.receiver;
+      let sender = this.props.transaction.sender;
+      this.setState({
+        avatarReceiver: receiver["avatar-url"],
+        avatarSender: sender["avatar-url"]
+      });
     }
   }
 
@@ -50,11 +52,10 @@ export class Transaction extends Component {
       thumb = LikeIconInactive;
     }
 
-    if (this.state.avatarReceiver == null) {
       this.state.avatarReceiver = Avatar;
     }
 
-    if (this.state.avatarSender == null) {
+    if (!this.state.avatarSender) {
       this.state.avatarSender = Avatar;
     }
 

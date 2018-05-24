@@ -5,11 +5,10 @@ import I18n from "src/config/i18n";
 class MessageBox extends Component {
     constructor(props) {
         super(props);
-        this.checkError = this.checkError.bind(this);
     }
 
     checkError = () => {
-        if (this.props.errorMessage != null || this.props.errorMessage != undefined) {
+        if (this.props.errorMessage) {
             switch (this.props.errorMessage) {
                 case "invalid_grant":
                     return I18n.t("messagebox.no_access");
@@ -33,7 +32,7 @@ class MessageBox extends Component {
             );
         } else {
             return (
-                <div className={styles.messageBox_empty}>
+                <div className={styles.messageBoxEmpty}>
                     Empty
                 </div>
             );
