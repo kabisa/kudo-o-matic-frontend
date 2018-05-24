@@ -1,1 +1,12 @@
 @import 'src/styles/settings/general';
+
+.main {
+    overflow-y: auto;
+    flex: auto;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    background-color: $brand-blue;
+    background-size: cover;
+    background-position: top left;
+}

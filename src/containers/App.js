@@ -47,7 +47,7 @@ export class App extends Component {
           <GoalPage path="/goal" user={this.props.user} />
           <StatisticsPage path="/statistics" />
           <ProfilePage path="/profile" user={this.props.user} />
-          <TransactionPage path="/transaction" makeFormInvisible={openFeed} />
+          <TransactionPage path="/transaction" makeFormInvisible={openFeed} />          
         </Router>
 
         {transactionFormVisible ? (
