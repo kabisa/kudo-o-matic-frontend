@@ -52,6 +52,7 @@ export class Transaction extends Component {
       thumb = LikeIconInactive;
     }
 
+    if (!this.state.avatarReceiver) {
       this.state.avatarReceiver = Avatar;
     }
 
