@@ -16,10 +16,12 @@ describe("Authentication reducer", () => {
     expect(
       authentication([], {
         type: constants.ACCESS_TOKEN_SUCCESS,
-        accessToken: "ACCESS_TOKEN"
+        accessToken: "ACCESS_TOKEN",
+        username: "USERNAME"
       })
     ).to.eql({
       user: {
+        username: "USERNAME",
         apiToken: "ACCESS_TOKEN"
       },
       error: undefined
