@@ -7,6 +7,7 @@ import { feed } from "src/modules/feed/reducer";
 import { transaction } from "./modules/transaction/reducer";
 import { profile } from "./modules/profile/reducer";
 import { statistics } from "./modules/statistics/reducer";
+import { teams } from "./modules/teams/reducer";
 
 const rootReducer = combineReducers({
   authentication,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   feed,
   transaction,
   profile,
-  statistics
+  statistics,
+  teams
 });
 const middleware = applyMiddleware(thunkMiddleware);
 

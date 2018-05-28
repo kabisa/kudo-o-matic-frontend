@@ -5,29 +5,39 @@ import { Team } from "../components/Team";
 
 import styles from "./TeamsPage.scss";
 
+import { fetchAllTeams, replyToInvite } from "../actions";
+
 export class TeamsPage extends Component {
 
     constructor(props) {
         super(props);
-        props.teams = [{
-            name: "Kabisa",
-            imgSource: "https://i.vimeocdn.com/portrait/7982488_300x300"
-        }, {
-            name: "Philips",
-            imgSource: "https://i.vimeocdn.com/portrait/7982488_300x300"
-        }]
+        this.props.fetchAllTeams(this.props.user.apiToken);
     }
-    
 
     render() {
         return (
             <Page>
                 <main class={styles.main}>
-                    {this.props.teams.map(team => {
-                        return (
-                            <Team team={team} />
+                    {this.props.invites ? (
+                        this.props.invites.map(invite => {
+                            return (
+                                <Team user={this.props.user} replyToInvite={this.props.replyToInvite} isInvite={true} team={invite} />
+                            )
+                        })
+                    ) : (
+                            <div></div>
                         )
-                    })}
+                    }
+                    {this.props.teams ? (
+                        this.props.teams.map(team => {
+                            return (
+                                <Team isInvite={false} team={team} />
+                            )
+                        })
+                    ) : (
+                            <div></div>
+                        )
+                    }
                 </main>
             </Page>
         );
@@ -35,9 +45,14 @@ export class TeamsPage extends Component {
 };
 
 const mapStateToProps = state => ({
+    invites: state.teams.invites,
+    teams: state.teams.teams,
+    user: state.authentication.user
 });
 
 const mapDispatchToProps = {
+    fetchAllTeams,
+    replyToInvite
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeamsPage);

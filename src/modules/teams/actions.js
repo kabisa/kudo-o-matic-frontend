@@ -1,18 +1,38 @@
 import * as constants from "./constants";
-import { fetchTeams } from "src/modules/teams/apiClient";
+import { fetchTeams, replyInvite } from "src/modules/teams/apiClient";
 
 export const finishedFetchingTeams = teams => {
-    return constants.FINISHED_FETCHING_TEAMS;
+    return {
+        type: constants.FINISHED_FETCHING_TEAMS,
+        teams: teams
+    }
+}
+
+export const finishedReplyingToInvite = (apiToken) => {
+    fetchAllTeams(apiToken);
+    return {
+        type: constants.FINISHED_REPLYING_TO_INVITE
+    }
 }
 
 export const receivedApiError = error => {
-    return constants.RECEIVED_API_ERROR;
+    return {
+        type: constants.RECEIVED_API_ERROR
+    }
 }
 
-export const fetchTeams = apiToken => {
+export const fetchAllTeams = apiToken => {
     return dispatch => {
         return fetchTeams(apiToken)
             .then(teams => dispatch(finishedFetchingTeams(teams)))
-            .catch(error => despatch(receivedApiError(error)));
+            .catch(error => dispatch(receivedApiError(error)));
+    }
+}
+
+export const replyToInvite = (apiToken, inviteId, acceptedInvite) => {
+    return dispatch => {
+        return replyInvite(apiToken, inviteId, acceptedInvite)
+            .then(dispatch(finishedReplyingToInvite(apiToken)))
+            .catch(error => dispatch(receivedApiError(error)));
     }
 }
