@@ -9,9 +9,9 @@ export class Team extends Component {
             <div>
                 <div className={styles.teamContainer}>
                     <div className={styles.imageContainer}>
-                        <img src={imgSource} className={styles.image} />
+                        <img src={this.props.team.imgSource} className={styles.image} />
                     </div>
-                    <h1>Kabisa</h1>
+                    <h1>{this.props.team.name}</h1>
                 </div>
             </div>
         );
