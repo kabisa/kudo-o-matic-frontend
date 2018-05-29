@@ -2,7 +2,8 @@ import Settings from "src/config/settings";
 import axios from "axios";
 
 const httpClient = axios.create({
-  baseURL: Settings.apiLocation
+  // baseURL: Settings.apiLocation
+  baseURL: "https://api.myjson.com/bins/"
 });
 
 export const fetchTeams = apiToken => {
@@ -33,16 +34,19 @@ export const fetchTeams = apiToken => {
           }
         ]
     }
-  
+
   return new Promise(resolve => {
     // const request = httpClient.get("teams/me", {
     //   headers
     // });
 
-    // request.then(response => {
-    //   resolve(response.data);
-    // });
-    resolve(teams);
+    const request = httpClient.get("xxdda", {
+      headers
+    });
+
+    request.then(response => {
+      resolve(response.data);
+    });
   });
 };
 

@@ -10,8 +10,8 @@ export const teams = (state = initialState, action) => {
             //Split the invites from the already accepted teams
             return {
                 ...state,
-                teams: action.teams.teams,
-                invites: action.teams.invites
+                teams: action.teams.data.teams,
+                invites: action.teams.data.invites
             };
 
         default:

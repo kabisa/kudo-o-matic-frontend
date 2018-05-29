@@ -4,14 +4,15 @@ import styles from "./Team.scss";
 export class Team extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
     }
 
     acceptInvite = () => {
-        this.props.replyToInvite(this.props.user.apiToken, this.props.team.inviteId, true)
+        this.props.replyToInvite(this.props.user.apiToken, this.props.team.id, true)
     }
 
     declineInvite = () => {
-        this.props.replyToInvite(this.props.user.apiToken, this.props.team.inviteId, false)
+        this.props.replyToInvite(this.props.user.apiToken, this.props.team.id, false)
     }
 
     render() {
@@ -19,7 +20,7 @@ export class Team extends Component {
             <div>
                 <div className={styles.teamContainer}>
                     <div className={styles.imageContainer}>
-                        <img src={this.props.team.imgSource} className={styles.image} />
+                        <img src={this.props.team.logo} className={styles.image} />
                     </div>
                     <h1>{this.props.team.name}</h1>
                     {this.props.isInvite ? (
