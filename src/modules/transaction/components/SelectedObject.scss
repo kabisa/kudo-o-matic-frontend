@@ -2,11 +2,11 @@
 
 .selectedUser {
     height: 2.5rem;
-    width: 100%;
+    width: 60%;
     margin-top: 0.3rem;
     background: $brand-grey;
     overflow: hidden;
-    display: flex;
+    float: right;
     align-items: center;
     color: white;
 

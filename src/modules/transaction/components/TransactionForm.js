@@ -175,8 +175,6 @@ class TransactionForm extends Component {
             )}
             {error !== "" && <div class={styles.formError} id="error">{error}</div>}
             <fieldset disabled={formDisabled}>
-              <label>
-                {I18n.t("transaction.amount")}
                 <div class={styles.amountInput}>
                   <input
                     name="amount"
@@ -191,9 +189,6 @@ class TransactionForm extends Component {
                   />
                   <span class={styles.kudoCurrency}>₭</span>
                 </div>
-              </label>
-              <label>
-                {I18n.t("transaction.receiver")}
 
                 {receiver.id !== "" ? (
                   <SelectedUser
@@ -207,6 +202,7 @@ class TransactionForm extends Component {
                       value={receiver.name}
                       onInput={this.searchUsers}
                       placeholder="Search for users"
+                      className={styles.selectReceiver}
                     />
                     <Suggestions
                       searchQuery={receiver.name}
@@ -215,9 +211,6 @@ class TransactionForm extends Component {
                     />
                   </div>
                 )}
-              </label>
-              <label>
-                {I18n.t("transaction.giving_kudos_for")}
                 <textarea
                   maxLength="140"
                   name="activity"
@@ -226,7 +219,6 @@ class TransactionForm extends Component {
                   onInput={this.onInput}
                 />
                 <p class={styles.characterCount}>{activity.length} / 140</p>
-              </label>
               {imageData !== "" ? (
                 <SelectedImage
                   imageData={imageData}
