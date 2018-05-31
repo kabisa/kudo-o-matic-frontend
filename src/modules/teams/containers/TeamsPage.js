@@ -5,13 +5,22 @@ import { Team } from "../components/Team";
 
 import styles from "./TeamsPage.scss";
 
-import { fetchAllTeams, replyToInvite } from "../actions";
+import { fetchAllTeams, replyToInvite, selectTeam } from "../actions";
+import { loadTeams } from "../../../localStorage";
+
+import { route } from "preact-router";
 
 export class TeamsPage extends Component {
 
     constructor(props) {
         super(props);
         this.props.fetchAllTeams(this.props.user.apiToken);
+    }
+
+    componentWillMount() {        
+        if (this.props.teamId != undefined) {
+            route("/", true);
+        }
     }
 
     render() {
@@ -21,7 +30,7 @@ export class TeamsPage extends Component {
                     {this.props.invites ? (
                         this.props.invites.map(invite => {
                             return (
-                                <Team user={this.props.user} replyToInvite={this.props.replyToInvite} isInvite={true} team={invite} />
+                                <Team user={this.props.user} selectTeam={this.props.selectTeam} replyToInvite={this.props.replyToInvite} isInvite={true} team={invite} />
                             )
                         })
                     ) : (
@@ -31,7 +40,7 @@ export class TeamsPage extends Component {
                     {this.props.teams ? (
                         this.props.teams.map(team => {
                             return (
-                                <Team isInvite={false} team={team} />
+                                <Team selectTeam={this.props.selectTeam} isInvite={false} team={team} />
                             )
                         })
                     ) : (
@@ -47,12 +56,14 @@ export class TeamsPage extends Component {
 const mapStateToProps = state => ({
     invites: state.teams.invites,
     teams: state.teams.teams,
-    user: state.authentication.user
+    user: state.authentication.user,
+    teamId: state.teams.teamId
 });
 
 const mapDispatchToProps = {
     fetchAllTeams,
-    replyToInvite
+    replyToInvite,
+    selectTeam
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeamsPage);

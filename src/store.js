@@ -1,6 +1,6 @@
 import thunkMiddleware from "redux-thunk";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { loadLogin, removeLogin } from "./localStorage";
+import { loadLogin, removeState, loadTeams } from "./localStorage";
 import { authentication } from "src/modules/login/reducer";
 import { goal } from "src/modules/goal/reducer";
 import { feed } from "src/modules/feed/reducer";
@@ -20,11 +20,20 @@ const rootReducer = combineReducers({
 });
 const middleware = applyMiddleware(thunkMiddleware);
 
-const persistedLogin = loadLogin();
+const persistedStateLogin = loadLogin();
+const persistedStateTeams = loadTeams();
+
+const givePersistedState = () => {
+  if (persistedStateLogin && persistedStateTeams) {
+    return { authentication: persistedStateLogin.authentication, teams: persistedStateTeams.teams }
+  } else {
+    return undefined;
+  }
+}
 
 const store = createStore(
   rootReducer,
-  persistedLogin,
+  givePersistedState(),
   compose(
     middleware,
     window.devToolsExtension ? window.devToolsExtension() : f => f

@@ -1,7 +1,12 @@
 import * as constants from "./constants";
 import { fetchTeams, replyInvite } from "src/modules/teams/apiClient";
+import { route } from "preact-router";
 
 export const finishedFetchingTeams = teams => {
+    if(teams.data.amountOfTeams == 1) {
+        selectTeam(teams.data.teams[0].id);
+        route("/", true);        
+    }
     return {
         type: constants.FINISHED_FETCHING_TEAMS,
         teams: teams
@@ -19,6 +24,19 @@ export const receivedApiError = error => {
     return {
         type: constants.RECEIVED_API_ERROR
     }
+}
+
+export const selectedTeam = teamId => {
+    return {
+        type: constants.SELECTED_TEAM,
+        teamId: teamId
+    }
+}
+
+export const selectTeam = teamId => { 
+    return dispatch => {        
+        dispatch(selectedTeam(teamId));
+    } 
 }
 
 export const fetchAllTeams = apiToken => {
