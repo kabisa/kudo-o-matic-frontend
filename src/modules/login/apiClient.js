@@ -18,7 +18,7 @@ export const requestAccessToken = (username, password) => {
     client_credential: process.env.CLIENT_SECRET,
     grant_type: "password"
   };
-
+  
   return new Promise((resolve, reject) => {
     const request = httpClient.post("/oauth/token", body, { headers });
 

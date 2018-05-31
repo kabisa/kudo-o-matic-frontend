@@ -17,11 +17,24 @@
 }
 
 .header {
+    width: 100%;
     margin-top: 3rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.2rem;
+    background-color: lightgray;
+}
+
+.username {
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 0rem;
+    padding: 0.2rem;
     text-align: center;
     font-weight: 300;
     font-size: 1rem;
+    background-color: lightgray;
 }
 
 .profileImage {
@@ -30,9 +43,16 @@
     border-radius: 90%;
 }
 
+.addPicture {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    margin-top: 11rem;
+    margin-left: 3.5rem;
+}
+
 .logoutButton {
     height: 2.8rem;
-    margin-top: auto;
     margin-bottom: 5rem;
     width: 100%;
     background-color: $brand-blue;

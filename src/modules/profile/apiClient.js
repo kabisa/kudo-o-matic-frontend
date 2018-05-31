@@ -24,3 +24,20 @@ export const fetchUserstats = (apiToken, teamId) => {
     });
   });
 };
+
+export const fetchUser = apiToken => {
+  headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Authorization": "Bearer " + apiToken
+  };
+
+  return new Promise(resolve => {
+    const request = httpClient.get("/users/me", {
+      headers
+    });
+
+    request.then(response => {
+      resolve(response.data);
+    });
+  });
+}

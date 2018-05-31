@@ -20,7 +20,10 @@ module.exports = {
       selenium_port: 4444,
       selenium_host: "localhost",
       desiredCapabilities: {
-        browserName: "chrome"
+        browserName: "chrome",
+        chromeOptions: {
+          binary: "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+        }
       },
       globals: {
         waitForConditionTimeout: 5000

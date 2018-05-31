@@ -1,6 +1,6 @@
 import * as constants from "./constants";
 import { removeLogin } from "../../localStorage";
-import { fetchUserstats } from "src/modules/profile/apiClient";
+import { fetchUserstats, fetchUser } from "src/modules/profile/apiClient";
 
 export const handleLogoutUser = () => {
   removeLogin();
@@ -23,7 +23,22 @@ export const finishedFetchingUserstats = stats => {
   };
 };
 
-export const fetchAllUserstats = (apiToken, teamId) => {
+export const finishedFetchingUserInfo = info => {
+  return {
+    type: constants.FINISHED_FETCHING_USERINFO,
+    userinfo: info
+  }
+}
+
+export const fetchUserInfo = apiToken => {
+  return dispatch => {
+    return fetchUser(apiToken)
+      .then(info => dispatch(finishedFetchingUserInfo(info)))
+      .catch(error => dispatch(receivedApiError(error)));
+  }
+}
+
+export const fetchAllUserstats = apiToken => {
   return dispatch => {
     dispatch(startedFetchingUserstats);
 

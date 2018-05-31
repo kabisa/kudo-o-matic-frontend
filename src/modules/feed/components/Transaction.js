@@ -7,6 +7,7 @@ import styles from "./Transaction.scss";
 import LoadingAnimation from "src/components/LoadingAnimation";
 import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.svg";
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
+import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
 import I18n from "src/config/i18n";
 
@@ -22,6 +23,14 @@ export class Transaction extends Component {
     this.state = {
       imageLoading: true
     };
+    if (this.props.transaction.receiver) {
+      let receiver = this.props.transaction.receiver;
+      let sender = this.props.transaction.sender;
+      this.setState({
+        avatarReceiver: receiver["avatar-url"],
+        avatarSender: sender["avatar-url"]
+      });
+    }
   }
 
   showLoadingImage = () => {
@@ -45,6 +54,14 @@ export class Transaction extends Component {
       thumb = LikeIconInactive;
     }
 
+    if (!this.state.avatarReceiver) {
+      this.state.avatarReceiver = Avatar;
+    }
+
+    if (!this.state.avatarSender) {
+      this.state.avatarSender = Avatar;
+    }
+
     transaction = checkForGroup(transaction);
 
     if (transaction["image-url-thumb"] !== null) {
@@ -61,7 +78,7 @@ export class Transaction extends Component {
             class={styles.imageContainer}
             src={transaction["image-url-thumb"]}
             onClick={() => showFullImage(transaction["image-url-original"])}
-            onError={() => this.showLoadingImage(this)}            
+            onError={() => this.showLoadingImage(this)}
           />
         );
       }
@@ -92,10 +109,10 @@ export class Transaction extends Component {
         </div>
         <div class={styles.transactionBottom}>
           <div class={styles.transactionUsers}>
-            <img src={transaction.sender["avatar-url"]} />
+            <img src={this.state.avatarSender} />
             <img
               class={styles.imgReceiver}
-              src={transaction.receiver["avatar-url"]}
+              src={this.state.avatarReceiver}
             />
           </div>
           <div class={styles.timeStamp}>

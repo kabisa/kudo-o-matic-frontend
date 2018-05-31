@@ -27,7 +27,7 @@ export class TeamsPage extends Component {
     render() {
         // this.props.invites = undefined;
         // this.props.teams = undefined;
-        this.props.invites = this.props.teams;
+        // this.props.invites = this.props.teams;
         return (
             <Page>
                 <main class={styles.main}>
