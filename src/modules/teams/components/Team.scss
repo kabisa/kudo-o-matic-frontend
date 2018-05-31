@@ -1,0 +1,59 @@
+@import 'src/styles/settings/general';
+
+.image {
+    width: 8rem;    
+}
+
+.imageContainer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-size: 0.9rem;
+    font-weight: 350;
+    color: $brand-grey-dark;
+}
+
+.teamContainer {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.7rem;
+    text-align: center;
+    width: 90%;
+    margin-top: 1rem;
+    background-color: $brand-white;
+    box-shadow: 0px 0px 1px 0px $brand-grey;
+}
+
+.inviteContainer {
+    width: 100%;
+    float: bottom;
+}
+
+.inviteDecline {
+    width: 50%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    font-size: 0.8rem; 
+    color: $brand-grey-dark;        
+}
+
+.inviteAccept {
+    width: 50%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
+    padding: 0.5rem;   
+    background-color: $brand-green;
+    color: $brand-white;
+    font-size: 1.4rem;
+    border: 1px solid $brand-grey;
+}
+
+
+

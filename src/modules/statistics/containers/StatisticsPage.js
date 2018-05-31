@@ -16,8 +16,8 @@ import I18n from "src/config/i18n";
 
 export class StatisticsPage extends Component {
   componentWillMount() {
-    this.props.fetchAllGeneralStats(this.props.user.apiToken);
-    this.props.fetchAllGraphStats(this.props.user.apiToken);
+    this.props.fetchAllGeneralStats(this.props.user.apiToken, this.props.teamId);
+    this.props.fetchAllGraphStats(this.props.user.apiToken, this.props.teamId);
   }
 
   render({ generalStats, graphStats }) {
@@ -40,6 +40,7 @@ export class StatisticsPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.authentication.user,
+  teamId: state.teams.teamId,
   generalStats: state.statistics.generalStats,
   graphStats: state.statistics.graphStats
 });

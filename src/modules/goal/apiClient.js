@@ -5,10 +5,11 @@ const httpClient = axios.create({
   baseURL: Settings.apiLocation
 });
 
-export const fetchCurrentBalance = apiToken => {
+export const fetchCurrentBalance = (apiToken, teamId) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Authorization": "Bearer " + apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {
@@ -22,10 +23,11 @@ export const fetchCurrentBalance = apiToken => {
   });
 };
 
-export const fetchNextGoal = apiToken => {
+export const fetchNextGoal = (apiToken, teamId) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Authorization": "Bearer " + apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {

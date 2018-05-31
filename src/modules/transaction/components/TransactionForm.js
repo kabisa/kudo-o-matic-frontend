@@ -235,7 +235,7 @@ class TransactionForm extends Component {
               ) : (
                 <div class={styles.imageButton} onClick={this.showCameraOptions}>
                   <img id="picture" src={photoIcon}/>
-                  <p>Add a picture</p>
+                  <p>{I18n.t("transaction.add_picture")}</p>
                 </div>
               )}
               <button
@@ -244,7 +244,7 @@ class TransactionForm extends Component {
                 type="submit"
               >
                 <img src={kudoIcon}/>
-                <p>Give ₭udos</p>
+                <p>{I18n.t("transaction.give_kudos")}</p>
               </button>
             </fieldset>
           </form>

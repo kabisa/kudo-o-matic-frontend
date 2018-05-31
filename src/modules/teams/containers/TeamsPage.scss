@@ -1,0 +1,31 @@
+@import 'src/styles/settings/general';
+
+.main {
+    overflow-y: auto;
+    flex: auto;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    background-color: $brand-blue;
+    background-size: cover;
+    background-position: top left;
+}
+
+.noTeams {
+    margin-top: 7rem;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $brand-white;
+    padding: 1rem;
+}
+
+h2 {
+    font-size: 0.9rem;
+    font-weight: 350;
+    border-bottom: 1px solid $brand-white;
+    padding-left: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: $brand-white;
+}

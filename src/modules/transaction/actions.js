@@ -36,11 +36,11 @@ export const receivedApiError = error => {
   };
 };
 
-export const fetchAllUsers = apiToken => {
+export const fetchAllUsers = (apiToken, teamId) => {
   return dispatch => {
     dispatch(startedFetchingUsers);
 
-    return fetchUsers(apiToken)
+    return fetchUsers(apiToken, teamId)
       .then(users => dispatch(finishedFetchingUsers(users)))
       .catch(error => dispatch(receivedApiError(error)));
   };
@@ -67,7 +67,8 @@ export const addTransaction = (
   receiverId,
   imageData,
   fileType,
-  apiToken
+  apiToken,
+  teamId
 ) => {
   return dispatch => {
     dispatch(startedAddingTransaction());
@@ -78,11 +79,12 @@ export const addTransaction = (
       receiverId,
       imageData,
       fileType,
-      apiToken
+      apiToken,
+      teamId
     )
       .then(transaction => {
         dispatch(finishedAddingTransaction(transaction));
-        dispatch(fetchAllTransactions(apiToken, 0));
+        dispatch(fetchAllTransactions(apiToken, teamId, 0));
       })
       .catch(error => {
         return dispatch(receivedApiError(error));

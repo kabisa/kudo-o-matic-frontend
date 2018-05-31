@@ -9,6 +9,8 @@ import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.sv
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
+import I18n from "src/config/i18n";
+
 const emojiOptions = {
   style: {
     height: 16
@@ -21,11 +23,13 @@ export class Transaction extends Component {
     this.state = {
       imageLoading: true
     };
-    if (this.props.transaction["receiver"] != undefined && this.props.transaction["sender"] != undefined) {
-      let receiver = this.props.transaction["receiver"];
-      let sender = this.props.transaction["sender"];
-      this.state.avatarReceiver = receiver["avatar-url"];
-      this.state.avatarSender = sender["avatar-url"];
+    if (this.props.transaction.receiver) {
+      let receiver = this.props.transaction.receiver;
+      let sender = this.props.transaction.sender;
+      this.setState({
+        avatarReceiver: receiver["avatar-url"],
+        avatarSender: sender["avatar-url"]
+      });
     }
   }
 
@@ -50,11 +54,11 @@ export class Transaction extends Component {
       thumb = LikeIconInactive;
     }
 
-    if (this.state.avatarReceiver == null) {
+    if (!this.state.avatarReceiver) {
       this.state.avatarReceiver = Avatar;
     }
 
-    if (this.state.avatarSender == null) {
+    if (!this.state.avatarSender) {
       this.state.avatarSender = Avatar;
     }
 
@@ -93,9 +97,9 @@ export class Transaction extends Component {
           <div class={styles.transactionDescription}>
             <p class={styles.transactionText}>
               {transaction.sender.name}: {transaction.amount}{" "}
-              <span class={styles.kudoCurrency}>₭</span> to{" "}
+              <span class={styles.kudoCurrency}>₭</span> {I18n.t("feed.to")}{" "}
               <span id="receiver"> {transaction.receiver.name} </span>
-              for{" "}
+              {I18n.t("feed.for")}{" "}
               <span id="activity">
                 {emojify(transaction.activity, emojiOptions)}
               </span>

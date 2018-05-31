@@ -7,10 +7,11 @@ const httpClient = axios.create({
 
 let headers = {};
 
-export const fetchUserstats = apiToken => {
+export const fetchUserstats = (apiToken, teamId) => {
   headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Authorization": "Bearer " + apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {
@@ -24,10 +25,11 @@ export const fetchUserstats = apiToken => {
   });
 };
 
-export const fetchUser = apiToken => {
+export const fetchUser = (apiToken, teamId) => {
   headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Authorization": "Bearer " + apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {

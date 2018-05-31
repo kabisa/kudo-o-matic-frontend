@@ -22,9 +22,8 @@ module.exports = {
   "Performs input validation receiver": function(browser) {
     browser
       .url(browser.launch_url + "/#/transaction")
-      .waitForElementVisible("form")
-      .waitForElementVisible('input[name=amount]',6000)
-      .setValue('input[name=amount]', '3')
+      .waitForElementVisible('input[name=amount]',1000)
+      .setValue('#inputUsername', 3)
       .pause(2000)
       .click("#submitTransaction")
 

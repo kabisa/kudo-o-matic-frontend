@@ -5,6 +5,12 @@ en:
     username: 'Username'
     password: 'Password'
     login_using_google: 'Login using Google'
+  teams:
+    invites: 'Invites'
+    part_of: 'Already part of'
+    no_teams: 'There are no teams available. Please create a team on the webapplication or wait for an invite.'
+    accept: 'Accept'
+    decline: 'Decline'
   messagebox:
     no_access: 'No access'
     missing_parameters: 'Username/password missing'
@@ -15,6 +21,8 @@ en:
     profile: 'Profile'
   goal:
     title: 'GOAL'
+    of: 'of'
+    for: 'for'
   feed:
     title: 'FEED'
     seconds_ago: ' seconds ago'
@@ -24,6 +32,8 @@ en:
     months_ago: ' months ago'
     weeks_ago: ' weeks ago'
     years_ago: ' years ago'
+    to: 'to'
+    for: 'for'
   profile:
     title: 'PROFILE'
     logout: 'Logout'
@@ -56,6 +66,9 @@ en:
     photoLocation: 'Choose your picture-location'
     cancel: 'Cancel'
     processing: 'Processing transaction...'
+    add_picture: 'Add a picture'
+    give_kudos: 'Give ₭udos'
+    no_users: 'No users found with that name.'
   pull_to_refresh:
     pull: 'Pull down to load new transactions'
     release: 'Release to load new transactions'
