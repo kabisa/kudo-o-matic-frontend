@@ -23,11 +23,11 @@ export const finishedFetchingUserstats = stats => {
   };
 };
 
-export const fetchAllUserstats = apiToken => {
+export const fetchAllUserstats = (apiToken, teamId) => {
   return dispatch => {
     dispatch(startedFetchingUserstats);
 
-    return fetchUserstats(apiToken)
+    return fetchUserstats(apiToken, teamId)
       .then(stats => dispatch(finishedFetchingUserstats(stats)))
       .catch(error => dispatch(receivedApiError(error)));
   };

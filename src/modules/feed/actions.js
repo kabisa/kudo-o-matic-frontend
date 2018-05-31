@@ -34,17 +34,17 @@ export const unLikedTransaction = transactionId => {
   };
 };
 
-export const likeTransaction = (transactionId, apiToken) => {
+export const likeTransaction = (apiToken, teamId, transactionId) => {
   return dispatch => {
-    return voteTransaction(transactionId, apiToken).then(transactionId =>
+    return voteTransaction(apiToken, teamId, transactionId).then(transactionId =>
       dispatch(likedTransaction(transactionId))
     );
   };
 };
 
-export const unLikeTransaction = (transactionId, apiToken) => {
+export const unLikeTransaction = (apiToken, teamId, transactionId) => {
   return dispatch => {
-    return unVoteTransaction(transactionId, apiToken).then(transactionId =>
+    return unVoteTransaction(apiToken, teamId, transactionId).then(transactionId =>
       dispatch(unLikedTransaction(transactionId))
     );
   };
@@ -70,11 +70,11 @@ export const receivedApiError = error => {
   };
 };
 
-export const fetchAllTransactions = (apiToken, offset) => {
+export const fetchAllTransactions = (apiToken, teamId, offset) => {
   return dispatch => {
     dispatch(startedFetchingTransactions());
 
-    return fetchTransactions(apiToken, offset)
+    return fetchTransactions(apiToken, teamId, offset)
       .then(transactions => {
         dispatch(finishedFetchingTransaction(transactions, offset));
       })

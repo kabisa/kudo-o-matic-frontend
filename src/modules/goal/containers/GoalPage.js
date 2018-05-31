@@ -11,7 +11,7 @@ import { fetchCurrentGoalState } from "../actions";
 
 export class GoalPage extends Component {
   componentWillMount() {
-    this.props.fetchData(this.props.user.apiToken);
+    this.props.fetchData(this.props.user.apiToken, this.props.teamId);
   }
 
   render({ currentAmount, nextAmount, nextText }) {
@@ -34,6 +34,7 @@ export class GoalPage extends Component {
 }
 const mapStateToProps = state => ({
   apiToken: state.authentication.apiToken,
+  teamId: state.teams.teamId,
   currentAmount: state.goal.currentBalance.amount,
   nextAmount: state.goal.nextGoal.amount,
   nextText: state.goal.nextGoal.name
@@ -41,7 +42,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: token => dispatch(fetchCurrentGoalState(token))
+    fetchData: (token, teamId) => dispatch(fetchCurrentGoalState(token, teamId))
   };
 };
 

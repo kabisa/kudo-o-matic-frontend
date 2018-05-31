@@ -10,7 +10,7 @@ import { handleLogoutUser, fetchAllUserstats } from "../actions";
 
 export class ProfilePage extends Component {
   componentWillMount() {
-    this.props.fetchAllUserstats(this.props.user.apiToken);
+    this.props.fetchAllUserstats(this.props.user.apiToken, this.props.teamId);
   }
 
   logOutUser = () => {
@@ -42,6 +42,7 @@ export class ProfilePage extends Component {
 
 const mapStateToProps = state => ({
   user: state.authentication.user,
+  teamId: state.teams.teamId,
   userstats: state.profile.userstats
 });
 
