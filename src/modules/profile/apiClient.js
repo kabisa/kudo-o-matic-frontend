@@ -25,10 +25,11 @@ export const fetchUserstats = (apiToken, teamId) => {
   });
 };
 
-export const fetchUser = apiToken => {
+export const fetchUser = (apiToken, teamId) => {
   headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Authorization": "Bearer " + apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {
