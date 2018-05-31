@@ -2,8 +2,7 @@ import Settings from "src/config/settings";
 import axios from "axios";
 
 const httpClient = axios.create({
-  // baseURL: Settings.apiLocation
-  baseURL: "https://api.myjson.com/bins/"
+  baseURL: Settings.apiLocation
 });
 
 export const fetchTeams = apiToken => {
@@ -12,35 +11,8 @@ export const fetchTeams = apiToken => {
     "Authorization": "Bearer " + apiToken
   };
 
-  var teams =
-    {
-      teams:
-        [
-          {
-            name: "Kabisa",
-            imgSource: "https://i.vimeocdn.com/portrait/7982488_300x300"
-          },
-          {
-            name: "Philips",
-            imgSource: "https://i.vimeocdn.com/portrait/7982488_300x300"
-          }
-        ],
-      invites:
-        [
-          {
-            inviteId: 123,
-            name: "Kabis",
-            imgSource: "https://i.vimeocdn.com/portrait/7982488_300x300"
-          }
-        ]
-    }
-
   return new Promise(resolve => {
-    // const request = httpClient.get("teams/me", {
-    //   headers
-    // });
-
-    const request = httpClient.get("xxdda", {
+    const request = httpClient.get("teams/me", {
       headers
     });
 
