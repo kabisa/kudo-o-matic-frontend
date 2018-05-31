@@ -5,6 +5,12 @@ en:
     username: 'Username'
     password: 'Password'
     login_using_google: 'Login using Google'
+  teams:
+    invites: 'Invites'
+    part_of: 'Already part of'
+    no_teams: 'There are no teams available. Please create a team on the webapplication or wait for an invite.'
+    accept: 'Accept'
+    decline: 'Decline'
   messagebox:
     no_access: 'No access'
     missing_parameters: 'Username/password missing'
