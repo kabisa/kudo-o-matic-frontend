@@ -34,7 +34,7 @@ lane :deploy_ios do
       #Download the profile from apple so we can obtain the profile_uuid of the provisioning profile
       sh('rm -Rf profiles/')
       sh('mkdir profiles')
-      sh('fastlane sigh --provisioning_name="match AdHoc nl.kabisa.kudoomatic" --username="info@kabisa.nl" --app_identifier="nl.kabisa.kudoomatic" --skip_install --adhoc --ignore_profiles_with_different_name --output_path="./profiles"')
+      sh('fastlane sigh --provisioning_name="match AdHoc nl.kabisa.kudoomatic.demo" --username="info@kabisa.nl" --app_identifier="nl.kabisa.kudoomatic.demo" --skip_install --adhoc --ignore_profiles_with_different_name --output_path="./profiles"')
       sh('security cms -D -i ./profiles/AdHoc_nl.kabisa.kudoomatic.mobileprovision > ./profiles/AdHoc_nl.kabisa.kudoomatic.plist || true')
       profile_uuid = sh('/usr/libexec/PlistBuddy -c "Print :UUID" ./profiles/AdHoc_nl.kabisa.kudoomatic.plist').chomp
       sh('rm -R profiles/')
@@ -52,7 +52,7 @@ lane :deploy_ios do
       match username: 'info@kabisa.nl',
             git_url: 'git@github.com:kabisa/match-certificates.git',
             type: 'adhoc',
-            app_identifier: 'nl.kabisa.kudoomatic',
+            app_identifier: 'nl.kabisa.kudoomatic.demo',
             force_for_new_devices: :true
 
       #Add missing attributes to project config, to make sure Xcode can work with it.
