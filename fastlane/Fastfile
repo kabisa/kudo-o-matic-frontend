@@ -35,7 +35,7 @@ lane :deploy_ios do
       sh('rm -Rf profiles/')
       sh('mkdir profiles')
       sh('fastlane sigh --provisioning_name="match AdHoc nl.kabisa.kudoomatic.demo" --username="info@kabisa.nl" --app_identifier="nl.kabisa.kudoomatic.demo" --skip_install --adhoc --ignore_profiles_with_different_name --output_path="./profiles"')
-      sh('security cms -D -i ./profiles/AdHoc_nl.kabisa.kudoomatic.mobileprovision > ./profiles/AdHoc_nl.kabisa.kudoomatic.plist || true')
+      sh('security cms -D -i ./profiles/AdHoc_nl.kabisa.kudoomatic.demo.mobileprovision > ./profiles/AdHoc_nl.kabisa.kudoomatic.demo.plist || true')
       profile_uuid = sh('/usr/libexec/PlistBuddy -c "Print :UUID" ./profiles/AdHoc_nl.kabisa.kudoomatic.plist').chomp
       sh('rm -R profiles/')
 
