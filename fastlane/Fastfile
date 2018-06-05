@@ -29,7 +29,7 @@ lane :deploy_ios do
     unless @branch == 'test'
 
       #Make sure the old result is removed
-      sh('rm -Rf tmp/output/kudo-o-matic.result/')
+      sh('rm -Rf tmp/output/kudo-o-matic-demo.result/')
 
       #Download the profile from apple so we can obtain the profile_uuid of the provisioning profile
       sh('rm -Rf profiles/')
@@ -57,28 +57,28 @@ lane :deploy_ios do
 
       #Add missing attributes to project config, to make sure Xcode can work with it.
       upgrade_super_old_xcode(
-          path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+          path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic-demo.xcodeproj",
           team_id: "9H6JXDUXPW"
       )
 
       #Make sure automatic code signing is disabled, we dont want this.
       disable_automatic_code_signing(
-          path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+          path: "#{currentDir}/cordova/platforms/ios/kudo-o-matic-demo.xcodeproj",
           team_id: "9H6JXDUXPW"
       )
 
       #Make sure the correct provisioning profiles are setup based on the earlier obtained profile_uuid
       update_project_provisioning(
-        xcodeproj: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+        xcodeproj: "#{currentDir}/cordova/platforms/ios/kudo-o-matic-demo.xcodeproj",
         profile: "/Users/jenkins/Library/MobileDevice/Provisioning\ Profiles/#{profile_uuid}.mobileprovision",
         build_configuration: "Release"
       )
 
       # opening xcode prevents timeout
-      sh 'open -a xcode cordova/platforms/ios/kudo-o-matic.xcodeproj'
+      sh 'open -a xcode cordova/platforms/ios/kudo-o-matic-demo.xcodeproj'
 
-      gym scheme: 'kudo-o-matic',
-          project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic.xcodeproj",
+      gym scheme: 'kudo-o-matic-demo',
+          project: "#{currentDir}/cordova/platforms/ios/kudo-o-matic-demo.xcodeproj",
           export_method: "ad-hoc"
 
       hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_IOS'],
