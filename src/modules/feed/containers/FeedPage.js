@@ -21,7 +21,7 @@ import {
 
 export class FeedPage extends Component {
   componentWillMount() {
-    this.props.fetchAllTransactions(this.props.user.apiToken, this.props.teamId, 0);
+    this.props.fetchAllTransactions(this.props.user.apiToken, this.props.team.id, 0);
   }
 
   render({
@@ -43,16 +43,16 @@ export class FeedPage extends Component {
           e.target.offsetHeight + 250 &&
         !fetching
       ) {
-        fetchAllTransactions(this.props.user.apiToken, this.props.teamId, offset);
+        fetchAllTransactions(this.props.user.apiToken, this.props.team.id, offset);
       }
     };
 
     const voteTransaction = transactionId => {
-      likeTransaction(user.apiToken, this.props.teamId, transactionId);
+      likeTransaction(user.apiToken, this.props.team.id, transactionId);
     };
 
     const unVoteTransaction = transactionId => {
-      unLikeTransaction(user.apiToken, this.props.teamId, transactionId);
+      unLikeTransaction(user.apiToken, this.props.team.id, transactionId);
     };
 
     return (
@@ -65,7 +65,7 @@ export class FeedPage extends Component {
           />
         ) : null}
         <Header>
-          <h1>{I18n.t("feed.title")}</h1>
+          <h1>{this.props.team.name} {I18n.t("feed.title")}</h1>
         </Header>
         <PullToRefresh
           onRefresh={() => {
@@ -100,7 +100,7 @@ export class FeedPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.authentication.user,
-  teamId: state.teams.teamId,
+  team: state.teams.team,
   transactions: state.feed.transactions,
   offset: state.feed.offset,
   fetching: state.feed.fetching,

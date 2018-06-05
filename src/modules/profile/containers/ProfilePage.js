@@ -11,8 +11,8 @@ import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
 export class ProfilePage extends Component {
   componentWillMount() {
-    this.props.fetchAllUserstats(this.props.user.apiToken, this.props.teamId);
-    this.props.fetchUserInfo(this.props.user.apiToken, this.props.teamId);
+    this.props.fetchAllUserstats(this.props.user.apiToken, this.props.team.id);
+    this.props.fetchUserInfo(this.props.user.apiToken, this.props.team.id);
   }
 
   logOutUser = () => {
@@ -55,7 +55,7 @@ const mapStateToProps = state => ({
     name: state.profile.user.name,
     imageUri: state.profile.user.imageUri
   },
-  teamId: state.teams.teamId,
+  team: state.teams.team,
   userstats: state.profile.userstats
 });
 

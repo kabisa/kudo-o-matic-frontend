@@ -26,16 +26,17 @@ export const receivedApiError = error => {
     }
 }
 
-export const selectedTeam = teamId => {
+export const selectedTeam = (team) => {
     return {
         type: constants.SELECTED_TEAM,
-        teamId: teamId
+        team: team,
+        teamId: team.id
     }
 }
 
-export const selectTeam = teamId => { 
+export const selectTeam = (team) => { 
     return dispatch => {        
-        dispatch(selectedTeam(teamId));
+        dispatch(selectedTeam(team));
     } 
 }
 

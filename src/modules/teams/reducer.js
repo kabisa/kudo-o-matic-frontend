@@ -18,7 +18,8 @@ export const teams = (state = initialState, action) => {
             };
         case constants.SELECTED_TEAM:
             const newState = {
-                ...state,              
+                ...state,
+                team: action.team,              
                 teamId: action.teamId
             };
             saveTeams(newState);

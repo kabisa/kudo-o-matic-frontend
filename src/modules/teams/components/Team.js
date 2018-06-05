@@ -18,7 +18,7 @@ export class Team extends Component {
 
     selectTeam = () => {
         if (!this.props.isInvite) {
-            this.props.selectTeam(this.props.team.id)
+            this.props.selectTeam(this.props.team)
             route("/", true);
         }
     }
