@@ -22,7 +22,7 @@ export class App extends Component {
     if (typeof this.props.user.apiToken === "undefined") {
       route("/login", true); 
     }
-    if (typeof this.props.teamId === "undefined" && this.props.user.apiToken) {
+    if (typeof this.props.team === "undefined" && this.props.user.apiToken) {
       route("/teams", true);
     }
   }
@@ -65,7 +65,7 @@ export class App extends Component {
 
 const mapStateToProps = state => ({
     user: state.authentication.user,
-    teamId: state.teams.teamId,
+    team: state.teams.team,
     transactionFormVisible: state.transaction.formVisible
   });
 

@@ -19,7 +19,8 @@ export class TeamsPage extends Component {
     }
 
     componentWillMount() {
-        if (this.props.teamId != undefined) {
+        console.log(this.props);
+        if (this.props.team != undefined) {
             route("/", true);
         }
     }
@@ -84,7 +85,7 @@ const mapStateToProps = state => ({
     invites: state.teams.invites,
     teams: state.teams.teams,
     user: state.authentication.user,
-    teamId: state.teams.teamId
+    team: state.teams.team
 });
 
 const mapDispatchToProps = {

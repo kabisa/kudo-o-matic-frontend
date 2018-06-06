@@ -29,8 +29,7 @@ export const receivedApiError = error => {
 export const selectedTeam = (team) => {
     return {
         type: constants.SELECTED_TEAM,
-        team: team,
-        teamId: team.id
+        team: team
     }
 }
 
