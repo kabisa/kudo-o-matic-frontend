@@ -22,7 +22,7 @@ export class App extends Component {
     if (typeof this.props.user.apiToken === "undefined") {
       route("/login", true); 
     }
-    if (typeof this.props.team === "undefined" && this.props.user.apiToken) {
+    if (typeof this.props.team.id === "undefined" && this.props.user.apiToken) {
       route("/teams", true);
     }
   }

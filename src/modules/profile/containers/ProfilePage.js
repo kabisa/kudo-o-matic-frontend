@@ -6,7 +6,7 @@ import { Header } from "src/components/Header";
 import { UserStatistics } from "../components/UserStatistics";
 import I18n from "src/config/i18n";
 import styles from "./ProfilePage.scss";
-import { handleLogoutUser, fetchAllUserstats, fetchUserInfo } from "../actions";
+import { handleLogoutUser, fetchAllUserstats, fetchUserInfo, handleChangeTeam } from "../actions";
 import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
 export class ProfilePage extends Component {
@@ -19,6 +19,11 @@ export class ProfilePage extends Component {
     this.props.handleLogoutUser();
     route("/login", true);
   };
+
+  changeTeam = () => {
+    this.props.handleChangeTeam();
+    route("/teams", true);
+  }
 
   render({ user, userstats }) {
     const { sent, received, total } = userstats;
@@ -61,6 +66,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   handleLogoutUser,
+  handleChangeTeam,
   fetchAllUserstats,
   fetchUserInfo
 };

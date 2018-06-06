@@ -4,7 +4,10 @@ import { saveTeams } from "../../localStorage";
 const initialState = {
     teams: [],
     invites: [],
-    team: undefined
+    team: {
+        id: undefined,
+        name: undefined
+    }
 };
 
 export const teams = (state = initialState, action) => {
@@ -23,6 +26,14 @@ export const teams = (state = initialState, action) => {
             };
             saveTeams(newState);
             return newState;
+        case constants.CHANGE_TEAM:
+            return {
+                ...state,
+                team: {
+                    id: undefined,
+                    name: undefined
+                }
+            }
         default:
             return state;
     }

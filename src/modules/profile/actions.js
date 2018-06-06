@@ -10,6 +10,13 @@ export const handleLogoutUser = () => {
   };
 };
 
+export const handleChangeTeam = () => {
+  removeTeams();
+  return {
+    type: constants.CHANGE_TEAM
+  }
+}
+
 export const startedFetchingUserstats = () => {
   return {
     type: constants.STARTED_FETCHING_USERSTATS

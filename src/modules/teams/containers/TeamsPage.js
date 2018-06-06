@@ -19,8 +19,7 @@ export class TeamsPage extends Component {
     }
 
     componentWillMount() {
-        console.log(this.props);
-        if (this.props.team != undefined) {
+        if (this.props.team.id != undefined) {
             route("/", true);
         }
     }
