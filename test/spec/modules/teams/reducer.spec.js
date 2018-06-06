@@ -7,7 +7,10 @@ describe("Teams reducer", () => {
     expect(teams(undefined, {})).to.eql({
         teams: [],
         invites: [],
-        team: undefined
+        team: {
+          id: undefined,
+          name: undefined
+        }
     });
   });
 
