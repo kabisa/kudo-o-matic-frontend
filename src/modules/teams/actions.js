@@ -3,7 +3,7 @@ import { fetchTeams, replyInvite } from "src/modules/teams/apiClient";
 import { route } from "preact-router";
 
 export const finishedFetchingTeams = teams => {
-    if(teams.data.amountOfTeams == 1) {
+    if(teams.data.amountOfTeams == 1 && teams.data.amountOfInvites == 0) {
         selectTeam(teams.data.teams[0].id);
         route("/", true);        
     }

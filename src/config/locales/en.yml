@@ -41,6 +41,7 @@ en:
     send: 'Send'
     received: 'Received'
     total: 'Total'
+    change_team: 'Change Team'
   statistics:
     title: 'STATISTICS'
     number_of_transactions: 'Number of transactions'

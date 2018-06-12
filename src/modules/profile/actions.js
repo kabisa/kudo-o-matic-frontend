@@ -37,6 +37,20 @@ export const finishedFetchingUserInfo = info => {
   }
 }
 
+export const toggleMenu = toggle => {
+  return {
+    type: constants.TOGGLE_MENU,
+    showMenu: toggle
+  }
+}
+
+export const handleToggleMenu = toggle => {
+
+  return dispatch => {
+    {toggle ? dispatch(toggleMenu(false)) : dispatch(toggleMenu(true))};
+  }
+}
+
 export const fetchUserInfo = (apiToken, teamId) => {
   return dispatch => {
     return fetchUser(apiToken, teamId)
