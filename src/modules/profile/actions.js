@@ -10,6 +10,13 @@ export const handleLogoutUser = () => {
   };
 };
 
+export const handleChangeTeam = () => {
+  removeTeams();
+  return {
+    type: constants.CHANGE_TEAM
+  }
+}
+
 export const startedFetchingUserstats = () => {
   return {
     type: constants.STARTED_FETCHING_USERSTATS
@@ -27,6 +34,20 @@ export const finishedFetchingUserInfo = info => {
   return {
     type: constants.FINISHED_FETCHING_USERINFO,
     userinfo: info
+  }
+}
+
+export const toggleMenu = toggle => {
+  return {
+    type: constants.TOGGLE_MENU,
+    showMenu: toggle
+  }
+}
+
+export const handleToggleMenu = toggle => {
+
+  return dispatch => {
+    {toggle ? dispatch(toggleMenu(false)) : dispatch(toggleMenu(true))};
   }
 }
 

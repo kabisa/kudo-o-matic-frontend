@@ -12,7 +12,7 @@ export class TransactionPage extends Component {
     if (typeof this.props.user.apiToken === "undefined") {
       location.reload();
     } else {
-      this.props.fetchUsers(this.props.user.apiToken, this.props.teamId);
+      this.props.fetchUsers(this.props.user.apiToken, this.props.team.id);
     }
   }
 
@@ -31,7 +31,7 @@ export class TransactionPage extends Component {
         imageData,
         fileType,
         user.apiToken,
-        this.props.teamId
+        this.props.team.id
       );
     };
 
@@ -56,7 +56,7 @@ export class TransactionPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.authentication.user,
-  teamId: state.teams.teamId,
+  team: state.teams.team,
   users: state.transaction.users
 });
 

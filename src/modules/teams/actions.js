@@ -3,7 +3,7 @@ import { fetchTeams, replyInvite } from "src/modules/teams/apiClient";
 import { route } from "preact-router";
 
 export const finishedFetchingTeams = teams => {
-    if(teams.data.amountOfTeams == 1) {
+    if(teams.data.amountOfTeams == 1 && teams.data.amountOfInvites == 0) {
         selectTeam(teams.data.teams[0].id);
         route("/", true);        
     }
@@ -26,16 +26,16 @@ export const receivedApiError = error => {
     }
 }
 
-export const selectedTeam = teamId => {
+export const selectedTeam = (team) => {
     return {
         type: constants.SELECTED_TEAM,
-        teamId: teamId
+        team: team
     }
 }
 
-export const selectTeam = teamId => { 
+export const selectTeam = (team) => { 
     return dispatch => {        
-        dispatch(selectedTeam(teamId));
+        dispatch(selectedTeam(team));
     } 
 }
 

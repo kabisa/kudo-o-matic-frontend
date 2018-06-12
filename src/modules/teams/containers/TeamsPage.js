@@ -15,29 +15,28 @@ export class TeamsPage extends Component {
 
     constructor(props) {
         super(props);
-        this.props.fetchAllTeams(this.props.user.apiToken);        
+        this.props.fetchAllTeams(this.props.user.apiToken);
     }
 
     componentWillMount() {
-        if (this.props.teamId != undefined) {
+        if (this.props.team.id != undefined) {
             route("/", true);
         }
     }
 
     render() {
-        // this.props.invites = undefined;
-        // this.props.teams = undefined;
-        this.props.invites = this.props.teams;
         return (
             <Page>
                 <main class={styles.main}>
+                    {/* When no teams or invites are available to show. */}
                     {!this.props.invites && !this.props.teams ? (
                         <div className={styles.noTeams}>{I18n.t("teams.no_teams")}</div>
                     ) : (
-                        <div></div>
-                    )
-                        
+                            <div></div>
+                        )
                     }
+
+                    {/* Shows the Invites when available */}
                     {this.props.invites ? (
                         <h2>{I18n.t("teams.invites")}</h2>
                     ) : (
@@ -56,6 +55,7 @@ export class TeamsPage extends Component {
                             )
                         }
                     </div>
+                    {/* Shows the Teams when available */}
                     {this.props.teams ? (
                         <h2>{I18n.t("teams.part_of")}</h2>
                     ) : (
@@ -84,7 +84,7 @@ const mapStateToProps = state => ({
     invites: state.teams.invites,
     teams: state.teams.teams,
     user: state.authentication.user,
-    teamId: state.teams.teamId
+    team: state.teams.team
 });
 
 const mapDispatchToProps = {

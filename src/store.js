@@ -27,7 +27,11 @@ const givePersistedState = () => {
   if (persistedStateLogin && persistedStateTeams) {
     return { authentication: persistedStateLogin.authentication, teams: persistedStateTeams.teams }
   } else {
-    return undefined;
+    if(persistedStateLogin) {
+      return {authentication: persistedStateLogin.authentication}
+    } else {
+      return undefined;
+    }
   }
 }
 

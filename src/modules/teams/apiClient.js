@@ -17,6 +17,7 @@ export const fetchTeams = apiToken => {
     });
 
     request.then(response => {
+      console.log(response);
       resolve(response.data);
     });
   });
@@ -25,8 +26,7 @@ export const fetchTeams = apiToken => {
 export const replyInvite = (apiToken, inviteId, acceptedInvite) => {
   const body = {
     data: {
-      inviteId: inviteId,
-      acceptedInvite: acceptedInvite
+      accept: acceptedInvite
     }
   };
 
@@ -36,13 +36,12 @@ export const replyInvite = (apiToken, inviteId, acceptedInvite) => {
   };
 
   return new Promise(resolve => {
-    // const request = httpClient.post("INVITES_ENDPOINT", body, {
-    //   headers
-    // });
+    const request = httpClient.put("invites/" + inviteId, body, {
+      headers
+    });
 
-    // request.then(response => {
-    //   resolve(response.data);
-    // });
-    resolve(teams);
+    request.then(response => {
+      resolve(response.data);
+    });
   });
 };
