@@ -84,5 +84,5 @@
     <plugin name="cordova-plugin-media-capture" spec="~2.0.0">
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="To choose a picture for your transaction" />
     </plugin>
-    <plugin spec="https://github.com/apache/cordova-plugin-statusbar.git" source="git" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
 </widget>
