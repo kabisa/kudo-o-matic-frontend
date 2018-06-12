@@ -16,6 +16,10 @@
     <preference name="android-targetSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="local" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <gap:plugin name="com.phonegap.plugin.statusbar" />
     <engine name="browser" />
     <platform name="ios">
         <hook src="scripts/share_schemes.rb" type="after_platform_add" />
