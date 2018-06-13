@@ -29,7 +29,7 @@ export class TeamsPage extends Component {
             <Page>
                 <main class={styles.main}>
                     {/* When no teams or invites are available to show. */}
-                    {!this.props.invites && !this.props.teams ? (
+                    {this.props.amountOfInvites == 0 && this.props.amountOfTeams == 0 ? (
                         <div className={styles.noTeams}>{I18n.t("teams.no_teams")}</div>
                     ) : (
                             <div></div>
@@ -37,14 +37,14 @@ export class TeamsPage extends Component {
                     }
 
                     {/* Shows the Invites when available */}
-                    {this.props.invites ? (
+                    {this.props.amountOfInvites != 0 ? (
                         <h2>{I18n.t("teams.invites")}</h2>
                     ) : (
                             <div></div>
                         )
                     }
                     <div>
-                        {this.props.invites ? (
+                        {this.props.amountOfInvites != 0 ? (
                             this.props.invites.map(invite => {
                                 return (
                                     <Team user={this.props.user} selectTeam={this.props.selectTeam} replyToInvite={this.props.replyToInvite} isInvite={true} team={invite} />
@@ -56,14 +56,14 @@ export class TeamsPage extends Component {
                         }
                     </div>
                     {/* Shows the Teams when available */}
-                    {this.props.teams ? (
+                    {this.props.amountOfTeams != 0 ? (
                         <h2>{I18n.t("teams.part_of")}</h2>
                     ) : (
                             <div></div>
                         )
                     }
                     <div>
-                        {this.props.teams ? (
+                        {this.props.amountOfTeams != 0 ? (
                             this.props.teams.map(team => {
                                 return (
                                     <Team selectTeam={this.props.selectTeam} isInvite={false} team={team} />
@@ -83,6 +83,8 @@ export class TeamsPage extends Component {
 const mapStateToProps = state => ({
     invites: state.teams.invites,
     teams: state.teams.teams,
+    amountOfInvites: state.teams.amountOfInvites,
+    amountOfTeams: state.teams.amountOfTeams,
     user: state.authentication.user,
     team: state.teams.team
 });
