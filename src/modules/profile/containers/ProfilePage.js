@@ -4,6 +4,7 @@ import { connect } from "preact-redux";
 import { Page } from "src/components/Page";
 import { Header } from "src/components/Header";
 import { UserStatistics } from "../components/UserStatistics";
+import { Team } from "../components/Team";
 import {Menu} from "../components/Menu";
 import I18n from "src/config/i18n";
 import styles from "./ProfilePage.scss";
@@ -41,11 +42,12 @@ export class ProfilePage extends Component {
         </Header>
         <main class={styles.main}>           
           <h3 class={styles.name}>{user.name}</h3>
-          <img class={styles.profileImage} src={user.imageUri} />
-          <div class={styles.addPicture}></div>
-          <h3 class={styles.header}>{I18n.t("profile.your_transactions")}</h3>
-          <UserStatistics sent={sent} received={received} total={total} />
-          <h3 class={styles.header}>{user.username}</h3>
+          <img class={styles.profileImage} src={user.imageUri} /> 
+          <h3 class={styles.header}>{I18n.t("profile.team")}</h3>         
+          <Team team={this.props.team} />   
+          <h3 class={styles.header}>{I18n.t("profile.your_transactions")}</h3>          
+          <UserStatistics sent={sent} received={received} total={total} />      
+          <h3 class={styles.header}>{user.username}</h3>          
         </main>
       </Page>
     );
