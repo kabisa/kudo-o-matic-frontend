@@ -15,7 +15,7 @@ export const fetchUserstats = (apiToken, teamId) => {
   };
 
   return new Promise(resolve => {
-    const request = httpClient.get("/statistics/user", {
+    const request = httpClient.get("/users/me/statistics", {
       headers
     });
 
