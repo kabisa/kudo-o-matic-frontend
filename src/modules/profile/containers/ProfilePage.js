@@ -36,10 +36,10 @@ export class ProfilePage extends Component {
     return (
       <Page id="profilePage">         
         <Header>          
-          <h1>{I18n.t("profile.title")}</h1>                    
+          <h1>{I18n.t("profile.title")}</h1> 
+          <Menu handleLogoutUser={this.props.handleLogoutUser} handleChangeTeam={this.props.handleChangeTeam} handleToggleMenu={this.props.handleToggleMenu} showMenu={this.props.showMenu}/>                   
         </Header>
-        <main class={styles.main}> 
-          <Menu handleLogoutUser={this.props.handleLogoutUser} handleChangeTeam={this.props.handleChangeTeam} handleToggleMenu={this.props.handleToggleMenu} showMenu={this.props.showMenu}/>
+        <main class={styles.main}>           
           <h3 class={styles.name}>{user.name}</h3>
           <img class={styles.profileImage} src={user.imageUri} />
           <div class={styles.addPicture}></div>

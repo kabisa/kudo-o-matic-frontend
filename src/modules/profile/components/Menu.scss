@@ -2,22 +2,22 @@
 
 .menuContainer {
     position: absolute;
-    top: -5rem;
+    margin-top: -5rem;
     right: 0rem; 
     background-color: $brand-blue;
     z-index: -1;
-    transition: 1s top ease;
-    -webkit-transition: 1s top ease;
+    transition: 1s margin-top ease;
+    -webkit-transition: 1s margin-top ease;
 }
 
 .menuContainerShow {
     position: absolute;
-    top: 3.2rem;
+    margin-top: 0.4rem;
     right: 0rem; 
     background-color: $brand-blue;
     z-index: 1;
-    transition: 1s top ease, z-index .2s 1s;
-    -webkit-transition: 1s top ease, z-index .2s 1s;
+    transition: 1s margin-top ease, z-index .2s 1s;
+    -webkit-transition: 1s margin-top ease, z-index .2s 1s;
 }
 
 .menuItem{
@@ -28,9 +28,9 @@
 }
 
 .gearIcon{
-    position: fixed;
-    top: 0.5rem;
-    right: 0.7rem;
+    position: relative;
+    margin-right: 0.7rem;
+    margin-left: 0.7rem;
     max-height: 2.2rem;
     max-width: 2.2rem;
     transform: rotate(0deg);
@@ -39,9 +39,9 @@
 }
 
 .gearIconTurned{
-    position: fixed;
-    top: 0.5rem;
-    right: 0.7rem;
+    position: relative;
+    margin-right: 0.7rem;
+    margin-left: 0.7rem;
     max-height: 2.2rem;
     max-width: 2.2rem;
     transform: rotate(-80deg);
