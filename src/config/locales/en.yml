@@ -42,6 +42,7 @@ en:
     received: 'Received'
     total: 'Total'
     change_team: 'Change Team'
+    team: 'Team'
   statistics:
     title: 'STATISTICS'
     number_of_transactions: 'Number of transactions'
