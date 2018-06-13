@@ -1,7 +1,7 @@
 @import 'src/styles/settings/general';
 
 .menuContainer {
-    position: fixed;
+    position: absolute;
     top: -5rem;
     right: 0rem; 
     background-color: $brand-blue;
@@ -11,7 +11,7 @@
 }
 
 .menuContainerShow {
-    position: fixed;
+    position: absolute;
     top: 3.2rem;
     right: 0rem; 
     background-color: $brand-blue;
