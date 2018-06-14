@@ -14,7 +14,8 @@ describe("Profile reducer", () => {
         user: {
           name: null,
           imageUri: null
-        }
+        },
+        showMenu: false
     });
   });
 
@@ -66,6 +67,17 @@ describe("Profile reducer", () => {
     ).to.eql({
       error: "ERROR",
       fetching: false
+    });
+  });
+
+  it("handles TOGGLE_MENU", () => {
+    expect(
+      profile([], {
+        type: constants.TOGGLE_MENU,
+        showMenu: true
+      })
+    ).to.eql({
+      showMenu: true
     });
   });
 });

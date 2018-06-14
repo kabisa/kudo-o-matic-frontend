@@ -25,6 +25,7 @@ export class TeamsPage extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <Page>
                 <main class={styles.main}>

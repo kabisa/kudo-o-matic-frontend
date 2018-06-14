@@ -38,10 +38,10 @@ export class Team extends Component {
                     <h1>{this.props.team.name}</h1>
                     {this.props.isInvite ? (
                         <div className={styles.inviteContainer}>
-                        <div className={styles.inviteAccept} onClick={this.declineInvite}>
+                        <div className={styles.inviteAccept} onClick={this.acceptInvite}>
                                 {I18n.t("teams.accept")}
                             </div>
-                            <div className={styles.inviteDecline} onClick={this.acceptInvite}>
+                            <div className={styles.inviteDecline} onClick={this.declineInvite}>
                                 {I18n.t("teams.decline")}
                             </div>                            
                         </div>

@@ -20,7 +20,7 @@ describe("Teams actions", () => {
         }
         const expectedAction = {
             type: constants.FINISHED_FETCHING_TEAMS,
-            teams: teams
+            teams: teams.data
         };
 
         expect(actions.finishedFetchingTeams(teams)).to.eql(expectedAction);
