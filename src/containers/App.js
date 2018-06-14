@@ -20,7 +20,7 @@ import NavBar from "src/components/NavBar";
 export class App extends Component {
   componentWillMount() {
     if (typeof this.props.user.apiToken === "undefined") {
-      route("/login", true); 
+      route("/login", true);
     }
     if (typeof this.props.team.id === "undefined" && this.props.user.apiToken) {
       route("/teams", true); 
