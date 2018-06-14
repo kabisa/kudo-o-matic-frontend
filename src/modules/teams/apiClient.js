@@ -1,5 +1,6 @@
 import Settings from "src/config/settings";
 import axios from "axios";
+import { fetchAllTeams } from "src/modules/teams/actions";
 
 const httpClient = axios.create({
   baseURL: Settings.apiLocation
@@ -17,7 +18,6 @@ export const fetchTeams = apiToken => {
     });
 
     request.then(response => {
-      console.log(response);
       resolve(response.data);
     });
   });
@@ -25,13 +25,11 @@ export const fetchTeams = apiToken => {
 
 export const replyInvite = (apiToken, inviteId, acceptedInvite) => {
   const body = {
-    data: {
       accept: acceptedInvite
-    }
   };
 
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/vnd.api+json",
     "Authorization": "Bearer " + apiToken
   };
 

@@ -13,11 +13,12 @@ const initialState = {
 export const teams = (state = initialState, action) => {
     switch (action.type) {
         case constants.FINISHED_FETCHING_TEAMS:
-            //Split the invites from the already accepted teams
             return {
                 ...state,
-                teams: action.teams.data.teams,
-                invites: action.teams.data.invites
+                teams: action.teams.teams,
+                invites: action.teams.invites,
+                amountOfInvites: action.teams.amountOfInvites,
+                amountOfTeams: action.teams.amountOfTeams
             };
         case constants.SELECTED_TEAM:
             const newState = {

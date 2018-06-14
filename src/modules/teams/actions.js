@@ -9,12 +9,11 @@ export const finishedFetchingTeams = teams => {
     }
     return {
         type: constants.FINISHED_FETCHING_TEAMS,
-        teams: teams
+        teams: teams.data
     }
 }
 
-export const finishedReplyingToInvite = (apiToken) => {
-    fetchAllTeams(apiToken);
+export const finishedReplyingToInvite = (apiToken) => {      
     return {
         type: constants.FINISHED_REPLYING_TO_INVITE
     }
@@ -50,7 +49,10 @@ export const fetchAllTeams = apiToken => {
 export const replyToInvite = (apiToken, inviteId, acceptedInvite) => {
     return dispatch => {
         return replyInvite(apiToken, inviteId, acceptedInvite)
-            .then(dispatch(finishedReplyingToInvite(apiToken)))
+            .then(done => {
+                dispatch(finishedReplyingToInvite(apiToken));
+                dispatch(fetchAllTeams(apiToken));
+            })
             .catch(error => dispatch(receivedApiError(error)));
     }
 }
