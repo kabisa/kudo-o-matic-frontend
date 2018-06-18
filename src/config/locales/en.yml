@@ -43,6 +43,7 @@ en:
     total: 'Total'
     change_team: 'Change Team'
     team: 'Team'
+    profile_image_alt: 'Profile Picture'
   statistics:
     title: 'STATISTICS'
     number_of_transactions: 'Number of transactions'

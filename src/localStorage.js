@@ -19,7 +19,7 @@ export const saveTeams = state => {
 export const loadLogin = () => {
   try {
     const serializedState = localStorage.getItem("authentication");
-    if (serializedState === null) {
+    if (!serializedState) {
       return undefined;
     }
     return JSON.parse(serializedState);
@@ -31,7 +31,7 @@ export const loadLogin = () => {
 export const loadTeams = () => {
   try {
     const serializedState = localStorage.getItem("teams");
-    if (serializedState === null) {
+    if (!serializedState) {
       return undefined;
     }
     return JSON.parse(serializedState);

@@ -42,7 +42,7 @@ export class ProfilePage extends Component {
         </Header>
         <main class={styles.main}>           
           <h3 class={styles.name}>{user.name}</h3>
-          <img class={styles.profileImage} src={user.imageUri} /> 
+          <img class={styles.profileImage} src={user.imageUri} alt={I18n.t("profile.profile_image_alt")}/> 
           <h3 class={styles.header}>{I18n.t("profile.team")}</h3>         
           <Team team={this.props.team} />   
           <h3 class={styles.header}>{I18n.t("profile.your_transactions")}</h3>          

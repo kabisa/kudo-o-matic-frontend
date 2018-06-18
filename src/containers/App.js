@@ -16,6 +16,7 @@ import ProfilePage from "src/modules/profile/containers/ProfilePage";
 
 import TransactionPage from "src/modules/transaction/containers/TransactionPage";
 import NavBar from "src/components/NavBar";
+import { removeTeams, removeLogin } from "../localStorage";
 
 export class App extends Component {
   componentWillMount() {

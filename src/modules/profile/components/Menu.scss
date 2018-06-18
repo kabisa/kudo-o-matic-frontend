@@ -7,7 +7,6 @@
     background-color: $brand-blue;
     z-index: -1;
     transition: 1s margin-top ease;
-    -webkit-transition: 1s margin-top ease;
 }
 
 .menuContainerShow {
@@ -17,7 +16,6 @@
     background-color: $brand-blue;
     z-index: 1;
     transition: 1s margin-top ease, z-index .2s 1s;
-    -webkit-transition: 1s margin-top ease, z-index .2s 1s;
 }
 
 .menuItem{
@@ -34,7 +32,6 @@
     max-height: 2.2rem;
     max-width: 2.2rem;
     transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
     transition: 1s transform ease;
 }
 
@@ -45,6 +42,5 @@
     max-height: 2.2rem;
     max-width: 2.2rem;
     transform: rotate(-80deg);
-    -webkit-transform: rotate(-80deg);
     transition: 1s transform ease;
 }
