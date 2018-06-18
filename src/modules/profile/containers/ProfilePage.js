@@ -27,24 +27,24 @@ export class ProfilePage extends Component {
     route("/teams", true);
   }
 
-  render({ user, userstats }) {
+  render({ user, userstats, team, handleLogoutUser, handleChangeTeam, handleToggleMenu, showMenu }) {
     const { sent, received, total } = userstats;
 
-    if (this.props.user.imageUri == null) {
-      this.props.user.imageUri = Avatar;
+    if (user.imageUri == null) {
+      user.imageUri = Avatar;
     }
 
     return (
       <Page id="profilePage">         
         <Header>          
           <h1>{I18n.t("profile.title")}</h1> 
-          <Menu handleLogoutUser={this.props.handleLogoutUser} handleChangeTeam={this.props.handleChangeTeam} handleToggleMenu={this.props.handleToggleMenu} showMenu={this.props.showMenu}/>                   
+          <Menu handleLogoutUser={handleLogoutUser} handleChangeTeam={handleChangeTeam} handleToggleMenu={handleToggleMenu} showMenu={showMenu}/>                   
         </Header>
         <main class={styles.main}>           
           <h3 class={styles.name}>{user.name}</h3>
           <img class={styles.profileImage} src={user.imageUri} alt={I18n.t("profile.profile_image_alt")}/> 
           <h3 class={styles.header}>{I18n.t("profile.team")}</h3>         
-          <Team team={this.props.team} />   
+          <Team team={team} />   
           <h3 class={styles.header}>{I18n.t("profile.your_transactions")}</h3>          
           <UserStatistics sent={sent} received={received} total={total} />      
           <h3 class={styles.header}>{user.username}</h3>          
