@@ -3,7 +3,7 @@ export const saveLogin = state => {
     const serializedstate = JSON.stringify({ authentication: state });
     localStorage.setItem("authentication", serializedstate);
   } catch (err) {
-    //Nothing should happen.
+    return err;
   }
 };
 
@@ -12,7 +12,7 @@ export const saveTeams = state => {
     const serializedstate = JSON.stringify({ teams: state });
     localStorage.setItem("teams", serializedstate);
   } catch (err) {
-    //Nothing should happen.
+    return err;
   }
 };
 

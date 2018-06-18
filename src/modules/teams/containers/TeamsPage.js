@@ -23,7 +23,7 @@ export class TeamsPage extends Component {
         this.props.fetchAllTeams(this.props.user.apiToken);
     }
 
-    render({ amountOfInvites, amountOfTeams, invites, teams, user, fetchAllTeams, replyToInvite, selectTeam }) {        
+    render({ amountOfInvites, amountOfTeams, invites, teams, user, fetchAllTeams, replyToInvite, selectTeam }) {
         return (
             <Page>
                 <main class={styles.main}>
