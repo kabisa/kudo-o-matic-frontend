@@ -21,7 +21,7 @@ export class LoginPage extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.user != undefined) {
       if (typeof nextProps.user.apiToken !== "undefined") {
-        route("/", true);
+        route("/teams", true);
       }
     }
   }

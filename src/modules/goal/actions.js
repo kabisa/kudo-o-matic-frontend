@@ -23,11 +23,11 @@ export const receivedApiError = error => {
   };
 };
 
-export const fetchCurrentGoalState = apiToken => {
+export const fetchCurrentGoalState = (apiToken, teamId) => {
   return dispatch => {
     dispatch(startedFetchingGoal);
 
-    return Promise.all([fetchCurrentBalance(apiToken), fetchNextGoal(apiToken)])
+    return Promise.all([fetchCurrentBalance(apiToken, teamId), fetchNextGoal(apiToken, teamId)])
       .then(values => {
         return dispatch(finishedFetchingGoal(values[0], values[1]));
       })

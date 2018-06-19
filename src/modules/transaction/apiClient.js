@@ -8,9 +8,10 @@ const httpClient = axios.create({
 
 let headers = {};
 
-export const fetchUsers = apiToken => {
+export const fetchUsers = (apiToken, teamId) => {
   headers = {
-    "Authorization": "Bearer " + apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {
@@ -31,11 +32,13 @@ export const postTransaction = (
   receiverName,
   imageData,
   fileType,
-  apiToken
+  apiToken,
+  teamId
 ) => {
   headers = {
     "Content-Type": "application/vnd.api+json",
-    "Authorization": "Bearer " + apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
   return new Promise(resolve => {
     let attributes = {};

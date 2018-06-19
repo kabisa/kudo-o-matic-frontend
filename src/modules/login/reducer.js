@@ -20,8 +20,8 @@ export const authentication = (state = initialState, action) => {
           apiToken: action.accessToken
         },
         error: undefined
-      };
-      saveLogin(newState);
+      };        
+      saveLogin(newState);   
       return newState;
     case constants.ACCESS_TOKEN_FAILURE:
       return {

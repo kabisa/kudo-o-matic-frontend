@@ -11,14 +11,14 @@ import { fetchCurrentGoalState } from "../actions";
 
 export class GoalPage extends Component {
   componentWillMount() {
-    this.props.fetchData(this.props.user.apiToken);
+    this.props.fetchData(this.props.user.apiToken, this.props.team.id);
   }
 
-  render({ currentAmount, nextAmount, nextText }) {
+  render({ currentAmount, nextAmount, nextText, team }) {
     return (
       <Page id="goalPage">
         <Header>
-          <h1>{I18n.t("goal.title")}</h1>
+          <h1>{team.name} {I18n.t("goal.title")}</h1>
         </Header>
         <main class={styles.main}>
           <KudoCounter
@@ -34,6 +34,7 @@ export class GoalPage extends Component {
 }
 const mapStateToProps = state => ({
   apiToken: state.authentication.apiToken,
+  team: state.teams.team,
   currentAmount: state.goal.currentBalance.amount,
   nextAmount: state.goal.nextGoal.amount,
   nextText: state.goal.nextGoal.name
@@ -41,7 +42,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: token => dispatch(fetchCurrentGoalState(token))
+    fetchData: (token, teamId) => dispatch(fetchCurrentGoalState(token, teamId))
   };
 };
 

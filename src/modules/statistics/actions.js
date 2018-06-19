@@ -27,21 +27,21 @@ export const finishedFetchingGraphStats = stats => {
   };
 };
 
-export const fetchAllGraphStats = apiToken => {
+export const fetchAllGraphStats = (apiToken, teamId) => {
   return dispatch => {
     dispatch(startedFetchingGraphStats);
 
-    return fetchGraphStats(apiToken)
+    return fetchGraphStats(apiToken, teamId)
       .then(stats => dispatch(finishedFetchingGraphStats(stats)))
       .catch(error => dispatch(receivedApiError(error)));
   };
 };
 
-export const fetchAllGeneralStats = apiToken => {
+export const fetchAllGeneralStats = (apiToken, teamId) => {
   return dispatch => {
     dispatch(startedFetchingGeneralStats);
 
-    return fetchGeneralStats(apiToken)
+    return fetchGeneralStats(apiToken, teamId)
       .then(stats => dispatch(finishedFetchingGeneralStats(stats)))
       .catch(error => dispatch(receivedApiError(error)));
   };
