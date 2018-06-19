@@ -14,11 +14,11 @@ export class GoalPage extends Component {
     this.props.fetchData(this.props.user.apiToken, this.props.team.id);
   }
 
-  render({ currentAmount, nextAmount, nextText }) {
+  render({ currentAmount, nextAmount, nextText, team }) {
     return (
       <Page id="goalPage">
         <Header>
-          <h1>{this.props.team.name} {I18n.t("goal.title")}</h1>
+          <h1>{team.name} {I18n.t("goal.title")}</h1>
         </Header>
         <main class={styles.main}>
           <KudoCounter

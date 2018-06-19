@@ -13,67 +13,33 @@ import I18n from "src/config/i18n";
 
 export class TeamsPage extends Component {
 
-    constructor(props) {
-        super(props);
-        this.props.fetchAllTeams(this.props.user.apiToken);
-    }
-
     componentWillMount() {
         if (this.props.team.id != undefined) {
             route("/", true);
         }
     }
 
-    render() {
-        console.log(this.props);
+    componentDidMount() {
+        this.props.fetchAllTeams(this.props.user.apiToken);
+    }
+
+    render({ amountOfInvites, amountOfTeams, invites, teams, user, fetchAllTeams, replyToInvite, selectTeam }) {
         return (
             <Page>
                 <main class={styles.main}>
                     {/* When no teams or invites are available to show. */}
-                    {this.props.amountOfInvites == 0 && this.props.amountOfTeams == 0 ? (
-                        <div className={styles.noTeams}>{I18n.t("teams.no_teams")}</div>
-                    ) : (
-                            <div></div>
-                        )
-                    }
+                    {amountOfInvites == 0 && amountOfTeams == 0 && <div className={styles.noTeams}>{I18n.t("teams.no_teams")}</div>}
 
                     {/* Shows the Invites when available */}
-                    {this.props.amountOfInvites != 0 ? (
-                        <h2>{I18n.t("teams.invites")}</h2>
-                    ) : (
-                            <div></div>
-                        )
-                    }
+                    {amountOfInvites != 0 && <h2>{I18n.t("teams.invites")}</h2>}
                     <div>
-                        {this.props.amountOfInvites != 0 ? (
-                            this.props.invites.map(invite => {
-                                return (
-                                    <Team user={this.props.user} selectTeam={this.props.selectTeam} replyToInvite={this.props.replyToInvite} isInvite={true} team={invite} />
-                                )
-                            })
-                        ) : (
-                                <div></div>
-                            )
-                        }
+                        {amountOfInvites != 0 && invites.map(invite => <Team user={user} selectTeam={selectTeam} replyToInvite={replyToInvite} isInvite={true} team={invite} />)}
                     </div>
+
                     {/* Shows the Teams when available */}
-                    {this.props.amountOfTeams != 0 ? (
-                        <h2>{I18n.t("teams.part_of")}</h2>
-                    ) : (
-                            <div></div>
-                        )
-                    }
+                    {amountOfTeams != 0 && <h2>{I18n.t("teams.part_of")}</h2>}
                     <div>
-                        {this.props.amountOfTeams != 0 ? (
-                            this.props.teams.map(team => {
-                                return (
-                                    <Team selectTeam={this.props.selectTeam} isInvite={false} team={team} />
-                                )
-                            })
-                        ) : (
-                                <div></div>
-                            )
-                        }
+                        {amountOfTeams != 0 && teams.map(team => <Team selectTeam={selectTeam} isInvite={false} team={team} />)}
                     </div>
                 </main>
             </Page>

@@ -10,9 +10,10 @@
 }
 
 h1 {
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     font-weight: 350;
     color: $brand-grey-dark;
+    border-bottom: 1px solid $brand-grey;
 }
 
 .teamContainer {
@@ -22,13 +23,13 @@ h1 {
     text-align: center;
     width: 90%;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     background-color: $brand-white;
     box-shadow: 0px 0px 1px 0px $brand-grey;
 }
 
 .inviteContainer {
     width: 100%;
-    float: bottom;
 }
 
 .inviteDecline {
