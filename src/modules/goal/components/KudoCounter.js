@@ -1,5 +1,5 @@
 import { h, Component } from "preact";
-import CountUp from "countup.js";
+import CountUp from 'react-countup';
 import ProgressBar from "progressbar.js";
 
 import styles from "./KudoCounter.scss";
@@ -12,18 +12,6 @@ let container = <div class={styles.progressBar} id="container" />;
 class KudoCounter extends Component {
   componentWillReceiveProps({ currentAmount, nextAmount }) {
     document.getElementById("container").innerHTML = "";
-    let options = {
-      useEasing: true,
-      useGrouping: false
-    };
-    let countUp = new CountUp(
-      "currentAmount",
-      0,
-      currentAmount,
-      0,
-      1.5,
-      options
-    );
 
     bar = new ProgressBar.Circle("#container", {
       easing: "easeInOut",
@@ -36,15 +24,14 @@ class KudoCounter extends Component {
 
     let percentage = currentAmount / nextAmount;
     bar.animate(percentage);
-    countUp.start();
   }
 
-  render({ nextAmount, nextText }) {
+  render({ nextAmount, nextText, currentAmount }) {
     return (
       <div>
         <div class={styles.kudoCounter} id="kudoCounter">
           <div class={styles.currentAmount}>
-            <span id="currentAmount" />
+            <CountUp start={0} end={currentAmount} duration={1.7}/>
             <span class={styles.kudoCurrency}> ₭</span>
           </div>
           <div class={styles.nextGoal}>
