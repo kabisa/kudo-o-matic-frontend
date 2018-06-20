@@ -21,12 +21,13 @@ export class GoalPage extends Component {
           <h1>{team.name} {I18n.t("goal.title")}</h1>
         </Header>
         <main class={styles.main}>
+          {currentAmount && nextAmount && 
           <KudoCounter
             class={styles.kudoCounter}
             currentAmount={currentAmount}
             nextAmount={nextAmount}
             nextText={nextText}
-          />
+          />}
         </main>
       </Page>
     );
