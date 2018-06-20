@@ -6,7 +6,7 @@ import styles from "./KudoCounter.scss";
 
 import I18n from "src/config/i18n";
 
-import { Doughnut } from "preact-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 class KudoCounter extends Component {
   render({ nextAmount, nextText, currentAmount }) {

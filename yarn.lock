@@ -7287,6 +7287,13 @@ react-bouncefix@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/react-bouncefix/-/react-bouncefix-1.0.5.tgz#f40473dc44e42cbc93aaade7a49653aefcca2596"
 
+react-chartjs-2@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-2.7.2.tgz#9a9499f2943126b6ef89e7c8b93193879feb2597"
+  dependencies:
+    lodash "^4.17.4"
+    prop-types "^15.5.8"
+
 react-circular-progressbar@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-0.5.0.tgz#74b67862431f3fa5e46f380874e4284f5f321b9a"
