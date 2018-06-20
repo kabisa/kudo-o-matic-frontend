@@ -30,7 +30,7 @@ export class ProfilePage extends Component {
   render({ user, userstats, team, handleLogoutUser, handleChangeTeam, handleToggleMenu, showMenu }) {
     const { sent, received, total } = userstats;
 
-    if (user.imageUri == null) {
+    if (user.imageUri == null || user.imageUri == "") {
       user.imageUri = Avatar;
     }
 
