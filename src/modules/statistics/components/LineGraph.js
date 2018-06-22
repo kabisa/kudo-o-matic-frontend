@@ -2,7 +2,7 @@ import { h } from "preact";
 import I18n from "src/config/i18n";
 import styles from "./LineGraph.scss";
 
-import { Line } from "preact-chartjs-2";
+import { Line } from "react-chartjs-2";
 const graphSettings = {
   label: I18n.t("statistics.number_of_transactions"),
   fill: false,

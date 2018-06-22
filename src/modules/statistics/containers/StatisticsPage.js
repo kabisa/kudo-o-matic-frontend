@@ -27,7 +27,9 @@ export class StatisticsPage extends Component {
           <h1>{I18n.t("statistics.title")}</h1>
         </Header>
         <main>
-          <LineGraph stats={graphStats} />
+          {graphStats &&
+            <LineGraph stats={graphStats} />
+          }
           <h3>{I18n.t("statistics.transactions")}</h3>
           <StatisticsTable stats={generalStats.transactions} />
           <h3 class={styles.kudoHeader}>{I18n.t("statistics.kudos")}</h3>

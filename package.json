@@ -40,6 +40,7 @@
     "progressbar.js": "^1.0.1",
     "raven-js": "^3.19.1",
     "react-bouncefix": "^1.0.5",
+    "react-chartjs-2": "^2.7.2",
     "react-circular-progressbar": "^0.5.0",
     "react-countup": "^3.0.3",
     "react-emojione": "^5.0.0",
