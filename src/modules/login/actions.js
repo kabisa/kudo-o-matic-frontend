@@ -1,5 +1,6 @@
 import * as constants from "./constants";
 import { requestAccessToken, postFCMToken } from "./apiClient";
+import { getToken } from "src/support/firebaseInstance";
 
 export const startedFetchingAccessToken = () => {
   return {
@@ -54,7 +55,8 @@ export const fetchAccessToken = (username, password) => {
     dispatch(startedFetchingAccessToken);
     return Promise.all([requestAccessToken(username, password)])
       .then(values => {
-        return dispatch(finishedFetchingAccessToken(values, username));
+        dispatch(finishedFetchingAccessToken(values, username));
+        dispatch(fetchFcmToken(values.accessToken));
       })
       .catch(error => {
         return dispatch(receivedAuthenticationError(error));
@@ -62,18 +64,12 @@ export const fetchAccessToken = (username, password) => {
   }
 }
 
-export const fetchFcmToken = () => {
+export const fetchFcmToken = (apiToken) => {
   return dispatch => {
-    window.FirebasePlugin.getToken(
-      function (FcmToken) {
-        dispatch(storeFCMToken(FcmToken, ApiToken["api-token"]));
-      },
-      function (error) {
-        dispatch(errorFCMToken(error));
-      }
-    );
+    dispatch(storeFCMToken(getToken(), apiToken));
   }
 }
+
 
 export const storeFCMToken = (FcmToken, ApiToken) => {
   return dispatch => {
