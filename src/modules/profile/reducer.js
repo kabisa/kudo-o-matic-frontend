@@ -11,7 +11,8 @@ const initialState = {
   user: {
     name: null,
     imageUri: null
-  }
+  },
+  showMenu: false
 };
 
 export const profile = (state = initialState, action) => {
@@ -38,6 +39,11 @@ export const profile = (state = initialState, action) => {
         error: action.error,
         fetching: false
       };
+    case constants.TOGGLE_MENU:
+      return {
+        ...state,
+        showMenu: action.showMenu
+      }
     default:
       return state;
   }

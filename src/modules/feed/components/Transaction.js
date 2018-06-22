@@ -9,6 +9,8 @@ import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.sv
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
 import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
+import I18n from "src/config/i18n";
+
 const emojiOptions = {
   style: {
     height: 16
@@ -95,9 +97,9 @@ export class Transaction extends Component {
           <div class={styles.transactionDescription}>
             <p class={styles.transactionText}>
               {transaction.sender.name}: {transaction.amount}{" "}
-              <span class={styles.kudoCurrency}>₭</span> to{" "}
+              <span class={styles.kudoCurrency}>₭</span> {I18n.t("feed.to")}{" "}
               <span id="receiver"> {transaction.receiver.name} </span>
-              for{" "}
+              {I18n.t("feed.for")}{" "}
               <span id="activity">
                 {emojify(transaction.activity, emojiOptions)}
               </span>

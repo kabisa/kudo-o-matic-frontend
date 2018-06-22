@@ -1,0 +1,46 @@
+@import 'src/styles/settings/general';
+
+.menuContainer {
+    position: absolute;
+    margin-top: -5rem;
+    right: 0rem; 
+    background-color: $brand-blue;
+    z-index: -1;
+    transition: 1s margin-top ease;
+}
+
+.menuContainerShow {
+    position: absolute;
+    margin-top: 0.4rem;
+    right: 0rem; 
+    background-color: $brand-blue;
+    z-index: 1;
+    transition: 1s margin-top ease, z-index .2s 1s;
+}
+
+.menuItem{
+    padding: 0.7rem;
+    border-top: 1px solid $brand-white;
+    border-left: 2px solid $brand-white;
+    color: $brand-white
+}
+
+.gearIcon{
+    position: relative;
+    margin-right: 0.7rem;
+    margin-left: 0.7rem;
+    max-height: 2.2rem;
+    max-width: 2.2rem;
+    transform: rotate(0deg);
+    transition: 1s transform ease;
+}
+
+.gearIconTurned{
+    position: relative;
+    margin-right: 0.7rem;
+    margin-left: 0.7rem;
+    max-height: 2.2rem;
+    max-width: 2.2rem;
+    transform: rotate(-80deg);
+    transition: 1s transform ease;
+}

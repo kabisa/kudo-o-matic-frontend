@@ -20,8 +20,8 @@ import {
 } from "../actions";
 
 export class FeedPage extends Component {
-  componentWillMount() {    
-    this.props.fetchAllTransactions(this.props.user.apiToken, 0);
+  componentWillMount() {
+    this.props.fetchAllTransactions(this.props.user.apiToken, this.props.team.id, 0);
   }
 
   render({
@@ -43,16 +43,16 @@ export class FeedPage extends Component {
           e.target.offsetHeight + 250 &&
         !fetching
       ) {
-        fetchAllTransactions(this.props.user.apiToken, offset);
+        fetchAllTransactions(this.props.user.apiToken, this.props.team.id, offset);
       }
     };
 
     const voteTransaction = transactionId => {
-      likeTransaction(user.apiToken, transactionId);
+      likeTransaction(user.apiToken, this.props.team.id, transactionId);
     };
 
     const unVoteTransaction = transactionId => {
-      unLikeTransaction(user.apiToken, transactionId);
+      unLikeTransaction(user.apiToken, this.props.team.id, transactionId);
     };
 
     return (
@@ -65,11 +65,11 @@ export class FeedPage extends Component {
           />
         ) : null}
         <Header>
-          <h1>{I18n.t("feed.title")}</h1>
+          <h1>{this.props.team.name} {I18n.t("feed.title")}</h1>
         </Header>
         <PullToRefresh
           onRefresh={() => {
-            fetchAllTransactions(this.props.user.apiToken, 0);
+            fetchAllTransactions(this.props.user.apiToken, this.props.teamId, 0);
           }}
           className={styles.feedContainer}
           onScroll={checkPageScroll}
@@ -100,6 +100,7 @@ export class FeedPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.authentication.user,
+  team: state.teams.team,
   transactions: state.feed.transactions,
   offset: state.feed.offset,
   fetching: state.feed.fetching,

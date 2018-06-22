@@ -27,7 +27,7 @@ describe("Profile API client", () => {
             new Promise(resolve => setTimeout(resolve)).then(() => {
                 const { method, url, requestHeaders } = this.sandbox.server.requests[0];
                 expect(method).to.eql("GET");
-                expect(url).to.eql(`${Settings.apiLocation}/statistics/user`);
+                expect(url).to.eql(`${Settings.apiLocation}/users/me/statistics`);
                 done();
             });
         });

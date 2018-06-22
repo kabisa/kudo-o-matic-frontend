@@ -1,14 +1,21 @@
 import * as constants from "./constants";
-import { removeLogin } from "../../localStorage";
+import { removeLogin, removeTeams } from "../../localStorage";
 import { fetchUserstats, fetchUser } from "src/modules/profile/apiClient";
 
 export const handleLogoutUser = () => {
   removeLogin();
-
+  removeTeams();
   return {
     type: constants.LOGOUT_USER
   };
 };
+
+export const handleChangeTeam = () => {
+  removeTeams();
+  return {
+    type: constants.CHANGE_TEAM
+  }
+}
 
 export const startedFetchingUserstats = () => {
   return {
@@ -30,19 +37,33 @@ export const finishedFetchingUserInfo = info => {
   }
 }
 
-export const fetchUserInfo = apiToken => {
+export const toggleMenu = toggle => {
+  return {
+    type: constants.TOGGLE_MENU,
+    showMenu: toggle
+  }
+}
+
+export const handleToggleMenu = toggle => {
+
   return dispatch => {
-    return fetchUser(apiToken)
+    {toggle ? dispatch(toggleMenu(false)) : dispatch(toggleMenu(true))};
+  }
+}
+
+export const fetchUserInfo = (apiToken, teamId) => {
+  return dispatch => {
+    return fetchUser(apiToken, teamId)
       .then(info => dispatch(finishedFetchingUserInfo(info)))
       .catch(error => dispatch(receivedApiError(error)));
   }
 }
 
-export const fetchAllUserstats = apiToken => {
+export const fetchAllUserstats = (apiToken, teamId) => {
   return dispatch => {
     dispatch(startedFetchingUserstats);
 
-    return fetchUserstats(apiToken)
+    return fetchUserstats(apiToken, teamId)
       .then(stats => dispatch(finishedFetchingUserstats(stats)))
       .catch(error => dispatch(receivedApiError(error)));
   };
