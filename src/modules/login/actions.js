@@ -56,7 +56,7 @@ export const fetchAccessToken = (username, password) => {
     return Promise.all([requestAccessToken(username, password)])
       .then(values => {
         dispatch(finishedFetchingAccessToken(values, username));
-        dispatch(fetchFcmToken(values.accessToken));
+        dispatch(fetchFcmToken(values[0].access_token));
       })
       .catch(error => {
         return dispatch(receivedAuthenticationError(error));
@@ -71,9 +71,9 @@ export const fetchFcmToken = (apiToken) => {
 }
 
 
-export const storeFCMToken = (FcmToken, ApiToken) => {
+export const storeFCMToken = (FcmToken, apiToken) => {
   return dispatch => {
-    return postFCMToken(FcmToken, ApiToken).then(token => {
+    postFCMToken(FcmToken, apiToken).then(token => {
       return dispatch(storedFCMToken(token));
     });
   };
