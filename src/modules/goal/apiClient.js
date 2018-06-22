@@ -19,6 +19,9 @@ export const fetchCurrentBalance = (apiToken, teamId) => {
 
     request.then(response => {
       resolve(response.data.data.attributes);
+    })
+    .catch(error => {
+      resolve(error);
     });
   });
 };
@@ -37,6 +40,9 @@ export const fetchNextGoal = (apiToken, teamId) => {
 
     request.then(response => {
       resolve(response.data.data.attributes);
-    });
+    })
+    .catch(error => {
+      resolve(error);
+    })
   });
 };
