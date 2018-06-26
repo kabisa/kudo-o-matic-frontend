@@ -59,6 +59,7 @@
     .characterCount {
         width: 100%;
         text-align: right;
+        margin-bottom: 5px;
     }
 
     .formError {
@@ -67,7 +68,6 @@
         padding-left: 1rem;
         padding-right: 1rem;
         background: $brand-red;
-        line-height: 2rem;
         font-weight: 200;
     }
 
@@ -76,11 +76,12 @@
     }
 
     .imageButton {
-        width: 50%;
+        width: 48%;
         height: 2.5rem;
         color: $brand-grey-medium;
         background: white;
         border: solid 1px $brand-grey;
+        float: left;
         display: flex;
         align-items: center;
 
@@ -92,12 +93,12 @@
     }
 
     .kudoButton {
-        width: 40%;
+        width: 48%;
         height: 2.5rem;
         color: $brand-white;
         background: $brand-green;
         border: solid 1px $brand-grey;
-        display: flex;
+        float: right;
         align-items: center;
 
         p {

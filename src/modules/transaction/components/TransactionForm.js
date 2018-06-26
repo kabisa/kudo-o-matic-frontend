@@ -226,13 +226,13 @@ class TransactionForm extends Component {
                     clearImage={this.clearImage}
                   />
                 ) : (
-                    <div class={styles.imageButton} onClick={this.showCameraOptions}>
+                    <div className={styles.imageButton} onClick={this.showCameraOptions}>
                       <p>{I18n.t("transaction.add_picture")}</p>
                     </div>
                   )}
                 <button
                   id="submitTransaction"
-                  class={styles.kudoButton}
+                  className={styles.kudoButton}
                   type="submit"
                 >
                   <p>{I18n.t("transaction.give_kudos")}</p>
