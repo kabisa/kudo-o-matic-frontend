@@ -21,6 +21,9 @@ export const fetchGeneralStats = (apiToken, teamId) => {
 
     request.then(response => {
       resolve(response.data.data);
+    })
+    .catch(error => {
+      resolve(error);
     });
   });
 };
@@ -39,6 +42,9 @@ export const fetchGraphStats = (apiToken, teamId) => {
 
     request.then(response => {
       resolve(response.data.data);
+    })
+    .catch(error => {
+      resolve(error);
     });
   });
 }
