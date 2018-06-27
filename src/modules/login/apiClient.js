@@ -5,6 +5,10 @@ const httpClient = axios.create({
   baseURL: Settings.authorizationLocation
 });
 
+const httpClientFCM = axios.create({
+  baseURL: Settings.apiLocation
+});
+
 export const requestAccessToken = (username, password) => {
 
   const headers = {
@@ -26,6 +30,27 @@ export const requestAccessToken = (username, password) => {
       resolve(response.data);
     }).catch(ex => {
       reject(ex);
+    });
+  });
+};
+
+export const postFCMToken = (FcmToken, apiToken) => {
+  const body = {
+    fcmToken: FcmToken
+  };
+
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    "Authorization": "Bearer " + apiToken
+  };
+
+  return new Promise(resolve => {
+    const request = httpClientFCM.post("/fcm", body, {
+      headers
+    });
+
+    request.then(response => {
+      resolve(response);
     });
   });
 };
