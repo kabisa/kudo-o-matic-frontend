@@ -50,15 +50,15 @@ Prettier can also be run manually using `yarn run prettier` or `yarn run prettie
 ## Setup environment; Connection with API
 
 ### Development environment
-* In `src/config/settings.development.json`, edit the "apiLocation" and "authorizationLocation" to the Staging-API.
-* The API is secured by Doorkeeper. Doorkeeper needs besides the correct username and password a Client ID and Client Secret. These parameters have to be added by environment variables. The variables are "CLIENT_ID" and "CLIENT_SECRET". To get the values please ask Managed Services.
+* In `src/config/settings.development.json`, edit the `apiLocation` and `authorizationLocation` to the Staging-API.
+* The API is secured by Doorkeeper. Doorkeeper needs besides the correct username and password a Client ID and Client Secret. These parameters have to be added by environment variables. The variables are `CLIENT_ID` and `CLIENT_SECRET`. To get the values please ask Managed Services.
 
 ### Production environment
-* In `src/config/settings.production.json`, edit the "apiLocation" and "authorizationLocation" to the Production-API.
-* The API is secured by Doorkeeper. Doorkeeper needs besides the correct username and password a Client ID and Client Secret. These parameters have to be added by environment variables. The variables are "CLIENT_ID" and "CLIENT_SECRET". These variables are set with Jenkins Credentials.
+* In `src/config/settings.production.json`, edit the `apiLocation` and `authorizationLocation` to the Production-API.
+* The API is secured by Doorkeeper. Doorkeeper needs besides the correct username and password a Client ID and Client Secret. These parameters have to be added by environment variables. The variables are `CLIENT_ID` and `CLIENT_SECRET`. These variables are set with Jenkins Credentials.
 
 ### Test environment
-* In `src/config/settings.development.json`, edit the "apiLocation" and "authorizationLocation" to the Staging-API.
+* In `src/config/settings.development.json`, edit the `apiLocation` and `authorizationLocation` to the Staging-API.
 
 ## Mobile builds and automatic deployments
 
