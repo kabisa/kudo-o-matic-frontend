@@ -9,7 +9,7 @@
     .formContainer {
         height: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         margin-bottom: auto;
     }
 
@@ -53,12 +53,13 @@
     }
 
     textarea {
-        height: 7rem;
+        height: 4rem;
     }
 
     .characterCount {
         width: 100%;
         text-align: right;
+        margin-bottom: 5px;
     }
 
     .formError {
@@ -67,29 +68,24 @@
         padding-left: 1rem;
         padding-right: 1rem;
         background: $brand-red;
-        line-height: 2rem;
         font-weight: 200;
     }
 
+    .buttonContainer {
+        flex-direction: row;
+    }
+
     .imageButton {
-        width: 100%;
+        width: 48%;
         height: 2.5rem;
-        margin-top: 1.2rem;
         color: $brand-grey-medium;
         background: white;
         border: solid 1px $brand-grey;
+        float: left;
         display: flex;
         align-items: center;
-        margin-bottom: auto;
-
-        img {
-            margin-left: 2rem;
-            width: 1.2rem;
-            height: 1.2rem;
-        }
 
         p {
-            margin-left: -3.2rem; //Width of image + margins
             text-align: center;
             width: 100%;
             font-size: 0.8rem;
@@ -97,24 +93,15 @@
     }
 
     .kudoButton {
-        width: 100%;
+        width: 48%;
         height: 2.5rem;
-        margin-top: 3rem;
         color: $brand-white;
         background: $brand-green;
         border: solid 1px $brand-grey;
-        display: flex;
+        float: right;
         align-items: center;
-        margin-bottom: auto;
-
-        img {
-            margin-left: 2rem;
-            width: 1.2rem;
-            height: 1.2rem;
-        }
 
         p {
-            margin-left: -3.2rem; //Width of image + margins
             text-align: center;
             width: 100%;
             font-size: 0.8rem;
