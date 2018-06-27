@@ -34,7 +34,7 @@ export class GoalPage extends Component {
   }
 }
 const mapStateToProps = state => ({
-  apiToken: state.authentication.apiToken,
+  user: state.authentication.user,
   team: state.teams.team,
   currentAmount: state.goal.currentBalance.amount,
   nextAmount: state.goal.nextGoal.amount,
