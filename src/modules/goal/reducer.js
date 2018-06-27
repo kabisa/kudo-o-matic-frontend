@@ -6,7 +6,7 @@ const initialState = {
   currentBalance: {
     name: undefined,
     current: undefined,
-    amount: undefined,
+    amount: 0,
     "created-at": undefined,
     "updated-at": undefined
   },
