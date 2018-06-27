@@ -159,9 +159,7 @@ class TransactionForm extends Component {
   render({ formError, filteredUsers, loading },
     { error, amount, receiver, activity, imageData, formDisabled }) {
     if (loading) {
-      return (
-        <LoadingScreen />
-      )
+      return <LoadingScreen />;
     } else {
       filteredUsers.push({ user: { name: receiver.name, id: 1, "avatar-url": KabisaLizard } });
 
@@ -185,7 +183,6 @@ class TransactionForm extends Component {
                   className={styles.userSelection}
                   value={amount}
                   onInput={this.onInput}
-                  class={styles.amountInput}
                 />
                 <span class={styles.kudoCurrency}>₭</span>
               </div>
@@ -226,16 +223,16 @@ class TransactionForm extends Component {
                     clearImage={this.clearImage}
                   />
                 ) : (
-                    <div className={styles.imageButton} onClick={this.showCameraOptions}>
-                      <p>{I18n.t("transaction.add_picture")}</p>
-                    </div>
+                    <button className={styles.imageButton} onClick={this.showCameraOptions}>
+                      {I18n.t("transaction.add_picture")}
+                    </button>
                   )}
                 <button
                   id="submitTransaction"
                   className={styles.kudoButton}
                   type="submit"
                 >
-                  <p>{I18n.t("transaction.give_kudos")}</p>
+                  {I18n.t("transaction.give_kudos")}
                 </button>
               </div>
             </fieldset>

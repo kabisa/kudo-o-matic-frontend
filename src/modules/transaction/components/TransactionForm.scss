@@ -72,40 +72,28 @@
     }
 
     .buttonContainer {
-        flex-direction: row;
+        display: flex;
     }
 
     .imageButton {
-        width: 48%;
+        width: 50%;
         height: 2.5rem;
+        margin-right: 0.5rem;
         color: $brand-grey-medium;
         background: white;
         border: solid 1px $brand-grey;
-        float: left;
-        display: flex;
-        align-items: center;
-
-        p {
-            text-align: center;
-            width: 100%;
-            font-size: 0.8rem;
-        }
+        text-align: center;
+        font-size: 0.8rem;
     }
 
     .kudoButton {
-        width: 48%;
+        width: 50%;
         height: 2.5rem;
         color: $brand-white;
         background: $brand-green;
         border: solid 1px $brand-grey;
-        float: right;
-        align-items: center;
-
-        p {
-            text-align: center;
-            width: 100%;
-            font-size: 0.8rem;
-        }
+        text-align: center;
+        font-size: 0.8rem;
     }
 
     .kudoButton:hover {
