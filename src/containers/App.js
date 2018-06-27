@@ -29,14 +29,14 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    // document.addEventListener(
-    //   "deviceready",
-    //   subscribeToNotifications(
-    //     this.props.fetchAllTransactions,
-    //     this.props.user
-    //   ),
-    //   false
-    // );
+    document.addEventListener(
+      "deviceready",
+      subscribeToNotifications(
+        this.props.fetchAllTransactions,
+        this.props.user
+      ),
+      false
+    );
   }
 
   render({ transactionFormVisible, makeFormVisible, makeFormInvisible }) {
