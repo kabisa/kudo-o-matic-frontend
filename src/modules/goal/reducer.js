@@ -2,20 +2,20 @@ import * as constants from "./constants";
 
 const initialState = {
   fetching: false,
-  error: undefined,
+  error: null,
   currentBalance: {
-    name: undefined,
-    current: undefined,
+    name: null,
+    current: null,
     amount: 0,
-    "created-at": undefined,
-    "updated-at": undefined
+    "created-at": null,
+    "updated-at": null
   },
   nextGoal: {
-    name: undefined,
+    name: null,
     amount: 0,
-    "achieved-on": undefined,
-    "created-at": undefined,
-    "updated-at": undefined
+    "achieved-on": null,
+    "created-at": null,
+    "updated-at": null
   }
 };
 
