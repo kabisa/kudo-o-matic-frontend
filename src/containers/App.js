@@ -16,11 +16,15 @@ import ProfilePage from "src/modules/profile/containers/ProfilePage";
 
 import TransactionPage from "src/modules/transaction/containers/TransactionPage";
 import NavBar from "src/components/NavBar";
+import { removeTeams, removeLogin } from "../localStorage";
 
 export class App extends Component {
   componentWillMount() {
     if (typeof this.props.user.apiToken === "undefined") {
-      route("/login", true);
+      route("/login", true); 
+    }
+    if (typeof this.props.team.id === "undefined" && this.props.user.apiToken) {
+      route("/teams", true);
     }
   }
 
@@ -47,23 +51,24 @@ export class App extends Component {
           <GoalPage path="/goal" user={this.props.user} />
           <StatisticsPage path="/statistics" />
           <ProfilePage path="/profile" user={this.props.user} />
-          <TransactionPage path="/transaction" makeFormInvisible={openFeed} />
+          <TransactionPage path="/transaction" makeFormInvisible={openFeed} />          
         </Router>
 
         {transactionFormVisible ? (
           <TransactionPage makeFormInvisible={makeFormInvisible} />
         ) : (
-          <NavBar makeFormVisible={makeFormVisible} />
-        )}
+            <NavBar makeFormVisible={makeFormVisible} />
+          )}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.authentication.user,
-  transactionFormVisible: state.transaction.formVisible
-});
+    user: state.authentication.user,
+    team: state.teams.team,
+    transactionFormVisible: state.transaction.formVisible
+  });
 
 const mapDispatchToProps = {
   makeFormVisible,

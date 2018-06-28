@@ -42,6 +42,8 @@ const plugins = [
   }),
   new webpack.DefinePlugin({
     "process.env.NODE_ENV": JSON.stringify(env),
+    "process.env.CLIENT_ID": JSON.stringify(process.env.CLIENT_ID),
+    "process.env.CLIENT_SECRET": JSON.stringify(process.env.CLIENT_SECRET),
     __BUILD_IDENTIFIER__: JSON.stringify(getGitRevision()),
     __VERSION_NUMBER__: JSON.stringify(getNpmVersion())
   }),

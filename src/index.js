@@ -12,6 +12,7 @@ import FastClick from "fastclick";
 import "src/config/sentry";
 import store from "./store";
 import LoginPage from "src/modules/login/containers/LoginPage";
+import TeamsPage from "src/modules/teams/containers/TeamsPage";
 
 const renderApp = function() {
   const root = document.querySelector("#maji-app");
@@ -22,6 +23,7 @@ const renderApp = function() {
     <Provider store={store}>
       <Router history={history}>
         <LoginPage path="/login" />
+        <TeamsPage path="/teams" />
         <App default />
       </Router>
     </Provider>,

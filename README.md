@@ -50,35 +50,15 @@ Prettier can also be run manually using `yarn run prettier` or `yarn run prettie
 ## Setup environment; Connection with API
 
 ### Development environment
-* To make development possible, we should not be asked to login. Therefore we create a test-account on the staging-API.
-* In `src/config/settings.development.json`, edit the "apiLocation" to the Staging-API.
-* Edit `testApiToken` to the API-Token of a test-user at the Staging-backend.
+* In `src/config/settings.development.json`, edit the `apiLocation` and `authorizationLocation` to the Staging-API.
+* The API is secured by Doorkeeper. Doorkeeper needs besides the correct username and password a Client ID and Client Secret. These parameters have to be added by environment variables. The variables are `CLIENT_ID` and `CLIENT_SECRET`. To get the values please ask Managed Services.
 
 ### Production environment
-* `testApiToken` should not exist in the production-settings.
-* In `src/config/settings.production.json`, edit the "apiLocation" to the Production-API.
-* Add your Google OAuth client ID as `googleClientID`,
+* In `src/config/settings.production.json`, edit the `apiLocation` and `authorizationLocation` to the Production-API.
+* The API is secured by Doorkeeper. Doorkeeper needs besides the correct username and password a Client ID and Client Secret. These parameters have to be added by environment variables. The variables are `CLIENT_ID` and `CLIENT_SECRET`. These variables are set with Jenkins Credentials.
 
 ### Test environment
-* To make testing possible, we should not be asked to login. Therefore we create a test-account on the staging-API.
-* In `src/config/settings.development.json`, edit the "apiLocation" to the Staging-API.
-* Edit `testApiToken` to the API-Token of a test-user at the Staging-backend. Beware; This will add transactions at particular tests.
-
-## Configure Google OAuth Login
-
-### Android
-* Login to the credentials section of the [Google Cloud Platform](https://console.cloud.google.com/apis/) project that is used by the backend.
-* Start by creating a `OAuth client ID` credential, for a Web application.
-* Add `http://localhost:9090`, `http://localhost:9091`, `http://localhost:8000` and `http://localhost` to the Authorized JavaScript origins.
-* Add `http://localhost:9091`, `http://localhost:8000` and `http://localhost` to the Authorized redirect URIs.
-* The generated client ID can be used at the configuration of the Mobile and Ruby Environments.
- 
-### iOS
-* To make sure that iOS can login too, an extra step is introduced.
-* Login to the credentials section of the [Google Cloud Platform](https://console.cloud.google.com/apis/) project that is used by the backend.
-* Start by creating a `OAuth client ID` credential, for iOS. 
-* Add the bundle ID of the mobile application, used in the cordova config.
-* The login will now automatically detect this client ID, so it doesn't have to be added to the environment.
+* In `src/config/settings.development.json`, edit the `apiLocation` and `authorizationLocation` to the Staging-API.
 
 ## Mobile builds and automatic deployments
 

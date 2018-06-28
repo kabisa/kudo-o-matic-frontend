@@ -16,8 +16,8 @@ import I18n from "src/config/i18n";
 
 export class StatisticsPage extends Component {
   componentWillMount() {
-    this.props.fetchAllGeneralStats(this.props.user.apiToken);
-    this.props.fetchAllGraphStats(this.props.user.apiToken);
+    this.props.fetchAllGeneralStats(this.props.user.apiToken, this.props.team.id);
+    this.props.fetchAllGraphStats(this.props.user.apiToken, this.props.team.id);
   }
 
   render({ generalStats, graphStats }) {
@@ -27,7 +27,9 @@ export class StatisticsPage extends Component {
           <h1>{I18n.t("statistics.title")}</h1>
         </Header>
         <main>
-          <LineGraph stats={graphStats} />
+          {graphStats &&
+            <LineGraph stats={graphStats} />
+          }
           <h3>{I18n.t("statistics.transactions")}</h3>
           <StatisticsTable stats={generalStats.transactions} />
           <h3 class={styles.kudoHeader}>{I18n.t("statistics.kudos")}</h3>
@@ -40,6 +42,7 @@ export class StatisticsPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.authentication.user,
+  team: state.teams.team,
   generalStats: state.statistics.generalStats,
   graphStats: state.statistics.graphStats
 });

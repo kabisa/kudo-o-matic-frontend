@@ -7,7 +7,8 @@ module.exports = {
     browser
       .url(browser.launch_url + "/#/transaction")
       .waitForElementVisible("form")
-      .sendKeys("input[name=amount]", browser.Keys.ENTER);
+      .pause(500)
+      .click("#submitTransaction")
 
     browser
       .waitForElementVisible("#error")
@@ -21,9 +22,10 @@ module.exports = {
   "Performs input validation receiver": function(browser) {
     browser
       .url(browser.launch_url + "/#/transaction")
-      .waitForElementVisible("form")
-      .setValue("input[name=amount]", 3)
-      .sendKeys("input[name=amount]", browser.Keys.ENTER);
+      .waitForElementVisible('input[name=amount]',1000)
+      .setValue('#inputUsername', 3)
+      .pause(2000)
+      .click("#submitTransaction")
 
     browser
       .waitForElementVisible("#error")
@@ -36,12 +38,13 @@ module.exports = {
     browser
       .url(browser.launch_url + "/#/transaction")
       .waitForElementVisible("form")
+      .pause(500)
       .setValue("input[name=amount]", 3)
       .setValue("input[name=receiver]", "Test User 2")
       .waitForElementVisible("#userSuggestions")
       .pause(500)
       .click("#userSuggestions div:nth-child(1)")
-      .sendKeys("input[name=amount]", browser.Keys.ENTER);
+      .click("#submitTransaction")
 
     browser
       .waitForElementVisible("#error")
@@ -60,7 +63,7 @@ module.exports = {
       .pause(500)
       .click("#userSuggestions div:nth-child(1)")
       .setValue("textarea[name=activity]", "hi")
-      .sendKeys("input[name=amount]", browser.Keys.ENTER);
+      .click("#submitTransaction")
 
     browser
       .waitForElementVisible("#error")

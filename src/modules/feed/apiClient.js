@@ -7,10 +7,11 @@ const api = create({
   headers: { Accept: "application/vnd.api+json" }
 });
 
-export const fetchTransactions = (apiToken, offset) => {
+export const fetchTransactions = (apiToken, teamId, offset) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Api-Token": apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {
@@ -31,11 +32,12 @@ export const fetchTransactions = (apiToken, offset) => {
   });
 };
 
-export const voteTransaction = (apiToken, transactionId) => {
+export const voteTransaction = (apiToken, teamId, transactionId) => {
   const headers = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Api-Token": apiToken
+      "Authorization": "Bearer " + apiToken,
+      "Team": teamId
     }
   };
 
@@ -50,11 +52,12 @@ export const voteTransaction = (apiToken, transactionId) => {
   });
 };
 
-export const unVoteTransaction = (apiToken, transactionId) => {
+export const unVoteTransaction = (apiToken, teamId, transactionId) => {
   const headers = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Api-Token": apiToken
+      "Authorization": "Bearer " + apiToken,
+      "Team": teamId
     }
   };
 

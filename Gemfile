@@ -4,6 +4,8 @@ gem 'pry'
 gem 'fastlane'
 #gem 'match'
 gem 'xcodeproj'
+gem 'nokogiri'
+gem 'fileutils'
 
 gem 'dotenv'
 

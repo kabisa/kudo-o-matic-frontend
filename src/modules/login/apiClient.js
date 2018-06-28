@@ -1,51 +1,56 @@
 import Settings from "src/config/settings";
 import axios from "axios";
-import { uriEncode } from "src/support/uriUtils";
 
 const httpClient = axios.create({
+  baseURL: Settings.authorizationLocation
+});
+
+const httpClientFCM = axios.create({
   baseURL: Settings.apiLocation
 });
 
-export const requestToken = googleToken => {
-  const body = uriEncode({
-    jwt_token: googleToken.tokenObj.id_token,
-    uid: googleToken.profileObj.googleId,
-    provider: Settings.provider,
-    name: googleToken.profileObj.name,
-    email: googleToken.profileObj.email,
-    avatar_url: googleToken.profileObj.imageUrl
-  });
+export const requestAccessToken = (username, password) => {
+
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded"
+    "Content-Type": "application/json"
   };
 
-  return new Promise(resolve => {
-    const request = httpClient.post("/authentication/obtain_api_token", body, {
-      headers
-    });
+  const body = {
+    username: username,
+    password: password,
+    client_id: process.env.CLIENT_ID,
+    client_credential: process.env.CLIENT_SECRET,
+    grant_type: "password"
+  };
+  
+  return new Promise((resolve, reject) => {
+    const request = httpClient.post("/oauth/token", body, { headers });
 
     request.then(response => {
-      resolve(response.data.data);
+      resolve(response.data);
+    }).catch(ex => {
+      reject(ex);
     });
   });
 };
 
-export const postFCMToken = (FcmToken, ApiToken) => {
-  const body = uriEncode({
-    fcm_token: FcmToken
-  });
+export const postFCMToken = (FcmToken, apiToken) => {
+  const body = {
+    fcmToken: FcmToken
+  };
+
   const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Api-Token": ApiToken
+    "Content-Type": "application/vnd.api+json",
+    "Authorization": "Bearer " + apiToken
   };
 
   return new Promise(resolve => {
-    const request = httpClient.post("/authentication/store_fcm_token", body, {
+    const request = httpClientFCM.post("/fcm", body, {
       headers
     });
 
     request.then(response => {
-      resolve(response.data.data["fcm-token"]);
+      resolve(response);
     });
   });
 };

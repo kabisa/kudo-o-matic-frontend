@@ -6,87 +6,65 @@ describe("Authentication reducer", () => {
   it("returns the initial state", () => {
     expect(authentication(undefined, {})).to.eql({
       user: {
-        apiToken: Settings.testApiToken,
-        id: Settings.testUserId,
-        name: undefined,
-        imageUri: undefined
+        apiToken: Settings.test_access_token
       },
-      googleToken: undefined,
-      FCMToken: undefined,
-      FCMError: undefined,
-      googleError: undefined,
-      apiError: undefined
+      error: undefined
     });
   });
 
-  describe("API_TOKEN", () => {
-    it("handles API_TOKEN_SUCCESS", () => {
-      expect(
-        authentication([], {
-          type: constants.API_TOKEN_SUCCESS,
-          token: { "api-token": "API_TOKEN", "user-id": "ID" }
-        })
-      ).to.eql({ user: { apiToken: "API_TOKEN", id: "ID" } });
-    });
-
-    it("handles API_TOKEN_FAILURE", () => {
-      expect(
-        authentication([], {
-          type: constants.API_TOKEN_FAILURE,
-          error: "API_ERROR"
-        })
-      ).to.eql({
-        apiError: "API_ERROR"
-      });
-    });
-  });
-
-  describe("GOOGLE_TOKEN", () => {
-    it("handles GOOGLE_TOKEN_SUCCESS", () => {
-      expect(
-        authentication([], {
-          type: constants.GOOGLE_TOKEN_SUCCESS,
-          googleToken: {
-            token: "TOKEN",
-            profileObj: { name: "JOHN", imageUrl: "http://kabisa.nl/image.jpg" }
-          }
-        })
-      ).to.eql({
-        googleToken: {
-          token: "TOKEN",
-          profileObj: { name: "JOHN", imageUrl: "http://kabisa.nl/image.jpg" }
-        },
-        user: { name: "JOHN", imageUri: "http://kabisa.nl/image.jpg" }
-      });
-    });
-
-    it("handles GOOGLE_TOKEN_FAILURE", () => {
-      expect(
-        authentication([], {
-          type: constants.GOOGLE_TOKEN_FAILURE,
-          error: "GOOGLE_ERROR"
-        })
-      ).to.eql({
-        googleError: "GOOGLE_ERROR"
-      });
-    });
-  });
-
-  describe("handles LOGOUT_USER", () => {
+  it("handles ACCESS_TOKEN_SUCCESS", () => {
     expect(
-      authentication(
-        { user: { name: "Test" } },
-        {
-          type: constants.LOGOUT_USER
-        }
-      ).to.eql({
-        user: {
-          apiToken: Settings.testApiToken,
-          id: Settings.testUserId,
-          name: undefined,
-          imageUri: undefined
+      authentication([], {
+        type: constants.ACCESS_TOKEN_SUCCESS,
+        accessToken: "ACCESS_TOKEN",
+        username: "USERNAME"
+      })
+    ).to.eql({
+      user: {
+        username: "USERNAME",
+        apiToken: "ACCESS_TOKEN"
+      },
+      error: undefined
+    });
+  });
+
+  it("handles ACCESS_TOKEN_FAILURE", () => {
+    expect(
+      authentication([], {
+        type: constants.ACCESS_TOKEN_FAILURE,
+        error: {
+          response: {
+            data: {
+              error: "ERROR"
+            }
+          }
         }
       })
-    );
+    ).to.eql({
+      error: "ERROR"
+    });
+  });
+
+  it("handles INCORRECT_PARAMETERS", () => {
+    expect(
+      authentication([], {
+        type: constants.INCORRECT_PARAMETERS,
+        message: "MISSING_PARAMETERS"
+      })
+    ).to.eql({
+      error: "MISSING_PARAMETERS"
+    });
+  });
+
+  it("handles LOGOUT_USER", () => {
+    expect(
+      authentication([], {
+        type: constants.LOGOUT_USER
+      })
+    ).to.eql({
+      user: {
+        apiToken: undefined
+      }
+    });
   });
 });

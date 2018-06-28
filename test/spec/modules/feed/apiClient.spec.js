@@ -5,6 +5,7 @@ import Settings from "src/config/settings";
 
 describe("Feed API client", () => {
   const API_TOKEN = "API_TOKEN";
+  const TEAM_ID = "TEAM_ID";
   let OFFSET = 0;
 
   beforeEach(() => {
@@ -119,7 +120,7 @@ describe("Feed API client", () => {
     };
 
     it("performs GET-Request on transactions-endpoint", done => {
-      fetchTransactions(API_TOKEN, OFFSET);
+      fetchTransactions(API_TOKEN, TEAM_ID, OFFSET);
 
       new Promise(resolve => setTimeout(resolve)).then(() => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
@@ -129,14 +130,14 @@ describe("Feed API client", () => {
             Settings.apiLocation
           }/transactions?page[limit]=10&page[offset]=0&include=sender,receiver&sort=-created_at`
         );
-        expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
+        expect(requestHeaders["Authorization"]).to.contain("Bearer " + API_TOKEN);
         done();
       });
     });
 
     it("performs GET-Request on other offset", done => {
       OFFSET = 10;
-      fetchTransactions(API_TOKEN, OFFSET);
+      fetchTransactions(API_TOKEN, TEAM_ID, OFFSET);
 
       new Promise(resolve => setTimeout(resolve)).then(() => {
         const { method, url, requestHeaders } = this.sandbox.server.requests[0];
@@ -146,7 +147,7 @@ describe("Feed API client", () => {
             Settings.apiLocation
           }/transactions?page[limit]=10&page[offset]=10&include=sender,receiver&sort=-created_at`
         );
-        expect(requestHeaders["Api-Token"]).to.contain(API_TOKEN);
+        expect(requestHeaders["Authorization"]).to.contain("Bearer " + API_TOKEN);
         done();
       });
     });
