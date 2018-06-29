@@ -1,11 +1,7 @@
 import { h, render } from "preact";
 import { LoginPage } from "src/modules/login/containers/LoginPage";
-import GoogleButton from "src/modules/login/components/GoogleButton";
+import { LoginForm } from "src/modules/login/components/LoginForm";
 import styles from "src/modules/login/containers/LoginPage.scss";
-import {
-  requestApiToken,
-  handleGoogleLoginFailure
-} from "src/modules/login/actions";
 
 describe("LoginPage", function() {
   let scratch, mount, user;
@@ -20,23 +16,9 @@ describe("LoginPage", function() {
     scratch.innerHtml = "";
   });
 
-  it("shows Google LoginButton", function() {
+  it("shows Loginform", function() {
     const page = mount(<LoginPage user={user} />);
-    expect(page.outerHTML).to.contain(
-      mount(
-        <GoogleButton
-          requestApiToken={requestApiToken}
-          handleGoogleLoginFailure={handleGoogleLoginFailure}
-        />
-      ).outerHTML
-    );
-  });
-
-  it("shows disclaimer", function() {
-    mount(<LoginPage user={user} />);
-    expect(scratch.querySelector("span")).to.have.text(
-      "You can only login using a Google account from Kabisa"
-    );
+    expect(page.outerHTML).to.contain(mount(<LoginForm />).outerHTML);
   });
 
   it("shows logo", function() {

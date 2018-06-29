@@ -7,10 +7,11 @@ const httpClient = axios.create({
 
 let headers = {};
 
-export const fetchGeneralStats = apiToken => {
+export const fetchGeneralStats = (apiToken, teamId) => {
   headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "api-token": apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {
@@ -20,14 +21,18 @@ export const fetchGeneralStats = apiToken => {
 
     request.then(response => {
       resolve(response.data.data);
+    })
+    .catch(error => {
+      resolve(error);
     });
   });
 };
 
-export const fetchGraphStats = apiToken => {
+export const fetchGraphStats = (apiToken, teamId) => {
   headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    "api-token": apiToken
+    "Authorization": "Bearer " + apiToken,
+    "Team": teamId
   };
 
   return new Promise(resolve => {
@@ -37,6 +42,9 @@ export const fetchGraphStats = apiToken => {
 
     request.then(response => {
       resolve(response.data.data);
+    })
+    .catch(error => {
+      resolve(error);
     });
   });
 }

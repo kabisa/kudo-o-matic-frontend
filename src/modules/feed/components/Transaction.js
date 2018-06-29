@@ -7,6 +7,9 @@ import styles from "./Transaction.scss";
 import LoadingAnimation from "src/components/LoadingAnimation";
 import LikeIconInactive from "src/assets/icons/transaction/thumbs-up-inactive.svg";
 import LikeIconActive from "src/assets/icons/transaction/thumbs-up-active.svg";
+import Avatar from "src/assets/avatars/blank_avatar.jpg";
+
+import I18n from "src/config/i18n";
 
 const emojiOptions = {
   style: {
@@ -20,6 +23,14 @@ export class Transaction extends Component {
     this.state = {
       imageLoading: true
     };
+    if (this.props.transaction.receiver) {
+      let receiver = this.props.transaction.receiver;
+      let sender = this.props.transaction.sender;
+      this.setState({
+        avatarReceiver: receiver["avatar-url"],
+        avatarSender: sender["avatar-url"]
+      });
+    }
   }
 
   showLoadingImage = () => {
@@ -41,6 +52,14 @@ export class Transaction extends Component {
       thumb = LikeIconActive;
     } else {
       thumb = LikeIconInactive;
+    }
+
+    if (!this.state.avatarReceiver) {
+      this.state.avatarReceiver = Avatar;
+    }
+
+    if (!this.state.avatarSender) {
+      this.state.avatarSender = Avatar;
     }
 
     transaction = checkForGroup(transaction);
@@ -78,9 +97,9 @@ export class Transaction extends Component {
           <div class={styles.transactionDescription}>
             <p class={styles.transactionText}>
               {transaction.sender.name}: {transaction.amount}{" "}
-              <span class={styles.kudoCurrency}>₭</span> to{" "}
+              <span class={styles.kudoCurrency}>₭</span> {I18n.t("feed.to")}{" "}
               <span id="receiver"> {transaction.receiver.name} </span>
-              for{" "}
+              {I18n.t("feed.for")}{" "}
               <span id="activity">
                 {emojify(transaction.activity, emojiOptions)}
               </span>
@@ -90,10 +109,10 @@ export class Transaction extends Component {
         </div>
         <div class={styles.transactionBottom}>
           <div class={styles.transactionUsers}>
-            <img src={transaction.sender["avatar-url"]} />
+            <img src={this.state.avatarSender} />
             <img
               class={styles.imgReceiver}
-              src={transaction.receiver["avatar-url"]}
+              src={this.state.avatarReceiver}
             />
           </div>
           <div class={styles.timeStamp}>

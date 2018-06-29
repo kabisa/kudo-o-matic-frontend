@@ -1,15 +1,21 @@
 import * as constants from "./constants";
-import { removeLogin } from "../../localStorage";
-import { fetchUserstats } from "src/modules/profile/apiClient";
+import { removeLogin, removeTeams } from "../../localStorage";
+import { fetchUserstats, fetchUser } from "src/modules/profile/apiClient";
 
 export const handleLogoutUser = () => {
   removeLogin();
-  window.plugins.googleplus.logout();
-
+  removeTeams();
   return {
     type: constants.LOGOUT_USER
   };
 };
+
+export const handleChangeTeam = () => {
+  removeTeams();
+  return {
+    type: constants.CHANGE_TEAM
+  }
+}
 
 export const startedFetchingUserstats = () => {
   return {
@@ -24,11 +30,40 @@ export const finishedFetchingUserstats = stats => {
   };
 };
 
-export const fetchAllUserstats = apiToken => {
+export const finishedFetchingUserInfo = info => {
+  return {
+    type: constants.FINISHED_FETCHING_USERINFO,
+    userinfo: info
+  }
+}
+
+export const toggleMenu = toggle => {
+  return {
+    type: constants.TOGGLE_MENU,
+    showMenu: toggle
+  }
+}
+
+export const handleToggleMenu = toggle => {
+
+  return dispatch => {
+    {toggle ? dispatch(toggleMenu(false)) : dispatch(toggleMenu(true))};
+  }
+}
+
+export const fetchUserInfo = (apiToken, teamId) => {
+  return dispatch => {
+    return fetchUser(apiToken, teamId)
+      .then(info => dispatch(finishedFetchingUserInfo(info)))
+      .catch(error => dispatch(receivedApiError(error)));
+  }
+}
+
+export const fetchAllUserstats = (apiToken, teamId) => {
   return dispatch => {
     dispatch(startedFetchingUserstats);
 
-    return fetchUserstats(apiToken)
+    return fetchUserstats(apiToken, teamId)
       .then(stats => dispatch(finishedFetchingUserstats(stats)))
       .catch(error => dispatch(receivedApiError(error)));
   };

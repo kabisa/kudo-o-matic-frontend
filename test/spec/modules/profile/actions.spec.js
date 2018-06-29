@@ -11,4 +11,26 @@ describe("Profile actions", () => {
       expect(actions.handleLogoutUser()).to.eql(expectedAction);
     });
   });
+
+  describe("FETCHING_USERSTATS", () => {
+    it("creates an action to fetch the userstatistics", () => {
+      const expectedAction = {
+        type: constants.FINISHED_FETCHING_USERSTATS,
+        userstats: "USERSTATS"
+      };
+
+      expect(actions.finishedFetchingUserstats("USERSTATS")).to.eql(expectedAction);
+    });
+  });
+
+  describe("FETCHING_USERINFO", () => {
+    it("creates an action to fetch the userinfo", () => {
+      const expectedAction = {
+        type: constants.FINISHED_FETCHING_USERINFO,
+        userinfo: "USERINFO"
+      };
+
+      expect(actions.finishedFetchingUserInfo("USERINFO")).to.eql(expectedAction);
+    });
+  });
 });

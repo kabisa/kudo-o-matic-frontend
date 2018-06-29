@@ -1,0 +1,12 @@
+@import 'src/styles/settings/general';
+
+.image {
+    max-height: 4rem;
+    max-width: 9rem; 
+}
+
+.name {
+    font-size: 1.2rem;
+    font-weight: 350;
+    color: $brand-black;
+}

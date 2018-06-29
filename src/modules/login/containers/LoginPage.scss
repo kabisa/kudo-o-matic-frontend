@@ -15,8 +15,8 @@
     display: flex;
     background: url('src/assets/logo/kudo-white.png');
     flex: 1;
-    min-height: 2rem;
-    margin-bottom: 7rem;
+    margin-bottom: 0.7rem;
+    min-height: 1rem;
     background-size: auto 3.3rem;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -24,25 +24,8 @@
 
 .login {
     display: flex;
-    flex: 1;
+    flex: 3;
     padding: 0 3rem;
-    max-width: 26rem;
-    width: 100%;
+    width: 22rem;
     align-self: center;
-}
-
-.disclaimer {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    text-align: center;
-    padding-bottom: 3rem;
-
-    span {
-        font-size: 0.7rem;
-        font-weight: 300;
-        align-self: flex-end;
-        color: white;
-        width: 100%;
-    }
 }

@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import styles from "./UserSuggestion.scss";
+import Avatar from "src/assets/avatars/blank_avatar.jpg";
 
 export default class UserSuggestion extends Component {
   shouldComponentUpdate({ user, onSelect }) {
@@ -7,6 +8,9 @@ export default class UserSuggestion extends Component {
   }
 
   render({ onSelect, user }) {
+    if(!user.user["avatar-url"] || user.user["avatar-url"] == ""){
+      user.user["avatar-url"] = Avatar;
+    }
     return (
       <div
         class={styles["autocomplete-suggestion"]}

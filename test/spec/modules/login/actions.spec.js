@@ -2,47 +2,37 @@ import * as actions from "src/modules/login/actions";
 import * as constants from "src/modules/login/constants";
 
 describe("Authentication actions", () => {
-  describe("API_TOKEN", () => {
+  describe("ACCESS_TOKEN", () => {
     it("creates an action to handle api login", () => {
-      const token = "API_TOKEN";
+      const token = [{access_token: "ACCESS_TOKEN",
+                      excessData: "EXCESS_DATA"}];
+      const username = "USERNAME";
       const expectedAction = {
-        type: constants.API_TOKEN_SUCCESS,
-        token: token
+        type: constants.ACCESS_TOKEN_SUCCESS,
+        accessToken: token[0].access_token,
+        username: username
       };
 
-      expect(actions.handleApiLoginSuccess(token)).to.eql(expectedAction);
+      expect(actions.finishedFetchingAccessToken(token, username)).to.eql(expectedAction);
     });
 
     it("creates an action to handle api failure", () => {
-      const error = "API_ERROR";
+      const error = "ACCESS_TOKEN_ERROR";
       const expectedAction = {
-        type: constants.API_TOKEN_FAILURE,
+        type: constants.ACCESS_TOKEN_FAILURE,
         error: error
       };
 
-      expect(actions.handleApiLoginFailure(error)).to.eql(expectedAction);
-    });
-  });
-
-  describe("GOOGLE_TOKEN", () => {
-    it("creates an action to handle google login", () => {
-      const token = "Google_Token";
-      const expectedAction = {
-        type: constants.GOOGLE_TOKEN_SUCCESS,
-        googleToken: token
-      };
-
-      expect(actions.handleGoogleLoginSuccess(token)).to.eql(expectedAction);
+      expect(actions.receivedAuthenticationError(error)).to.eql(expectedAction);
     });
 
-    it("creates an action to handle google login failure", () => {
-      const error = "Google_Error";
+    it("not all parameters are given", () => {
+      const message = "MISSING_PARAMETERS";
       const expectedAction = {
-        type: constants.GOOGLE_TOKEN_FAILURE,
-        error: error
+        type: constants.INCORRECT_PARAMETERS,
+        message: message
       };
-
-      expect(actions.handleGoogleLoginFailure(error)).to.eql(expectedAction);
+      expect(actions.incorrectParameters(message)).to.eql(expectedAction);
     });
   });
 });

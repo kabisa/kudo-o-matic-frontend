@@ -19,7 +19,7 @@ class TransactionForm extends Component {
     this.state = {
       error: "",
       amount: "",
-      receiver: {name: "", id: ""},
+      receiver: { name: "", id: "" },
       activity: "",
       imageData: "",
       formSubmittable: false,
@@ -30,7 +30,7 @@ class TransactionForm extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState({formDisabled: props.formError});
+    this.setState({ formDisabled: props.formError });
   }
 
   componentDidMount() {
@@ -63,45 +63,45 @@ class TransactionForm extends Component {
 
   searchUsers = e => {
     let searchQuery = e.target.value;
-    this.setState({receiver: {name: searchQuery, id: ""}});
+    this.setState({ receiver: { name: searchQuery, id: "" } });
     this.props.searchUser(searchQuery, this.props.users);
     return false;
   };
 
   onInput = e => {
-    this.setState({[e.target.name]: e.target.value});
-    this.setState({formSubmittable: this.isFormSubmittable()});
+    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ formSubmittable: this.isFormSubmittable() });
   };
 
   onSelect = user => {
-    this.setState({receiver: user.user});
+    this.setState({ receiver: user.user });
     this.props.searchUser("", []);
-    this.setState({formSubmittable: this.isFormSubmittable()});
+    this.setState({ formSubmittable: this.isFormSubmittable() });
   };
 
   clearSelection = () => {
-    this.setState({receiver: {name: "", id: ""}});
-    this.setState({formSubmittable: this.isFormSubmittable()});
+    this.setState({ receiver: { name: "", id: "" } });
+    this.setState({ formSubmittable: this.isFormSubmittable() });
   };
 
   clearImage = () => {
-    this.setState({imageData: ""});
+    this.setState({ imageData: "" });
   };
 
   onSubmit(e) {
     e.preventDefault();
     if (!this.state.formSubmittable) {
       if (!this.checkActivity(this.state.activity)) {
-        this.setState({error: I18n.t("transaction.notEnoughCharacters")});
+        this.setState({ error: I18n.t("transaction.notEnoughCharacters") });
       }
       if (this.state.receiver.name === "") {
-        this.setState({error: I18n.t("transaction.noReceiver")});
+        this.setState({ error: I18n.t("transaction.noReceiver") });
       }
       if (!this.checkAmount(this.state.amount)) {
-        this.setState({error: I18n.t("transaction.amountNotCorrect")});
+        this.setState({ error: I18n.t("transaction.amountNotCorrect") });
       }
     } else {
-      this.setState({formDisabled: true});
+      this.setState({ formDisabled: true });
       this.props.addTransaction(
         this.state.amount,
         this.state.receiver.name,
@@ -123,7 +123,7 @@ class TransactionForm extends Component {
       correctOrientation: true
     };
     if (index == 1) {
-      options = {...options, sourceType: Camera.PictureSourceType.CAMERA};
+      options = { ...options, sourceType: Camera.PictureSourceType.CAMERA };
     }
     navigator.camera.getPicture(
       this.addPicture,
@@ -141,7 +141,7 @@ class TransactionForm extends Component {
       ],
       androidEnableCancelButton: true,
       androidTheme:
-      window.plugins.actionsheet.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
+        window.plugins.actionsheet.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT,
       addCancelButtonWithLabel: I18n.t("transaction.cancel")
     };
 
@@ -149,21 +149,19 @@ class TransactionForm extends Component {
   };
 
   addPicture = imageData => {
-    this.setState({imageData: imageData});
+    this.setState({ imageData: imageData });
   };
 
   handleCameraError = () => {
-    this.setState({error: I18n.t("transaction.cameraError")});
+    this.setState({ error: I18n.t("transaction.cameraError") });
   };
 
-  render({formError, filteredUsers, loading},
-         {error, amount, receiver, activity, imageData, formDisabled}) {
+  render({ formError, filteredUsers, loading },
+    { error, amount, receiver, activity, imageData, formDisabled }) {
     if (loading) {
-      return (
-        <LoadingScreen/>
-      )
+      return <LoadingScreen />;
     } else {
-      filteredUsers.push({user: {name: receiver.name, id: 1, "avatar-url": KabisaLizard}});
+      filteredUsers.push({ user: { name: receiver.name, id: 1, "avatar-url": KabisaLizard } });
 
       return (
         <div>
@@ -175,38 +173,33 @@ class TransactionForm extends Component {
             )}
             {error !== "" && <div class={styles.formError} id="error">{error}</div>}
             <fieldset disabled={formDisabled}>
-              <label>
-                {I18n.t("transaction.amount")}
-                <div class={styles.amountInput}>
-                  <input
-                    name="amount"
-                    type="number"
-                    id="inputAmount"
-                    min="1"
-                    max="999"
-                    className={styles.userSelection}
-                    value={amount}
-                    onInput={this.onInput}
-                    class={styles.amountInput}
-                  />
-                  <span class={styles.kudoCurrency}>₭</span>
-                </div>
-              </label>
-              <label>
-                {I18n.t("transaction.receiver")}
+              <div class={styles.amountInput}>
+                <input
+                  name="amount"
+                  type="number"
+                  id="inputAmount"
+                  min="1"
+                  max="999"
+                  className={styles.userSelection}
+                  value={amount}
+                  onInput={this.onInput}
+                />
+                <span class={styles.kudoCurrency}>₭</span>
+              </div>
 
-                {receiver.id !== "" ? (
-                  <SelectedUser
-                    user={receiver}
-                    clearSelection={this.clearSelection}
-                  />
-                ) : (
+              {receiver.id !== "" ? (
+                <SelectedUser
+                  user={receiver}
+                  clearSelection={this.clearSelection}
+                />
+              ) : (
                   <div>
                     <input
                       name="receiver"
                       value={receiver.name}
                       onInput={this.searchUsers}
                       placeholder="Search for users"
+                      className={styles.selectReceiver}
                     />
                     <Suggestions
                       searchQuery={receiver.name}
@@ -215,37 +208,33 @@ class TransactionForm extends Component {
                     />
                   </div>
                 )}
-              </label>
-              <label>
-                {I18n.t("transaction.giving_kudos_for")}
-                <textarea
-                  maxLength="140"
-                  name="activity"
-                  type="text"
-                  value={activity}
-                  onInput={this.onInput}
-                />
-                <p class={styles.characterCount}>{activity.length} / 140</p>
-              </label>
-              {imageData !== "" ? (
-                <SelectedImage
-                  imageData={imageData}
-                  clearImage={this.clearImage}
-                />
-              ) : (
-                <div class={styles.imageButton} onClick={this.showCameraOptions}>
-                  <img id="picture" src={photoIcon}/>
-                  <p>Add a picture</p>
-                </div>
-              )}
-              <button
-                id="submitTransaction"
-                class={styles.kudoButton}
-                type="submit"
-              >
-                <img src={kudoIcon}/>
-                <p>Give ₭udos</p>
-              </button>
+              <textarea
+                maxLength="140"
+                name="activity"
+                type="text"
+                value={activity}
+                onInput={this.onInput}
+              />
+              <p class={styles.characterCount}>{activity.length} / 140</p>
+              <div className={styles.buttonContainer}>
+                {imageData !== "" ? (
+                  <SelectedImage
+                    imageData={imageData}
+                    clearImage={this.clearImage}
+                  />
+                ) : (
+                    <button className={styles.imageButton} onClick={this.showCameraOptions}>
+                      {I18n.t("transaction.add_picture")}
+                    </button>
+                  )}
+                <button
+                  id="submitTransaction"
+                  className={styles.kudoButton}
+                  type="submit"
+                >
+                  {I18n.t("transaction.give_kudos")}
+                </button>
+              </div>
             </fieldset>
           </form>
         </div>
