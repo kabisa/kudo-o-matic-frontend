@@ -3,5 +3,5 @@
   "defaultLocale": "en-US",
   "apiLocation": "https://kudo-o-matic-staging.dokku.kabisa.io/api/v2",
   "authorizationLocation": "https://kudo-o-matic-staging.dokku.kabisa.io",
-  "version": 1.2
+  "version": 2.0
 }
