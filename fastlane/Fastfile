@@ -87,9 +87,6 @@ lane :deploy_ios do
              bundle_short_version: @branch,
              status: '2',
              notes: @release_notes
-
-    end
-
 end
 
 def currentDir
