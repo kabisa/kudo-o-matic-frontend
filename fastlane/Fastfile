@@ -14,7 +14,7 @@ lane :deploy_android do
     hockey public_identifier: ENV['FL_HOCKEY_PUBLIC_IDENTIFIER_ANDROID'],
            apk: "#{Dir.pwd}/cordova/platforms/android/build/outputs/apk/debug/android-debug.apk",
            create_update: true,
-           bundle_version: '10102',
+           bundle_version: '20000',
            bundle_short_version: @branch,
            status: '2',
            notes: @release_notes
@@ -26,7 +26,6 @@ end
 
 lane :deploy_ios do
     FileUtils.rm_rf('cordova/platforms/ios/build/device/.', secure: true)
-    unless @branch == 'test'
 
       #Make sure the old result is removed
       sh('rm -Rf tmp/output/kudo-o-matic.result/')
@@ -88,9 +87,6 @@ lane :deploy_ios do
              bundle_short_version: @branch,
              status: '2',
              notes: @release_notes
-
-    else
-      # release procedure for appstore here
 
     end
 
