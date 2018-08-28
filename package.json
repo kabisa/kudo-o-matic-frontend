@@ -87,7 +87,7 @@
     "karma-webpack": "^2.0.6",
     "mocha": "^3.4.1",
     "nightwatch": "^0.9.16",
-    "node-sass": "^4.6.1",
+    "node-sass": "^4.9.3",
     "postcss-loader": "^2.0.8",
     "preact-render-spy": "^1.2.1",
     "prettier": "^1.8.2",
